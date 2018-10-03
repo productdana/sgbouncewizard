@@ -1,0 +1,35 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true
+  },
+  "plugins": ["prettier", "jest", "react", "cypress"],
+  "globals": {
+    "window": true
+  },
+  "extends": ["airbnb", "prettier", "plugin:jest/recommended"],
+  "rules": {
+    "import/no-extraneous-dependencies": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/prop-types": "off",
+    "react/jsx-one-expression-per-line": "off"
+  },
+  "overrides": [
+    {
+      "files": ["cypress/integration/**/*spec.js"],
+      "env": {
+        "cypress/globals": true
+      },
+      "rules": {
+        "no-unused-expressions": "off",
+        "jest/valid-expect": "off"
+      }
+    },
+    {
+      "files": ["src/**/*.test.jsx"],
+      "env": {
+        "jest/globals": true
+      }
+    }
+  ]
+}
