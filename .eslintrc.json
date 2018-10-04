@@ -22,7 +22,9 @@
       },
       "rules": {
         "no-unused-expressions": "off",
-        "jest/valid-expect": "off"
+        "jest/valid-expect": "off",
+        "no-unused-vars": "off",
+        "no-console": "off"
       }
     },
     {
