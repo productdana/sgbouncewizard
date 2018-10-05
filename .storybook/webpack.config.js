@@ -12,20 +12,20 @@ module.exports = (defaultConfig, env) => {
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       use: {
-        loader: "babel-loader"
-      }
+        loader: "babel-loader",
+      },
     },
     {
       test: /\.(sa|sc|c)ss$/,
-      exclude: /node_modules/,
+      exclude: /\.module.scss$/,
       use: [
         // Style-loader fallback adds CSS to DOM by injecting a <style> tag in dev mode
         "style-loader",
         // Interprets imports/requires and resolves them for .css files
         "css-loader",
         // First converts .scss/.sass files into .css files
-        "sass-loader"
-      ]
+        "sass-loader",
+      ],
     },
     {
       test: /\.module.scss$/,
@@ -37,8 +37,8 @@ module.exports = (defaultConfig, env) => {
             sourceMap: true,
             importLoaders: 1,
             modules: true,
-            localIdentName: "[name]__[local]___[hash:base64:5]"
-          }
+            localIdentName: "[name]__[local]___[hash:base64:5]",
+          },
         },
         {
           loader: require.resolve("sass-loader"),
@@ -46,10 +46,10 @@ module.exports = (defaultConfig, env) => {
             sourceMap: true,
             modules: true,
             importLoaders: 1,
-            localIdentName: "[name]__[local]___[hash:base64:5]"
-          }
-        }
-      ]
+            localIdentName: "[name]__[local]___[hash:base64:5]",
+          },
+        },
+      ],
     }
   );
 
