@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import cn from "classnames";
 
 export default class HelloWorld extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isVisible: true,
+    };
   }
 
   render() {
     const { name } = this.props;
+    const { isVisible } = this.state;
     return (
-      <div>
+      <div className={cn({ "is-visible": isVisible })}>
         <h1>Hello {name}!</h1>
       </div>
     );
