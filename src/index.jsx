@@ -1,27 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Card } from "@sendgrid/ui-components";
-import HelloWorld from "./components/HelloWorld";
+import { BrowserRouter, Route } from "react-router-dom";
+import Login from "./components/Login";
+import BounceRules from "./components/BounceRules";
+import BounceRuleDetails from "./components/BounceRuleDetails";
 import "./index.scss";
 
-const TestComponent = () => <div>Test!</div>;
-
-const App = () => (
-  <div>
-    <HelloWorld name="UCI Capstone" />
-    <div style={{ width: "300px" }}>
-      <Card title="SG Bounce Wizard" body="Manage your bounce rules" />
-    </div>
-    <Switch>
-      <Route path="/test" exact component={TestComponent} />
-    </Switch>
-  </div>
-);
+const App = () => <div />;
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <div>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/bounce_rules" component={BounceRules} />
+      <Route path="/bounce_rules/:bounceRuleId" component={BounceRuleDetails} />
+    </div>
   </BrowserRouter>,
   document.getElementById("root")
 );
