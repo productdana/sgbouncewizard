@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "@sendgrid/ui-components": "^1.9.2",
+    "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "react": "^16.5.2",
     "react-animate-height": "^2.0.6",
