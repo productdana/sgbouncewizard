@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
 import Login from "./components/Login";
-import BounceRules from "./components/BounceRules";
+import BounceRulesContainer from "./components/BounceRulesContainer";
 import BounceRuleDetails from "./components/BounceRuleDetails";
 import "./index.scss";
 
@@ -12,7 +12,7 @@ ReactDOM.render(
   <BrowserRouter>
     <div>
       <Route exact path="/" component={Login} />
-      <Route exact path="/bounce_rules" component={BounceRules} />
+      <Route exact path="/bounce_rules" component={BounceRulesContainer} />
       <Route path="/bounce_rules/:bounceRuleId" component={BounceRuleDetails} />
     </div>
   </BrowserRouter>,

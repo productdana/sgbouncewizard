@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import cn from "classnames";
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class Login extends React.Component {
       isAuthenticated: false,
       isShowingError: false,
       userName: "",
-      password: "",
+      password: ""
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -17,7 +18,7 @@ export default class Login extends React.Component {
 
   updateField(e, field) {
     this.setState({
-      [field]: e.target.value,
+      [field]: e.target.value
     });
   }
 
@@ -26,11 +27,11 @@ export default class Login extends React.Component {
 
     if (userName === "ziv" && password === "papa") {
       this.setState(prevState => ({
-        isAuthenticated: !prevState.isAuthenticated,
+        isAuthenticated: !prevState.isAuthenticated
       }));
     } else {
       this.setState(prevState => ({
-        isShowingError: !prevState.isShowingError,
+        isShowingError: !prevState.isShowingError
       }));
     }
   }
@@ -47,13 +48,13 @@ export default class Login extends React.Component {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          height: "100vh"
         }}
       >
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "center"
           }}
         >
           <div
@@ -64,13 +65,13 @@ export default class Login extends React.Component {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <div
               className="login-title"
               style={{
-                fontWeight: "bold",
+                fontWeight: "bold"
               }}
             >
               SendGrid
@@ -84,7 +85,7 @@ export default class Login extends React.Component {
               className="login-form"
               style={{
                 marginBottom: "2rem",
-                width: "20rem",
+                width: "20rem"
               }}
             >
               <div className="input-text-wrap">
