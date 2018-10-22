@@ -1,7 +1,8 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import "./BounceRules.css";
+import "./BounceRules.scss";
 import { listRules } from "../../utils/ruleCalls";
+import cn from "classnames";
 
 export default class BounceRulesContainer extends React.Component {
   constructor(props) {
@@ -187,9 +188,9 @@ export default class BounceRulesContainer extends React.Component {
                   .map(number => (
                     <a
                       key={number}
-                      className={`pagination-link ${
-                        number === pageIndex ? " is-active" : ""
-                      }`}
+                      className={cn("pagination-link", {
+                        "is-active": number === pageIndex
+                      })}
                       onClick={() => this.updatePageIndex(number)}
                       onKeyDown={() => {}}
                       role="button"

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default class BounceRuleDetails extends React.Component {
   constructor(props) {
@@ -6,7 +7,7 @@ export default class BounceRuleDetails extends React.Component {
 
     const { location } = this.props;
     this.state = {
-      currentRule: location.state.currentRule,
+      currentRule: location.state.currentRule
     };
   }
 
@@ -20,18 +21,18 @@ export default class BounceRuleDetails extends React.Component {
           marginTop: "2rem",
           height: "100vh",
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <div
           style={{
-            width: "50rem",
+            width: "50rem"
           }}
         >
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "flex-end"
             }}
           >
             <a href="/" style={{ textDecoration: "none", color: "black" }}>
@@ -42,13 +43,13 @@ export default class BounceRuleDetails extends React.Component {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              margin: "1rem 0",
+              margin: "1rem 0"
             }}
           >
             <div
               style={{
                 width: "20rem",
-                fontSize: "2rem",
+                fontSize: "2rem"
               }}
             >
               Bounce Rule Details
@@ -61,7 +62,7 @@ export default class BounceRuleDetails extends React.Component {
             style={{
               border: "1px solid black",
               padding: "1.5rem",
-              margin: "2rem 0",
+              margin: "2rem 0"
             }}
           >
             {currentRule.description}
@@ -72,3 +73,11 @@ export default class BounceRuleDetails extends React.Component {
     );
   }
 }
+
+BounceRuleDetails.propTypes = {
+  location: PropTypes.object
+};
+
+BounceRuleDetails.defaultProps = {
+  location: {}
+};
