@@ -8,6 +8,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "dev": "webpack-dev-server --open --mode=development",
+    "precommit": "lint-staged",
     "prepush": "jest",
     "storybook": "start-storybook -p 6009",
     "build-storybook": "build-storybook",
