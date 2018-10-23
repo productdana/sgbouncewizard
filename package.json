@@ -39,6 +39,7 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^1.0.0",
     "cypress": "^3.1.0",
+    "dotenv": "^6.1.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "enzyme-to-json": "^3.3.4",
@@ -70,7 +71,9 @@
   },
   "dependencies": {
     "@sendgrid/ui-components": "^1.9.2",
+    "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "dotenv-webpack": "^1.5.7",
     "react": "^16.5.2",
     "react-animate-height": "^2.0.6",
     "react-dom": "^16.5.2",
