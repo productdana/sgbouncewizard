@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import cn from "classnames";
+import authenticateUser from "../../utils/authenticate";
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -9,8 +9,7 @@ export default class Login extends React.Component {
     this.state = {
       isAuthenticated: false,
       isShowingError: false,
-      userName: "",
-      password: ""
+      errorMessage: "Incorrect credentials",
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -18,26 +17,35 @@ export default class Login extends React.Component {
 
   updateField(e, field) {
     this.setState({
-      [field]: e.target.value
+      [field]: e.target.value,
     });
   }
 
-  handleLogin() {
-    const { userName, password } = this.state;
+  async handleLogin() {
+    const { email, password } = this.state;
 
-    if (userName === "ziv" && password === "papa") {
-      this.setState(prevState => ({
-        isAuthenticated: !prevState.isAuthenticated
-      }));
+    const { data, status } = await authenticateUser({ email, password });
+
+    if (status === 200) {
+      if (data.id !== 0) {
+        this.setState(prevState => ({
+          isAuthenticated: !prevState.isAuthenticated,
+        }));
+      } else {
+        this.setState(prevState => ({
+          isShowingError: !prevState.isShowingError,
+        }));
+      }
     } else {
       this.setState(prevState => ({
-        isShowingError: !prevState.isShowingError
+        isShowingError: !prevState.isShowingError,
+        errorMessage: "User does not exist",
       }));
     }
   }
 
   render() {
-    const { isAuthenticated, isShowingError } = this.state;
+    const { isAuthenticated, isShowingError, errorMessage } = this.state;
     const redirectLink = "/bounce_rules";
 
     return isAuthenticated ? (
@@ -49,13 +57,13 @@ export default class Login extends React.Component {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh"
+          height: "100vh",
         }}
       >
         <div
           style={{
             display: "flex",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <div
@@ -66,34 +74,34 @@ export default class Login extends React.Component {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             <div
               className="login-title"
               style={{
-                fontWeight: "bold"
+                fontWeight: "bold",
               }}
             >
               SendGrid
             </div>
             {isShowingError && (
               <div style={{ color: "#b71c1c", marginTop: "1rem" }}>
-                Incorrect Credentials
+                {errorMessage}
               </div>
             )}
             <div
               className="login-form"
               style={{
                 marginBottom: "2rem",
-                width: "20rem"
+                width: "20rem",
               }}
             >
               <div className="input-text-wrap">
                 <input
                   type="text"
-                  placeholder="Username"
-                  onChange={e => this.updateField(e, "userName")}
+                  placeholder="email"
+                  onChange={e => this.updateField(e, "email")}
                 />
               </div>
               <div className="input-text-wrap">
