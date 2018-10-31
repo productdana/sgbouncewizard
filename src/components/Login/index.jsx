@@ -1,16 +1,24 @@
 import React from "react";
+import { Row } from "@sendgrid/ui-components/grid/row";
+import { Column } from "@sendgrid/ui-components/grid/column";
+import { Button } from "@sendgrid/ui-components/button";
+import { StatefulTextInput } from "@sendgrid/ui-components/text-input";
+import { Alert } from "@sendgrid/ui-components/alert";
+import "./index.scss";
 import { Redirect } from "react-router-dom";
-import cn from "classnames";
+// import cn from "classnames";
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isAuthenticated: false,
-      isShowingError: false,
       userName: "",
-      password: ""
+      password: "",
+      isAuthenticating: false,
+      isAuthenticated: false,
+      incorrectCredentials: false,
+      hasNetworkError: false,
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -18,101 +26,120 @@ export default class Login extends React.Component {
 
   updateField(e, field) {
     this.setState({
-      [field]: e.target.value
+      [field]: e.target.value,
     });
   }
 
   handleLogin() {
     const { userName, password } = this.state;
-
-    if (userName === "ziv" && password === "papa") {
-      this.setState(prevState => ({
-        isAuthenticated: !prevState.isAuthenticated
-      }));
-    } else {
-      this.setState(prevState => ({
-        isShowingError: !prevState.isShowingError
-      }));
-    }
+    this.setState({
+      isAuthenticating: true,
+    });
+    setTimeout(() => {
+      if (userName === "ziv" && password === "papa") {
+        this.setState(prevState => ({
+          isAuthenticated: !prevState.isAuthenticated,
+        }));
+      } else {
+        this.setState(prevState => ({
+          isShowingError: !prevState.isShowingError,
+          incorrectCredentials: true,
+          isAuthenticating: false,
+        }));
+      }
+    }, 1000);
   }
 
   render() {
-    const { isAuthenticated, isShowingError } = this.state;
+    const {
+      isAuthenticating,
+      isAuthenticated,
+      hasNetworkError,
+      incorrectCredentials,
+    } = this.state;
     const redirectLink = "/bounce_rules";
 
     return isAuthenticated ? (
       <Redirect to={redirectLink} />
     ) : (
-      <div
-        className="row"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh"
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
-          <div
-            className="card is-centered"
-            style={{
-              width: "30rem",
-              height: "30rem",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <div
-              className="login-title"
-              style={{
-                fontWeight: "bold"
-              }}
-            >
-              SendGrid
-            </div>
-            {isShowingError && (
-              <div style={{ color: "#b71c1c", marginTop: "1rem" }}>
-                Incorrect Credentials
-              </div>
-            )}
-            <div
-              className="login-form"
-              style={{
-                marginBottom: "2rem",
-                width: "20rem"
-              }}
-            >
-              <div className="input-text-wrap">
-                <input
-                  type="text"
-                  placeholder="Username"
-                  onChange={e => this.updateField(e, "userName")}
+      <div className="login-container">
+        <Row>
+          <Column width={1} />
+          <Column width={10}>
+            {/* <Column width={10} offset={1}/> Have tried that */}
+            <div className="login-form-container">
+              <div className="login-logo">
+                <img
+                  src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
+                  alt="sg-logo"
                 />
               </div>
-              <div className="input-text-wrap">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  onChange={e => this.updateField(e, "password")}
-                />
+              <Row width={2} />
+              <Row width={8}>
+                {incorrectCredentials && (
+                  <Alert type="danger" dismissable={false}>
+                    Your username or password is invalid.
+                  </Alert>
+                )}
+                {isAuthenticating &&
+                  hasNetworkError && (
+                    <Alert type="danger" dismissable={false}>
+                      Network Error
+                    </Alert>
+                  )}
+              </Row>
+              <div className="login-form-body">
+                <Row>
+                  <Column width={2} />
+                  <Column width={8} offset={2}>
+                    {/* <div className="col-4 col-offset-2"> */}
+                    <div className="input-text-wrap">
+                      <StatefulTextInput
+                        onChange={e => this.updateField(e, "userName")}
+                        type="text"
+                        label="Username"
+                      />
+                    </div>
+                    {/* </div> */}
+                  </Column>
+                </Row>
+                <Row>
+                  <Column width={2} />
+                  <Column width={8}>
+                    <StatefulTextInput
+                      onChange={e => this.updateField(e, "password")}
+                      type="password"
+                      label="Password"
+                    />
+                  </Column>
+                </Row>
+                <Row>
+                  <Column width={4} />
+                  <Column width={4}>
+                    <div className="login-button-container">
+                      {!isAuthenticating &&
+                        !hasNetworkError && (
+                          <Button onClick={this.handleLogin} type="primary">
+                            Login
+                          </Button>
+                        )}
+                      {isAuthenticating &&
+                        !hasNetworkError && (
+                          <Button
+                            onClick={this.handleLogin}
+                            type="primary"
+                            loading
+                          >
+                            Login
+                          </Button>
+                        )}
+                    </div>
+                  </Column>
+                </Row>
               </div>
             </div>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              onClick={this.handleLogin}
-            >
-              Login
-            </button>
-          </div>
-        </div>
+          </Column>
+        </Row>
       </div>
     );
   }
