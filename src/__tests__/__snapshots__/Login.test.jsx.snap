@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login snapshot test renders correctly 1`] = `
+<div
+  className="login-container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-1"
+    />
+    <div
+      className="col-10"
+    >
+      <div
+        className="login-form-container"
+      >
+        <div
+          className="login-logo"
+        >
+          <img
+            alt="sg-logo"
+            id="sendgrid-login-logo"
+            src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
+          />
+        </div>
+        <div
+          className="row"
+        />
+        <div
+          className="row"
+        />
+        <div
+          className="login-form-body"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-8 undefined col-offset-2"
+            >
+              <div
+                className="input-text-wrap"
+              >
+                <div
+                  className="input-text-wrap"
+                  style={Object {}}
+                >
+                  <label
+                    className="input-text-label"
+                  >
+                    Username
+                  </label>
+                  <input
+                    aria-describedby=""
+                    data-test="username-field"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    step={null}
+                    type="text"
+                    value=""
+                  />
+                  
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-8"
+            >
+              <div
+                className="input-text-wrap"
+                style={Object {}}
+              >
+                <label
+                  className="input-text-label"
+                >
+                  Password
+                </label>
+                <input
+                  aria-describedby=""
+                  data-test="password-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  step={null}
+                  type="password"
+                  value=""
+                />
+                
+                
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-4"
+            />
+            <div
+              className="col-4"
+            >
+              <div
+                className="login-button-container"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-test="login-button"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

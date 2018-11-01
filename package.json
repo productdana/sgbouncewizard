@@ -77,7 +77,8 @@
     "react": "^16.5.2",
     "react-animate-height": "^2.0.6",
     "react-dom": "^16.5.2",
-    "react-select": "^2.1.0"
+    "react-select": "^2.1.0",
+    "react-test-renderer": "^16.6.0"
   },
   "lint-staged": {
     "{cypress,src}/**/*.{js,jsx}": [
@@ -98,6 +99,12 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!@sendgrid)"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|less|scss)$": "<rootDir>/SCSSStub.js"
+    }
   }
 }

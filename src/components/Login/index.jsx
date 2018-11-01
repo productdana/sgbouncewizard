@@ -35,19 +35,31 @@ export default class Login extends React.Component {
     this.setState({
       isAuthenticating: true,
     });
-    setTimeout(() => {
-      if (userName === "ziv" && password === "papa") {
-        this.setState(prevState => ({
-          isAuthenticated: !prevState.isAuthenticated,
-        }));
-      } else {
-        this.setState(prevState => ({
-          isShowingError: !prevState.isShowingError,
-          incorrectCredentials: true,
-          isAuthenticating: false,
-        }));
-      }
-    }, 1000);
+
+    if (userName === "ziv" && password === "papa") {
+      this.setState(prevState => ({
+        isAuthenticated: !prevState.isAuthenticated,
+      }));
+    } else {
+      this.setState(prevState => ({
+        isShowingError: !prevState.isShowingError,
+        incorrectCredentials: true,
+        isAuthenticating: false,
+      }));
+    }
+    // setTimeout(() => {
+    //   if (userName === "ziv" && password === "papa") {
+    //     this.setState(prevState => ({
+    //       isAuthenticated: !prevState.isAuthenticated,
+    //     }));
+    //   } else {
+    //     this.setState(prevState => ({
+    //       isShowingError: !prevState.isShowingError,
+    //       incorrectCredentials: true,
+    //       isAuthenticating: false,
+    //     }));
+    //   }
+    // }, 1000);
   }
 
   render() {
@@ -66,10 +78,12 @@ export default class Login extends React.Component {
         <Row>
           <Column width={1} />
           <Column width={10}>
-            {/* <Column width={10} offset={1}/> Have tried that */}
+            {/* <div className="col-10 col-offset-1"></div> */}
+            {/* <Column width={10} offset={1}/> */}
             <div className="login-form-container">
               <div className="login-logo">
                 <img
+                  id="sendgrid-login-logo"
                   src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
                   alt="sg-logo"
                 />
@@ -77,13 +91,21 @@ export default class Login extends React.Component {
               <Row width={2} />
               <Row width={8}>
                 {incorrectCredentials && (
-                  <Alert type="danger" dismissable={false}>
+                  <Alert
+                    data-test="invalid-credentials-alert"
+                    type="danger"
+                    dismissable={false}
+                  >
                     Your username or password is invalid.
                   </Alert>
                 )}
                 {isAuthenticating &&
                   hasNetworkError && (
-                    <Alert type="danger" dismissable={false}>
+                    <Alert
+                      data-test="network-error-alert"
+                      type="danger"
+                      dismissable={false}
+                    >
                       Network Error
                     </Alert>
                   )}
@@ -95,6 +117,7 @@ export default class Login extends React.Component {
                     {/* <div className="col-4 col-offset-2"> */}
                     <div className="input-text-wrap">
                       <StatefulTextInput
+                        data-test="username-field"
                         onChange={e => this.updateField(e, "userName")}
                         type="text"
                         label="Username"
@@ -108,6 +131,7 @@ export default class Login extends React.Component {
                   <Column width={8}>
                     <StatefulTextInput
                       onChange={e => this.updateField(e, "password")}
+                      data-test="password-field"
                       type="password"
                       label="Password"
                     />
@@ -119,13 +143,18 @@ export default class Login extends React.Component {
                     <div className="login-button-container">
                       {!isAuthenticating &&
                         !hasNetworkError && (
-                          <Button onClick={this.handleLogin} type="primary">
+                          <Button
+                            data-test="login-button"
+                            onClick={this.handleLogin}
+                            type="primary"
+                          >
                             Login
                           </Button>
                         )}
                       {isAuthenticating &&
                         !hasNetworkError && (
                           <Button
+                            data-test="login-loading-button"
                             onClick={this.handleLogin}
                             type="primary"
                             loading
