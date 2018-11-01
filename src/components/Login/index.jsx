@@ -6,7 +6,6 @@ import { StatefulTextInput } from "@sendgrid/ui-components/text-input";
 import { Alert } from "@sendgrid/ui-components/alert";
 import "./index.scss";
 import { Redirect } from "react-router-dom";
-// import cn from "classnames";
 
 export default class Login extends React.Component {
   constructor(props) {
