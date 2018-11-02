@@ -8,7 +8,7 @@ import "./index.scss";
 
 const App = () => (
   <BrowserRouter>
-    <div>
+    <div style={{ height: "100%" }}>
       <Route exact path="/" component={LoginPage} />
       <Route exact path="/bounce_rules" component={BounceRulesContainer} />
       <Route path="/bounce_rules/:bounceRuleId" component={BounceRuleDetails} />
