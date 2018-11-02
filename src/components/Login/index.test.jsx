@@ -2,19 +2,17 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
-import Login from "../components/Login";
+import Login from ".";
 
-describe("login snapshot test", () => {
-  it("renders correctly", () => {
-    const tree = renderer.create(<Login />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
-
-describe("login component tests", () => {
+describe("Login", () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<Login />);
+  });
+  // TODO: fix tests now that we're mostly just varying up the props and seeing what renders
+  it("should render correctly", () => {
+    const tree = renderer.create(<Login />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 
   it("should render username input", () => {
