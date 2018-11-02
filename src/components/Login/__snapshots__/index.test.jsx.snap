@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`login snapshot test renders correctly 1`] = `
+exports[`Login should render correctly 1`] = `
 <div
   className="login-container"
 >
@@ -21,7 +21,6 @@ exports[`login snapshot test renders correctly 1`] = `
         >
           <img
             alt="sg-logo"
-            id="sendgrid-login-logo"
             src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
           />
         </div>

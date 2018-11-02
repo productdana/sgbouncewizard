@@ -22,6 +22,7 @@ export default class LoginPage extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handleAlertClose = this.handleAlertClose.bind(this);
   }
 
   handleInputChange(e, field) {
@@ -34,7 +35,7 @@ export default class LoginPage extends React.Component {
     const { username, password } = this.state;
 
     // Validate inputs and don't even kick off a request if invalid input
-    if (!(username || password)) {
+    if (!(username && password)) {
       this.setState({
         isAuthenticationError: true,
         isInvalidInput: true,
@@ -46,7 +47,12 @@ export default class LoginPage extends React.Component {
     }
 
     this.setState({
-      isAuthenticating: true,
+      isAuthenticating: false,
+      isAuthenticated: false,
+      isAuthenticationError: false,
+      isInvalidCredentials: false,
+      isInvalidInput: false,
+      isNetworkError: false,
     });
 
     // TODO: Make asynchronous request here and update state accordingly
@@ -66,6 +72,17 @@ export default class LoginPage extends React.Component {
         isNetworkError: false,
       });
     }
+  }
+
+  handleAlertClose() {
+    this.setState({
+      isAuthenticating: false,
+      isAuthenticated: false,
+      isAuthenticationError: false,
+      isInvalidCredentials: false,
+      isInvalidInput: false,
+      isNetworkError: false,
+    });
   }
 
   render() {
@@ -94,6 +111,7 @@ export default class LoginPage extends React.Component {
         isNetworkError={isNetworkError}
         handleInputChange={this.handleInputChange}
         handleLoginSubmit={this.handleLoginSubmit}
+        handleAlertClose={this.handleAlertClose}
       />
     );
   }

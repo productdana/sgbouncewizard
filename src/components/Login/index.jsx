@@ -1,11 +1,14 @@
 import React from "react";
 import { Row } from "@sendgrid/ui-components/grid/row";
 import { Column } from "@sendgrid/ui-components/grid/column";
-import { Button } from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
-import { Alert } from "@sendgrid/ui-components/alert";
 import PropTypes from "prop-types";
 import "./index.scss";
+import InvalidCredentialsAlert from "../InvalidCredentialsAlert";
+import NetworkErrorAlert from "../NetworkErrorAlert";
+import InvalidInputAlert from "../InvalidInputAlert";
+import LoadingButton from "../LoadingButton";
+import LoginButton from "../LoginButton";
 
 const Login = ({
   username,
@@ -17,6 +20,7 @@ const Login = ({
   isNetworkError,
   handleLoginSubmit,
   handleInputChange,
+  handleAlertClose,
 }) => (
   <div className="login-container">
     <Row>
@@ -33,48 +37,27 @@ const Login = ({
           <Row width={8}>
             {!isAuthenticating &&
               isAuthenticationError &&
-              isInvalidCredentials &&
-              {
-                /* TODO: <InvalidCredentialsAlert /> */
-              }(
-                <Alert
+              isInvalidCredentials && (
+                <InvalidCredentialsAlert
                   data-test="invalid-credentials-alert"
-                  type="danger"
-                  dismissable
-                >
-                  Your username or password does not match any existing user
-                  credentials.
-                </Alert>
+                  handleAlertClose={handleAlertClose}
+                />
               )}
             {!isAuthenticating &&
               isAuthenticationError &&
-              isNetworkError &&
-              {
-                /* TODO: <NetworkErrorAlert /> */
-              }(
-                <Alert
+              isNetworkError && (
+                <NetworkErrorAlert
                   data-test="network-error-alert"
-                  type="danger"
-                  dismissable
-                >
-                  We are unable to authenticate your user due to some issues
-                  with the network.
-                </Alert>
+                  handleAlertClose={handleAlertClose}
+                />
               )}
             {!isAuthenticating &&
               isAuthenticationError &&
-              isInvalidInput &&
-              {
-                /* TODO: Break each of these alerts out into stateless functional components so you can eventually call it like <InvalidInputAlert /> */
-              }(
-                <Alert
-                  data-test="network-error-alert"
-                  type="danger"
-                  dismissable
-                >
-                  Your username and password fields are required and must
-                  contain valid characters.
-                </Alert>
+              isInvalidInput && (
+                <InvalidInputAlert
+                  data-test="invalid-input-alert"
+                  handleAlertClose={handleAlertClose}
+                />
               )}
           </Row>
           <div className="login-form-body">
@@ -109,23 +92,16 @@ const Login = ({
               <Column width={4}>
                 <div className="login-button-container">
                   {!isAuthenticating && (
-                    <Button
+                    <LoginButton
                       data-test="login-button"
-                      onClick={handleLoginSubmit}
-                      type="primary"
-                    >
-                      Login
-                    </Button>
+                      handleLoginSubmit={handleLoginSubmit}
+                    />
                   )}
                   {isAuthenticating && (
-                    <Button
+                    <LoadingButton
                       data-test="login-loading-button"
-                      onClick={handleLoginSubmit}
-                      type="primary"
-                      loading
-                    >
-                      Logging in...
-                    </Button>
+                      handleLoginSubmit={handleLoginSubmit}
+                    />
                   )}
                 </div>
               </Column>
