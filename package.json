@@ -71,6 +71,8 @@
   },
   "dependencies": {
     "@sendgrid/ui-components": "^1.9.2",
+    "@types/jquery": "^3.3.22",
+    "@types/react": "^16.4.18",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "dotenv-webpack": "^1.5.7",

@@ -5,13 +5,10 @@ exports[`Login should render correctly 1`] = `
   className="login-container"
 >
   <div
-    className="row"
+    className="mako-grid__row"
   >
     <div
-      className="col-1"
-    />
-    <div
-      className="col-10"
+      className="mako-grid__col-10 col-start-2"
     >
       <div
         className="login-form-container"
@@ -25,22 +22,18 @@ exports[`Login should render correctly 1`] = `
           />
         </div>
         <div
-          className="row"
-        />
-        <div
-          className="row"
+          className="mako-grid__row"
+          offset={2}
+          width={8}
         />
         <div
           className="login-form-body"
         >
           <div
-            className="row"
+            className="mako-grid__row"
           >
             <div
-              className="col-2"
-            />
-            <div
-              className="col-8 undefined col-offset-2"
+              className="mako-grid__col-6 col-start-4"
             >
               <div
                 className="input-text-wrap"
@@ -71,13 +64,10 @@ exports[`Login should render correctly 1`] = `
             </div>
           </div>
           <div
-            className="row"
+            className="mako-grid__row"
           >
             <div
-              className="col-2"
-            />
-            <div
-              className="col-8"
+              className="mako-grid__col-6 col-start-4"
             >
               <div
                 className="input-text-wrap"
@@ -104,13 +94,10 @@ exports[`Login should render correctly 1`] = `
             </div>
           </div>
           <div
-            className="row"
+            className="mako-grid__row"
           >
             <div
-              className="col-4"
-            />
-            <div
-              className="col-4"
+              className="mako-grid__col-6 col-start-4"
             >
               <div
                 className="login-button-container"

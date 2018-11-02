@@ -1,8 +1,10 @@
 import React from "react";
-import { Row } from "@sendgrid/ui-components/grid/row";
-import { Column } from "@sendgrid/ui-components/grid/column";
+// import { Row } from "@sendgrid/ui-components/grid/row";
+// import { Column } from "@sendgrid/ui-components/grid/column";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import PropTypes from "prop-types";
+import { Row } from "../Row";
+import { Column } from "../Column";
 import "./index.scss";
 import InvalidCredentialsAlert from "../InvalidCredentialsAlert";
 import NetworkErrorAlert from "../NetworkErrorAlert";
@@ -24,8 +26,7 @@ const Login = ({
 }) => (
   <div className="login-container">
     <Row>
-      <Column width={1} />
-      <Column width={10}>
+      <Column width={10} offset={2}>
         <div className="login-form-container">
           <div className="login-logo">
             <img
@@ -33,8 +34,7 @@ const Login = ({
               alt="sg-logo"
             />
           </div>
-          <Row width={2} />
-          <Row width={8}>
+          <Row width={8} offset={2}>
             {!isAuthenticating &&
               isAuthenticationError &&
               isInvalidCredentials && (
@@ -62,8 +62,7 @@ const Login = ({
           </Row>
           <div className="login-form-body">
             <Row>
-              <Column width={2} />
-              <Column width={8} offset={2}>
+              <Column width={6} offset={4}>
                 <div className="input-text-wrap">
                   <TextInput
                     data-test="username-field"
@@ -76,8 +75,7 @@ const Login = ({
               </Column>
             </Row>
             <Row>
-              <Column width={2} />
-              <Column width={8}>
+              <Column width={6} offset={4}>
                 <TextInput
                   onChange={e => handleInputChange(e, "password")}
                   data-test="password-field"
@@ -88,8 +86,7 @@ const Login = ({
               </Column>
             </Row>
             <Row>
-              <Column width={4} />
-              <Column width={4}>
+              <Column width={6} offset={4}>
                 <div className="login-button-container">
                   {!isAuthenticating && (
                     <LoginButton

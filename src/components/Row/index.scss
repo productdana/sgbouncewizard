@@ -1,0 +1,9 @@
+.mako-grid__row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: 2%;
+
+  > :not([class*="‘col-’"]) {
+    grid-column: span 12;
+  }
+}
