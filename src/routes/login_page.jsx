@@ -51,8 +51,6 @@ export default class LoginPage extends React.Component {
       isNetworkError: false,
     });
 
-    // TODO: Make asynchronous request here and update state accordingly
-    // If there is a network error in the .catch of a network request then you would set isNetworkError: true
     if (username === "ziv" && password === "papa") {
       this.setState({
         isAuthenticating: false,

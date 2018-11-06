@@ -42,7 +42,7 @@ describe("Login", () => {
     ).toBeTruthy();
   });
 
-  it("should display error when credentials are invalid", () => {
+  it("should display alert when credentials are invalid", () => {
     wrapper.setProps({
       username: "wrong",
       password: "password",
@@ -56,7 +56,7 @@ describe("Login", () => {
     expect(wrapper.find(Redirect)).toHaveLength(0);
   });
 
-  it("should display error when there is a network error", () => {
+  it("should display alert when there is a network error", () => {
     wrapper.setProps({
       username: "ziv",
       password: "papa",
@@ -68,7 +68,7 @@ describe("Login", () => {
     expect(wrapper.find(Redirect)).toHaveLength(0);
   });
 
-  it("should display error when there is input is invalid", () => {
+  it("should display alert when there is invalid input", () => {
     wrapper.setProps({
       username: "",
       password: "",
