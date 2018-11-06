@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
 import LoginPage from "./routes/login_page";
-import BounceRulesContainer from "./components/BounceRulesContainer";
+import BounceRulesContainer from "./routes/bounce_rules_page";
 import BounceRuleDetails from "./components/BounceRuleDetails";
 import "./index.scss";
 
