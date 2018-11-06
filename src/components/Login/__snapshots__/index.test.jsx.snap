@@ -29,14 +29,49 @@ exports[`Login should render correctly 1`] = `
         <div
           className="login-form-body"
         >
-          <div
-            className="mako-grid__row"
+          <form
+            id="login-form"
+            onSubmit={[Function]}
           >
             <div
-              className="mako-grid__col-6 col-start-4"
+              className="mako-grid__row"
             >
               <div
-                className="input-text-wrap"
+                className="mako-grid__col-6 col-start-4"
+              >
+                <div
+                  className="input-text-wrap"
+                >
+                  <div
+                    className="input-text-wrap"
+                    style={Object {}}
+                  >
+                    <label
+                      className="input-text-label"
+                    >
+                      Username
+                    </label>
+                    <input
+                      aria-describedby=""
+                      data-test="username-field"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      step={null}
+                      type="text"
+                      value=""
+                    />
+                    
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="mako-grid__row"
+            >
+              <div
+                className="mako-grid__col-6 col-start-4"
               >
                 <div
                   className="input-text-wrap"
@@ -45,16 +80,16 @@ exports[`Login should render correctly 1`] = `
                   <label
                     className="input-text-label"
                   >
-                    Username
+                    Password
                   </label>
                   <input
                     aria-describedby=""
-                    data-test="username-field"
+                    data-test="password-field"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
                     step={null}
-                    type="text"
+                    type="password"
                     value=""
                   />
                   
@@ -62,58 +97,30 @@ exports[`Login should render correctly 1`] = `
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            className="mako-grid__row"
-          >
             <div
-              className="mako-grid__col-6 col-start-4"
+              className="mako-grid__row"
             >
               <div
-                className="input-text-wrap"
-                style={Object {}}
+                className="mako-grid__col-6 col-start-4"
               >
-                <label
-                  className="input-text-label"
+                <div
+                  className="login-button-container"
                 >
-                  Password
-                </label>
-                <input
-                  aria-describedby=""
-                  data-test="password-field"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  step={null}
-                  type="password"
-                  value=""
-                />
-                
-                
+                  <button
+                    className="btn btn-primary"
+                    data-test="login-button"
+                    disabled={false}
+                    form="login-form"
+                    isSubmit={true}
+                    onClick={[Function]}
+                    type="submit"
+                  >
+                    Login
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            className="mako-grid__row"
-          >
-            <div
-              className="mako-grid__col-6 col-start-4"
-            >
-              <div
-                className="login-button-container"
-              >
-                <button
-                  className="btn btn-primary"
-                  data-test="login-button"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Login
-                </button>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
-import Login from ".";
+import Login, { LoginForm } from ".";
 
 describe("Login", () => {
   let wrapper;
@@ -16,23 +16,33 @@ describe("Login", () => {
   });
 
   it("should render username input", () => {
-    expect(wrapper.find('[data-test="username-field"]')).toHaveLength(1);
+    const loginFormWrapper = shallow(<LoginForm />);
+    expect(loginFormWrapper.find('[data-test="username-field"]')).toHaveLength(
+      1
+    );
   });
 
   it("should render password input", () => {
-    expect(wrapper.find('[data-test="password-field"]')).toHaveLength(1);
+    const loginFormWrapper = shallow(<LoginForm />);
+    expect(loginFormWrapper.find('[data-test="password-field"]')).toHaveLength(
+      1
+    );
   });
 
   it("should display loading button when user is being authenticated", () => {
-    wrapper.setProps({
+    const loginFormWrapper = shallow(<LoginForm />);
+
+    loginFormWrapper.setProps({
       username: "ziv",
       password: "papa",
       isAuthenticating: true,
     });
-    expect(wrapper.exists('[data-test="login-loading-button"]')).toBeTruthy();
+    expect(
+      loginFormWrapper.exists('[data-test="login-loading-button"]')
+    ).toBeTruthy();
   });
 
-  it("should display error when credentails are invalid", () => {
+  it("should display error when credentials are invalid", () => {
     wrapper.setProps({
       username: "wrong",
       password: "password",

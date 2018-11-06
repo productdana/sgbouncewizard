@@ -2,9 +2,6 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import Login from "../components/Login";
 
-// TODO: follow this pattern for the bounce rule details page and bounce rules listing page
-// Eventually, we'll test out these integrated route components once we have some mocking of API calls through mock axios
-// or Jest's mocking functionality and continue to follow the pattern of abstracting out the network calls into files like ruleCalls.js
 export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -31,10 +28,9 @@ export default class LoginPage extends React.Component {
     });
   }
 
-  handleLoginSubmit() {
+  handleLoginSubmit(event) {
     const { username, password } = this.state;
-
-    // Validate inputs and don't even kick off a request if invalid input
+    event.preventDefault();
     if (!(username && password)) {
       this.setState({
         isAuthenticationError: true,
