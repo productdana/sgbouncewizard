@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login should render correctly 1`] = `
+<div
+  className="login-container"
+>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-10 col-start-2"
+    >
+      <div
+        className="login-form-container"
+      >
+        <div
+          className="login-logo"
+        >
+          <img
+            alt="sg-logo"
+            src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
+          />
+        </div>
+        <div
+          className="mako-grid__row"
+          offset={2}
+          width={8}
+        />
+        <div
+          className="login-form-body"
+        >
+          <form
+            id="login-form"
+            onSubmit={[Function]}
+          >
+            <div
+              className="mako-grid__row"
+            >
+              <div
+                className="mako-grid__col-6 col-start-4"
+              >
+                <div
+                  className="input-text-wrap"
+                >
+                  <div
+                    className="input-text-wrap"
+                    style={Object {}}
+                  >
+                    <label
+                      className="input-text-label"
+                    >
+                      Username
+                    </label>
+                    <input
+                      aria-describedby=""
+                      data-test="username-field"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      step={null}
+                      type="text"
+                      value=""
+                    />
+                    
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="mako-grid__row"
+            >
+              <div
+                className="mako-grid__col-6 col-start-4"
+              >
+                <div
+                  className="input-text-wrap"
+                  style={Object {}}
+                >
+                  <label
+                    className="input-text-label"
+                  >
+                    Password
+                  </label>
+                  <input
+                    aria-describedby=""
+                    data-test="password-field"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    step={null}
+                    type="password"
+                    value=""
+                  />
+                  
+                  
+                </div>
+              </div>
+            </div>
+            <div
+              className="mako-grid__row"
+            >
+              <div
+                className="mako-grid__col-6 col-start-4"
+              >
+                <div
+                  className="login-button-container"
+                >
+                  <button
+                    className="btn btn-primary"
+                    data-test="login-button"
+                    disabled={false}
+                    form="login-form"
+                    isSubmit={true}
+                    onClick={[Function]}
+                    type="submit"
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

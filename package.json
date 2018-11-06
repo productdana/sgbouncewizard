@@ -71,13 +71,16 @@
   },
   "dependencies": {
     "@sendgrid/ui-components": "^1.9.2",
+    "@types/jquery": "^3.3.22",
+    "@types/react": "^16.4.18",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "dotenv-webpack": "^1.5.7",
     "react": "^16.5.2",
     "react-animate-height": "^2.0.6",
     "react-dom": "^16.5.2",
-    "react-select": "^2.1.0"
+    "react-select": "^2.1.0",
+    "react-test-renderer": "^16.6.0"
   },
   "lint-staged": {
     "{cypress,src}/**/*.{js,jsx}": [
@@ -98,6 +101,12 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!@sendgrid)"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|less|scss)$": "<rootDir>/SCSSStub.js"
+    }
   }
 }

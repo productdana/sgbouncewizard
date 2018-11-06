@@ -1,8 +1,8 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import "./BounceRules.scss";
-import { listRules } from "../../utils/ruleCalls";
+import "./index.scss";
 import cn from "classnames";
+import { listRules } from "../../utils/ruleCalls";
 
 export default class BounceRulesContainer extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export default class BounceRulesContainer extends React.Component {
       selectedRule: {},
       rules: [],
       pageIndex: 1,
-      pageInterval: 10
+      pageInterval: 10,
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -27,7 +27,7 @@ export default class BounceRulesContainer extends React.Component {
       const { rules, numRules } = data;
       this.setState({
         rules,
-        numRules
+        numRules,
       });
     }
   }
@@ -35,20 +35,20 @@ export default class BounceRulesContainer extends React.Component {
   handleRuleClick(rule) {
     this.setState(prevProps => ({
       isRedirectingToDetail: !prevProps.isRedirectingToDetail,
-      selectedRule: rule
+      selectedRule: rule,
     }));
   }
 
   handleKeyDown(rule) {
     this.setState(prevProps => ({
       isRedirectingToDetail: !prevProps.isRedirectingToDetail,
-      selectedRule: rule
+      selectedRule: rule,
     }));
   }
 
   updateSearchToken(e) {
     this.setState({
-      searchToken: e.target.value.toLowerCase()
+      searchToken: e.target.value.toLowerCase(),
     });
   }
 
@@ -70,7 +70,7 @@ export default class BounceRulesContainer extends React.Component {
   updatePageIndex(newIndex) {
     this.setState(prevState => ({
       pageIndex:
-        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex
+        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
     }));
   }
 
@@ -80,7 +80,7 @@ export default class BounceRulesContainer extends React.Component {
       pageIndex,
       selectedRule,
       rules,
-      numRules
+      numRules,
     } = this.state;
     const filteredRules = this.filterRules(this.paginate(rules));
 
@@ -92,7 +92,7 @@ export default class BounceRulesContainer extends React.Component {
         push
         to={{
           pathname: `/bounce_rules/${selectedRule.id}`,
-          state: { currentRule: selectedRule }
+          state: { currentRule: selectedRule },
         }}
       />
     ) : (
@@ -102,18 +102,18 @@ export default class BounceRulesContainer extends React.Component {
           marginTop: "4rem",
           height: "100vh",
           display: "flex",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         <div
           style={{
-            width: "50rem"
+            width: "50rem",
           }}
         >
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
             }}
           >
             <div />
@@ -128,14 +128,14 @@ export default class BounceRulesContainer extends React.Component {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              margin: "1rem 0"
+              margin: "1rem 0",
             }}
           >
             <input
               style={{
                 border: "1px solid black",
                 padding: "1rem",
-                width: "20rem"
+                width: "20rem",
               }}
               onChange={this.updateSearchToken}
               placeholder="Search By:"
@@ -152,7 +152,7 @@ export default class BounceRulesContainer extends React.Component {
                 style={{
                   border: "0.125rem solid grey",
                   padding: "2rem",
-                  margin: "3rem 0"
+                  margin: "3rem 0",
                 }}
                 onClick={() => this.handleRuleClick(rule)}
                 onKeyDown={() => this.handleKeyDown(rule)}
@@ -172,7 +172,7 @@ export default class BounceRulesContainer extends React.Component {
                 onClick={() =>
                   this.setState(prevState => ({
                     pageIndex:
-                      prevState.pageIndex > 1 ? prevState.pageIndex - 1 : 0
+                      prevState.pageIndex > 1 ? prevState.pageIndex - 1 : 0,
                   }))
                 }
                 onKeyDown={() => {}}
@@ -189,7 +189,7 @@ export default class BounceRulesContainer extends React.Component {
                     <a
                       key={number}
                       className={cn("pagination-link", {
-                        "is-active": number === pageIndex
+                        "is-active": number === pageIndex,
                       })}
                       onClick={() => this.updatePageIndex(number)}
                       onKeyDown={() => {}}
@@ -214,7 +214,7 @@ export default class BounceRulesContainer extends React.Component {
                 className="btn btn-secondary btn-small pagination-next"
                 onClick={() =>
                   this.setState(prevState => ({
-                    pageIndex: prevState.pageIndex + 1
+                    pageIndex: prevState.pageIndex + 1,
                   }))
                 }
                 onKeyDown={() => {}}
