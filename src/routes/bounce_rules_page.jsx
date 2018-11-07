@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import BounceRulesContainer from "../components/BounceRulesContainer";
 import { listRules } from "../utils/ruleCalls";
 
@@ -20,6 +21,7 @@ export default class BounceRulesPage extends React.Component {
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
     this.updateSearchCategory = this.updateSearchCategory.bind(this);
+    this.handleRuleClick = this.handleRuleClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.prevPageIndex = this.prevPageIndex.bind(this);
     this.nextPageIndex = this.nextPageIndex.bind(this);
@@ -148,10 +150,16 @@ export default class BounceRulesPage extends React.Component {
   }
 
   render() {
-    const { isRedirectingToDetail, rules } = this.state;
+    const { isRedirectingToDetail, rules, selectedRule } = this.state;
     const filteredRules = this.filterRules(this.paginate(rules));
     return isRedirectingToDetail ? (
-      <h1>test</h1>
+      <Redirect
+        push
+        to={{
+          pathname: `/bounce_rules/${selectedRule.id}`,
+          state: { currentRule: selectedRule },
+        }}
+      />
     ) : (
       <BounceRulesContainer
         handleRuleClick={this.handleRuleClick}

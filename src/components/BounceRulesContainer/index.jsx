@@ -10,13 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
+
 import { Row } from "../Row";
 import { Column } from "../Column";
 import Breadcrumb from "../Breadcrumb";
 import RuleFilter from "../RuleFilter";
 import Pagination from "../Pagination";
 
-const RuleListContainer = ({ rules }) => (
+const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
   <Table>
     <TableHeader>
       <TableRow>
@@ -29,20 +30,30 @@ const RuleListContainer = ({ rules }) => (
     </TableHeader>
     <TableBody>
       {rules.map(rule => (
-        <BounceRuleMin key={rule.id} rule={rule} />
+        <BounceRuleMin
+          handleKeyDown={handleKeyDown}
+          handleRuleClick={handleRuleClick}
+          key={rule.id}
+          rule={rule}
+        />
       ))}
     </TableBody>
   </Table>
 );
 
-const BounceRuleMin = ({ rule }) => (
+const BounceRuleMin = ({ rule, handleKeyDown, handleRuleClick }) => (
   <TableRow>
     <TableCell>{rule.id}</TableCell>
     <TableCell>{rule.bounce_action}</TableCell>
     <TableCell>{rule.response_code}</TableCell>
     <TableCell>{rule.description}</TableCell>
     <ActionsCell>
-      <Action title="View" icon="view" />
+      <Action
+        title="View"
+        handleKeyDown={() => handleKeyDown(rule)}
+        onClick={() => handleRuleClick(rule)}
+        icon="view"
+      />
       <Action title="Edit" icon="pencil" />
       <Action title="Delete" icon="trash" />
     </ActionsCell>
