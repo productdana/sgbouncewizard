@@ -1,5 +1,12 @@
 $gray: #595959;
+html {
+  height: 100%;
+}
 
 body {
   color: $gray;
+}
+
+#root {
+  height: 100vh;
 }

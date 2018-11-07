@@ -15,7 +15,7 @@ module.exports = {
     publicPath: "/"
   },
   resolve: {
-    extensions: [".js", ".jsx", ".css"]
+    extensions: [".js", ".jsx", ".css", ".ts", ".tsx"]
   },
   module: {
     rules: [
@@ -38,6 +38,11 @@ module.exports = {
           // First converts .scss/.sass files into .css files
           "sass-loader"
         ]
+      },
+      {
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        exclude: /node_modules/
       },
       {
         test: /\.module.scss$/,
