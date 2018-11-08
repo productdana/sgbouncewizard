@@ -53,7 +53,7 @@ exports[`Login should render correctly 1`] = `
                     </label>
                     <input
                       aria-describedby=""
-                      data-test="username-field"
+                      data-test="email-field"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onFocus={[Function]}
