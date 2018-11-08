@@ -41,19 +41,14 @@ const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
   </Table>
 );
 
-const BounceRuleMin = ({ rule, handleKeyDown, handleRuleClick }) => (
+const BounceRuleMin = ({ rule, handleRuleClick }) => (
   <TableRow>
     <TableCell>{rule.id}</TableCell>
     <TableCell>{rule.bounce_action}</TableCell>
     <TableCell>{rule.response_code}</TableCell>
     <TableCell>{rule.description}</TableCell>
     <ActionsCell>
-      <Action
-        title="View"
-        handleKeyDown={() => handleKeyDown(rule)}
-        onClick={() => handleRuleClick(rule)}
-        icon="view"
-      />
+      <Action title="View" onClick={() => handleRuleClick(rule)} icon="view" />
       <Action title="Edit" icon="pencil" />
       <Action title="Delete" icon="trash" />
     </ActionsCell>
