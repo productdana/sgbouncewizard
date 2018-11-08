@@ -43,9 +43,17 @@ export default class LoginPage extends React.Component {
       return;
     }
 
+    this.setState({
+      isAuthenticating: true,
+    });
+
     const { data, status } = await authenticateUser({ email, password }).catch(
       () => {
         this.setState({
+          isAuthenticating: false,
+          isAuthenticated: false,
+          isInvalidCredentials: false,
+          isInvalidInput: false,
           isAuthenticationError: true,
           isNetworkError: true,
         });
@@ -55,17 +63,31 @@ export default class LoginPage extends React.Component {
     if (status === 200) {
       if (data.id !== 0) {
         this.setState(() => ({
+          isAuthenticating: false,
           isAuthenticated: true,
-          isShowingError: false,
+          isInvalidCredentials: false,
+          isInvalidInput: false,
+          isAuthenticationError: false,
+          isNetworkError: true,
         }));
       } else {
-        this.setState(prevState => ({
-          isShowingError: !prevState.isShowingError,
+        this.setState(() => ({
+          isAuthenticating: false,
+          isAuthenticated: false,
+          isInvalidCredentials: true,
+          isInvalidInput: false,
+          isAuthenticationError: true,
+          isNetworkError: false,
         }));
       }
     } else {
-      this.setState(prevState => ({
-        isNetworkError: !prevState.isNetworkError,
+      this.setState(() => ({
+        isAuthenticating: false,
+        isAuthenticated: false,
+        isInvalidCredentials: false,
+        isInvalidInput: false,
+        isAuthenticationError: true,
+        isNetworkError: true,
       }));
     }
   }

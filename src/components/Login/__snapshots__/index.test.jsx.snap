@@ -49,7 +49,7 @@ exports[`Login should render correctly 1`] = `
                     <label
                       className="input-text-label"
                     >
-                      Username
+                      Email
                     </label>
                     <input
                       aria-describedby=""
@@ -58,7 +58,7 @@ exports[`Login should render correctly 1`] = `
                       onChange={[Function]}
                       onFocus={[Function]}
                       step={null}
-                      type="text"
+                      type="email"
                       value=""
                     />
                     

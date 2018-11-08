@@ -13,9 +13,6 @@ const authenticateUser = async credentials => {
   });
 
   if (response.status === 200) {
-    if (response.data && response.data.error) {
-      throw new Error("User authenication failed");
-    }
     return response;
   }
   throw new Error("User authenication failed");

@@ -10,7 +10,7 @@ const InvalidCredentialsAlert = ({ handleAlertClose }) => (
   <div data-test="invalid-credentials-alert" className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
-      Your username or password does not match any existing user credentials.
+      Your email or password does not match any existing user credentials.
       <i
         onClick={handleAlertClose}
         onKeyDown={handleAlertClose}
@@ -26,7 +26,7 @@ const InvalidInputAlert = ({ handleAlertClose }) => (
   <div className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
-      Your username and password fields are required and must contain valid
+      Your email and password fields are required and must contain valid
       characters.
       <i
         onClick={handleAlertClose}
@@ -87,7 +87,7 @@ const LoginForm = ({
         <Column width={6} offset={4}>
           <div className="input-text-wrap">
             <TextInput
-              data-test="username-field"
+              data-test="email-field"
               onChange={e => updateField(e, "email")}
               value={email}
               type="email"
@@ -123,7 +123,6 @@ const LoginForm = ({
 
 const Login = ({
   email,
-  username,
   password,
   isAuthenticating,
   isAuthenticationError,
@@ -172,7 +171,6 @@ const Login = ({
           </Row>
           <LoginForm
             email={email}
-            username={username}
             password={password}
             handleLogin={handleLogin}
             isAuthenticating={isAuthenticating}
@@ -185,7 +183,7 @@ const Login = ({
 );
 
 Login.propTypes = {
-  username: PropTypes.string,
+  email: PropTypes.string,
   password: PropTypes.string,
   isAuthenticating: PropTypes.bool,
   isAuthenticationError: PropTypes.bool,
@@ -197,7 +195,7 @@ Login.propTypes = {
 };
 
 Login.defaultProps = {
-  username: "",
+  email: "",
   password: "",
   isAuthenticating: false,
   isAuthenticationError: false,
