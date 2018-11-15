@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
+import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import {
   HeaderCell,
@@ -10,10 +11,8 @@ import {
   TableHeader,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
-
 import { Row } from "../Row";
 import { Column } from "../Column";
-import Breadcrumb from "../Breadcrumb";
 import RuleFilter from "../RuleFilter";
 import Pagination from "../Pagination";
 
@@ -64,12 +63,9 @@ const BounceRulesContainer = ({
   prevPageIndex,
   nextPageIndex,
   updatePageIndex,
-  filterRules,
   filteredRules,
   searchToken,
-  searchCategory,
   selectedRule,
-  rules,
   pageIndex,
   pageInterval,
   numRules,
@@ -80,7 +76,9 @@ const BounceRulesContainer = ({
   <div className="container">
     <Row>
       <Column width={6} offset={2}>
-        <Breadcrumb />
+        <Breadcrumb>
+          <a href="#">Bounce Rules</a>
+        </Breadcrumb>
       </Column>
     </Row>
     <Row>
@@ -98,16 +96,16 @@ const BounceRulesContainer = ({
       </Column>
       <Column width={3} offset={9}>
         <div style={{ textAlign: "right" }}>
-          <Button type="primary">Create Bounce Rule</Button>
+          <Button data-test="create-rule-button" type="primary">
+            Create Bounce Rule
+          </Button>
         </div>
       </Column>
     </Row>
     <Row>
       <Column width={10} offset={2}>
         <RuleFilter
-          rules={rules}
           searchToken={searchToken}
-          searchCategory={searchCategory}
           updateSearchToken={updateSearchToken}
           updateSearchCategory={updateSearchCategory}
           filterOptions={filterOptions}
@@ -120,7 +118,6 @@ const BounceRulesContainer = ({
     <Row>
       <Column width={10} offset={2}>
         <RuleListContainer
-          filterRules={filterRules}
           handleRuleClick={handleRuleClick}
           handleKeyDown={handleKeyDown}
           selectedRule={selectedRule}
@@ -144,3 +141,4 @@ const BounceRulesContainer = ({
 );
 
 export default BounceRulesContainer;
+export { RuleListContainer, BounceRuleMin };

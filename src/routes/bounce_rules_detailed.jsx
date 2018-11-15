@@ -28,7 +28,6 @@ export default class BounceRuleDetailedPage extends React.Component {
 
   render() {
     const { currentRule } = this.state;
-
     return currentRule && <BounceRuleDetailed currentRule={currentRule} />;
   }
 }

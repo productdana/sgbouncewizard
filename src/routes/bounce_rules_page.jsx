@@ -41,17 +41,17 @@ export default class BounceRulesPage extends React.Component {
   }
 
   handleRuleClick(rule) {
-    this.setState(prevProps => ({
-      isRedirectingToDetail: !prevProps.isRedirectingToDetail,
+    this.setState({
+      isRedirectingToDetail: true,
       selectedRule: rule,
-    }));
+    });
   }
 
   handleKeyDown(rule) {
-    this.setState(prevProps => ({
-      isRedirectingToDetail: !prevProps.isRedirectingToDetail,
+    this.setState({
+      isRedirectingToDetail: true,
       selectedRule: rule,
-    }));
+    });
   }
 
   updateSearchToken(e) {
