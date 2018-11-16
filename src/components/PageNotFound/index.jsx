@@ -9,12 +9,13 @@ const PageNotFound = () => (
     <Row className="logo-container sg-center">
       <Column width={2} offset={6}>
         <img
+          data-test="err-logo"
           className="err-logo sg-center"
           src="https://sendgrid.com/brand/sg-logo-white.png"
           alt="sg-logo"
         />
       </Column>
-      <Row>
+      <Row data-test="err-msg">
         <Column width={4} offset={5}>
           <h1>404: Page Not Found</h1>
         </Column>
@@ -25,7 +26,10 @@ const PageNotFound = () => (
           </p>
         </Column>
         <Column width={4} offset={5}>
-          <span className="btn btn-secondary btn-on-dark sg-centers">
+          <span
+            data-test="err-btn"
+            className="btn btn-secondary btn-on-dark sg-centers"
+          >
             <Link to="/bounce_rules"> {"Go To Home Page"}</Link>
           </span>
         </Column>
