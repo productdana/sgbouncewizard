@@ -1,5 +1,6 @@
 import React from "react";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
+import { Link } from "react-router-dom";
 import {
   HeaderCell,
   Table,
@@ -98,8 +99,8 @@ const BounceRuleDetailed = ({ currentRule }) => (
     <Row>
       <Column width={6} offset={2}>
         <Breadcrumb>
-          <a href="#">Bounce Rules</a>
-          <a href="#">Id</a>
+          <Link to="/bounce_rules">Bounce Rules</Link>
+          <Link to={`/bounce_rules/${  currentRule.id}`}>{currentRule.id}</Link>
         </Breadcrumb>
       </Column>
     </Row>
