@@ -41,6 +41,10 @@ it("should render a create a bounce rule", () => {
   expect(wrapper.find('[data-test="create-rule-button"]')).toHaveLength(1);
 });
 
+it("should render a export to csv button", () => {
+  expect(wrapper.find('[data-test="export-csv-button"]')).toHaveLength(1);
+});
+
 it("should render a filter component", () => {
   expect(wrapper.find(RuleFilter)).toHaveLength(1);
 });

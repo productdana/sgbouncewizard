@@ -81,12 +81,25 @@ exports[`should render correctly 1`] = `
       </h1>
     </div>
     <div
-      className="mako-grid__col-3 col-start-9"
+      className="mako-grid__col-2 col-start-9 csv-button"
+    >
+      <button
+        className="btn btn-secondary"
+        data-test="export-csv-button"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Export CSV
+      </button>
+    </div>
+    <div
+      className="mako-grid__col-2 col-start-11"
     >
       <div
         style={
           Object {
-            "textAlign": "right",
+            "textAlign": "left",
           }
         }
       >
@@ -97,7 +110,7 @@ exports[`should render correctly 1`] = `
           onClick={[Function]}
           type="button"
         >
-          Create Bounce Rule
+          Create Rule
         </button>
       </div>
     </div>
