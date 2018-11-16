@@ -11,6 +11,8 @@ import {
   TableHeader,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
+import Header from "../Header";
+
 import { Row } from "../Row";
 import { Column } from "../Column";
 import RuleFilter from "../RuleFilter";
@@ -74,6 +76,7 @@ const BounceRulesContainer = ({
   invalidFilter,
 }) => (
   <div className="container">
+    <Header name="Kenny" />
     <Row>
       <Column width={6} offset={2}>
         <Breadcrumb>
@@ -84,15 +87,6 @@ const BounceRulesContainer = ({
     <Row>
       <Column width={2} offset={2}>
         <h1>Bounce Rules</h1>
-      </Column>
-      <Column width={4} offset={5}>
-        <div style={{ textAlign: "center", paddingBottom: "10px" }}>
-          <img
-            alt="sendgrid-logo"
-            style={{ maxWidth: "45%" }}
-            src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
-          />
-        </div>
       </Column>
       <Column width={3} offset={9}>
         <div style={{ textAlign: "right" }}>

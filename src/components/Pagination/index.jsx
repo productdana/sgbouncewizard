@@ -1,5 +1,6 @@
 import React from "react";
 import cn from "classnames";
+import "./index.scss";
 
 const Pagination = ({
   prevPageIndex,
@@ -11,7 +12,7 @@ const Pagination = ({
   const endPage = pageIndex + (5 - (pageIndex % 5 === 0 ? 5 : pageIndex % 5));
   const startPage = endPage - 4;
   return (
-    <div className="pagination">
+    <div className="pagination pagination-container">
       <a
         className="btn btn-secondary btn-small pagination-prev"
         onClick={prevPageIndex}

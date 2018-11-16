@@ -5,6 +5,52 @@ exports[`should render correctly 1`] = `
   className="container"
 >
   <div
+    className="header-container"
+  >
+    <div
+      className="mako-grid__row"
+    >
+      <div
+        className="mako-grid__col-3 col-start-2"
+      >
+        <img
+          alt="sendgrid-logo"
+          className="sg-logo"
+          data-test="sg-logo"
+          src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
+          style={
+            Object {
+              "maxWidth": "45%",
+            }
+          }
+        />
+      </div>
+      <div
+        className="mako-grid__col-2 col-start-10"
+      >
+        <div
+          className="header-user-container"
+        >
+          <span
+            className="header-greeting"
+            data-test="user-greeting"
+          >
+            Hello, 
+            Kenny
+            !
+          </span>
+          <a
+            className="header-logout"
+            data-test="logout-button"
+            to="/"
+          >
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
     className="mako-grid__row"
   >
     <div
@@ -33,28 +79,6 @@ exports[`should render correctly 1`] = `
       <h1>
         Bounce Rules
       </h1>
-    </div>
-    <div
-      className="mako-grid__col-4 col-start-5"
-    >
-      <div
-        style={
-          Object {
-            "paddingBottom": "10px",
-            "textAlign": "center",
-          }
-        }
-      >
-        <img
-          alt="sendgrid-logo"
-          src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
-          style={
-            Object {
-              "maxWidth": "45%",
-            }
-          }
-        />
-      </div>
     </div>
     <div
       className="mako-grid__col-3 col-start-9"
@@ -377,7 +401,7 @@ exports[`should render correctly 1`] = `
       className="mako-grid__col-4 col-start-5"
     >
       <div
-        className="pagination"
+        className="pagination pagination-container"
       >
         <a
           className="btn btn-secondary btn-small pagination-prev"
