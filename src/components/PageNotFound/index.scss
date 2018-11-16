@@ -1,0 +1,42 @@
+.not-found-container {
+  height: 100%;
+  background: linear-gradient(
+      rgba(26, 130, 226, 0.85),
+      rgba(26, 130, 226, 0.85)
+    ),
+    url(/public/assets/penguin.gif) no-repeat 50% fixed;
+  background-size: cover;
+  h1 {
+    color: #fff;
+    text-shadow: 0 2px 3px rgba(41, 70, 97, 0.15);
+    margin: 0;
+    margin-top: 1rem;
+    font-size: 3rem;
+  }
+  .link,
+  a {
+    color: #fff;
+  }
+}
+
+.err-logo {
+  width: 9.492rem;
+  margin-bottom: 5vh;
+}
+
+.logo-container {
+  padding-top: 30vh;
+  padding-bottom: 3vh;
+}
+
+.not-found-subtext {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 2px 3px rgba(41, 70, 97, 0.15);
+  margin-bottom: 8vh;
+}
+
+.space-1 {
+  height: 1.5rem;
+}
