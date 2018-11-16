@@ -1,0 +1,26 @@
+.detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 210px;
+  padding: 5px;
+  background: #f4f6f7;
+
+  td {
+    padding: 15px 10px;
+  }
+}
+
+.description-info {
+  height: 20%;
+  width: 100%;
+}
+
+.detail-info {
+  display: flex;
+  width: 100%;
+}
+
+.changelog-container {
+  margin-top: 2vh;
+}

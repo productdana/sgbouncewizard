@@ -1,60 +1,123 @@
 import React from "react";
+import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
+import {
+  HeaderCell,
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@sendgrid/ui-components/table/table";
+import { Row } from "../Row";
+import { Column } from "../Column";
+import Header from "../Header";
+import "./index.scss";
+
+const DetailContainer = ({ currentRule }) => (
+  <div className="detail-container card ">
+    <div className="description-info">
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              <strong>Description</strong>
+            </TableCell>
+            <TableCell> {currentRule.description} </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+    <div className="detail-info">
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              <strong>Bounce ID</strong>
+            </TableCell>
+            <TableCell> {currentRule.id} </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <strong>Response Code</strong>
+            </TableCell>
+            <TableCell> {currentRule.response_code} </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <strong>Enhanced Code</strong>
+            </TableCell>
+            <TableCell> {currentRule.enhanced_code} </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              <strong>Regex</strong>
+            </TableCell>
+            <TableCell> {currentRule.regex} </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <strong>Priority</strong>
+            </TableCell>
+            <TableCell> {currentRule.priority} </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <strong>Bounce Action</strong>
+            </TableCell>
+            <TableCell> {currentRule.bounce_action} </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  </div>
+);
+
+const Changelog = () => (
+  <div>
+    <h2>Changelog</h2>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <HeaderCell>ID</HeaderCell>
+          <HeaderCell>Date</HeaderCell>
+          <HeaderCell>Change Description</HeaderCell>
+          <HeaderCell>Action</HeaderCell>
+        </TableRow>
+      </TableHeader>
+    </Table>
+  </div>
+);
 
 const BounceRuleDetailed = ({ currentRule }) => (
-  <div
-    className="row"
-    style={{
-      marginTop: "2rem",
-      height: "100vh",
-      display: "flex",
-      justifyContent: "center",
-    }}
-  >
-    <div
-      style={{
-        width: "50rem",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <a href="/" style={{ textDecoration: "none", color: "black" }}>
-          Log Out
-        </a>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          margin: "1rem 0",
-        }}
-      >
-        <div
-          style={{
-            width: "20rem",
-            fontSize: "2rem",
-          }}
-        >
-          Bounce Rule Details
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Create a Bounce Rule
-        </button>
-      </div>
-      <div
-        style={{
-          border: "1px solid black",
-          padding: "1.5rem",
-          margin: "2rem 0",
-        }}
-      >
-        {currentRule.description}
-      </div>
-      <div>Changelog</div>
-    </div>
+  <div className="detailed-page-container">
+    <Header />
+    <Row>
+      <Column width={6} offset={2}>
+        <Breadcrumb>
+          <a href="#">Bounce Rules</a>
+          <a href="#">Id</a>
+        </Breadcrumb>
+      </Column>
+    </Row>
+    <Row>
+      <Column width={6} offset={2}>
+        <h1>Bounce Rule 173</h1>
+      </Column>
+    </Row>
+    <Row>
+      <Column width={10} offset={2}>
+        <DetailContainer currentRule={currentRule} />
+      </Column>
+    </Row>
+    <Row className="changelog-container">
+      <Column width={10} offset={2}>
+        <Changelog />
+      </Column>
+    </Row>
   </div>
 );
 
