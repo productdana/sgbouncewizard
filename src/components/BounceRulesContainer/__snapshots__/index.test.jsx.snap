@@ -396,7 +396,7 @@ exports[`should render correctly 1`] = `
               Description
             </th>
             <th
-              className=""
+              className="actions-cell"
               onClick={[Function]}
             >
               Actions

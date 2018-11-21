@@ -26,7 +26,7 @@ const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
         <HeaderCell>Bounce Action</HeaderCell>
         <HeaderCell>Response Code</HeaderCell>
         <HeaderCell>Description</HeaderCell>
-        <HeaderCell>Actions</HeaderCell>
+        <HeaderCell className="actions-cell">Actions</HeaderCell>
       </TableRow>
     </TableHeader>
     <TableBody>
