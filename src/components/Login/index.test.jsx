@@ -15,11 +15,9 @@ describe("Login", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("should render username input", () => {
+  it("should render email input", () => {
     const loginFormWrapper = shallow(<LoginForm />);
-    expect(loginFormWrapper.find('[data-test="username-field"]')).toHaveLength(
-      1
-    );
+    expect(loginFormWrapper.find('[data-test="email-field"]')).toHaveLength(1);
   });
 
   it("should render password input", () => {

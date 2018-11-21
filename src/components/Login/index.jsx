@@ -10,7 +10,7 @@ const InvalidCredentialsAlert = ({ handleAlertClose }) => (
   <div data-test="invalid-credentials-alert" className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
-      Your username or password does not match any existing user credentials.
+      Your email or password does not match any existing user credentials.
       <i
         onClick={handleAlertClose}
         onKeyDown={handleAlertClose}
@@ -26,7 +26,7 @@ const InvalidInputAlert = ({ handleAlertClose }) => (
   <div className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
-      Your username and password fields are required and must contain valid
+      Your email and password fields are required and must contain valid
       characters.
       <i
         onClick={handleAlertClose}
@@ -75,23 +75,23 @@ const LoginButton = () => (
 );
 
 const LoginForm = ({
-  handleLoginSubmit,
-  handleInputChange,
-  username,
+  handleLogin,
+  email,
   password,
   isAuthenticating,
+  updateField,
 }) => (
   <div className="login-form-body">
-    <form onSubmit={handleLoginSubmit} id="login-form">
+    <form onSubmit={handleLogin} id="login-form">
       <Row>
         <Column width={6} offset={4}>
           <div className="input-text-wrap">
             <TextInput
-              data-test="username-field"
-              onChange={e => handleInputChange(e, "username")}
-              value={username}
-              type="text"
-              label="Username"
+              data-test="email-field"
+              onChange={e => updateField(e, "email")}
+              value={email}
+              type="email"
+              label="Email"
             />
           </div>
         </Column>
@@ -99,7 +99,7 @@ const LoginForm = ({
       <Row>
         <Column width={6} offset={4}>
           <TextInput
-            onChange={e => handleInputChange(e, "password")}
+            onChange={e => updateField(e, "password")}
             data-test="password-field"
             value={password}
             type="password"
@@ -122,16 +122,16 @@ const LoginForm = ({
 );
 
 const Login = ({
-  username,
+  email,
   password,
   isAuthenticating,
   isAuthenticationError,
   isInvalidCredentials,
   isInvalidInput,
   isNetworkError,
-  handleLoginSubmit,
-  handleInputChange,
+  handleLogin,
   handleAlertClose,
+  updateField,
 }) => (
   <div className="login-container">
     <Row>
@@ -170,11 +170,11 @@ const Login = ({
               )}
           </Row>
           <LoginForm
-            username={username}
+            email={email}
             password={password}
-            handleInputChange={handleInputChange}
-            handleLoginSubmit={handleLoginSubmit}
+            handleLogin={handleLogin}
             isAuthenticating={isAuthenticating}
+            updateField={updateField}
           />
         </div>
       </Column>
@@ -183,27 +183,27 @@ const Login = ({
 );
 
 Login.propTypes = {
-  username: PropTypes.string,
+  email: PropTypes.string,
   password: PropTypes.string,
   isAuthenticating: PropTypes.bool,
   isAuthenticationError: PropTypes.bool,
   isInvalidCredentials: PropTypes.bool,
   isInvalidInput: PropTypes.bool,
   isNetworkError: PropTypes.bool,
-  handleLoginSubmit: PropTypes.func,
-  handleInputChange: PropTypes.func,
+  handleLogin: PropTypes.func,
+  updateField: PropTypes.func,
 };
 
 Login.defaultProps = {
-  username: "",
+  email: "",
   password: "",
   isAuthenticating: false,
   isAuthenticationError: false,
   isInvalidCredentials: false,
   isInvalidInput: false,
   isNetworkError: false,
-  handleLoginSubmit: () => {},
-  handleInputChange: () => {},
+  handleLogin: () => {},
+  updateField: () => {},
 };
 
 export default Login;

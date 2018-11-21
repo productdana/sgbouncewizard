@@ -1,13 +1,14 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import Login from "../components/Login";
+import authenticateUser from "../utils/authenticate";
 
 export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "",
+      email: "",
       password: "",
       isAuthenticating: false,
       isAuthenticated: false,
@@ -17,53 +18,64 @@ export default class LoginPage extends React.Component {
       isNetworkError: false,
     };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.updateField = this.updateField.bind(this);
     this.handleAlertClose = this.handleAlertClose.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleInputChange(e, field) {
+  updateField(e, field) {
     this.setState({
-      [field]: e.target.value,
+      [field]: e.currentTarget.value,
     });
   }
 
-  handleLoginSubmit(event) {
-    const { username, password } = this.state;
-    event.preventDefault();
-    if (!(username && password)) {
+  async handleLogin(e) {
+    e.preventDefault();
+    const { email, password } = this.state;
+
+    if (!(email && password)) {
       this.setState({
         isAuthenticationError: true,
         isInvalidInput: true,
         isInvalidCredentials: false,
         isNetworkError: false,
       });
-
       return;
     }
 
     this.setState({
-      isAuthenticating: false,
-      isAuthenticated: false,
-      isAuthenticationError: false,
-      isInvalidCredentials: false,
-      isInvalidInput: false,
-      isNetworkError: false,
+      isAuthenticating: true,
     });
 
-    if (username === "ziv" && password === "papa") {
-      this.setState({
-        isAuthenticating: false,
-        isAuthenticated: true,
-        isAuthenticationError: false,
-      });
-    } else {
+    try {
+      const { data } = await authenticateUser({ email, password });
+      if (data.id !== 0 && data.id !== undefined) {
+        this.setState(() => ({
+          isAuthenticating: false,
+          isAuthenticated: true,
+          isInvalidCredentials: false,
+          isInvalidInput: false,
+          isAuthenticationError: false,
+          isNetworkError: false,
+        }));
+      } else {
+        this.setState(() => ({
+          isAuthenticating: false,
+          isAuthenticated: false,
+          isInvalidCredentials: true,
+          isInvalidInput: false,
+          isAuthenticationError: true,
+          isNetworkError: false,
+        }));
+      }
+    } catch (err) {
       this.setState({
         isAuthenticating: false,
         isAuthenticated: false,
+        isInvalidCredentials: false,
+        isInvalidInput: false,
         isAuthenticationError: true,
-        isInvalidCredentials: true,
-        isNetworkError: false,
+        isNetworkError: true,
       });
     }
   }
@@ -82,6 +94,7 @@ export default class LoginPage extends React.Component {
   render() {
     const {
       username,
+      email,
       password,
       isAuthenticating,
       isAuthenticated,
@@ -96,6 +109,7 @@ export default class LoginPage extends React.Component {
       <Redirect to={redirectLink} />
     ) : (
       <Login
+        email={email}
         username={username}
         password={password}
         isAuthenticating={isAuthenticating}
@@ -103,9 +117,9 @@ export default class LoginPage extends React.Component {
         isInvalidCredentials={isInvalidCredentials}
         isInvalidInput={isInvalidInput}
         isNetworkError={isNetworkError}
-        handleInputChange={this.handleInputChange}
-        handleLoginSubmit={this.handleLoginSubmit}
+        handleLogin={this.handleLogin}
         handleAlertClose={this.handleAlertClose}
+        updateField={this.updateField}
       />
     );
   }

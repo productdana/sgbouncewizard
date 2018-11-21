@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import "./index.scss";
 import cn from "classnames";
-import { listRules } from "../../utils/ruleCalls";
+import listRules from "../../utils/ruleCalls";
 
 export default class BounceRulesContainer extends React.Component {
   constructor(props) {
