@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const listRules = async () => {
-  const response = await axios.get(`${process.env.API_URL  }/bounce_rules`);
+  const response = await axios.get(`${process.env.API_URL}/bounce_rules`);
   if (response.status === 200) {
     return response;
   }

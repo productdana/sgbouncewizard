@@ -67,14 +67,14 @@ const RuleFilter = ({
           >
             Add a Filter
           </button>
-          {filterOptions.map(filter => (
+          {filterOptions.map(filterOption => (
             <button
               type="button"
               className="btn btn-small btn-secodary"
-              onClick={e => removeFilter(e, filter)}
-              key={JSON.stringify(filter)}
+              onClick={removeFilter}
+              key={JSON.stringify(filterOption)}
             >
-              {filter.searchCategory} - {filter.searchToken}
+              {filterOption.searchCategory} - {filterOption.searchToken}
             </button>
           ))}
         </div>

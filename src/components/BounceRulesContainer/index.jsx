@@ -80,7 +80,7 @@ const BounceRulesContainer = ({
     <Row>
       <Column width={6} offset={2}>
         <Breadcrumb>
-          <a href="#">Bounce Rules</a>
+          <a href="/bounce_rules">Bounce Rules</a>
         </Breadcrumb>
       </Column>
     </Row>
