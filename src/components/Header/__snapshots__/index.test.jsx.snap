@@ -39,7 +39,7 @@ exports[`should render correctly 1`] = `
         <a
           className="header-logout"
           data-test="logout-button"
-          to="/"
+          href="/"
         >
           Logout
         </a>
