@@ -1,6 +1,7 @@
 import React from "react";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { Link } from "react-router-dom";
+import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import {
   HeaderCell,
   Table,
@@ -12,15 +13,37 @@ import {
 import { Row } from "../Row";
 import { Column } from "../Column";
 import Header from "../Header";
+import Pagination from "../Pagination";
 import "./index.scss";
+
+const mockChangelog = [
+  {
+    id: "1",
+    date: "11.07.2018",
+    user: "Cody",
+    message: "Fixed another another typo in the description",
+  },
+  {
+    id: "2",
+    date: "11.06.2018",
+    user: "Joseph",
+    message: "Fixed another typo in the description",
+  },
+  {
+    id: "3",
+    date: "11.05.2018",
+    user: "Kristen",
+    message: "Fixed a typo in the description",
+  },
+];
 
 const DetailContainer = ({ currentRule }) => (
   <div className="detail-container card ">
     <div className="description-info">
-      <Table>
+      <Table className="table-fixed">
         <TableBody>
           <TableRow>
-            <TableCell>
+            <TableCell className="description-cell">
               <strong>Description</strong>
             </TableCell>
             <TableCell> {currentRule.description} </TableCell>
@@ -83,14 +106,32 @@ const Changelog = () => (
     <Table>
       <TableHeader>
         <TableRow>
-          <HeaderCell>ID</HeaderCell>
           <HeaderCell>Date</HeaderCell>
-          <HeaderCell>Change Description</HeaderCell>
-          <HeaderCell>Action</HeaderCell>
+          <HeaderCell>User</HeaderCell>
+          <HeaderCell>Commit Message</HeaderCell>
+          <HeaderCell className="actions-align">Actions</HeaderCell>
         </TableRow>
       </TableHeader>
+      <TableBody>
+        {mockChangelog.map(change => (
+          <ChangelogMin key={change.id} change={change} />
+        ))}
+      </TableBody>
     </Table>
   </div>
+);
+
+const ChangelogMin = change => (
+  <TableRow>
+    <TableCell>{change.change.date}</TableCell>
+    <TableCell>{change.change.user}</TableCell>
+    <TableCell>{change.change.message}</TableCell>
+    <ActionsCell>
+      <Action title="View" onClick={() => {}} icon="view" />
+      <Action title="Edit" icon="pencil" />
+      <Action title="Delete" icon="trash" />
+    </ActionsCell>
+  </TableRow>
 );
 
 const BounceRuleDetailed = ({ currentRule }) => (
@@ -100,7 +141,7 @@ const BounceRuleDetailed = ({ currentRule }) => (
       <Column width={6} offset={2}>
         <Breadcrumb>
           <Link to="/bounce_rules">Bounce Rules</Link>
-          <Link to={`/bounce_rules/${  currentRule.id}`}>{currentRule.id}</Link>
+          <Link to={`/bounce_rules/${currentRule.id}`}>{currentRule.id}</Link>
         </Breadcrumb>
       </Column>
     </Row>
@@ -117,6 +158,18 @@ const BounceRuleDetailed = ({ currentRule }) => (
     <Row className="changelog-container">
       <Column width={10} offset={2}>
         <Changelog />
+      </Column>
+    </Row>
+    <Row>
+      <Column width={4} offset={5}>
+        <Pagination
+          prevPageIndex={1}
+          nextPageIndex={10}
+          pageIndex={1}
+          pageInterval={1}
+          numRules={3}
+          updatePageIndex={() => {}}
+        />
       </Column>
     </Row>
   </div>
