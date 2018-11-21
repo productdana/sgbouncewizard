@@ -61,7 +61,7 @@ exports[`should render correctly 1`] = `
       >
         <li>
           <a
-            href="#"
+            href="/bounce_rules"
           >
             Bounce Rules
           </a>
