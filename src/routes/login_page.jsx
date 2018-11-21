@@ -33,7 +33,7 @@ export default class LoginPage extends React.Component {
     e.preventDefault();
     const { email, password } = this.state;
 
-    if (!(email || password)) {
+    if (!(email && password)) {
       this.setState({
         isAuthenticationError: true,
         isInvalidInput: true,
@@ -47,20 +47,9 @@ export default class LoginPage extends React.Component {
       isAuthenticating: true,
     });
 
-    const { data, status } = await authenticateUser({ email, password }).catch(
-      () => {
-        this.setState({
-          isAuthenticating: false,
-          isAuthenticated: false,
-          isInvalidCredentials: false,
-          isInvalidInput: false,
-          isAuthenticationError: true,
-          isNetworkError: true,
-        });
-      }
-    );
+    try {
+      const { data } = await authenticateUser({ email, password });
 
-    if (status === 200) {
       if (data.id !== 0) {
         this.setState(() => ({
           isAuthenticating: false,
@@ -68,7 +57,7 @@ export default class LoginPage extends React.Component {
           isInvalidCredentials: false,
           isInvalidInput: false,
           isAuthenticationError: false,
-          isNetworkError: true,
+          isNetworkError: false,
         }));
       } else {
         this.setState(() => ({
@@ -80,15 +69,15 @@ export default class LoginPage extends React.Component {
           isNetworkError: false,
         }));
       }
-    } else {
-      this.setState(() => ({
+    } catch (err) {
+      this.setState({
         isAuthenticating: false,
         isAuthenticated: false,
         isInvalidCredentials: false,
         isInvalidInput: false,
         isAuthenticationError: true,
         isNetworkError: true,
-      }));
+      });
     }
   }
 
