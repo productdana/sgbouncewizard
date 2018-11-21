@@ -88,14 +88,22 @@ const BounceRulesContainer = ({
       <Column width={2} offset={2}>
         <h1>Bounce Rules</h1>
       </Column>
-      <Column className="csv-button" width={2} offset={9}>
-        <Button data-test="export-csv-button" type="secondary">
+      <Column className="csv-button-col" width={1} offset={10}>
+        <Button
+          data-test="export-csv-button"
+          className="csv-button"
+          type="secondary"
+        >
           Export CSV
         </Button>
       </Column>
-      <Column width={2} offset={11}>
+      <Column width={1} offset={11}>
         <div style={{ textAlign: "left" }}>
-          <Button data-test="create-rule-button" type="primary">
+          <Button
+            data-test="create-rule-button"
+            className="create-rule-button"
+            type="primary"
+          >
             Create Rule
           </Button>
         </div>

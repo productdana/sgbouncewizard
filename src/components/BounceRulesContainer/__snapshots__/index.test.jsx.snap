@@ -81,10 +81,10 @@ exports[`should render correctly 1`] = `
       </h1>
     </div>
     <div
-      className="mako-grid__col-2 col-start-9 csv-button"
+      className="mako-grid__col-1 col-start-10 csv-button-col"
     >
       <button
-        className="btn btn-secondary"
+        className="btn btn-secondary csv-button"
         data-test="export-csv-button"
         disabled={false}
         onClick={[Function]}
@@ -94,7 +94,7 @@ exports[`should render correctly 1`] = `
       </button>
     </div>
     <div
-      className="mako-grid__col-2 col-start-11"
+      className="mako-grid__col-1 col-start-11"
     >
       <div
         style={
@@ -104,7 +104,7 @@ exports[`should render correctly 1`] = `
         }
       >
         <button
-          className="btn btn-primary"
+          className="btn btn-primary create-rule-button"
           data-test="create-rule-button"
           disabled={false}
           onClick={[Function]}
