@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginPage from "./routes/login_page";
-import BounceRulesContainer from "./components/BounceRulesContainer";
-import BounceRuleDetails from "./components/BounceRuleDetails";
+import BounceRulesContainer from "./routes/bounce_rules_page";
+import BounceRuleDetailedPage from "./routes/bounce_rules_detailed";
 import PageNotFound from "./components/PageNotFound";
 import "./index.scss";
 
@@ -15,7 +15,7 @@ const App = () => (
         <Route exact path="/bounce_rules" component={BounceRulesContainer} />
         <Route
           path="/bounce_rules/:bounceRuleId"
-          component={BounceRuleDetails}
+          component={BounceRuleDetailedPage}
         />
         <Route path="*" exact component={PageNotFound} />
       </Switch>

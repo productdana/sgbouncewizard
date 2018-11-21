@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div
+  className="header-container"
+>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-3 col-start-2"
+    >
+      <img
+        alt="sendgrid-logo"
+        className="sg-logo"
+        data-test="sg-logo"
+        src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
+        style={
+          Object {
+            "maxWidth": "45%",
+          }
+        }
+      />
+    </div>
+    <div
+      className="mako-grid__col-2 col-start-10"
+    >
+      <div
+        className="header-user-container"
+      >
+        <span
+          className="header-greeting"
+          data-test="user-greeting"
+        >
+          Hello, 
+          User
+          !
+        </span>
+        <a
+          className="header-logout"
+          data-test="logout-button"
+          href="/"
+        >
+          Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,232 +1,151 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import "./index.scss";
-import cn from "classnames";
-import listRules from "../../utils/ruleCalls";
+import { Button } from "@sendgrid/ui-components/button";
+import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
+import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
+import {
+  HeaderCell,
+  TableCell,
+  Table,
+  TableBody,
+  TableHeader,
+  TableRow,
+} from "@sendgrid/ui-components/table/table";
+import Header from "../Header";
 
-export default class BounceRulesContainer extends React.Component {
-  constructor(props) {
-    super(props);
+import { Row } from "../Row";
+import { Column } from "../Column";
+import RuleFilter from "../RuleFilter";
+import Pagination from "../Pagination";
 
-    this.state = {
-      searchToken: "",
-      isRedirectingToDetail: false,
-      selectedRule: {},
-      rules: [],
-      pageIndex: 1,
-      pageInterval: 10,
-    };
+const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
+  <Table>
+    <TableHeader>
+      <TableRow>
+        <HeaderCell>Id</HeaderCell>
+        <HeaderCell>Bounce Action</HeaderCell>
+        <HeaderCell>Response Code</HeaderCell>
+        <HeaderCell>Description</HeaderCell>
+        <HeaderCell className="actions-cell">Actions</HeaderCell>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {rules.map(rule => (
+        <BounceRuleMin
+          handleKeyDown={handleKeyDown}
+          handleRuleClick={handleRuleClick}
+          key={rule.id}
+          rule={rule}
+        />
+      ))}
+    </TableBody>
+  </Table>
+);
 
-    this.updateSearchToken = this.updateSearchToken.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
+const BounceRuleMin = ({ rule, handleRuleClick }) => (
+  <TableRow>
+    <TableCell>{rule.id}</TableCell>
+    <TableCell>{rule.bounce_action}</TableCell>
+    <TableCell>{rule.response_code}</TableCell>
+    <TableCell>{rule.description}</TableCell>
+    <ActionsCell>
+      <Action title="View" onClick={() => handleRuleClick(rule)} icon="view" />
+      <Action title="Edit" icon="pencil" />
+      <Action title="Delete" icon="trash" />
+    </ActionsCell>
+  </TableRow>
+);
 
-  async componentDidMount() {
-    const { data, status } = await listRules();
-    if (status === 200) {
-      const { rules, numRules } = data;
-      this.setState({
-        rules,
-        numRules,
-      });
-    }
-  }
-
-  handleRuleClick(rule) {
-    this.setState(prevProps => ({
-      isRedirectingToDetail: !prevProps.isRedirectingToDetail,
-      selectedRule: rule,
-    }));
-  }
-
-  handleKeyDown(rule) {
-    this.setState(prevProps => ({
-      isRedirectingToDetail: !prevProps.isRedirectingToDetail,
-      selectedRule: rule,
-    }));
-  }
-
-  updateSearchToken(e) {
-    this.setState({
-      searchToken: e.target.value.toLowerCase(),
-    });
-  }
-
-  filterRules(rules) {
-    const { searchToken } = this.state;
-
-    return rules.filter(
-      rule =>
-        rule.bounce_action.toLowerCase().includes(searchToken) ||
-        rule.description.toLowerCase().includes(searchToken)
-    );
-  }
-
-  paginate(rules) {
-    const { pageIndex, pageInterval } = this.state;
-    return rules.slice(pageIndex - 1, pageIndex - 1 + pageInterval);
-  }
-
-  updatePageIndex(newIndex) {
-    this.setState(prevState => ({
-      pageIndex:
-        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
-    }));
-  }
-
-  render() {
-    const {
-      isRedirectingToDetail,
-      pageIndex,
-      selectedRule,
-      rules,
-      numRules,
-    } = this.state;
-    const filteredRules = this.filterRules(this.paginate(rules));
-
-    const endPage = pageIndex + (5 - (pageIndex % 5 === 0 ? 5 : pageIndex % 5));
-    const startPage = endPage - 4;
-
-    return isRedirectingToDetail ? (
-      <Redirect
-        push
-        to={{
-          pathname: `/bounce_rules/${selectedRule.id}`,
-          state: { currentRule: selectedRule },
-        }}
-      />
-    ) : (
-      <div
-        className="row"
-        style={{
-          marginTop: "4rem",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "50rem",
-          }}
+const BounceRulesContainer = ({
+  handleRuleClick,
+  handleKeyDown,
+  updateSearchToken,
+  updateSearchCategory,
+  removeFilter,
+  prevPageIndex,
+  nextPageIndex,
+  updatePageIndex,
+  filteredRules,
+  searchToken,
+  selectedRule,
+  pageIndex,
+  pageInterval,
+  numRules,
+  filterOptions,
+  addFilter,
+  invalidFilter,
+}) => (
+  <div className="container">
+    <Header name="Kenny" />
+    <Row>
+      <Column width={6} offset={2}>
+        <Breadcrumb>
+          <a href="/bounce_rules">Bounce Rules</a>
+        </Breadcrumb>
+      </Column>
+    </Row>
+    <Row>
+      <Column width={2} offset={2}>
+        <h1>Bounce Rules</h1>
+      </Column>
+      <Column className="csv-button-col" width={1} offset={10}>
+        <Button
+          data-test="export-csv-button"
+          className="csv-button"
+          type="secondary"
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
+          Export CSV
+        </Button>
+      </Column>
+      <Column width={1} offset={11}>
+        <div style={{ textAlign: "left" }}>
+          <Button
+            data-test="create-rule-button"
+            className="create-rule-button"
+            type="primary"
           >
-            <div />
-            <div style={{ fontSize: "2rem", fontWeight: "500" }}>
-              Bounce Wizard
-            </div>
-            <a href="/" style={{ textDecoration: "none", color: "black" }}>
-              Log Out
-            </a>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin: "1rem 0",
-            }}
-          >
-            <input
-              style={{
-                border: "1px solid black",
-                padding: "1rem",
-                width: "20rem",
-              }}
-              onChange={this.updateSearchToken}
-              placeholder="Search By:"
-            />
-            <button type="submit" className="btn btn-primary">
-              Create a Bounce Rule
-            </button>
-          </div>
-          <div>
-            {filteredRules.map(rule => (
-              <div
-                key={rule.id}
-                className="bounceRules-ruleContainer"
-                style={{
-                  border: "0.125rem solid grey",
-                  padding: "2rem",
-                  margin: "3rem 0",
-                }}
-                onClick={() => this.handleRuleClick(rule)}
-                onKeyDown={() => this.handleKeyDown(rule)}
-                role="button"
-                tabIndex="0"
-              >
-                <div>Bounce Action: {rule.bounce_action}</div>
-                <div style={{ wordWrap: "break-word" }}>
-                  Description: {rule.description}
-                </div>
-                <div>Last Commit Message: </div>
-              </div>
-            ))}
-            <div className="pagination">
-              <a
-                className="btn btn-secondary btn-small pagination-prev"
-                onClick={() =>
-                  this.setState(prevState => ({
-                    pageIndex:
-                      prevState.pageIndex > 1 ? prevState.pageIndex - 1 : 0,
-                  }))
-                }
-                onKeyDown={() => {}}
-                role="button"
-                tabIndex="0"
-              >
-                Prev
-              </a>
-              <div className="pagination-links">
-                {Array(endPage - startPage + 1)
-                  .fill()
-                  .map((_, i) => startPage + i)
-                  .map(number => (
-                    <a
-                      key={number}
-                      className={cn("pagination-link", {
-                        "is-active": number === pageIndex,
-                      })}
-                      onClick={() => this.updatePageIndex(number)}
-                      onKeyDown={() => {}}
-                      role="button"
-                      tabIndex="0"
-                    >
-                      {number}
-                    </a>
-                  ))}
-                <a className="pagination-ellipses">&hellip;</a>
-                <a
-                  className="pagination-link"
-                  onClick={() => this.updatePageIndex(numRules)}
-                  onKeyDown={() => {}}
-                  role="button"
-                  tabIndex="0"
-                >
-                  {numRules}
-                </a>
-              </div>
-              <a
-                className="btn btn-secondary btn-small pagination-next"
-                onClick={() =>
-                  this.setState(prevState => ({
-                    pageIndex: prevState.pageIndex + 1,
-                  }))
-                }
-                onKeyDown={() => {}}
-                role="button"
-                tabIndex="0"
-              >
-                Next
-              </a>
-            </div>
-          </div>
+            Create Rule
+          </Button>
         </div>
-      </div>
-    );
-  }
-}
+      </Column>
+    </Row>
+    <Row>
+      <Column width={10} offset={2}>
+        <RuleFilter
+          searchToken={searchToken}
+          updateSearchToken={updateSearchToken}
+          updateSearchCategory={updateSearchCategory}
+          filterOptions={filterOptions}
+          addFilter={addFilter}
+          removeFilter={removeFilter}
+          invalidFilter={invalidFilter}
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column width={10} offset={2}>
+        <RuleListContainer
+          handleRuleClick={handleRuleClick}
+          handleKeyDown={handleKeyDown}
+          selectedRule={selectedRule}
+          rules={filteredRules}
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column width={4} offset={5}>
+        <Pagination
+          prevPageIndex={prevPageIndex}
+          nextPageIndex={nextPageIndex}
+          pageIndex={pageIndex}
+          pageInterval={pageInterval}
+          numRules={numRules}
+          updatePageIndex={updatePageIndex}
+        />
+      </Column>
+    </Row>
+  </div>
+);
+
+export default BounceRulesContainer;
+export { RuleListContainer, BounceRuleMin };

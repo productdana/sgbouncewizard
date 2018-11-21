@@ -1,3 +1,17 @@
-.bounceRules-ruleContainer:hover {
-  cursor: pointer;
+th.actions-cell {
+  padding-right: 0;
+  text-align: right;
+}
+
+.csv-button-col {
+  text-align: right;
+}
+
+.csv-button {
+  left: 20px;
+}
+
+.create-rule-button,
+.csv-button {
+  white-space: nowrap;
 }
