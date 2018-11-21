@@ -20,7 +20,7 @@ const Header = ({ name }) => (
           <span data-test="user-greeting" className="header-greeting">
             Hello, {name || "User"}!
           </span>
-          <a data-test="logout-button" className="header-logout" to="/">
+          <a data-test="logout-button" className="header-logout" href="/">
             Logout
           </a>
         </div>
