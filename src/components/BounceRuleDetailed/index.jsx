@@ -48,6 +48,36 @@ const mockChangelog = [
     user: "Khuong",
     message: "Fixed a typo in the description",
   },
+  {
+    id: "6",
+    date: "11.07.2018",
+    user: "Cody",
+    message: "Fixed another another typo in the description",
+  },
+  {
+    id: "7",
+    date: "11.06.2018",
+    user: "Joseph",
+    message: "Fixed another typo in the description",
+  },
+  {
+    id: "8",
+    date: "11.05.2018",
+    user: "Kristen",
+    message: "Fixed a typo in the description",
+  },
+  {
+    id: "9",
+    date: "11.04.2018",
+    user: "Greg",
+    message: "Fixed a typo in the description",
+  },
+  {
+    id: "10",
+    date: "11.03.2018",
+    user: "Khuong",
+    message: "Fixed a typo in the description",
+  },
 ];
 
 const DetailContainer = ({ currentRule }) => (
@@ -151,25 +181,25 @@ const ChangelogMin = ({ change, openModal }) => (
   </TableRow>
 );
 
-const ViewChangeModal = ({ isModalOpen, closeModal }) => (
+const ViewChangeModal = ({ currentRule, isModalOpen, closeModal }) => (
   <CenterModal
     large
     open={isModalOpen}
-    renderBody={<ModalBody closeModal={closeModal} />}
+    renderBody={<ModalBody closeModal={closeModal} currentRule={currentRule} />}
     data-role="example"
   />
 );
 
-const ModalBody = ({ closeModal }) => (
+const ModalBody = ({ currentRule, closeModal }) => (
   <div className="changelog-modal">
     <Row>
       <Column width={6} offset={1}>
         <h1>Current</h1>
-        <ChangeTable />
+        <ChangeTable currentRule={currentRule} />
       </Column>
       <Column width={6} offset={7}>
         <h1>Previous</h1>
-        <ChangeTable />
+        <ChangeTable currentRule={currentRule} />
       </Column>
     </Row>
     <Row>
@@ -180,60 +210,60 @@ const ModalBody = ({ closeModal }) => (
   </div>
 );
 
-const ChangeTable = () => (
+const ChangeTable = ({ currentRule }) => (
   <Table className="change-table">
     <TableBody>
       <TableRow>
         <TableCell>
           <strong>ID</strong>
         </TableCell>
-        <TableCell>Test</TableCell>
+        <TableCell>{currentRule.id}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
           <strong>Bounce Action</strong>
         </TableCell>
-        <TableCell>Test</TableCell>
+        <TableCell>{currentRule.bounce_action}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
           <strong>Response Code</strong>
         </TableCell>
-        <TableCell>Test</TableCell>
+        <TableCell>{currentRule.response_code}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
           <strong>Enhanced Code</strong>
         </TableCell>
-        <TableCell>Test</TableCell>
+        <TableCell>{currentRule.enhanced_code}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
           <strong>RegEx</strong>
         </TableCell>
-        <TableCell>Test</TableCell>
+        <TableCell>{currentRule.regex}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
           <strong>Priority</strong>
         </TableCell>
-        <TableCell>Test</TableCell>
+        <TableCell>{currentRule.priority}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
           <strong>Description</strong>
         </TableCell>
-        <TableCell>Test</TableCell>
+        <TableCell>{currentRule.description}</TableCell>
       </TableRow>
     </TableBody>
   </Table>
 );
 
 const BounceRuleDetailed = ({
+  currentRule,
   isModalOpen,
   openModal,
   closeModal,
-  currentRule,
 }) => (
   <div className="detailed-page-container">
     <Header />
@@ -247,7 +277,7 @@ const BounceRuleDetailed = ({
     </Row>
     <Row>
       <Column width={6} offset={2}>
-        <h1>Bounce Rule 173</h1>
+        <h1>Bounce Rule {currentRule.id}</h1>
       </Column>
       <Column className="details-button-column sg-right" width={2} offset={10}>
         <Button
@@ -289,6 +319,7 @@ const BounceRuleDetailed = ({
       </Column>
     </Row>
     <ViewChangeModal
+      currentRule={currentRule}
       openModal={openModal}
       closeModal={closeModal}
       isModalOpen={isModalOpen}
