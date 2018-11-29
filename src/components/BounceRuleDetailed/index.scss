@@ -44,3 +44,27 @@
     text-align: right;
   }
 }
+
+.changelog-view-icon-cell {
+  text-align: right;
+}
+
+.changelog-view-icon {
+  color: #7f90a0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.changelog-modal {
+  padding: 5vh;
+
+  h1 {
+    margin-bottom: 0px;
+  }
+  .change-table {
+    > td {
+      padding: 15px;
+    }
+  }
+}

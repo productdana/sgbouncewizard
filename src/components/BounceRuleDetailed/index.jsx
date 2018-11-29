@@ -1,7 +1,8 @@
 import React from "react";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
+import CenterModal from "@sendgrid/ui-components/center-modal";
+import Button from "@sendgrid/ui-components/button";
 import { Link } from "react-router-dom";
-import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import {
   HeaderCell,
   Table,
@@ -33,6 +34,18 @@ const mockChangelog = [
     id: "3",
     date: "11.05.2018",
     user: "Kristen",
+    message: "Fixed a typo in the description",
+  },
+  {
+    id: "4",
+    date: "11.04.2018",
+    user: "Greg",
+    message: "Fixed a typo in the description",
+  },
+  {
+    id: "5",
+    date: "11.03.2018",
+    user: "Khuong",
     message: "Fixed a typo in the description",
   },
 ];
@@ -100,7 +113,7 @@ const DetailContainer = ({ currentRule }) => (
   </div>
 );
 
-const Changelog = () => (
+const Changelog = ({ openModal }) => (
   <div>
     <h2>Changelog</h2>
     <Table>
@@ -114,27 +127,114 @@ const Changelog = () => (
       </TableHeader>
       <TableBody>
         {mockChangelog.map(change => (
-          <ChangelogMin key={change.id} change={change} />
+          <ChangelogMin key={change.id} change={change} openModal={openModal} />
         ))}
       </TableBody>
     </Table>
   </div>
 );
 
-const ChangelogMin = change => (
+const ChangelogMin = ({ change, openModal }) => (
   <TableRow>
-    <TableCell>{change.change.date}</TableCell>
-    <TableCell>{change.change.user}</TableCell>
-    <TableCell>{change.change.message}</TableCell>
-    <ActionsCell>
-      <Action title="View" onClick={() => {}} icon="view" />
-      <Action title="Edit" icon="pencil" />
-      <Action title="Delete" icon="trash" />
-    </ActionsCell>
+    <TableCell>{change.date}</TableCell>
+    <TableCell>{change.user}</TableCell>
+    <TableCell>{change.message}</TableCell>
+    <TableCell className="changelog-view-icon-cell">
+      <i
+        onClick={openModal}
+        onKeyDown={openModal}
+        className="sg-icon sg-icon-view changelog-view-icon"
+        role="button"
+        tabIndex={0}
+      />
+    </TableCell>
   </TableRow>
 );
 
-const BounceRuleDetailed = ({ currentRule }) => (
+const ViewChangeModal = ({ isModalOpen, closeModal }) => (
+  <CenterModal
+    large
+    open={isModalOpen}
+    renderBody={<ModalBody closeModal={closeModal} />}
+    data-role="example"
+  />
+);
+
+const ModalBody = ({ closeModal }) => (
+  <div className="changelog-modal">
+    <Row>
+      <Column width={6} offset={1}>
+        <h1>Current</h1>
+        <ChangeTable />
+      </Column>
+      <Column width={6} offset={7}>
+        <h1>Previous</h1>
+        <ChangeTable />
+      </Column>
+    </Row>
+    <Row>
+      <Column className="sg-right" width={1} offset={12}>
+        <Button onClick={closeModal}>Close</Button>
+      </Column>
+    </Row>
+  </div>
+);
+
+const ChangeTable = () => (
+  <Table className="change-table">
+    <TableBody>
+      <TableRow>
+        <TableCell>
+          <strong>ID</strong>
+        </TableCell>
+        <TableCell>Test</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <strong>Bounce Action</strong>
+        </TableCell>
+        <TableCell>Test</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <strong>Response Code</strong>
+        </TableCell>
+        <TableCell>Test</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <strong>Enhanced Code</strong>
+        </TableCell>
+        <TableCell>Test</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <strong>RegEx</strong>
+        </TableCell>
+        <TableCell>Test</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <strong>Priority</strong>
+        </TableCell>
+        <TableCell>Test</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <strong>Description</strong>
+        </TableCell>
+        <TableCell>Test</TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+);
+
+const BounceRuleDetailed = ({
+  isModalOpen,
+  openModal,
+  closeModal,
+  currentRule,
+}) => (
   <div className="detailed-page-container">
     <Header />
     <Row>
@@ -157,7 +257,7 @@ const BounceRuleDetailed = ({ currentRule }) => (
     </Row>
     <Row className="changelog-container">
       <Column width={10} offset={2}>
-        <Changelog />
+        <Changelog openModal={openModal} />
       </Column>
     </Row>
     <Row>
@@ -172,6 +272,11 @@ const BounceRuleDetailed = ({ currentRule }) => (
         />
       </Column>
     </Row>
+    <ViewChangeModal
+      openModal={openModal}
+      closeModal={closeModal}
+      isModalOpen={isModalOpen}
+    />
   </div>
 );
 

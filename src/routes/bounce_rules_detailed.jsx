@@ -8,7 +8,11 @@ export default class BounceRuleDetailedPage extends React.Component {
 
     this.state = {
       currentRule: null,
+      isModalOpen: false,
     };
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -26,8 +30,28 @@ export default class BounceRuleDetailedPage extends React.Component {
     }
   }
 
+  openModal() {
+    this.setState({
+      isModalOpen: true,
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      isModalOpen: false,
+    });
+  }
+
   render() {
     const { currentRule } = this.state;
-    return currentRule && <BounceRuleDetailed currentRule={currentRule} />;
+    return (
+      currentRule && (
+        <BounceRuleDetailed
+          openModal={this.openModal}
+          closeModal={this.closeModal}
+          {...this.state}
+        />
+      )
+    );
   }
 }
