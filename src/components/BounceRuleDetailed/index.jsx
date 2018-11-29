@@ -249,13 +249,20 @@ const BounceRuleDetailed = ({
       <Column width={6} offset={2}>
         <h1>Bounce Rule 173</h1>
       </Column>
-      <Column className="csv-button-col sg-right" width={1} offset={11}>
+      <Column className="details-button-column sg-right" width={2} offset={10}>
         <Button
           data-test="back-button"
-          className="back-button"
+          className="header-button back-button"
           type="secondary"
         >
           <Link to="/bounce_rules">Back</Link>
+        </Button>
+        <Button
+          data-test="edit-button"
+          className="header-button edit-button"
+          type="primary"
+        >
+          Edit
         </Button>
       </Column>
     </Row>
