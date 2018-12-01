@@ -378,8 +378,6 @@ const BounceRuleDetailed = ({
   handleModalConfirm,
   handleModalClose,
   onChangeRule,
-  setWrapperRef,
-  setEditRef,
   handleButtonClicked,
 }) => (
   <div className="detailed-page-container">
@@ -400,7 +398,7 @@ const BounceRuleDetailed = ({
       </Column>
       <Column className="details-button-column sg-right" width={2} offset={10}>
         {isEditClicked ? (
-          <span ref={setEditRef}>
+          <span>
             <Button
               onClick={() => handleButtonClicked("cancelClicked")}
               onKeyDown={() => handleButtonClicked("cancelClicked")}
@@ -437,15 +435,17 @@ const BounceRuleDetailed = ({
     </Row>
     <Row>
       <Column width={10} offset={2}>
-        <div ref={setWrapperRef}>
+        <div>
           {isEditClicked ? (
             <DetailContainerEditable
+              data-test="detailed-container-editable"
               currentRule={currentRule}
               onChangeRule={onChangeRule}
               newRule={newRule}
             />
           ) : (
             <DetailContainer
+              data-test="detailed-container"
               currentRule={currentRule}
               handleButtonClicked={handleButtonClicked}
             />
@@ -455,7 +455,10 @@ const BounceRuleDetailed = ({
     </Row>
     <Row className="changelog-container">
       <Column width={10} offset={2}>
-        <Changelog handleButtonClicked={handleButtonClicked} />
+        <Changelog
+          data-test="changelog-container"
+          handleButtonClicked={handleButtonClicked}
+        />
       </Column>
     </Row>
     <Row>
@@ -472,6 +475,7 @@ const BounceRuleDetailed = ({
     </Row>
 
     <ModalDisplay
+      data-test="modal"
       isChangeModalOpen={isChangeModalOpen}
       isConfirmOpen={isConfirmOpen}
       isCancelConfirmOpen={isCancelConfirmOpen}
@@ -516,7 +520,6 @@ const ModalDisplay = ({
         />
       ))
     }
-    data-role="example"
   />
 );
 
