@@ -28,7 +28,30 @@ it("should render correctly", () => {
   const tree = renderer
     .create(
       <BounceRuleContainer
-        filteredRules={[]}
+        rules={[
+          {
+            id: 504,
+            response_code: "550",
+            enhanced_code: "",
+            regex: "no MX record for domain",
+            priority: 0,
+            description:
+              "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
+            bounce_action: "no_action",
+          },
+        ]}
+        filteredRules={[
+          {
+            id: 504,
+            response_code: "550",
+            enhanced_code: "",
+            regex: "no MX record for domain",
+            priority: 0,
+            description:
+              "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
+            bounce_action: "no_action",
+          },
+        ]}
         filterOptions={[]}
         pageIndex={2}
       />

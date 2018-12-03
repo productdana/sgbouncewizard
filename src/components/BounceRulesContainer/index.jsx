@@ -92,6 +92,7 @@ const BounceRulesContainer = ({
       </Column>
       <Column className=" csv-button-col" width={1} offset={10}>
         <CSVLink
+          data-test="export-csv-button"
           filename="bounce_rules.csv"
           className="sg-button btn btn-secondary"
           data={rules}
