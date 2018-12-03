@@ -417,7 +417,7 @@ exports[`should render correctly 1`] = `
         className="pagination pagination-container"
       >
         <a
-          className="btn btn-secondary btn-small pagination-prev"
+          className="btn btn-secondary btn-small pagination-prev is-disabled"
           onKeyDown={[Function]}
           role="button"
           tabIndex="0"
@@ -472,21 +472,9 @@ exports[`should render correctly 1`] = `
           >
             5
           </a>
-          <a
-            className="pagination-ellipses"
-          >
-            …
-          </a>
-          <a
-            className="pagination-link"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex="0"
-          />
         </div>
         <a
-          className="btn btn-secondary btn-small pagination-next"
+          className="btn btn-secondary btn-small pagination-next "
           onKeyDown={[Function]}
           role="button"
           tabIndex="0"
