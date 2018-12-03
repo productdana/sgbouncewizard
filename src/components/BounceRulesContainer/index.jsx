@@ -58,6 +58,7 @@ const BounceRuleMin = ({ rule, handleRuleClick }) => (
 );
 
 const BounceRulesContainer = ({
+  rules,
   handleRuleClick,
   handleKeyDown,
   updateSearchToken,
@@ -89,10 +90,11 @@ const BounceRulesContainer = ({
       <Column width={2} offset={2}>
         <h1>Bounce Rules</h1>
       </Column>
-      <Column className="csv-button-col" width={1} offset={10}>
+      <Column className=" csv-button-col" width={1} offset={10}>
         <CSVLink
-          className="btn btn-secondary"
-          data={filteredRules}
+          filename="bounce_rules.csv"
+          className="sg-button btn btn-secondary"
+          data={rules}
           onClick={() => {}}
         >
           Export CSV
@@ -103,7 +105,7 @@ const BounceRulesContainer = ({
         <div style={{ textAlign: "left" }}>
           <Button
             data-test="create-rule-button"
-            className="create-rule-button"
+            className="sg-button create-rule-button"
             type="primary"
           >
             Create Rule
