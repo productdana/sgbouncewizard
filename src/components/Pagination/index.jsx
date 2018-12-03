@@ -7,6 +7,7 @@ const Pagination = ({
   nextPageIndex,
   updatePageIndex,
   pageIndex,
+  pageInterval,
   numRules,
 }) => {
   const endPage = pageIndex + (5 - (pageIndex % 5 === 0 ? 5 : pageIndex % 5));
@@ -32,8 +33,8 @@ const Pagination = ({
               className={cn("pagination-link", {
                 "is-active": number === pageIndex,
               })}
-              onClick={() => updatePageIndex}
-              onKeyDown={() => {}}
+              onClick={() => updatePageIndex(number)}
+              onKeyDown={() => updatePageIndex(number)}
               role="button"
               tabIndex="0"
             >
@@ -43,12 +44,12 @@ const Pagination = ({
         <a className="pagination-ellipses">&hellip;</a>
         <a
           className="pagination-link"
-          onClick={() => updatePageIndex}
-          onKeyDown={() => {}}
+          onClick={() => updatePageIndex(Math.ceil(numRules / pageInterval))}
+          onKeyDown={() => updatePageIndex(Math.ceil(numRules / pageInterval))}
           role="button"
           tabIndex="0"
         >
-          {numRules}
+          {Math.ceil(numRules / pageInterval).toString()}
         </a>
       </div>
       <a

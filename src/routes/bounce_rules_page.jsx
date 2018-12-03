@@ -21,6 +21,7 @@ export default class BounceRulesPage extends React.Component {
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
     this.updateSearchCategory = this.updateSearchCategory.bind(this);
+    this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handleRuleClick = this.handleRuleClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.prevPageIndex = this.prevPageIndex.bind(this);
@@ -85,6 +86,7 @@ export default class BounceRulesPage extends React.Component {
   }
 
   updatePageIndex(newIndex) {
+    console.log("Updating page index");
     this.setState(prevState => ({
       pageIndex:
         prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
