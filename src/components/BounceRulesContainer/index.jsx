@@ -93,8 +93,10 @@ const BounceRulesContainer = ({
   addFilter,
   invalidFilter,
   isCreateRuleOpen,
+  newRule,
   handleCreateRuleClosed,
-  handleCreateRuleClicked
+  handleCreateRuleClicked,
+  handleCreateRuleUpdate
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -174,68 +176,100 @@ const BounceRulesContainer = ({
         />
       </Column>
     </Row>
-    <SideModal isOpen={isCreateRuleOpen}>
-      <div className="create-rule-modal">
-        <Row>
-          <Column>
-            <h2>Create a Bounce Rule</h2>
-          </Column>
-        </Row>
-        <Row>
-          <Column>
-            <form action="" id="create-rule-form">
-              <div className="input-text-wrap">
-                <label htmlFor="create-priority">
-                  Priority
-                  <TextInput type="text" id="create-priority" />
-                </label>
-                <label htmlFor="create-bounce-action">
-                  Bounce Action
-                  <TextInput type="text" id="create-bounce-action" />
-                </label>
-                <label htmlFor="create-response-code">
-                  Response Code
-                  <TextInput type="text" id="create-description" />
-                </label>
-                <label htmlFor="create-description">
-                  Description
-                  <TextInput type="text" id="create-description" />
-                </label>
-                <label htmlFor="create-ehanced-code">
-                  Enhanced Code
-                  <TextInput type="text" id="create-enhanced-code" />
-                </label>
-                <label htmlFor="create-regex">
-                  Regular Expression
-                  <TextInput type="text" id="create-regex" />
-                </label>
-              </div>
-            </form>
-          </Column>
-        </Row>
-        <Row>
-          <Column width={2} offset={8}>
-            <Button
-              type="secondary"
-              className="sg-button"
-              onClick={handleCreateRuleClosed}
-              onKeyDown={handleCreateRuleClosed}
-            >
-              Cancel
-            </Button>
-          </Column>
-          <Column width={2} offset={11}>
-            <Button
-              className="sg-button"
-              onClick={handleCreateRuleClosed}
-              onKeyDown={handleCreateRuleClosed}
-            >
-              Submit
-            </Button>
-          </Column>
-        </Row>
-      </div>
-    </SideModal>
+    {isCreateRuleOpen && (
+      <SideModal isOpen={isCreateRuleOpen}>
+        <div className="create-rule-modal">
+          <Row>
+            <Column>
+              <h2>Create a Bounce Rule</h2>
+            </Column>
+          </Row>
+          <Row>
+            <Column>
+              <form action="" id="create-rule-form">
+                <div className="input-text-wrap">
+                  <label htmlFor="create-priority">
+                    Priority
+                    <TextInput
+                      onChange={e => handleCreateRuleUpdate(e, "priority")}
+                      value={newRule.priority}
+                      type="text"
+                      id="create-priority"
+                    />
+                  </label>
+                  <label htmlFor="create-bounce-action">
+                    Bounce Action
+                    <TextInput
+                      onChange={e => handleCreateRuleUpdate(e, "bounce_action")}
+                      value={newRule.bounce_action}
+                      type="text"
+                      id="create-bounce-action"
+                    />
+                  </label>
+                  <label htmlFor="create-response-code">
+                    Response Code
+                    <TextInput
+                      onChange={e => handleCreateRuleUpdate(e, "response_code")}
+                      value={newRule.response_code}
+                      type="text"
+                      id="create-description"
+                    />
+                  </label>
+                  <label htmlFor="create-description">
+                    Description
+                    <TextInput
+                      onChange={e => handleCreateRuleUpdate(e, "description")}
+                      value={newRule.description}
+                      type="text"
+                      id="create-description"
+                    />
+                  </label>
+                  <label htmlFor="create-ehanced-code">
+                    Enhanced Code
+                    <TextInput
+                      onChange={e => handleCreateRuleUpdate(e, "enhanced_code")}
+                      value={newRule.enhanced_code}
+                      type="text"
+                      id="create-enhanced-code"
+                    />
+                  </label>
+                  <label htmlFor="create-regex">
+                    Regular Expression
+                    <TextInput
+                      onChange={e => handleCreateRuleUpdate(e, "regex")}
+                      value={newRule.regex}
+                      type="text"
+                      id="create-regex"
+                    />
+                  </label>
+                </div>
+              </form>
+            </Column>
+          </Row>
+          <Row>
+            <Column width={2} offset={8}>
+              <Button
+                type="secondary"
+                className="sg-button"
+                onClick={handleCreateRuleClosed}
+                onKeyDown={handleCreateRuleClosed}
+              >
+                Cancel
+              </Button>
+            </Column>
+            <Column width={2} offset={11}>
+              <Button
+                className="sg-button"
+                onClick={handleCreateRuleClosed}
+                onKeyDown={handleCreateRuleClosed}
+              >
+                Submit
+              </Button>
+            </Column>
+          </Row>
+        </div>
+      </SideModal>
+    )}
   </div>
 );
 

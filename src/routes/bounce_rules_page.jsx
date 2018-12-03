@@ -18,7 +18,7 @@ export default class BounceRulesPage extends React.Component {
       pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
-      isCreateRuleOpen: false,
+      isCreateRuleOpen: false
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -32,6 +32,7 @@ export default class BounceRulesPage extends React.Component {
     this.removeFilter = this.removeFilter.bind(this);
     this.handleCreateRuleClicked = this.handleCreateRuleClicked.bind(this);
     this.handleCreateRuleClosed = this.handleCreateRuleClosed.bind(this);
+    this.handleCreateRuleUpdate = this.handleCreateRuleUpdate.bind(this);
   }
 
   async componentDidMount() {
@@ -40,7 +41,7 @@ export default class BounceRulesPage extends React.Component {
     if (status === 200) {
       this.setState({
         rules,
-        numRules: rules.length,
+        numRules: rules.length
       });
     }
   }
@@ -48,26 +49,26 @@ export default class BounceRulesPage extends React.Component {
   handleRuleClick(rule) {
     this.setState({
       isRedirectingToDetail: true,
-      selectedRule: rule,
+      selectedRule: rule
     });
   }
 
   handleKeyDown(rule) {
     this.setState({
       isRedirectingToDetail: true,
-      selectedRule: rule,
+      selectedRule: rule
     });
   }
 
   updateSearchToken(e) {
     this.setState({
-      searchToken: e.target.value.toLowerCase(),
+      searchToken: e.target.value.toLowerCase()
     });
   }
 
   updateSearchCategory(e) {
     this.setState({
-      searchCategory: e.value.toLowerCase(),
+      searchCategory: e.value.toLowerCase()
     });
   }
 
@@ -91,7 +92,7 @@ export default class BounceRulesPage extends React.Component {
   updatePageIndex(newIndex) {
     this.setState(prevState => ({
       pageIndex:
-        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
+        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex
     }));
   }
 
@@ -100,13 +101,13 @@ export default class BounceRulesPage extends React.Component {
       pageIndex:
         prevState.pageIndex > 1
           ? prevState.pageIndex - prevState.pagesToDisplay
-          : 0,
+          : 0
     }));
   }
 
   nextPageIndex() {
     this.setState(prevState => ({
-      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
+      pageIndex: prevState.pageIndex + prevState.pagesToDisplay
     }));
   }
 
@@ -129,7 +130,7 @@ export default class BounceRulesPage extends React.Component {
     const { searchCategory, searchToken } = this.state;
     if (!searchCategory || !searchToken) {
       this.setState({
-        invalidFilter: true,
+        invalidFilter: true
       });
       return;
     }
@@ -138,13 +139,13 @@ export default class BounceRulesPage extends React.Component {
         invalidFilter: false,
         filterOptions: [
           ...prevState.filterOptions,
-          { searchCategory, searchToken },
+          { searchCategory, searchToken }
         ],
-        searchToken: "",
+        searchToken: ""
       }));
     } else {
       this.setState({
-        invalidFilter: true,
+        invalidFilter: true
       });
     }
   }
@@ -155,18 +156,35 @@ export default class BounceRulesPage extends React.Component {
     const index = newFilter.indexOf(filter);
     newFilter.splice(index, 1);
     this.setState({
-      filterOptions: [...newFilter],
+      filterOptions: [...newFilter]
     });
   }
 
   handleCreateRuleClicked() {
     this.setState({
       isCreateRuleOpen: true,
+      newRule: {
+        description: "",
+        response_code: "",
+        enhanced_code: "",
+        regex: "",
+        priority: "",
+        bounce_action: ""
+      }
     });
   }
 
   handleCreateRuleClosed() {
     this.setState({ isCreateRuleOpen: false });
+  }
+
+  handleCreateRuleUpdate(e, field) {
+    const { newRule } = this.state;
+    let rule = Object.assign({}, newRule);
+    rule[field] = e.currentTarget.value;
+    this.setState({
+      newRule: rule
+    });
   }
 
   render() {
@@ -177,7 +195,7 @@ export default class BounceRulesPage extends React.Component {
         push
         to={{
           pathname: `/bounce_rules/${selectedRule.id}`,
-          state: { currentRule: selectedRule },
+          state: { currentRule: selectedRule }
         }}
       />
     ) : (
@@ -195,6 +213,7 @@ export default class BounceRulesPage extends React.Component {
         removeFilter={this.removeFilter}
         handleCreateRuleClicked={this.handleCreateRuleClicked}
         handleCreateRuleClosed={this.handleCreateRuleClosed}
+        handleCreateRuleUpdate={this.handleCreateRuleUpdate}
         {...this.state}
       />
     );
