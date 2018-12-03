@@ -19,6 +19,7 @@ exports[`should render correctly 1`] = `
         <a
           href="/bounce_rules"
         >
+<<<<<<< HEAD
           Bounce Rules
         </a>
       </Component>
@@ -28,10 +29,58 @@ exports[`should render correctly 1`] = `
     <Component
       offset={2}
       width={2}
+=======
+          <span
+            className="header-greeting"
+            data-test="user-greeting"
+          >
+            Hello, 
+            Kenny
+            !
+          </span>
+          <a
+            className="header-logout"
+            data-test="logout-button"
+            href="/"
+          >
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-6 col-start-2"
+    >
+      <ol
+        className="breadcrumb"
+      >
+        <li>
+          <a
+            data-test="bounce-rules-breadcrumb"
+            href="/bounce_rules"
+          >
+            Bounce Rules
+          </a>
+        </li>
+        <li />
+      </ol>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-2 col-start-2"
+>>>>>>> fields update
     >
       <h1>
         Bounce Rules
       </h1>
+<<<<<<< HEAD
     </Component>
     <Component
       className="csv-button-col"
@@ -58,6 +107,26 @@ exports[`should render correctly 1`] = `
     <Component
       offset={11}
       width={1}
+=======
+    </div>
+    <div
+      className="mako-grid__col-1 col-start-10  csv-button-col"
+    >
+      <a
+        className="sg-button btn btn-secondary"
+        data-test="export-csv-button"
+        download="bounce_rules.csv"
+        href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\"
+\\"504\\",\\"550\\",\\"\\",\\"no MX record for domain\\",\\"0\\",\\"bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl\\",\\"no_action\\""
+        onClick={[Function]}
+        target="_blank"
+      >
+        Export CSV
+      </a>
+    </div>
+    <div
+      className="mako-grid__col-1 col-start-11"
+>>>>>>> fields update
     >
       <div
         style={
@@ -134,7 +203,6 @@ exports[`should render correctly 1`] = `
     <div
       className="create-rule-modal"
     >
-<<<<<<< HEAD
       <div
         data-test="rule-filter"
       >
@@ -500,146 +568,6 @@ exports[`should render correctly 1`] = `
           onKeyDown={[Function]}
           role="button"
           tabIndex="0"
-=======
-      <Component>
-        <Component>
-          <h2>
-            Create a Bounce Rule
-          </h2>
-        </Component>
-      </Component>
-      <Component>
-        <Component>
-          <form
-            action=""
-            id="create-rule-form"
-          >
-            <div
-              className="input-text-wrap"
-            >
-              <label
-                htmlFor="create-priority"
-              >
-                Priority
-                <TextInput
-                  fullWidth={false}
-                  id="create-priority"
-                  info=""
-                  isDisabled={false}
-                  isLarge={false}
-                  isRequired={false}
-                  isSearch={false}
-                  isValid={true}
-                  label=""
-                  style={Object {}}
-                  type="text"
-                  value=""
-                />
-              </label>
-              <label
-                htmlFor="create-bounce-action"
-              >
-                Bounce Action
-                <TextInput
-                  fullWidth={false}
-                  id="create-bounce-action"
-                  info=""
-                  isDisabled={false}
-                  isLarge={false}
-                  isRequired={false}
-                  isSearch={false}
-                  isValid={true}
-                  label=""
-                  style={Object {}}
-                  type="text"
-                  value=""
-                />
-              </label>
-              <label
-                htmlFor="create-response-code"
-              >
-                Response Code
-                <TextInput
-                  fullWidth={false}
-                  id="create-description"
-                  info=""
-                  isDisabled={false}
-                  isLarge={false}
-                  isRequired={false}
-                  isSearch={false}
-                  isValid={true}
-                  label=""
-                  style={Object {}}
-                  type="text"
-                  value=""
-                />
-              </label>
-              <label
-                htmlFor="create-description"
-              >
-                Description
-                <TextInput
-                  fullWidth={false}
-                  id="create-description"
-                  info=""
-                  isDisabled={false}
-                  isLarge={false}
-                  isRequired={false}
-                  isSearch={false}
-                  isValid={true}
-                  label=""
-                  style={Object {}}
-                  type="text"
-                  value=""
-                />
-              </label>
-              <label
-                htmlFor="create-ehanced-code"
-              >
-                Enhanced Code
-                <TextInput
-                  fullWidth={false}
-                  id="create-enhanced-code"
-                  info=""
-                  isDisabled={false}
-                  isLarge={false}
-                  isRequired={false}
-                  isSearch={false}
-                  isValid={true}
-                  label=""
-                  style={Object {}}
-                  type="text"
-                  value=""
-                />
-              </label>
-              <label
-                htmlFor="create-regex"
-              >
-                Regular Expression
-                <TextInput
-                  fullWidth={false}
-                  id="create-regex"
-                  info=""
-                  isDisabled={false}
-                  isLarge={false}
-                  isRequired={false}
-                  isSearch={false}
-                  isValid={true}
-                  label=""
-                  style={Object {}}
-                  type="text"
-                  value=""
-                />
-              </label>
-            </div>
-          </form>
-        </Component>
-      </Component>
-      <Component>
-        <Component
-          offset={8}
-          width={2}
->>>>>>> create rule backbone
         >
           <Component
             active={false}

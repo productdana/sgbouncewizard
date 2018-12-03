@@ -1,12 +1,7 @@
 import React from "react";
+import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
-<<<<<<< HEAD
 import BounceRuleContainer from ".";
-=======
-import EnzymeToJson from "enzyme-to-json";
-import BounceRuleContainer, { RuleListContainer } from ".";
-import RuleFilter from "../RuleFilter";
->>>>>>> create rule backbone
 import Pagination from "../Pagination";
 import { Selectors } from "./selectors";
 
@@ -21,28 +16,13 @@ const testRules = [
     priority: 0,
     description:
       "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-    bounce_action: "no_action",
-  },
+    bounce_action: "no_action"
+  }
 ];
 
 const wrapper = shallow(
   <BounceRuleContainer
-<<<<<<< HEAD
     filteredRules={testRules}
-=======
-    filteredRules={[
-      {
-        id: 504,
-        response_code: "550",
-        enhanced_code: "",
-        regex: "no MX record for domain",
-        priority: 0,
-        description:
-          "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-        bounce_action: "no_action"
-      }
-    ]}
->>>>>>> create rule backbone
     filterOptions={[]}
     pageIndex={1}
     numRules={1}
@@ -51,7 +31,6 @@ const wrapper = shallow(
 );
 
 it("should render correctly", () => {
-<<<<<<< HEAD
   const tree = renderer
     .create(
       <BounceRuleContainer
@@ -62,9 +41,6 @@ it("should render correctly", () => {
       />
     )
     .toJSON();
-=======
-  const tree = EnzymeToJson(wrapper);
->>>>>>> create rule backbone
   expect(tree).toMatchSnapshot();
 });
 
