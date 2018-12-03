@@ -1,4 +1,5 @@
 import React from "react";
+import { CSVLink } from "react-csv";
 import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
@@ -89,13 +90,14 @@ const BounceRulesContainer = ({
         <h1>Bounce Rules</h1>
       </Column>
       <Column className="csv-button-col" width={1} offset={10}>
-        <Button
-          data-test="export-csv-button"
-          className="csv-button"
-          type="secondary"
+        <CSVLink
+          className="btn btn-secondary"
+          data={filteredRules}
+          onClick={() => {}}
         >
           Export CSV
-        </Button>
+        </CSVLink>
+        ;
       </Column>
       <Column width={1} offset={11}>
         <div style={{ textAlign: "left" }}>
