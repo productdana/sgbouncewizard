@@ -94,13 +94,13 @@ export default class BounceRulesPage extends React.Component {
 
   prevPageIndex() {
     this.setState(prevState => ({
-      pageIndex: prevState.pageIndex > 1 ? prevState.pageIndex - 1 : 0,
+      pageIndex: prevState.pageIndex > 1 ? prevState.pageIndex - 5 : 0,
     }));
   }
 
   nextPageIndex() {
     this.setState(prevState => ({
-      pageIndex: prevState.pageIndex + 1,
+      pageIndex: prevState.pageIndex + 5,
     }));
   }
 

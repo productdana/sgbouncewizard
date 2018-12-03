@@ -15,9 +15,12 @@ const Pagination = ({
   return (
     <div className="pagination pagination-container">
       <a
-        className="btn btn-secondary btn-small pagination-prev"
+        className={
+          `btn btn-secondary btn-small pagination-prev ${ 
+          pageIndex <= 5 ? "is-disabled" : ""}`
+        }
         onClick={prevPageIndex}
-        onKeyDown={() => {}}
+        onKeyDown={() => prevPageIndex}
         role="button"
         tabIndex="0"
       >
@@ -27,14 +30,12 @@ const Pagination = ({
         <span>
           <a
             className="pagination-link"
-            onClick={() => updatePageIndex(Math.ceil(numRules / pageInterval))}
-            onKeyDown={() =>
-              updatePageIndex(Math.ceil(numRules / pageInterval))
-            }
+            onClick={() => updatePageIndex(1)}
+            onKeyDown={() => updatePageIndex(1)}
             role="button"
             tabIndex="0"
           >
-            {Math.ceil(numRules / pageInterval).toString()}
+            {1}
           </a>
           <a className="pagination-ellipses">&hellip;</a>
         </span>
@@ -57,7 +58,7 @@ const Pagination = ({
               {number}
             </a>
           ))}
-        {pageIndex < Math.ceil(numRules / pageInterval - 5).toString() && (
+        {pageIndex <= Math.ceil(numRules / pageInterval - 5) && (
           <span>
             <a className="pagination-ellipses">&hellip;</a>
             <a
@@ -71,15 +72,18 @@ const Pagination = ({
               role="button"
               tabIndex="0"
             >
-              {Math.ceil(numRules / pageInterval).toString()}
+              {Math.ceil(numRules / pageInterval)}
             </a>
           </span>
         )}
       </div>
       <a
-        className="btn btn-secondary btn-small pagination-next"
+        className={
+          `btn btn-secondary btn-small pagination-next ${ 
+          pageIndex > 25 ? "is-disabled" : ""}`
+        }
         onClick={nextPageIndex}
-        onKeyDown={() => {}}
+        onKeyDown={() => nextPageIndex}
         role="button"
         tabIndex="0"
       >
