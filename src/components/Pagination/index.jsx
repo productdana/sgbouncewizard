@@ -23,6 +23,22 @@ const Pagination = ({
       >
         Prev
       </a>
+      {pageIndex > 5 && (
+        <span>
+          <a
+            className="pagination-link"
+            onClick={() => updatePageIndex(Math.ceil(numRules / pageInterval))}
+            onKeyDown={() =>
+              updatePageIndex(Math.ceil(numRules / pageInterval))
+            }
+            role="button"
+            tabIndex="0"
+          >
+            {Math.ceil(numRules / pageInterval).toString()}
+          </a>
+          <a className="pagination-ellipses">&hellip;</a>
+        </span>
+      )}
       <div className="pagination-links">
         {Array(endPage - startPage + 1)
           .fill()
@@ -41,16 +57,24 @@ const Pagination = ({
               {number}
             </a>
           ))}
-        <a className="pagination-ellipses">&hellip;</a>
-        <a
-          className="pagination-link"
-          onClick={() => updatePageIndex(Math.ceil(numRules / pageInterval))}
-          onKeyDown={() => updatePageIndex(Math.ceil(numRules / pageInterval))}
-          role="button"
-          tabIndex="0"
-        >
-          {Math.ceil(numRules / pageInterval).toString()}
-        </a>
+        {pageIndex < Math.ceil(numRules / pageInterval - 5).toString() && (
+          <span>
+            <a className="pagination-ellipses">&hellip;</a>
+            <a
+              className="pagination-link"
+              onClick={() =>
+                updatePageIndex(Math.ceil(numRules / pageInterval))
+              }
+              onKeyDown={() =>
+                updatePageIndex(Math.ceil(numRules / pageInterval))
+              }
+              role="button"
+              tabIndex="0"
+            >
+              {Math.ceil(numRules / pageInterval).toString()}
+            </a>
+          </span>
+        )}
       </div>
       <a
         className="btn btn-secondary btn-small pagination-next"

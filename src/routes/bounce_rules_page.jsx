@@ -86,7 +86,6 @@ export default class BounceRulesPage extends React.Component {
   }
 
   updatePageIndex(newIndex) {
-    console.log("Updating page index");
     this.setState(prevState => ({
       pageIndex:
         prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
