@@ -78,7 +78,10 @@ export default class BounceRulesPage extends React.Component {
 
   paginate(rules) {
     const { pageIndex, pageInterval } = this.state;
-    return rules.slice(pageIndex - 1, pageIndex - 1 + pageInterval);
+    return rules.slice(
+      (pageIndex - 1) * pageInterval,
+      (pageIndex - 1 * pageIndex + pageInterval) * pageIndex
+    );
   }
 
   updatePageIndex(newIndex) {
