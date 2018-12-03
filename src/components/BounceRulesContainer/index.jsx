@@ -185,6 +185,10 @@ const BounceRulesContainer = ({
           <Column>
             <form action="" id="create-rule-form">
               <div className="input-text-wrap">
+                <label htmlFor="create-priority">
+                  Priority
+                  <TextInput type="text" id="create-priority" />
+                </label>
                 <label htmlFor="create-bounce-action">
                   Bounce Action
                   <TextInput type="text" id="create-bounce-action" />
