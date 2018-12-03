@@ -396,29 +396,33 @@ const BounceRuleDetailed = ({
           {"Bounce Rule"} {currentRule.id}
         </h1>
       </Column>
-      <Column className="details-button-column sg-right" width={2} offset={10}>
-        {isEditClicked ? (
-          <span>
-            <Button
-              onClick={() => handleButtonClicked("cancelClicked")}
-              onKeyDown={() => handleButtonClicked("cancelClicked")}
-              data-test="cancel-button"
-              className="header-button cancel-button"
-              type="secondary"
-            >
-              {"Cancel"}
-            </Button>
-            <Button
-              onClick={() => handleButtonClicked("saveClicked")}
-              onKeyDown={() => handleButtonClicked("saveClicked")}
-              data-test="save-button"
-              className="header-button save-button"
-              type="primary"
-            >
-              {"Save"}
-            </Button>
-          </span>
-        ) : (
+      {isEditClicked ? (
+        <Column className=" sg-right" width={4} offset={8}>
+          <Button
+            onClick={() => handleButtonClicked("cancelClicked")}
+            onKeyDown={() => handleButtonClicked("cancelClicked")}
+            data-test="cancel-button"
+            className="header-button cancel-button"
+            type="secondary"
+          >
+            {"Cancel"}
+          </Button>
+          <Button
+            onClick={() => handleButtonClicked("saveClicked")}
+            onKeyDown={() => handleButtonClicked("saveClicked")}
+            data-test="save-button"
+            className="header-button save-button"
+            type="primary"
+          >
+            {"Save"}
+          </Button>
+        </Column>
+      ) : (
+        <Column
+          className="details-button-column sg-right"
+          width={1}
+          offset={11}
+        >
           <span>
             <Button
               onClick={() => handleButtonClicked("editClicked")}
@@ -430,8 +434,9 @@ const BounceRuleDetailed = ({
               {"Edit Rule"}
             </Button>
           </span>
-        )}
-      </Column>
+        </Column>
+      )}
+      {/* </Column> */}
     </Row>
     <Row>
       <Column width={10} offset={2}>
