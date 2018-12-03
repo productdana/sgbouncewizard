@@ -3,6 +3,7 @@ import { CSVLink } from "react-csv";
 import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
+import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import {
   HeaderCell,
@@ -10,8 +11,9 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@sendgrid/ui-components/table/table";
+import { TextInput } from "@sendgrid/ui-components/text-input";
 import Header from "../Header";
 
 import { Row } from "../Row";
@@ -49,7 +51,7 @@ const BounceRuleMin = ({ rule, handleRuleClick }) => {
     id,
     bounce_action: bounceAction,
     response_code: responseCode,
-    description,
+    description
   } = rule;
   return (
     <TableRow>
@@ -90,6 +92,9 @@ const BounceRulesContainer = ({
   filterOptions,
   addFilter,
   invalidFilter,
+  isCreateRuleOpen,
+  handleCreateRuleClosed,
+  handleCreateRuleClicked
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -120,6 +125,8 @@ const BounceRulesContainer = ({
         <div style={{ textAlign: "left" }}>
           <Button
             {...WriteSelectors.createRuleButton}
+            onClick={handleCreateRuleClicked}
+            onKeyDown={handleCreateRuleClicked}
             className="create-rule-button"
             type="primary"
           >
@@ -155,21 +162,76 @@ const BounceRulesContainer = ({
         </div>
       </Column>
     </Row>
-    {numRules > pageInterval && (
-      <Row>
-        <Column width={4} offset={5}>
-          <Pagination
-            prevPageIndex={prevPageIndex}
-            nextPageIndex={nextPageIndex}
-            pageIndex={pageIndex}
-            pageInterval={pageInterval}
-            numRules={numRules}
-            updatePageIndex={updatePageIndex}
-            pagesToDisplay={pagesToDisplay}
-          />
-        </Column>
-      </Row>
-    )}
+    <Row>
+      <Column width={4} offset={5}>
+        <Pagination
+          prevPageIndex={prevPageIndex}
+          nextPageIndex={nextPageIndex}
+          pageIndex={pageIndex}
+          pageInterval={pageInterval}
+          numRules={numRules}
+          updatePageIndex={updatePageIndex}
+        />
+      </Column>
+    </Row>
+    <SideModal isOpen={isCreateRuleOpen}>
+      <div className="create-rule-modal">
+        <Row>
+          <Column>
+            <h2>Create a Bounce Rule</h2>
+          </Column>
+        </Row>
+        <Row>
+          <Column>
+            <form action="" id="create-rule-form">
+              <div className="input-text-wrap">
+                <label>
+                  Bounce Action
+                  <TextInput type="text" id="create-bounce-action" />
+                </label>
+                <label htmlFor="create-response-code">
+                  Response Code
+                  <TextInput type="text" id="create-description" />
+                </label>
+                <label htmlFor="create-description">
+                  Description
+                  <TextInput type="text" id="create-description" />
+                </label>
+                <label htmlFor="create-ehanced-code">
+                  Enhanced Code
+                  <TextInput type="text" id="create-enhanced-code" />
+                </label>
+                <label htmlFor="create-regex">
+                  Regular Expression
+                  <TextInput type="text" id="create-regex" />
+                </label>
+              </div>
+            </form>
+          </Column>
+        </Row>
+        <Row>
+          <Column width={2} offset={8}>
+            <Button
+              type="secondary"
+              className="sg-button"
+              onClick={handleCreateRuleClosed}
+              onKeyDown={handleCreateRuleClosed}
+            >
+              Cancel
+            </Button>
+          </Column>
+          <Column width={2} offset={11}>
+            <Button
+              className="sg-button"
+              onClick={handleCreateRuleClosed}
+              onKeyDown={handleCreateRuleClosed}
+            >
+              Submit
+            </Button>
+          </Column>
+        </Row>
+      </div>
+    </SideModal>
   </div>
 );
 

@@ -18,6 +18,7 @@ export default class BounceRulesPage extends React.Component {
       pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
+      isCreateRuleOpen: false,
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -29,6 +30,8 @@ export default class BounceRulesPage extends React.Component {
     this.nextPageIndex = this.nextPageIndex.bind(this);
     this.addFilter = this.addFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
+    this.handleCreateRuleClicked = this.handleCreateRuleClicked.bind(this);
+    this.handleCreateRuleClosed = this.handleCreateRuleClosed.bind(this);
   }
 
   async componentDidMount() {
@@ -156,6 +159,16 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
+  handleCreateRuleClicked() {
+    this.setState({
+      isCreateRuleOpen: true,
+    });
+  }
+
+  handleCreateRuleClosed() {
+    this.setState({ isCreateRuleOpen: false });
+  }
+
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
     const filteredRules = this.filterRules(this.paginate(rules));
@@ -180,6 +193,8 @@ export default class BounceRulesPage extends React.Component {
         filteredRules={filteredRules}
         addFilter={this.addFilter}
         removeFilter={this.removeFilter}
+        handleCreateRuleClicked={this.handleCreateRuleClicked}
+        handleCreateRuleClosed={this.handleCreateRuleClosed}
         {...this.state}
       />
     );
