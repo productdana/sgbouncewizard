@@ -10,15 +10,21 @@ const Pagination = ({
   pageInterval,
   numRules,
 }) => {
-  const endPage = pageIndex + (5 - (pageIndex % 5 === 0 ? 5 : pageIndex % 5));
-  const startPage = endPage - 4;
+  const pagesToDisplay = 5;
+  const endPage =
+    pageIndex +
+    (pagesToDisplay -
+      (pageIndex % pagesToDisplay === 0
+        ? pagesToDisplay
+        : pageIndex % pagesToDisplay));
+  const startPage = endPage - (pagesToDisplay - 1);
+  const totalPages = Math.ceil(numRules / pageInterval);
   return (
     <div className="pagination pagination-container">
       <a
-        className={
-          `btn btn-secondary btn-small pagination-prev ${ 
-          pageIndex <= 5 ? "is-disabled" : ""}`
-        }
+        className={`btn btn-secondary btn-small pagination-prev ${
+          pageIndex <= pagesToDisplay ? "is-disabled" : ""
+        }`}
         onClick={prevPageIndex}
         onKeyDown={() => prevPageIndex}
         role="button"
@@ -26,7 +32,7 @@ const Pagination = ({
       >
         Prev
       </a>
-      {pageIndex > 5 && (
+      {pageIndex > pagesToDisplay && (
         <span>
           <a
             className="pagination-link"
@@ -58,30 +64,25 @@ const Pagination = ({
               {number}
             </a>
           ))}
-        {pageIndex <= Math.ceil(numRules / pageInterval - 5) && (
+        {pageIndex <= totalPages - pagesToDisplay && (
           <span>
             <a className="pagination-ellipses">&hellip;</a>
             <a
               className="pagination-link"
-              onClick={() =>
-                updatePageIndex(Math.ceil(numRules / pageInterval))
-              }
-              onKeyDown={() =>
-                updatePageIndex(Math.ceil(numRules / pageInterval))
-              }
+              onClick={() => updatePageIndex(totalPages)}
+              onKeyDown={() => updatePageIndex(totalPages)}
               role="button"
               tabIndex="0"
             >
-              {Math.ceil(numRules / pageInterval)}
+              {totalPages}
             </a>
           </span>
         )}
       </div>
       <a
-        className={
-          `btn btn-secondary btn-small pagination-next ${ 
-          pageIndex > 25 ? "is-disabled" : ""}`
-        }
+        className={`btn btn-secondary btn-small pagination-next ${
+          pageIndex > totalPages - pagesToDisplay ? "is-disabled" : ""
+        }`}
         onClick={nextPageIndex}
         onKeyDown={() => nextPageIndex}
         role="button"
