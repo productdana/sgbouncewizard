@@ -2,6 +2,8 @@ import React from "react";
 import cn from "classnames";
 import "./index.scss";
 
+const pagesToDisplay = 5;
+
 const Pagination = ({
   prevPageIndex,
   nextPageIndex,
@@ -10,7 +12,6 @@ const Pagination = ({
   pageInterval,
   numRules,
 }) => {
-  const pagesToDisplay = 5;
   const endPage =
     pageIndex +
     (pagesToDisplay -
