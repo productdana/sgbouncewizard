@@ -5,20 +5,22 @@ import BounceRuleContainer, { RuleListContainer } from ".";
 import RuleFilter from "../RuleFilter";
 import Pagination from "../Pagination";
 
+const testRules = [
+  {
+    id: 504,
+    response_code: "550",
+    enhanced_code: "",
+    regex: "no MX record for domain",
+    priority: 0,
+    description:
+      "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
+    bounce_action: "no_action",
+  },
+];
+
 const wrapper = shallow(
   <BounceRuleContainer
-    filteredRules={[
-      {
-        id: 504,
-        response_code: "550",
-        enhanced_code: "",
-        regex: "no MX record for domain",
-        priority: 0,
-        description:
-          "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-        bounce_action: "no_action",
-      },
-    ]}
+    filteredRules={testRules}
     filterOptions={[]}
     pageIndex={1}
   />
@@ -28,30 +30,8 @@ it("should render correctly", () => {
   const tree = renderer
     .create(
       <BounceRuleContainer
-        rules={[
-          {
-            id: 504,
-            response_code: "550",
-            enhanced_code: "",
-            regex: "no MX record for domain",
-            priority: 0,
-            description:
-              "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-            bounce_action: "no_action",
-          },
-        ]}
-        filteredRules={[
-          {
-            id: 504,
-            response_code: "550",
-            enhanced_code: "",
-            regex: "no MX record for domain",
-            priority: 0,
-            description:
-              "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-            bounce_action: "no_action",
-          },
-        ]}
+        rules={testRules}
+        filteredRules={testRules}
         filterOptions={[]}
         pageIndex={2}
       />

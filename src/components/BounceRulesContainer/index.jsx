@@ -96,7 +96,6 @@ const BounceRulesContainer = ({
           filename="bounce_rules.csv"
           className="sg-button btn btn-secondary"
           data={rules}
-          onClick={() => {}}
         >
           Export CSV
         </CSVLink>
