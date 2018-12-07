@@ -23,7 +23,7 @@ const InvalidCredentialsAlert = ({ handleAlertClose }) => (
 );
 
 const InvalidInputAlert = ({ handleAlertClose }) => (
-  <div className="alert alert-danger">
+  <div data-test="invalid-input-alert" className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
       Your email and password fields are required and must contain valid
@@ -40,7 +40,7 @@ const InvalidInputAlert = ({ handleAlertClose }) => (
 );
 
 const NetworkErrorAlert = ({ handleAlertClose }) => (
-  <div className="alert alert-danger">
+  <div data-test="network-error-alert" className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
       We are unable to authenticate your user due to some issues with the
@@ -82,7 +82,7 @@ const LoginForm = ({
   updateField,
 }) => (
   <div className="login-form-body">
-    <form onSubmit={handleLogin} id="login-form">
+    <form onSubmit={handleLogin} data-test="login-form" id="login-form">
       <Row>
         <Column width={6} offset={4}>
           <div className="input-text-wrap">

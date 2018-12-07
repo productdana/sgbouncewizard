@@ -61,6 +61,7 @@ exports[`should render correctly 1`] = `
       >
         <li>
           <a
+            data-test="bounce-rules-page"
             href="/bounce_rules"
           >
             Bounce Rules
