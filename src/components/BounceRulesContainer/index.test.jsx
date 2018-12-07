@@ -21,6 +21,8 @@ const wrapper = shallow(
     ]}
     filterOptions={[]}
     pageIndex={1}
+    numRules={1}
+    pageInterval={0}
   />
 );
 

@@ -133,19 +133,21 @@ const BounceRulesContainer = ({
         />
       </Column>
     </Row>
-    <Row>
-      <Column width={4} offset={5}>
-        <Pagination
-          prevPageIndex={prevPageIndex}
-          nextPageIndex={nextPageIndex}
-          pageIndex={pageIndex}
-          pageInterval={pageInterval}
-          numRules={numRules}
-          updatePageIndex={updatePageIndex}
-          pagesToDisplay={pagesToDisplay}
-        />
-      </Column>
-    </Row>
+    {numRules > pageInterval && (
+      <Row>
+        <Column width={4} offset={5}>
+          <Pagination
+            prevPageIndex={prevPageIndex}
+            nextPageIndex={nextPageIndex}
+            pageIndex={pageIndex}
+            pageInterval={pageInterval}
+            numRules={numRules}
+            updatePageIndex={updatePageIndex}
+            pagesToDisplay={pagesToDisplay}
+          />
+        </Column>
+      </Row>
+    )}
   </div>
 );
 
