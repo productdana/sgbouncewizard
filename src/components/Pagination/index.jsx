@@ -2,7 +2,7 @@ import React from "react";
 import cn from "classnames";
 import "./index.scss";
 
-const pagesToDisplay = 5;
+// const pagesToDisplay = 5;
 
 const Pagination = ({
   prevPageIndex,
@@ -10,6 +10,7 @@ const Pagination = ({
   updatePageIndex,
   pageIndex,
   pageInterval,
+  pagesToDisplay,
   numRules,
 }) => {
   const endPage =
