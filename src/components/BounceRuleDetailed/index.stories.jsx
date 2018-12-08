@@ -11,24 +11,24 @@ const sampleRule = {
   priority: 0,
   description:
     "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-  bounce_action: "no_action",
+  bounce_action: "no_action"
 };
 
 storiesOf("Individual Rule Details", module)
   .add("Default", () => (
-    <BrowserRouter>
-      <BounceRuleDetailed
-        currentRule={sampleRule}
-        isEditClicked={false}
-        isChangeModalOpen={false}
-        isCancelConfirmOpen={false}
-        isConfirmOpen={false}
-        handleModalClose={() => {}}
-        handleButtonClicked={() => {}}
-        handleModalConfirm={() => {}}
-        onChangeRule={() => {}}
-      />
-    </BrowserRouter>
+    // <BrowserRouter>
+    <BounceRuleDetailed
+      currentRule={sampleRule}
+      isEditClicked={false}
+      isChangeModalOpen={false}
+      isCancelConfirmOpen={false}
+      isConfirmOpen={false}
+      handleModalClose={() => {}}
+      handleButtonClicked={() => {}}
+      handleModalConfirm={() => {}}
+      onChangeRule={() => {}}
+    />
+    // </BrowserRouter>
   ))
   .add("Edit Clicked", () => (
     <BrowserRouter>

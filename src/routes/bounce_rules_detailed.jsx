@@ -12,7 +12,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       isEditClicked: false,
       isChangeModalOpen: false,
       isCancelConfirmOpen: false,
-      isConfirmOpen: false,
+      isConfirmOpen: false
     };
 
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -26,120 +26,119 @@ export default class BounceRuleDetailedPage extends React.Component {
     if (location.state == null) {
       getRule(match.params.bounceRuleId).then(response => {
         this.setState({
-          currentRule: response.data,
+          currentRule: response.data
         });
       });
     } else {
       this.setState({
-        currentRule: location.state.currentRule,
+        currentRule: location.state.currentRule
       });
     }
   }
 
-  onChangeRule(event, field) {
+  onChangeRule(event) {
+    const { id, value } = event.currentTarget;
     const { currentRule } = this.state;
-    const newRule = Object.assign({}, currentRule);
-    newRule[field] = event.target.value;
-
     this.setState({
-      currentRule: newRule,
+      currentRule: { ...currentRule, [id]: value }
     });
   }
 
-  handleModalClose(modal) {
-    switch (modal) {
+  handleModalClose(event) {
+    const { id } = event.currentTarget;
+    switch (id) {
       case "changeModal": {
         this.setState({
-          isChangeModalOpen: false,
+          isChangeModalOpen: false
         });
         break;
       }
       case "cancelModal": {
         this.setState({
-          isCancelConfirmOpen: false,
+          isCancelConfirmOpen: false
         });
         break;
       }
       case "saveModal": {
         this.setState({
-          isConfirmOpen: false,
+          isConfirmOpen: false
         });
         break;
       }
       default: {
-        throw Error("Modal Not Found");
+        break;
       }
     }
   }
 
-  handleButtonClicked(button) {
+  handleButtonClicked(event) {
     const { currentRule, prevRule } = this.state;
-    switch (button) {
+    const { id } = event.currentTarget;
+    switch (id) {
       case "cancelClicked": {
         if (!isEquivalent(prevRule, currentRule)) {
           this.setState({
-            isCancelConfirmOpen: true,
+            isCancelConfirmOpen: true
           });
         } else {
           this.setState({
-            isEditClicked: false,
+            isEditClicked: false
           });
         }
         break;
       }
       case "editClicked": {
-        const rule = Object.assign({}, currentRule);
         this.setState({
           isEditClicked: true,
-          prevRule: rule,
+          prevRule: { ...currentRule }
         });
         break;
       }
       case "saveClicked": {
         if (!isEquivalent(prevRule, currentRule)) {
           this.setState({
-            isConfirmOpen: true,
+            isConfirmOpen: true
           });
         } else {
           this.setState({
-            isEditClicked: false,
+            isEditClicked: false
           });
         }
         break;
       }
       case "changeClicked": {
         this.setState({
-          isChangeModalOpen: true,
+          isChangeModalOpen: true
         });
         break;
       }
       default: {
-        throw Error("Button does not exist");
+        break;
       }
     }
   }
 
-  handleModalConfirm(modal) {
+  handleModalConfirm(event) {
     const { prevRule } = this.state;
-    const currentRule = Object.assign({}, prevRule);
-    switch (modal) {
+    const { id } = event.currentTarget;
+    switch (id) {
       case "cancelModal": {
         this.setState({
-          currentRule,
+          currentRule: { ...prevRule },
           isCancelConfirmOpen: false,
-          isEditClicked: false,
+          isEditClicked: false
         });
         break;
       }
       case "saveModal": {
         this.setState({
           isConfirmOpen: false,
-          isEditClicked: false,
+          isEditClicked: false
         });
         break;
       }
       default: {
-        throw Error("Modal does not exist");
+        break;
       }
     }
   }

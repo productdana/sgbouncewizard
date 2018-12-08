@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import EnzymeToJson from "enzyme-to-json";
+import enzymeToJSON from "enzyme-to-json";
 import BounceRuleDetailed from ".";
 
 const sampleRule = {
@@ -35,7 +35,7 @@ describe("Bounce Rule Detailed", () => {
   });
 
   it("should render correctly", () => {
-    expect(EnzymeToJson(DetailedObj)).toMatchSnapshot();
+    expect(enzymeToJSON(DetailedObj)).toMatchSnapshot();
   });
 
   it("should render details table", () => {
