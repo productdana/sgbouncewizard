@@ -1,7 +1,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { BrowserRouter } from "react-router-dom";
-import BounceRuleDetailed from ".";
+import { action } from "@storybook/addon-actions";
+import StoryRouter from "storybook-react-router";
+import "./index.scss";
+import DetailsContainer, { DetailsContainerEditable } from "./Details";
+import Changelog from "./Changelog";
+import ModalDisplay from "./Modals";
 
 const sampleRule = {
   id: 504,
@@ -11,82 +15,64 @@ const sampleRule = {
   priority: 0,
   description:
     "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-  bounce_action: "no_action"
+  bounce_action: "no_action",
 };
 
-storiesOf("Individual Rule Details", module)
+storiesOf("Bounce Rule Details", module)
+  .addDecorator(StoryRouter())
   .add("Default", () => (
-    // <BrowserRouter>
-    <BounceRuleDetailed
+    <DetailsContainer
       currentRule={sampleRule}
-      isEditClicked={false}
-      isChangeModalOpen={false}
-      isCancelConfirmOpen={false}
-      isConfirmOpen={false}
-      handleModalClose={() => {}}
-      handleButtonClicked={() => {}}
-      handleModalConfirm={() => {}}
-      onChangeRule={() => {}}
+      handleButtonClicked={action("clicked")}
     />
-    // </BrowserRouter>
   ))
-  .add("Edit Clicked", () => (
-    <BrowserRouter>
-      <BounceRuleDetailed
-        currentRule={sampleRule}
-        isEditClicked
-        isChangeModalOpen={false}
-        isCancelConfirmOpen={false}
-        isConfirmOpen={false}
-        handleModalClose={() => {}}
-        handleButtonClicked={() => {}}
-        handleModalConfirm={() => {}}
-        onChangeRule={() => {}}
-      />
-    </BrowserRouter>
+  .add("Editable", () => (
+    <DetailsContainerEditable
+      currentRule={sampleRule}
+      handleButtonClicked={action("clicked")}
+    />
+  ));
+
+storiesOf("Bounce Rule Changelog", module)
+  .add("Default", () => (
+    <Changelog handleButtonClicked={action("change clicked")} />
   ))
-  .add("Change Modal Open", () => (
-    <BrowserRouter>
-      <BounceRuleDetailed
-        currentRule={sampleRule}
-        isEditClicked={false}
-        isChangeModalOpen
-        isCancelConfirmOpen={false}
-        isConfirmOpen={false}
-        handleModalClose={() => {}}
-        handleButtonClicked={() => {}}
-        handleModalConfirm={() => {}}
-        onChangeRule={() => {}}
-      />
-    </BrowserRouter>
+  .add("Empty", () => (
+    // Not yet implemented
+    <Changelog handleButtonClicked={action("change clicked")} />
+  ));
+
+storiesOf("Modals", module)
+  .add("Change Log Modal", () => (
+    <ModalDisplay
+      data-test="modal"
+      isChangeModalOpen
+      isConfirmOpen={false}
+      isCancelConfirmOpen={false}
+      currentRule={sampleRule}
+      handleModalClose={action("close modal")}
+      handleModalConfirm={action("open modal")}
+    />
   ))
-  .add("Cancel Modal Open", () => (
-    <BrowserRouter>
-      <BounceRuleDetailed
-        currentRule={sampleRule}
-        isEditClicked={false}
-        isChangeModalOpen={false}
-        isCancelConfirmOpen
-        isConfirmOpen={false}
-        handleModalClose={() => {}}
-        handleButtonClicked={() => {}}
-        handleModalConfirm={() => {}}
-        onChangeRule={() => {}}
-      />
-    </BrowserRouter>
+  .add("Confirmation Modal", () => (
+    <ModalDisplay
+      data-test="modal"
+      isChangeModalOpen={false}
+      isConfirmOpen
+      isCancelConfirmOpen={false}
+      currentRule={sampleRule}
+      handleModalClose={action("close modal")}
+      handleModalConfirm={action("open modal")}
+    />
   ))
-  .add("Confirm Modal Open", () => (
-    <BrowserRouter>
-      <BounceRuleDetailed
-        currentRule={sampleRule}
-        isEditClicked={false}
-        isChangeModalOpen={false}
-        isCancelConfirmOpen={false}
-        isConfirmOpen
-        handleModalClose={() => {}}
-        handleButtonClicked={() => {}}
-        handleModalConfirm={() => {}}
-        onChangeRule={() => {}}
-      />
-    </BrowserRouter>
+  .add("Cancellation Modal", () => (
+    <ModalDisplay
+      data-test="modal"
+      isChangeModalOpen={false}
+      isConfirmOpen={false}
+      isCancelConfirmOpen
+      currentRule={sampleRule}
+      handleModalClose={action("close modal")}
+      handleModalConfirm={action("open modal")}
+    />
   ));

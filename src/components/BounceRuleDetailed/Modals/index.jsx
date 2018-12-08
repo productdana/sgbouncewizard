@@ -90,11 +90,11 @@ const ChangeTable = ({ currentRule }) => {
   const {
     description,
     id,
-    response_code,
-    enhanced_code,
+    response_code: responseCode,
+    enhanced_code: enhancedCode,
+    bounce_action: bounceAction,
     regex,
     priority,
-    bounce_action,
   } = currentRule;
   return (
     <Table className="change-table">
@@ -109,19 +109,19 @@ const ChangeTable = ({ currentRule }) => {
           <TableCell>
             <strong>Bounce Action</strong>
           </TableCell>
-          <TableCell>{bounce_action}</TableCell>
+          <TableCell>{bounceAction}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Response Code</strong>
           </TableCell>
-          <TableCell>{response_code}</TableCell>
+          <TableCell>{responseCode}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Enhanced Code</strong>
           </TableCell>
-          <TableCell>{enhanced_code}</TableCell>
+          <TableCell>{enhancedCode}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>

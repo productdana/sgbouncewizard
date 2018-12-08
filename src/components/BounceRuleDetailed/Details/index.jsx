@@ -11,11 +11,11 @@ const DetailsContainer = ({ currentRule, handleButtonClicked }) => {
   const {
     description,
     id,
-    response_code,
-    enhanced_code,
+    response_code: responseCode,
+    enhanced_code: enhancedCode,
+    bounce_action: bounceAction,
     regex,
     priority,
-    bounce_action,
   } = currentRule;
   return (
     <div
@@ -54,13 +54,13 @@ const DetailsContainer = ({ currentRule, handleButtonClicked }) => {
               <TableCell>
                 <strong>Response Code</strong>
               </TableCell>
-              <TableCell> {response_code} </TableCell>
+              <TableCell> {responseCode} </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <strong>Enhanced Code</strong>
               </TableCell>
-              <TableCell> {enhanced_code} </TableCell>
+              <TableCell> {enhancedCode} </TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -82,7 +82,7 @@ const DetailsContainer = ({ currentRule, handleButtonClicked }) => {
               <TableCell>
                 <strong>Bounce Action</strong>
               </TableCell>
-              <TableCell> {bounce_action} </TableCell>
+              <TableCell> {bounceAction} </TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -95,11 +95,11 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
   const {
     description,
     id,
-    response_code,
-    enhanced_code,
+    response_code: responseCode,
+    enhanced_code: enhancedCode,
+    bounce_action: bounceAction,
     regex,
     priority,
-    bounce_action,
   } = currentRule;
   return (
     <div className="detail-container detail-container-editable card ">
@@ -151,9 +151,9 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
                 <TextInput
                   onChange={onChangeRule}
                   id="response_code"
-                  value={response_code}
+                  value={responseCode}
                   type="text"
-                  label={response_code}
+                  label={responseCode}
                 />
               </TableCell>
             </TableRow>
@@ -165,9 +165,9 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
                 <TextInput
                   onChange={onChangeRule}
                   id="enhanced_code"
-                  value={enhanced_code}
+                  value={enhancedCode}
                   type="text"
-                  label={enhanced_code}
+                  label={enhancedCode}
                 />
               </TableCell>
             </TableRow>
@@ -211,9 +211,9 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
                 <TextInput
                   onChange={onChangeRule}
                   id="bounce_action"
-                  value={bounce_action}
+                  value={bounceAction}
                   type="text"
-                  label={bounce_action}
+                  label={bounceAction}
                 />
               </TableCell>
             </TableRow>
