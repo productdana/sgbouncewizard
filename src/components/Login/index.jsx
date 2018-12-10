@@ -4,10 +4,14 @@ import PropTypes from "prop-types";
 import { Button } from "@sendgrid/ui-components/button";
 import { Row } from "../Row";
 import { Column } from "../Column";
+import { WriteSelectors } from "./selectors";
 import "./index.scss";
 
 const InvalidCredentialsAlert = ({ handleAlertClose }) => (
-  <div data-test="invalid-credentials-alert" className="alert alert-danger">
+  <div
+    {...WriteSelectors.invalidCredentialsAlert}
+    className="alert alert-danger"
+  >
     <p>
       <i className="sg-icon sg-icon-warning" />
       Your email or password does not match any existing user credentials.
@@ -23,7 +27,7 @@ const InvalidCredentialsAlert = ({ handleAlertClose }) => (
 );
 
 const InvalidInputAlert = ({ handleAlertClose }) => (
-  <div data-test="invalid-input-alert" className="alert alert-danger">
+  <div {...WriteSelectors.invalidInputAlert} className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
       Your email and password fields are required and must contain valid
@@ -40,7 +44,7 @@ const InvalidInputAlert = ({ handleAlertClose }) => (
 );
 
 const NetworkErrorAlert = ({ handleAlertClose }) => (
-  <div data-test="network-error-alert" className="alert alert-danger">
+  <div {...WriteSelectors.networkErrorAlert} className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
       We are unable to authenticate your user due to some issues with the
@@ -58,7 +62,7 @@ const NetworkErrorAlert = ({ handleAlertClose }) => (
 
 const LoadingButton = () => (
   <Button
-    data-test="login-loading-button"
+    {...WriteSelectors.loginLoadingButton}
     form="login-form"
     type="primary"
     loading
@@ -69,7 +73,12 @@ const LoadingButton = () => (
 );
 
 const LoginButton = () => (
-  <Button data-test="login-button" form="login-form" type="primary" isSubmit>
+  <Button
+    {...WriteSelectors.loginButton}
+    form="login-form"
+    type="primary"
+    isSubmit
+  >
     Login
   </Button>
 );
@@ -82,12 +91,12 @@ const LoginForm = ({
   updateField,
 }) => (
   <div className="login-form-body">
-    <form onSubmit={handleLogin} data-test="login-form" id="login-form">
+    <form onSubmit={handleLogin} id="login-form">
       <Row>
         <Column width={6} offset={4}>
           <div className="input-text-wrap">
             <TextInput
-              data-test="email-field"
+              {...WriteSelectors.emailInput}
               onChange={e => updateField(e, "email")}
               value={email}
               type="email"
@@ -99,8 +108,8 @@ const LoginForm = ({
       <Row>
         <Column width={6} offset={4}>
           <TextInput
+            {...WriteSelectors.passwordInput}
             onChange={e => updateField(e, "password")}
-            data-test="password-field"
             value={password}
             type="password"
             label="Password"
@@ -110,10 +119,8 @@ const LoginForm = ({
       <Row>
         <Column width={6} offset={4}>
           <div className="login-button-container">
-            {!isAuthenticating && <LoginButton data-test="login-button" />}
-            {isAuthenticating && (
-              <LoadingButton data-test="login-loading-button" />
-            )}
+            {!isAuthenticating && <LoginButton />}
+            {isAuthenticating && <LoadingButton />}
           </div>
         </Column>
       </Row>
@@ -147,26 +154,17 @@ const Login = ({
             {!isAuthenticating &&
               isAuthenticationError &&
               isInvalidCredentials && (
-                <InvalidCredentialsAlert
-                  data-test="invalid-credentials-alert"
-                  handleAlertClose={handleAlertClose}
-                />
+                <InvalidCredentialsAlert handleAlertClose={handleAlertClose} />
               )}
             {!isAuthenticating &&
               isAuthenticationError &&
               isNetworkError && (
-                <NetworkErrorAlert
-                  data-test="network-error-alert"
-                  handleAlertClose={handleAlertClose}
-                />
+                <NetworkErrorAlert handleAlertClose={handleAlertClose} />
               )}
             {!isAuthenticating &&
               isAuthenticationError &&
               isInvalidInput && (
-                <InvalidInputAlert
-                  data-test="invalid-input-alert"
-                  handleAlertClose={handleAlertClose}
-                />
+                <InvalidInputAlert handleAlertClose={handleAlertClose} />
               )}
           </Row>
           <LoginForm
