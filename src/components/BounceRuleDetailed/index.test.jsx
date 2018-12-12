@@ -68,14 +68,14 @@ describe("Bounce Rule Detailed", () => {
     wrapper.setProps({
       isCancelConfirmOpen: true,
     });
-    expect(wrapper.find('[data-test="modal"]')).toHaveLength(1);
+    expect(wrapper.find('[data-test="cancel-confirm-modal"]')).toHaveLength(1);
   });
 
   it("should display save confirm modal when save is clicked", () => {
     wrapper.setProps({
       isConfirmOpen: true,
     });
-    expect(wrapper.find('[data-test="modal"]')).toHaveLength(1);
+    expect(wrapper.find('[data-test="confirm-modal"]')).toHaveLength(1);
   });
 
   it("should display change modal when rule is clicked", () => {
@@ -83,6 +83,6 @@ describe("Bounce Rule Detailed", () => {
       isChangeModalOpen: true,
     });
     wrapper.update();
-    expect(wrapper.find('[data-test="modal"]')).toHaveLength(1);
+    expect(wrapper.find('[data-test="change-modal"]')).toHaveLength(1);
   });
 });

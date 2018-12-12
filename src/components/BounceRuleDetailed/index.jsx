@@ -4,7 +4,9 @@ import Button from "@sendgrid/ui-components/button";
 import { Link } from "react-router-dom";
 import DetailsContainer, { DetailsContainerEditable } from "./Details";
 import Changelog from "./Changelog";
-import ModalDisplay from "./Modals";
+import ChangeModal from "./Modals/ChangeModal";
+import ConfirmationModal from "./Modals/ConfirmationModal";
+import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
 import { Row } from "../Row";
 import { Column } from "../Column";
 import Header from "../Header";
@@ -126,15 +128,30 @@ const BounceRuleDetailed = ({
         </Column>
       </Row>
 
-      <ModalDisplay
-        data-test="modal"
-        isChangeModalOpen={isChangeModalOpen}
-        isConfirmOpen={isConfirmOpen}
-        isCancelConfirmOpen={isCancelConfirmOpen}
-        currentRule={currentRule}
-        handleModalClose={handleModalClose}
-        handleModalConfirm={handleModalConfirm}
-      />
+      {isChangeModalOpen && (
+        <ChangeModal
+          data-test="change-modal"
+          currentRule={currentRule}
+          handleModalClose={handleModalClose}
+          handleModalConfirm={handleModalConfirm}
+        />
+      )}
+      {isConfirmOpen && (
+        <ConfirmationModal
+          data-test="confirm-modal"
+          currentRule={currentRule}
+          handleModalClose={handleModalClose}
+          handleModalConfirm={handleModalConfirm}
+        />
+      )}
+      {isCancelConfirmOpen && (
+        <CancelConfirmationModal
+          data-test="cancel-confirm-modal"
+          currentRule={currentRule}
+          handleModalClose={handleModalClose}
+          handleModalConfirm={handleModalConfirm}
+        />
+      )}
     </div>
   );
 };

@@ -7,62 +7,8 @@ import {
   TableCell,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
-import { Column } from "../../Column";
-import { Row } from "../../Row";
-
-const ConfirmModalBody = ({
-  isConfirmOpen,
-  isCancelConfirmOpen,
-  handleModalClose,
-  handleModalConfirm,
-  modalType,
-}) => (
-  <div>
-    <Row>
-      <Column>
-        {(isConfirmOpen && (
-          <div>
-            <h2>Are you sure you&apos;d like to commit these changes?</h2>
-            <p>
-              {
-                "Doing so will effect how current email will be handled via this\
-                bounce rule. This action will go into effect immediately."
-              }
-            </p>
-          </div>
-        )) ||
-          (isCancelConfirmOpen && (
-            <div>
-              <h2>Are you sure you want to discard these changes?</h2>
-              <p>Doing so will remove applied changes.</p>
-            </div>
-          ))}
-      </Column>
-    </Row>
-    <Row>
-      <Column width={1} offset={10}>
-        <Button
-          className="sg-button"
-          onClick={handleModalClose}
-          id={modalType}
-          type="secondary"
-        >
-          {"Close"}
-        </Button>
-      </Column>
-      <Column width={1} offset={11}>
-        <Button
-          className="sg-button"
-          id={modalType}
-          onClick={handleModalConfirm}
-          type="primary"
-        >
-          {"Confirm"}
-        </Button>
-      </Column>
-    </Row>
-  </div>
-);
+import { Column } from "../../../Column";
+import { Row } from "../../../Row";
 
 const ChangeModalBody = ({ currentRule, handleModalClose }) => (
   <div className="changelog-modal">
@@ -146,43 +92,17 @@ const ChangeTable = ({ currentRule }) => {
   );
 };
 
-const ModalDisplay = ({
-  isChangeModalOpen,
-  isConfirmOpen,
-  isCancelConfirmOpen,
-  currentRule,
-  handleModalClose,
-  handleModalConfirm,
-}) => (
+const ChangeModal = ({ currentRule, handleModalClose }) => (
   <CenterModal
-    large={isChangeModalOpen}
-    open={isChangeModalOpen || isConfirmOpen || isCancelConfirmOpen}
-    renderBody={
-      (isChangeModalOpen && (
-        <ChangeModalBody
-          handleModalClose={handleModalClose}
-          currentRule={currentRule}
-        />
-      )) ||
-      (isConfirmOpen && (
-        <ConfirmModalBody
-          isConfirmOpen={isConfirmOpen}
-          handleModalClose={handleModalClose}
-          handleModalConfirm={handleModalConfirm}
-          modalType="saveModal"
-        />
-      )) ||
-      (isCancelConfirmOpen && (
-        <ConfirmModalBody
-          isCancelConfirmOpen={isCancelConfirmOpen}
-          handleModalClose={handleModalClose}
-          currentRule={currentRule}
-          handleModalConfirm={handleModalConfirm}
-          modalType="cancelModal"
-        />
-      ))
-    }
+    large
+    open
+    renderBody={(
+      <ChangeModalBody
+        handleModalClose={handleModalClose}
+        currentRule={currentRule}
+      />
+)}
   />
 );
 
-export default ModalDisplay;
+export default ChangeModal;

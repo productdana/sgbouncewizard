@@ -5,7 +5,9 @@ import StoryRouter from "storybook-react-router";
 import "./index.scss";
 import DetailsContainer, { DetailsContainerEditable } from "./Details";
 import Changelog from "./Changelog";
-import ModalDisplay from "./Modals";
+import ChangeModal from "./Modals/ChangeModal";
+import ConfirmationModal from "./Modals/ConfirmationModal";
+import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
 
 const sampleRule = {
   id: 504,
@@ -44,33 +46,21 @@ storiesOf("Bounce Rule Changelog", module)
 
 storiesOf("Modals", module)
   .add("Change Log Modal", () => (
-    <ModalDisplay
-      data-test="modal"
-      isChangeModalOpen
-      isConfirmOpen={false}
-      isCancelConfirmOpen={false}
+    <ChangeModal
       currentRule={sampleRule}
       handleModalClose={action("close modal")}
       handleModalConfirm={action("open modal")}
     />
   ))
   .add("Confirmation Modal", () => (
-    <ModalDisplay
-      data-test="modal"
-      isChangeModalOpen={false}
-      isConfirmOpen
-      isCancelConfirmOpen={false}
+    <ConfirmationModal
       currentRule={sampleRule}
       handleModalClose={action("close modal")}
       handleModalConfirm={action("open modal")}
     />
   ))
   .add("Cancellation Modal", () => (
-    <ModalDisplay
-      data-test="modal"
-      isChangeModalOpen={false}
-      isConfirmOpen={false}
-      isCancelConfirmOpen
+    <CancelConfirmationModal
       currentRule={sampleRule}
       handleModalClose={action("close modal")}
       handleModalConfirm={action("open modal")}
