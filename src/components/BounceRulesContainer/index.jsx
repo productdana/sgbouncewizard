@@ -3,7 +3,6 @@ import { CSVLink } from "react-csv";
 import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
-import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import {
   HeaderCell,
@@ -11,9 +10,8 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableRow
+  TableRow,
 } from "@sendgrid/ui-components/table/table";
-import { TextInput } from "@sendgrid/ui-components/text-input";
 import Header from "../Header";
 
 import { Row } from "../Row";
@@ -91,11 +89,7 @@ const BounceRulesContainer = ({
   filterOptions,
   addFilter,
   invalidFilter,
-  isCreateRuleOpen,
-  newRule,
-  handleCreateRuleClosed,
   handleCreateRuleClicked,
-  handleCreateRuleUpdate
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -179,100 +173,6 @@ const BounceRulesContainer = ({
         />
       </Column>
     </Row>
-    {isCreateRuleOpen && (
-      <SideModal isOpen={isCreateRuleOpen}>
-        <div className="create-rule-modal">
-          <Row>
-            <Column>
-              <h2>Create a Bounce Rule</h2>
-            </Column>
-          </Row>
-          <Row>
-            <Column>
-              <form action="" id="create-rule-form">
-                <div className="input-text-wrap">
-                  <label htmlFor="priority">
-                    Priority
-                    <TextInput
-                      onChange={e => handleCreateRuleUpdate(e, "priority")}
-                      value={newRule.priority}
-                      type="text"
-                      id="priority"
-                    />
-                  </label>
-                  <label htmlFor="bounce-action">
-                    Bounce Action
-                    <TextInput
-                      onChange={e => handleCreateRuleUpdate(e, "bounce_action")}
-                      value={newRule.bounce_action}
-                      type="text"
-                      id="bounce_action"
-                    />
-                  </label>
-                  <label htmlFor="response-code">
-                    Response Code
-                    <TextInput
-                      onChange={e => handleCreateRuleUpdate(e, "response_code")}
-                      value={newRule.response_code}
-                      type="text"
-                      id="response_code"
-                    />
-                  </label>
-                  <label htmlFor="description">
-                    Description
-                    <TextInput
-                      onChange={e => handleCreateRuleUpdate(e, "description")}
-                      value={newRule.description}
-                      type="text"
-                      id="description"
-                    />
-                  </label>
-                  <label htmlFor="ehanced-code">
-                    Enhanced Code
-                    <TextInput
-                      onChange={e => handleCreateRuleUpdate(e, "enhanced_code")}
-                      value={newRule.enhanced_code}
-                      type="text"
-                      id="enhanced_code"
-                    />
-                  </label>
-                  <label htmlFor="regex">
-                    Regular Expression
-                    <TextInput
-                      onChange={e => handleCreateRuleUpdate(e, "regex")}
-                      value={newRule.regex}
-                      type="text"
-                      id="regex"
-                    />
-                  </label>
-                </div>
-              </form>
-            </Column>
-          </Row>
-          <Row>
-            <Column width={2} offset={8}>
-              <Button
-                type="secondary"
-                className="sg-button"
-                onClick={handleCreateRuleClosed}
-                onKeyDown={handleCreateRuleClosed}
-              >
-                Cancel
-              </Button>
-            </Column>
-            <Column width={2} offset={11}>
-              <Button
-                className="sg-button"
-                onClick={handleCreateRuleClosed}
-                onKeyDown={handleCreateRuleClosed}
-              >
-                Submit
-              </Button>
-            </Column>
-          </Row>
-        </div>
-      </SideModal>
-    )}
   </div>
 );
 
