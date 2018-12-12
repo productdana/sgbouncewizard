@@ -2,8 +2,6 @@ import React from "react";
 import cn from "classnames";
 import "./index.scss";
 
-// const pagesToDisplay = 5;
-
 const Pagination = ({
   prevPageIndex,
   nextPageIndex,
@@ -28,7 +26,7 @@ const Pagination = ({
           pageIndex <= pagesToDisplay ? "is-disabled" : ""
         }`}
         onClick={prevPageIndex}
-        onKeyDown={() => prevPageIndex}
+        onKeyDown={prevPageIndex}
         role="button"
         tabIndex="0"
       >
