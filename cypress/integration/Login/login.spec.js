@@ -1,4 +1,5 @@
 import LoginPage from "../../Pages/Login";
+import BounceRulesPage from "../../pages/BounceRulesContainer";
 
 describe("Login Page", () => {
   beforeEach(() => {
@@ -20,7 +21,7 @@ describe("Login Page", () => {
 
     LoginPage.login(email, password).then(() => {
       // TODO: Eventually we would refer to the bounce rules page object's getter here instead
-      expect("[data-test='bounce-rules-page']").should("be.visible");
+      BounceRulesPage.page.should("be.visible");
     });
   });
 

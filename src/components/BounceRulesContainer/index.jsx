@@ -15,8 +15,9 @@ import Header from "../Header";
 
 import { Row } from "../Row";
 import { Column } from "../Column";
-import RuleFilter from "../RuleFilter";
+import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
+import { WriteSelectors } from "./selectors";
 
 const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
   <Table>
@@ -75,12 +76,12 @@ const BounceRulesContainer = ({
   addFilter,
   invalidFilter,
 }) => (
-  <div className="container">
+  <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
     <Row>
       <Column width={6} offset={2}>
         <Breadcrumb>
-          <a data-test="bounce-rules-page" href="/bounce_rules">
+          <a {...WriteSelectors.breacrumb} href="/bounce_rules">
             Bounce Rules
           </a>
         </Breadcrumb>
@@ -92,7 +93,7 @@ const BounceRulesContainer = ({
       </Column>
       <Column className="csv-button-col" width={1} offset={10}>
         <Button
-          data-test="export-csv-button"
+          {...WriteSelectors.csvButton}
           className="csv-button"
           type="secondary"
         >
@@ -102,7 +103,7 @@ const BounceRulesContainer = ({
       <Column width={1} offset={11}>
         <div style={{ textAlign: "left" }}>
           <Button
-            data-test="create-rule-button"
+            {...WriteSelectors.createRuleButton}
             className="create-rule-button"
             type="primary"
           >
