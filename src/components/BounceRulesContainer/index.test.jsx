@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
 import BounceRuleContainer, { RuleListContainer } from ".";
-import RuleFilter from "../RuleFilter";
+import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
 
 const wrapper = shallow(
