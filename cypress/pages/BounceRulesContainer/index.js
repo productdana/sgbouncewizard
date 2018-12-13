@@ -22,6 +22,10 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.ruleFilter);
   }
 
+  get ruleTable() {
+    return cy.get(Selectors.ruleTable);
+  }
+
   open() {
     super.open("/bounce_rules");
   }

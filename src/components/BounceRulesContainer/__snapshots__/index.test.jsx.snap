@@ -62,6 +62,7 @@ exports[`should render correctly 1`] = `
       >
         <li>
           <a
+            data-test="bounce-rules-breadcrumb"
             href="/bounce_rules"
           >
             Bounce Rules
@@ -368,45 +369,49 @@ exports[`should render correctly 1`] = `
     <div
       className="mako-grid__col-10 col-start-2"
     >
-      <table
-        className="table-wrap"
+      <div
+        data-test="rule-table"
       >
-        <thead>
-          <tr>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Id
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Bounce Action
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Response Code
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Description
-            </th>
-            <th
-              className="actions-cell"
-              onClick={[Function]}
-            >
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody />
-      </table>
+        <table
+          className="table-wrap"
+        >
+          <thead>
+            <tr>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Id
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Bounce Action
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Response Code
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Description
+              </th>
+              <th
+                className="actions-cell"
+                onClick={[Function]}
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody />
+        </table>
+      </div>
     </div>
   </div>
   <div

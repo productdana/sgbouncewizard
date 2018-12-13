@@ -1,5 +1,5 @@
 import LoginPage from "../../Pages/Login";
-import BounceRulesPage from "../../pages/BounceRulesContainer";
+import BounceRulesPage from "../../Pages/BounceRulesContainer";
 
 describe("Login Page", () => {
   beforeEach(() => {
@@ -20,7 +20,6 @@ describe("Login Page", () => {
     const { email, password } = validCredentials;
 
     LoginPage.login(email, password).then(() => {
-      // TODO: Eventually we would refer to the bounce rules page object's getter here instead
       BounceRulesPage.page.should("be.visible");
     });
   });

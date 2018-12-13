@@ -81,7 +81,7 @@ const BounceRulesContainer = ({
     <Row>
       <Column width={6} offset={2}>
         <Breadcrumb>
-          <a {...WriteSelectors.breacrumb} href="/bounce_rules">
+          <a {...WriteSelectors.breadcrumb} href="/bounce_rules">
             Bounce Rules
           </a>
         </Breadcrumb>
@@ -127,12 +127,14 @@ const BounceRulesContainer = ({
     </Row>
     <Row>
       <Column width={10} offset={2}>
-        <RuleListContainer
-          handleRuleClick={handleRuleClick}
-          handleKeyDown={handleKeyDown}
-          selectedRule={selectedRule}
-          rules={filteredRules}
-        />
+        <div {...WriteSelectors.ruleTable}>
+          <RuleListContainer
+            handleRuleClick={handleRuleClick}
+            handleKeyDown={handleKeyDown}
+            selectedRule={selectedRule}
+            rules={filteredRules}
+          />
+        </div>
       </Column>
     </Row>
     <Row>

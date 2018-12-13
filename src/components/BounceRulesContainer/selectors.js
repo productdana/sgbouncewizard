@@ -15,6 +15,7 @@ const testHooks = {
   csvButton: "export-csv-button",
   createRuleButton: "create-rule-button",
   ruleFilter: "rule-filter",
+  ruleTable: "rule-table",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:
