@@ -3,6 +3,7 @@
 exports[`should render correctly 1`] = `
 <div
   className="container"
+  data-test="bounce-rules-page"
 >
   <div
     className="header-container"
@@ -61,7 +62,6 @@ exports[`should render correctly 1`] = `
       >
         <li>
           <a
-            data-test="bounce-rules-page"
             href="/bounce_rules"
           >
             Bounce Rules
@@ -124,6 +124,7 @@ exports[`should render correctly 1`] = `
     >
       <div
         className="filter-wrap"
+        data-test="rule-filter"
       >
         <div
           className="filter-header"
