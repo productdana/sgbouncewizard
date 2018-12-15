@@ -130,15 +130,17 @@ const BounceRulesContainer = ({
     </Row>
     <Row>
       <Column width={10} offset={2}>
-        <RuleFilter
-          searchToken={searchToken}
-          updateSearchToken={updateSearchToken}
-          updateSearchCategory={updateSearchCategory}
-          filterOptions={filterOptions}
-          addFilter={addFilter}
-          removeFilter={removeFilter}
-          invalidFilter={invalidFilter}
-        />
+        <div {...WriteSelectors.ruleFilter}>
+          <RuleFilter
+            searchToken={searchToken}
+            updateSearchToken={updateSearchToken}
+            updateSearchCategory={updateSearchCategory}
+            filterOptions={filterOptions}
+            addFilter={addFilter}
+            removeFilter={removeFilter}
+            invalidFilter={invalidFilter}
+          />
+        </div>
       </Column>
     </Row>
     <Row>

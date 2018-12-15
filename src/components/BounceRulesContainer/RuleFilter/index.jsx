@@ -4,7 +4,6 @@ import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Select } from "@sendgrid/ui-components/select";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
-import { WriteSelectors } from "../selectors";
 
 const RuleFilter = ({
   searchToken,
@@ -15,7 +14,7 @@ const RuleFilter = ({
   removeFilter,
   invalidFilter,
 }) => (
-  <div {...WriteSelectors.ruleFilter} className="filter-wrap">
+  <div className="filter-wrap">
     <div className="filter-header">
       <p className="filter-title">
         Search emails by{" "}
