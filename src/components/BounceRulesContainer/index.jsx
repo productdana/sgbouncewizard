@@ -10,7 +10,7 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@sendgrid/ui-components/table/table";
 import Header from "../Header";
 
@@ -18,6 +18,7 @@ import { Row } from "../Row";
 import { Column } from "../Column";
 import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
+import EmptyRules from "./EmptyRules";
 import { WriteSelectors } from "./selectors";
 
 const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
@@ -49,7 +50,7 @@ const BounceRuleMin = ({ rule, handleRuleClick }) => {
     id,
     bounce_action: bounceAction,
     response_code: responseCode,
-    description,
+    description
   } = rule;
   return (
     <TableRow>
@@ -89,73 +90,78 @@ const BounceRulesContainer = ({
   numRules,
   filterOptions,
   addFilter,
-  invalidFilter,
-}) => (
-  <div {...WriteSelectors.page} className="container">
-    <Header name="Kenny" />
-    <Row>
-      <Column width={6} offset={2}>
-        <Breadcrumb>
-          <a {...WriteSelectors.breadcrumb} href="/bounce_rules">
-            Bounce Rules
-          </a>
-        </Breadcrumb>
-      </Column>
-    </Row>
-    <Row>
-      <Column width={2} offset={2}>
-        <h1>Bounce Rules</h1>
-      </Column>
-      <Column className=" csv-button-col" width={1} offset={10}>
-        <CSVLink
-          {...WriteSelectors.csvButton}
-          filename="bounce_rules.csv"
-          className="sg-button btn btn-secondary"
-          data={rules}
-        >
-          Export CSV
-        </CSVLink>
-      </Column>
-      <Column width={1} offset={11}>
-        <div style={{ textAlign: "left" }}>
-          <Button
-            {...WriteSelectors.createRuleButton}
-            className="create-rule-button"
-            type="primary"
+  invalidFilter
+}) => {
+  const isRulesEmpty = rules.length === 0;
+  return (
+    <div {...WriteSelectors.page} className="container">
+      <Header name="Kenny" />
+      <Row>
+        <Column width={6} offset={2}>
+          <Breadcrumb>
+            <a {...WriteSelectors.breadcrumb} href="/bounce_rules">
+              Bounce Rules
+            </a>
+          </Breadcrumb>
+        </Column>
+      </Row>
+      <Row>
+        <Column width={2} offset={2}>
+          <h1>Bounce Rules</h1>
+        </Column>
+        <Column className=" csv-button-col" width={1} offset={10}>
+          <CSVLink
+            {...WriteSelectors.csvButton}
+            filename="bounce_rules.csv"
+            className="sg-button btn btn-secondary"
+            data={rules}
           >
-            Create Rule
-          </Button>
-        </div>
-      </Column>
-    </Row>
-    <Row>
-      <Column width={10} offset={2}>
-        <div {...WriteSelectors.ruleFilter}>
-          <RuleFilter
-            searchToken={searchToken}
-            updateSearchToken={updateSearchToken}
-            updateSearchCategory={updateSearchCategory}
-            filterOptions={filterOptions}
-            addFilter={addFilter}
-            removeFilter={removeFilter}
-            invalidFilter={invalidFilter}
-          />
-        </div>
-      </Column>
-    </Row>
-    <Row>
-      <Column width={10} offset={2}>
-        <div {...WriteSelectors.ruleTable}>
-          <RuleListContainer
-            handleRuleClick={handleRuleClick}
-            handleKeyDown={handleKeyDown}
-            selectedRule={selectedRule}
-            rules={filteredRules}
-          />
-        </div>
-      </Column>
-    </Row>
-    {numRules > pageInterval && (
+            Export CSV
+          </CSVLink>
+          ;
+        </Column>
+        <Column width={1} offset={11}>
+          <div style={{ textAlign: "left" }}>
+            <Button
+              {...WriteSelectors.createRuleButton}
+              className="create-rule-button"
+              type="primary"
+            >
+              Create Rule
+            </Button>
+          </div>
+        </Column>
+      </Row>
+      <Row>
+        <Column width={10} offset={2}>
+          <div {...WriteSelectors.ruleFilter}>
+            <RuleFilter
+              searchToken={searchToken}
+              updateSearchToken={updateSearchToken}
+              updateSearchCategory={updateSearchCategory}
+              filterOptions={filterOptions}
+              addFilter={addFilter}
+              removeFilter={removeFilter}
+              invalidFilter={invalidFilter}
+            />
+          </div>
+        </Column>
+      </Row>
+      <Row>
+        <Column width={10} offset={2}>
+          <div {...WriteSelectors.ruleTable}>
+            {!isRulesEmpty && (
+              <RuleListContainer
+                handleRuleClick={handleRuleClick}
+                handleKeyDown={handleKeyDown}
+                selectedRule={selectedRule}
+                rules={filteredRules}
+              />
+            )}
+            {isRulesEmpty && <EmptyRules />}
+          </div>
+        </Column>
+      </Row>
       <Row>
         <Column width={4} offset={5}>
           <Pagination
@@ -165,13 +171,12 @@ const BounceRulesContainer = ({
             pageInterval={pageInterval}
             numRules={numRules}
             updatePageIndex={updatePageIndex}
-            pagesToDisplay={pagesToDisplay}
           />
         </Column>
       </Row>
-    )}
-  </div>
-);
+    </div>
+  );
+};
 
 export default BounceRulesContainer;
 export { RuleListContainer, BounceRuleMin };
