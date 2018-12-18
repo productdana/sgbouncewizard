@@ -90,14 +90,15 @@ const BounceRuleDetailed = ({
       <Row>
         <Column width={10} offset={2}>
           <div>
-            {isEditClicked ? (
+            {isEditClicked && (
               <DetailsContainerEditable
                 data-test="detailed-container-editable"
                 currentRule={currentRule}
                 onChangeRule={onChangeRule}
                 newRule={newRule}
               />
-            ) : (
+            )}
+            {!isEditClicked && (
               <DetailsContainer
                 data-test="detailed-container"
                 currentRule={currentRule}

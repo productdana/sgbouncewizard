@@ -16,8 +16,7 @@ const ConfirmModalBody = ({
           <h2>Are you sure you&apos;d like to commit these changes?</h2>
           <p>
             {
-              "Doing so will effect how current email will be handled via this\
-                    bounce rule. This action will go into effect immediately."
+              "Doing so will effect how current email will be handled via this bounce rule. This action will go into effect immediately."
             }
           </p>
         </div>

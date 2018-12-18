@@ -1,7 +1,8 @@
 import React from "react";
+import _ from "underscore";
 import BounceRuleDetailed from "../components/BounceRuleDetailed";
 import { getRule } from "../utils/ruleCalls";
-import isEquivalent from "../utils/helper";
+// import isEquivalent from "../utils/helper";
 
 export default class BounceRuleDetailedPage extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       isEditClicked: false,
       isChangeModalOpen: false,
       isCancelConfirmOpen: false,
-      isConfirmOpen: false
+      isConfirmOpen: false,
     };
 
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -26,12 +27,12 @@ export default class BounceRuleDetailedPage extends React.Component {
     if (location.state == null) {
       getRule(match.params.bounceRuleId).then(response => {
         this.setState({
-          currentRule: response.data
+          currentRule: response.data,
         });
       });
     } else {
       this.setState({
-        currentRule: location.state.currentRule
+        currentRule: location.state.currentRule,
       });
     }
   }
@@ -40,7 +41,7 @@ export default class BounceRuleDetailedPage extends React.Component {
     const { id, value } = event.currentTarget;
     const { currentRule } = this.state;
     this.setState({
-      currentRule: { ...currentRule, [id]: value }
+      currentRule: { ...currentRule, [id]: value },
     });
   }
 
@@ -49,19 +50,19 @@ export default class BounceRuleDetailedPage extends React.Component {
     switch (id) {
       case "changeModal": {
         this.setState({
-          isChangeModalOpen: false
+          isChangeModalOpen: false,
         });
         break;
       }
       case "cancelModal": {
         this.setState({
-          isCancelConfirmOpen: false
+          isCancelConfirmOpen: false,
         });
         break;
       }
       case "saveModal": {
         this.setState({
-          isConfirmOpen: false
+          isConfirmOpen: false,
         });
         break;
       }
@@ -76,13 +77,13 @@ export default class BounceRuleDetailedPage extends React.Component {
     const { id } = event.currentTarget;
     switch (id) {
       case "cancelClicked": {
-        if (!isEquivalent(prevRule, currentRule)) {
+        if (!_.isEqual(prevRule, currentRule)) {
           this.setState({
-            isCancelConfirmOpen: true
+            isCancelConfirmOpen: true,
           });
         } else {
           this.setState({
-            isEditClicked: false
+            isEditClicked: false,
           });
         }
         break;
@@ -90,25 +91,25 @@ export default class BounceRuleDetailedPage extends React.Component {
       case "editClicked": {
         this.setState({
           isEditClicked: true,
-          prevRule: { ...currentRule }
+          prevRule: { ...currentRule },
         });
         break;
       }
       case "saveClicked": {
-        if (!isEquivalent(prevRule, currentRule)) {
+        if (!_.isEqual(prevRule, currentRule)) {
           this.setState({
-            isConfirmOpen: true
+            isConfirmOpen: true,
           });
         } else {
           this.setState({
-            isEditClicked: false
+            isEditClicked: false,
           });
         }
         break;
       }
       case "changeClicked": {
         this.setState({
-          isChangeModalOpen: true
+          isChangeModalOpen: true,
         });
         break;
       }
@@ -126,14 +127,14 @@ export default class BounceRuleDetailedPage extends React.Component {
         this.setState({
           currentRule: { ...prevRule },
           isCancelConfirmOpen: false,
-          isEditClicked: false
+          isEditClicked: false,
         });
         break;
       }
       case "saveModal": {
         this.setState({
           isConfirmOpen: false,
-          isEditClicked: false
+          isEditClicked: false,
         });
         break;
       }
