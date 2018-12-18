@@ -1,9 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
-import BounceRuleContainer, { RuleListContainer } from ".";
-import RuleFilter from "../RuleFilter";
+import BounceRuleContainer from ".";
 import Pagination from "../Pagination";
+import { Selectors } from "./selectors";
+
+const { csvButton, createRuleButton, ruleFilter, ruleTable } = Selectors;
 
 const testRules = [
   {
@@ -41,19 +43,19 @@ it("should render correctly", () => {
 });
 
 it("should render a create a bounce rule", () => {
-  expect(wrapper.find('[data-test="create-rule-button"]')).toHaveLength(1);
+  expect(wrapper.find(createRuleButton)).toHaveLength(1);
 });
 
 it("should render a export to csv button", () => {
-  expect(wrapper.find('[data-test="export-csv-button"]')).toHaveLength(1);
+  expect(wrapper.find(csvButton)).toHaveLength(1);
 });
 
 it("should render a filter component", () => {
-  expect(wrapper.find(RuleFilter)).toHaveLength(1);
+  expect(wrapper.find(ruleFilter)).toHaveLength(1);
 });
 
 it("should render a rule list component", () => {
-  expect(wrapper.find(RuleListContainer)).toHaveLength(1);
+  expect(wrapper.find(ruleTable)).toHaveLength(1);
 });
 
 it("should render paginiation", () => {

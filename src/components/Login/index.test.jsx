@@ -1,80 +1,93 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import renderer from "react-test-renderer";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import Login, { LoginForm } from ".";
+import { Selectors } from "./selectors";
 
 describe("Login", () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = shallow(<Login />);
-  });
+  const {
+    emailInput,
+    passwordInput,
+    loginButton,
+    loginLoadingButton,
+    invalidCredentialsAlert,
+    invalidInputAlert,
+    networkErrorAlert,
+  } = Selectors;
 
   it("should render correctly", () => {
     const tree = renderer.create(<Login />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it("should render email input", () => {
-    const loginFormWrapper = shallow(<LoginForm />);
-    expect(loginFormWrapper.find('[data-test="email-field"]')).toHaveLength(1);
-  });
+  describe("When the user first sees the Login Form", () => {
+    it("should render the default state", () => {
+      const loginFormWrapper = mount(<LoginForm />);
 
-  it("should render password input", () => {
-    const loginFormWrapper = shallow(<LoginForm />);
-    expect(loginFormWrapper.find('[data-test="password-field"]')).toHaveLength(
-      1
-    );
-  });
-
-  it("should display loading button when user is being authenticated", () => {
-    const loginFormWrapper = shallow(<LoginForm />);
-
-    loginFormWrapper.setProps({
-      username: "ziv",
-      password: "papa",
-      isAuthenticating: true,
+      expect(loginFormWrapper.find(emailInput).exists()).toBeTruthy();
+      expect(loginFormWrapper.find(passwordInput).exists()).toBeTruthy();
+      expect(loginFormWrapper.find(loginButton).exists()).toBeTruthy();
     });
-    expect(
-      loginFormWrapper.exists('[data-test="login-loading-button"]')
-    ).toBeTruthy();
+
+    describe("When the user is logging in", () => {
+      it("should display the loading the button", () => {
+        const loginFormWrapper = mount(
+          <LoginForm username="ziv" password="password" isAuthenticating />
+        );
+
+        expect(loginFormWrapper.find(loginButton).exists()).toBeFalsy();
+        expect(loginFormWrapper.find(loginLoadingButton).exists()).toBeTruthy();
+      });
+    });
   });
 
-  it("should display alert when credentials are invalid", () => {
-    wrapper.setProps({
-      username: "wrong",
-      password: "password",
-      isAuthenticating: false,
-      isAuthenticationError: true,
-      isInvalidCredentials: true,
+  describe("When the user provides invalid credentials", () => {
+    it("should display the invalid credentials alert", () => {
+      const wrapper = mount(
+        <Login
+          username="ziv"
+          password="invalidcredentials"
+          isAuthenticating={false}
+          isAuthenticationError
+          isInvalidCredentials
+        />
+      );
+
+      expect(wrapper.find(invalidCredentialsAlert).exists()).toBeTruthy();
     });
-    expect(
-      wrapper.exists('[data-test="invalid-credentials-alert"]')
-    ).toBeTruthy();
-    expect(wrapper.find(Redirect)).toHaveLength(0);
   });
 
-  it("should display alert when there is a network error", () => {
-    wrapper.setProps({
-      username: "ziv",
-      password: "papa",
-      isAuthenticating: false,
-      isAuthenticationError: true,
-      isNetworkError: true,
+  describe("When the user provides invalid input", () => {
+    it("should display the invalid input alert", () => {
+      const wrapper = mount(
+        <Login
+          username=""
+          password=""
+          isAuthenticating={false}
+          isAuthenticationError
+          isInvalidInput
+        />
+      );
+
+      expect(wrapper.find(invalidInputAlert).exists()).toBeTruthy();
     });
-    expect(wrapper.exists('[data-test="network-error-alert"]')).toBeTruthy();
-    expect(wrapper.find(Redirect)).toHaveLength(0);
   });
 
-  it("should display alert when there is invalid input", () => {
-    wrapper.setProps({
-      username: "",
-      password: "",
-      isAuthenticating: false,
-      isAuthenticationError: true,
-      isInvalidInput: true,
+  describe("When the user receives a network error", () => {
+    it("should display the network error alert", () => {
+      const wrapper = mount(
+        <Login
+          username="ziv"
+          password="papa"
+          isAuthenticating={false}
+          isAuthenticationError
+          isNetworkError
+        />
+      );
+
+      expect(wrapper.find(Redirect).exists()).toBeFalsy();
+      expect(wrapper.find(networkErrorAlert).exists()).toBeTruthy();
     });
-    expect(wrapper.exists('[data-test="invalid-input-alert"]')).toBeTruthy();
-    expect(wrapper.find(Redirect)).toHaveLength(0);
   });
 });

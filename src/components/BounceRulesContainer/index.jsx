@@ -16,8 +16,9 @@ import Header from "../Header";
 
 import { Row } from "../Row";
 import { Column } from "../Column";
-import RuleFilter from "../RuleFilter";
+import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
+import { WriteSelectors } from "./selectors";
 
 const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
   <Table>
@@ -43,19 +44,31 @@ const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
   </Table>
 );
 
-const BounceRuleMin = ({ rule, handleRuleClick }) => (
-  <TableRow>
-    <TableCell>{rule.id}</TableCell>
-    <TableCell>{rule.bounce_action}</TableCell>
-    <TableCell>{rule.response_code}</TableCell>
-    <TableCell>{rule.description}</TableCell>
-    <ActionsCell>
-      <Action title="View" onClick={() => handleRuleClick(rule)} icon="view" />
-      <Action title="Edit" icon="pencil" />
-      <Action title="Delete" icon="trash" />
-    </ActionsCell>
-  </TableRow>
-);
+const BounceRuleMin = ({ rule, handleRuleClick }) => {
+  const {
+    id,
+    bounce_action: bounceAction,
+    response_code: responseCode,
+    description,
+  } = rule;
+  return (
+    <TableRow>
+      <TableCell>{id}</TableCell>
+      <TableCell>{bounceAction}</TableCell>
+      <TableCell>{responseCode}</TableCell>
+      <TableCell>{description}</TableCell>
+      <ActionsCell>
+        <Action
+          title="View"
+          onClick={() => handleRuleClick(rule)}
+          icon="view"
+        />
+        <Action title="Edit" icon="pencil" />
+        <Action title="Delete" icon="trash" />
+      </ActionsCell>
+    </TableRow>
+  );
+};
 
 const BounceRulesContainer = ({
   rules,
@@ -77,12 +90,14 @@ const BounceRulesContainer = ({
   addFilter,
   invalidFilter,
 }) => (
-  <div className="container">
+  <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
     <Row>
       <Column width={6} offset={2}>
         <Breadcrumb>
-          <a href="/bounce_rules">Bounce Rules</a>
+          <a {...WriteSelectors.breadcrumb} href="/bounce_rules">
+            Bounce Rules
+          </a>
         </Breadcrumb>
       </Column>
     </Row>
@@ -92,7 +107,7 @@ const BounceRulesContainer = ({
       </Column>
       <Column className=" csv-button-col" width={1} offset={10}>
         <CSVLink
-          data-test="export-csv-button"
+          {...WriteSelectors.csvButton}
           filename="bounce_rules.csv"
           className="sg-button btn btn-secondary"
           data={rules}
@@ -104,8 +119,8 @@ const BounceRulesContainer = ({
       <Column width={1} offset={11}>
         <div style={{ textAlign: "left" }}>
           <Button
-            data-test="create-rule-button"
-            className="sg-button create-rule-button"
+            {...WriteSelectors.createRuleButton}
+            className="create-rule-button"
             type="primary"
           >
             Create Rule
@@ -115,25 +130,29 @@ const BounceRulesContainer = ({
     </Row>
     <Row>
       <Column width={10} offset={2}>
-        <RuleFilter
-          searchToken={searchToken}
-          updateSearchToken={updateSearchToken}
-          updateSearchCategory={updateSearchCategory}
-          filterOptions={filterOptions}
-          addFilter={addFilter}
-          removeFilter={removeFilter}
-          invalidFilter={invalidFilter}
-        />
+        <div {...WriteSelectors.ruleFilter}>
+          <RuleFilter
+            searchToken={searchToken}
+            updateSearchToken={updateSearchToken}
+            updateSearchCategory={updateSearchCategory}
+            filterOptions={filterOptions}
+            addFilter={addFilter}
+            removeFilter={removeFilter}
+            invalidFilter={invalidFilter}
+          />
+        </div>
       </Column>
     </Row>
     <Row>
       <Column width={10} offset={2}>
-        <RuleListContainer
-          handleRuleClick={handleRuleClick}
-          handleKeyDown={handleKeyDown}
-          selectedRule={selectedRule}
-          rules={filteredRules}
-        />
+        <div {...WriteSelectors.ruleTable}>
+          <RuleListContainer
+            handleRuleClick={handleRuleClick}
+            handleKeyDown={handleKeyDown}
+            selectedRule={selectedRule}
+            rules={filteredRules}
+          />
+        </div>
       </Column>
     </Row>
     <Row>

@@ -3,6 +3,7 @@
 exports[`should render correctly 1`] = `
 <div
   className="container"
+  data-test="bounce-rules-page"
 >
   <div
     className="header-container"
@@ -61,6 +62,7 @@ exports[`should render correctly 1`] = `
       >
         <li>
           <a
+            data-test="bounce-rules-breadcrumb"
             href="/bounce_rules"
           >
             Bounce Rules
@@ -107,7 +109,7 @@ exports[`should render correctly 1`] = `
         }
       >
         <button
-          className="btn btn-primary sg-button create-rule-button"
+          className="btn btn-primary create-rule-button"
           data-test="create-rule-button"
           disabled={false}
           onClick={[Function]}
@@ -125,238 +127,242 @@ exports[`should render correctly 1`] = `
       className="mako-grid__col-10 col-start-2"
     >
       <div
-        className="filter-wrap"
+        data-test="rule-filter"
       >
         <div
-          className="filter-header"
-        >
-          <p
-            className="filter-title"
-          >
-            Search emails by
-             
-            <a
-              className="filter-option-toggle"
-              href="#"
-            >
-              all
-            </a>
-             
-            of the following:
-          </p>
-          <div
-            className="btn-list"
-          >
-            <button
-              className="btn btn-small btn-secondary"
-              type="button"
-            >
-              Clear Search
-            </button>
-          </div>
-        </div>
-        <div
-          className="filter-list"
+          className="filter-wrap"
         >
           <div
-            className="mako-grid__row"
+            className="filter-header"
           >
-            <div
-              className="mako-grid__col-3 col-start-1"
+            <p
+              className="filter-title"
             >
-              <div
-                style={
-                  Object {
-                    "paddingTop": "15px",
-                  }
-                }
-              />
-              <div
-                className="input-select-wrap"
+              Search emails by
+               
+              <a
+                className="filter-option-toggle"
+                href="#"
               >
-                <div
-                  className="css-10nd86i"
-                  onKeyDown={[Function]}
-                >
-                  <div
-                    className="css-12nb859"
-                    onMouseDown={[Function]}
-                    onTouchEnd={[Function]}
-                  >
-                    <div
-                      className="css-1m8oe7c"
-                    >
-                      <div
-                        className="css-1v8euj5"
-                      >
-                        Bounce Action
-                      </div>
-                      <div
-                        className="css-1g6gooi"
-                      >
-                        <div
-                          className=""
-                          style={
-                            Object {
-                              "display": "inline-block",
-                            }
-                          }
-                        >
-                          <input
-                            aria-autocomplete="list"
-                            autoCapitalize="none"
-                            autoComplete="off"
-                            autoCorrect="off"
-                            disabled={false}
-                            id="react-select-2-input"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            onFocus={[Function]}
-                            spellCheck="false"
-                            style={
-                              Object {
-                                "background": 0,
-                                "border": 0,
-                                "boxSizing": "content-box",
-                                "color": "inherit",
-                                "fontSize": "inherit",
-                                "opacity": 1,
-                                "outline": 0,
-                                "padding": 0,
-                                "width": "1px",
-                              }
-                            }
-                            tabIndex="0"
-                            theme={
-                              Object {
-                                "borderRadius": 4,
-                                "colors": Object {
-                                  "danger": "#DE350B",
-                                  "dangerLight": "#FFBDAD",
-                                  "neutral0": "hsl(0, 0%, 100%)",
-                                  "neutral10": "hsl(0, 0%, 90%)",
-                                  "neutral20": "hsl(0, 0%, 80%)",
-                                  "neutral30": "hsl(0, 0%, 70%)",
-                                  "neutral40": "hsl(0, 0%, 60%)",
-                                  "neutral5": "hsl(0, 0%, 95%)",
-                                  "neutral50": "hsl(0, 0%, 50%)",
-                                  "neutral60": "hsl(0, 0%, 40%)",
-                                  "neutral70": "hsl(0, 0%, 30%)",
-                                  "neutral80": "hsl(0, 0%, 20%)",
-                                  "neutral90": "hsl(0, 0%, 10%)",
-                                  "primary": "#2684FF",
-                                  "primary25": "#DEEBFF",
-                                  "primary50": "#B2D4FF",
-                                  "primary75": "#4C9AFF",
-                                },
-                                "spacing": Object {
-                                  "baseUnit": 4,
-                                  "controlHeight": 38,
-                                  "menuGutter": 8,
-                                },
-                              }
-                            }
-                            type="text"
-                            value=""
-                          />
-                          <div
-                            style={
-                              Object {
-                                "height": 0,
-                                "left": 0,
-                                "overflow": "scroll",
-                                "position": "absolute",
-                                "top": 0,
-                                "visibility": "hidden",
-                                "whiteSpace": "pre",
-                              }
-                            }
-                          >
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="css-1wy0on6"
-                    >
-                      <span
-                        className="css-0"
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="css-86sq3t"
-                        onMouseDown={[Function]}
-                        onTouchEnd={[Function]}
-                      >
-                        <svg
-                          aria-hidden="true"
-                          className="css-19bqh2r"
-                          focusable="false"
-                          height={20}
-                          viewBox="0 0 20 20"
-                          width={20}
-                        >
-                          <path
-                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <input
-                    name="primary-filter"
-                    type="hidden"
-                    value="Bounce Action"
-                  />
-                </div>
-              </div>
-            </div>
+                all
+              </a>
+               
+              of the following:
+            </p>
             <div
-              className="mako-grid__col-9 col-start-4"
-            >
-              <div
-                className="input-text-wrap"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                <label
-                  className="input-text-label"
-                >
-                  Description
-                </label>
-                <input
-                  aria-describedby=""
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  step={null}
-                  type="text"
-                  value=""
-                />
-                
-                
-              </div>
-            </div>
-            <i
-              className="filter-row-remove sg-icon sg-icon-x"
-            />
-          </div>
-          <div
-            className="mako-grid__row"
-          >
-            <div
-              className="row btn-list filter-actions-container"
+              className="btn-list"
             >
               <button
                 className="btn btn-small btn-secondary"
                 type="button"
               >
-                Add a Filter
+                Clear Search
               </button>
+            </div>
+          </div>
+          <div
+            className="filter-list"
+          >
+            <div
+              className="mako-grid__row"
+            >
+              <div
+                className="mako-grid__col-3 col-start-1"
+              >
+                <div
+                  style={
+                    Object {
+                      "paddingTop": "15px",
+                    }
+                  }
+                />
+                <div
+                  className="input-select-wrap"
+                >
+                  <div
+                    className="css-10nd86i"
+                    onKeyDown={[Function]}
+                  >
+                    <div
+                      className="css-12nb859"
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                    >
+                      <div
+                        className="css-1m8oe7c"
+                      >
+                        <div
+                          className="css-1v8euj5"
+                        >
+                          Bounce Action
+                        </div>
+                        <div
+                          className="css-1g6gooi"
+                        >
+                          <div
+                            className=""
+                            style={
+                              Object {
+                                "display": "inline-block",
+                              }
+                            }
+                          >
+                            <input
+                              aria-autocomplete="list"
+                              autoCapitalize="none"
+                              autoComplete="off"
+                              autoCorrect="off"
+                              disabled={false}
+                              id="react-select-2-input"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              spellCheck="false"
+                              style={
+                                Object {
+                                  "background": 0,
+                                  "border": 0,
+                                  "boxSizing": "content-box",
+                                  "color": "inherit",
+                                  "fontSize": "inherit",
+                                  "opacity": 1,
+                                  "outline": 0,
+                                  "padding": 0,
+                                  "width": "1px",
+                                }
+                              }
+                              tabIndex="0"
+                              theme={
+                                Object {
+                                  "borderRadius": 4,
+                                  "colors": Object {
+                                    "danger": "#DE350B",
+                                    "dangerLight": "#FFBDAD",
+                                    "neutral0": "hsl(0, 0%, 100%)",
+                                    "neutral10": "hsl(0, 0%, 90%)",
+                                    "neutral20": "hsl(0, 0%, 80%)",
+                                    "neutral30": "hsl(0, 0%, 70%)",
+                                    "neutral40": "hsl(0, 0%, 60%)",
+                                    "neutral5": "hsl(0, 0%, 95%)",
+                                    "neutral50": "hsl(0, 0%, 50%)",
+                                    "neutral60": "hsl(0, 0%, 40%)",
+                                    "neutral70": "hsl(0, 0%, 30%)",
+                                    "neutral80": "hsl(0, 0%, 20%)",
+                                    "neutral90": "hsl(0, 0%, 10%)",
+                                    "primary": "#2684FF",
+                                    "primary25": "#DEEBFF",
+                                    "primary50": "#B2D4FF",
+                                    "primary75": "#4C9AFF",
+                                  },
+                                  "spacing": Object {
+                                    "baseUnit": 4,
+                                    "controlHeight": 38,
+                                    "menuGutter": 8,
+                                  },
+                                }
+                              }
+                              type="text"
+                              value=""
+                            />
+                            <div
+                              style={
+                                Object {
+                                  "height": 0,
+                                  "left": 0,
+                                  "overflow": "scroll",
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "visibility": "hidden",
+                                  "whiteSpace": "pre",
+                                }
+                              }
+                            >
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="css-1wy0on6"
+                      >
+                        <span
+                          className="css-0"
+                        />
+                        <div
+                          aria-hidden="true"
+                          className="css-86sq3t"
+                          onMouseDown={[Function]}
+                          onTouchEnd={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="css-19bqh2r"
+                            focusable="false"
+                            height={20}
+                            viewBox="0 0 20 20"
+                            width={20}
+                          >
+                            <path
+                              d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <input
+                      name="primary-filter"
+                      type="hidden"
+                      value="Bounce Action"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mako-grid__col-9 col-start-4"
+              >
+                <div
+                  className="input-text-wrap"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <label
+                    className="input-text-label"
+                  >
+                    Description
+                  </label>
+                  <input
+                    aria-describedby=""
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    step={null}
+                    type="text"
+                    value=""
+                  />
+                  
+                  
+                </div>
+              </div>
+              <i
+                className="filter-row-remove sg-icon sg-icon-x"
+              />
+            </div>
+            <div
+              className="mako-grid__row"
+            >
+              <div
+                className="row btn-list filter-actions-container"
+              >
+                <button
+                  className="btn btn-small btn-secondary"
+                  type="button"
+                >
+                  Add a Filter
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -369,100 +375,104 @@ exports[`should render correctly 1`] = `
     <div
       className="mako-grid__col-10 col-start-2"
     >
-      <table
-        className="table-wrap"
+      <div
+        data-test="rule-table"
       >
-        <thead>
-          <tr>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Id
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Bounce Action
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Response Code
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Description
-            </th>
-            <th
-              className="actions-cell"
-              onClick={[Function]}
-            >
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              504
-            </td>
-            <td>
-              no_action
-            </td>
-            <td>
-              550
-            </td>
-            <td>
-              bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl
-            </td>
-            <td
-              className="actions"
-            >
-              <i
-                className="sg-icon sg-icon-ellipsis"
-                style={null}
-              />
-              <div
-                className="action-icons"
+        <table
+          className="table-wrap"
+        >
+          <thead>
+            <tr>
+              <th
+                className=""
+                onClick={[Function]}
               >
-                <span
-                  data-tooltip="View"
-                  data-tooltip-pos="up"
-                  onClick={[Function]}
+                Id
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Bounce Action
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Response Code
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Description
+              </th>
+              <th
+                className="actions-cell"
+                onClick={[Function]}
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                504
+              </td>
+              <td>
+                no_action
+              </td>
+              <td>
+                550
+              </td>
+              <td>
+                bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl
+              </td>
+              <td
+                className="actions"
+              >
+                <i
+                  className="sg-icon sg-icon-ellipsis"
+                  style={null}
+                />
+                <div
+                  className="action-icons"
                 >
-                  <i
-                    className="sg-icon sg-icon-view"
-                    style={null}
-                  />
-                </span>
-                <span
-                  data-tooltip="Edit"
-                  data-tooltip-pos="up"
-                >
-                  <i
-                    className="sg-icon sg-icon-pencil"
-                    style={null}
-                  />
-                </span>
-                <span
-                  data-tooltip="Delete"
-                  data-tooltip-pos="up"
-                >
-                  <i
-                    className="sg-icon sg-icon-trash"
-                    style={null}
-                  />
-                </span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  <span
+                    data-tooltip="View"
+                    data-tooltip-pos="up"
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="sg-icon sg-icon-view"
+                      style={null}
+                    />
+                  </span>
+                  <span
+                    data-tooltip="Edit"
+                    data-tooltip-pos="up"
+                  >
+                    <i
+                      className="sg-icon sg-icon-pencil"
+                      style={null}
+                    />
+                  </span>
+                  <span
+                    data-tooltip="Delete"
+                    data-tooltip-pos="up"
+                  >
+                    <i
+                      className="sg-icon sg-icon-trash"
+                      style={null}
+                    />
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div

@@ -1,0 +1,42 @@
+{
+  "parser": "babel-eslint",
+
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "plugins": ["cypress", "prettier"],
+  "env": {
+    "cypress/globals": true
+  },
+  "extends": ["airbnb", "prettier"],
+  "rules": {
+    "global-require": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
+    "vars-on-top": "off",
+    "no-prototype-builtins": "warn",
+    "import/extensions": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-underscore-dangle": ["error", { "allow": ["_i"] }]
+  },
+  "overrides": [
+    {
+      "files": ["*.spec.js"],
+      "rules": {
+        "no-unused-expressions": "off",
+        "func-names": "off",
+        "prefer-arrow-callback": "off",
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["*.js"],
+      "rules": {
+        "class-methods-use-this": "off",
+        "no-console": "off"
+      }
+    }
+  ]
+}
