@@ -158,7 +158,11 @@ const BounceRulesContainer = ({
                 rules={filteredRules}
               />
             )}
-            {isRulesEmpty && <EmptyRules />}
+            {isRulesEmpty && (
+              <div {...WriteSelectors.emptyRulesWarning}>
+                <EmptyRules />
+              </div>
+            )}
           </div>
         </Column>
       </Row>
