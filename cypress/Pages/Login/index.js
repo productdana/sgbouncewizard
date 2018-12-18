@@ -27,7 +27,7 @@ class LoginPage extends Page {
   }
 
   open() {
-    super.open("login");
+    super.open("/");
   }
 
   login(email, password) {

@@ -3,6 +3,7 @@
 exports[`should render correctly 1`] = `
 <div
   className="container"
+  data-test="bounce-rules-page"
 >
   <div
     className="header-container"
@@ -61,7 +62,7 @@ exports[`should render correctly 1`] = `
       >
         <li>
           <a
-            data-test="bounce-rules-page"
+            data-test="bounce-rules-breadcrumb"
             href="/bounce_rules"
           >
             Bounce Rules
@@ -108,7 +109,7 @@ exports[`should render correctly 1`] = `
         }
       >
         <button
-          className="btn btn-primary sg-button create-rule-button"
+          className="btn btn-primary create-rule-button"
           data-test="create-rule-button"
           disabled={false}
           onClick={[Function]}
@@ -127,6 +128,7 @@ exports[`should render correctly 1`] = `
     >
       <div
         className="filter-wrap"
+        data-test="rule-filter"
       >
         <div
           className="filter-header"
@@ -370,100 +372,104 @@ exports[`should render correctly 1`] = `
     <div
       className="mako-grid__col-10 col-start-2"
     >
-      <table
-        className="table-wrap"
+      <div
+        data-test="rule-table"
       >
-        <thead>
-          <tr>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Id
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Bounce Action
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Response Code
-            </th>
-            <th
-              className=""
-              onClick={[Function]}
-            >
-              Description
-            </th>
-            <th
-              className="actions-cell"
-              onClick={[Function]}
-            >
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              504
-            </td>
-            <td>
-              no_action
-            </td>
-            <td>
-              550
-            </td>
-            <td>
-              bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl
-            </td>
-            <td
-              className="actions"
-            >
-              <i
-                className="sg-icon sg-icon-ellipsis"
-                style={null}
-              />
-              <div
-                className="action-icons"
+        <table
+          className="table-wrap"
+        >
+          <thead>
+            <tr>
+              <th
+                className=""
+                onClick={[Function]}
               >
-                <span
-                  data-tooltip="View"
-                  data-tooltip-pos="up"
-                  onClick={[Function]}
+                Id
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Bounce Action
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Response Code
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Description
+              </th>
+              <th
+                className="actions-cell"
+                onClick={[Function]}
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                504
+              </td>
+              <td>
+                no_action
+              </td>
+              <td>
+                550
+              </td>
+              <td>
+                bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl
+              </td>
+              <td
+                className="actions"
+              >
+                <i
+                  className="sg-icon sg-icon-ellipsis"
+                  style={null}
+                />
+                <div
+                  className="action-icons"
                 >
-                  <i
-                    className="sg-icon sg-icon-view"
-                    style={null}
-                  />
-                </span>
-                <span
-                  data-tooltip="Edit"
-                  data-tooltip-pos="up"
-                >
-                  <i
-                    className="sg-icon sg-icon-pencil"
-                    style={null}
-                  />
-                </span>
-                <span
-                  data-tooltip="Delete"
-                  data-tooltip-pos="up"
-                >
-                  <i
-                    className="sg-icon sg-icon-trash"
-                    style={null}
-                  />
-                </span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  <span
+                    data-tooltip="View"
+                    data-tooltip-pos="up"
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="sg-icon sg-icon-view"
+                      style={null}
+                    />
+                  </span>
+                  <span
+                    data-tooltip="Edit"
+                    data-tooltip-pos="up"
+                  >
+                    <i
+                      className="sg-icon sg-icon-pencil"
+                      style={null}
+                    />
+                  </span>
+                  <span
+                    data-tooltip="Delete"
+                    data-tooltip-pos="up"
+                  >
+                    <i
+                      className="sg-icon sg-icon-trash"
+                      style={null}
+                    />
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div
