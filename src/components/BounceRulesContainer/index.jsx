@@ -92,7 +92,7 @@ const BounceRulesContainer = ({
   addFilter,
   invalidFilter
 }) => {
-  const isRulesEmpty = rules.length === 0;
+  const isRulesEmpty = rules === undefined || rules.length === 0;
   return (
     <div {...WriteSelectors.page} className="container">
       <Header name="Kenny" />

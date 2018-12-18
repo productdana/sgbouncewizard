@@ -5,7 +5,13 @@ import BounceRuleContainer from ".";
 import Pagination from "../Pagination";
 import { Selectors } from "./selectors";
 
-const { csvButton, createRuleButton, ruleFilter, ruleTable } = Selectors;
+const {
+  csvButton,
+  createRuleButton,
+  ruleFilter,
+  ruleTable,
+  emptyRulesWarning,
+} = Selectors;
 
 const testRules = [
   {
@@ -62,4 +68,9 @@ it("should render a rule list component", () => {
 
 it("should render paginiation", () => {
   expect(wrapper.find(Pagination)).toHaveLength(1);
+});
+
+it("should render warning when no rules available", () => {
+  wrapper.setProps({ filteredRules: [], rules: [] });
+  expect(wrapper.find(emptyRulesWarning)).toHaveLength(1);
 });

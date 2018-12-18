@@ -16,6 +16,7 @@ const testHooks = {
   createRuleButton: "create-rule-button",
   ruleFilter: "rule-filter",
   ruleTable: "rule-table",
+  emptyRulesWarning: "empty-rules-warning",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:
