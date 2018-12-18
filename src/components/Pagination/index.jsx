@@ -19,11 +19,15 @@ const Pagination = ({
         : pageIndex % pagesToDisplay));
   const startPage = endPage - (pagesToDisplay - 1);
   const totalPages = Math.ceil(numRules / pageInterval);
+  const shouldDisplayFirstPage = pageIndex > pagesToDisplay;
+  const shouldDisplayLastPage = pageIndex <= totalPages - pagesToDisplay;
+  const shouldDisplayPrev = pageIndex <= pagesToDisplay;
+  const shouldDisplayNext = pageIndex > totalPages - pagesToDisplay;
   return (
     <div className="pagination pagination-container">
       <a
         className={`btn btn-secondary btn-small pagination-prev ${
-          pageIndex <= pagesToDisplay ? "is-disabled" : ""
+          shouldDisplayPrev ? "is-disabled" : ""
         }`}
         onClick={prevPageIndex}
         onKeyDown={prevPageIndex}
@@ -32,7 +36,7 @@ const Pagination = ({
       >
         Prev
       </a>
-      {pageIndex > pagesToDisplay && (
+      {shouldDisplayFirstPage && (
         <span>
           <a
             className="pagination-link"
@@ -64,7 +68,7 @@ const Pagination = ({
               {number}
             </a>
           ))}
-        {pageIndex <= totalPages - pagesToDisplay && (
+        {shouldDisplayLastPage && (
           <span>
             <a className="pagination-ellipses">&hellip;</a>
             <a
@@ -81,7 +85,7 @@ const Pagination = ({
       </div>
       <a
         className={`btn btn-secondary btn-small pagination-next ${
-          pageIndex > totalPages - pagesToDisplay ? "is-disabled" : ""
+          shouldDisplayNext ? "is-disabled" : ""
         }`}
         onClick={nextPageIndex}
         onKeyDown={() => nextPageIndex}
