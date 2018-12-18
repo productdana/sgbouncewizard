@@ -3,7 +3,6 @@ import { CSVLink } from "react-csv";
 import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
-import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import {
   HeaderCell,
@@ -13,14 +12,14 @@ import {
   TableHeader,
   TableRow
 } from "@sendgrid/ui-components/table/table";
-import { TextInput } from "@sendgrid/ui-components/text-input";
 import Header from "../Header";
-
 import { Row } from "../Row";
 import { Column } from "../Column";
 import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
 import { WriteSelectors } from "./selectors";
+import CreateRuleModal from "./CreateRuleModal";
+import CreateRuleConfirmationModal from "./CreateRuleConfirmationModal";
 
 const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
   <Table>
@@ -94,7 +93,10 @@ const BounceRulesContainer = ({
   invalidFilter,
   isCreateRuleOpen,
   handleCreateRuleClosed,
-  handleCreateRuleClicked
+  handleCreateRuleClicked,
+  handleCreateRuleUpdate,
+  handleCreateRuleSubmit,
+  isCreateRuleConfirmationOpen
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -174,64 +176,19 @@ const BounceRulesContainer = ({
         />
       </Column>
     </Row>
-    <SideModal isOpen={isCreateRuleOpen}>
-      <div className="create-rule-modal">
-        <Row>
-          <Column>
-            <h2>Create a Bounce Rule</h2>
-          </Column>
-        </Row>
-        <Row>
-          <Column>
-            <form action="" id="create-rule-form">
-              <div className="input-text-wrap">
-                <label>
-                  Bounce Action
-                  <TextInput type="text" id="create-bounce-action" />
-                </label>
-                <label htmlFor="create-response-code">
-                  Response Code
-                  <TextInput type="text" id="create-description" />
-                </label>
-                <label htmlFor="create-description">
-                  Description
-                  <TextInput type="text" id="create-description" />
-                </label>
-                <label htmlFor="create-ehanced-code">
-                  Enhanced Code
-                  <TextInput type="text" id="create-enhanced-code" />
-                </label>
-                <label htmlFor="create-regex">
-                  Regular Expression
-                  <TextInput type="text" id="create-regex" />
-                </label>
-              </div>
-            </form>
-          </Column>
-        </Row>
-        <Row>
-          <Column width={2} offset={8}>
-            <Button
-              type="secondary"
-              className="sg-button"
-              onClick={handleCreateRuleClosed}
-              onKeyDown={handleCreateRuleClosed}
-            >
-              Cancel
-            </Button>
-          </Column>
-          <Column width={2} offset={11}>
-            <Button
-              className="sg-button"
-              onClick={handleCreateRuleClosed}
-              onKeyDown={handleCreateRuleClosed}
-            >
-              Submit
-            </Button>
-          </Column>
-        </Row>
-      </div>
-    </SideModal>
+    {isCreateRuleOpen && (
+      <CreateRuleModal
+        newRule={newRule}
+        handleCreateRuleClosed={handleCreateRuleClosed}
+        handleCreateRuleUpdate={handleCreateRuleUpdate}
+        handleCreateRuleSubmit={handleCreateRuleSubmit}
+      />
+    )}
+    {isCreateRuleConfirmationOpen && (
+      <CreateRuleConfirmationModal
+        handleCreateRuleClosed={handleCreateRuleClosed}
+      />
+    )}
   </div>
 );
 

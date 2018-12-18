@@ -18,7 +18,12 @@ export default class BounceRulesPage extends React.Component {
       pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
+<<<<<<< HEAD
       isCreateRuleOpen: false
+=======
+      isCreateRuleOpen: false,
+      isCreateRuleConfirmationOpen: false,
+>>>>>>> modularizing components
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -33,6 +38,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleCreateRuleClicked = this.handleCreateRuleClicked.bind(this);
     this.handleCreateRuleClosed = this.handleCreateRuleClosed.bind(this);
     this.handleCreateRuleUpdate = this.handleCreateRuleUpdate.bind(this);
+    this.handleCreateRuleSubmit = this.handleCreateRuleSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -174,16 +180,40 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
-  handleCreateRuleClosed() {
-    this.setState({ isCreateRuleOpen: false });
+  handleCreateRuleClosed(e) {
+    const { id } = e.currentTarget;
+    switch (id) {
+      case "create-rule-close":
+        this.setState({ isCreateRuleOpen: false });
+        break;
+      case "create-rule-confirmation-close":
+        this.setState({ isCreateRuleConfirmationOpen: false });
+        break;
+      default:
+        break;
+    }
   }
 
-  handleCreateRuleUpdate(e, field) {
+  handleCreateRuleSubmit(e) {
+    e.preventDefault();
+    this.setState({
+      isCreateRuleOpen: false,
+      isCreateRuleConfirmationOpen: true,
+    });
+  }
+
+  handleCreateRuleUpdate(e) {
+    const { id, value } = e.currentTarget;
     const { newRule } = this.state;
+<<<<<<< HEAD
     let rule = Object.assign({}, newRule);
     rule[field] = e.currentTarget.value;
     this.setState({
       newRule: rule
+=======
+    this.setState({
+      newRule: { ...newRule, [id]: value },
+>>>>>>> modularizing components
     });
   }
 
@@ -214,6 +244,7 @@ export default class BounceRulesPage extends React.Component {
         handleCreateRuleClicked={this.handleCreateRuleClicked}
         handleCreateRuleClosed={this.handleCreateRuleClosed}
         handleCreateRuleUpdate={this.handleCreateRuleUpdate}
+        handleCreateRuleSubmit={this.handleCreateRuleSubmit}
         {...this.state}
       />
     );
