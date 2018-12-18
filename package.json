@@ -16,7 +16,8 @@
     "build-storybook": "build-storybook",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "json-server": "json-server --watch db.json"
   },
   "repository": {
     "type": "git",
