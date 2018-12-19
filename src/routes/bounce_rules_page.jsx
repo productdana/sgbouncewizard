@@ -18,12 +18,8 @@ export default class BounceRulesPage extends React.Component {
       pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
-<<<<<<< HEAD
-      isCreateRuleOpen: false
-=======
       isCreateRuleOpen: false,
       isCreateRuleConfirmationOpen: false,
->>>>>>> modularizing components
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -47,7 +43,7 @@ export default class BounceRulesPage extends React.Component {
     if (status === 200) {
       this.setState({
         rules,
-        numRules: rules.length
+        numRules: rules.length,
       });
     }
   }
@@ -205,15 +201,8 @@ export default class BounceRulesPage extends React.Component {
   handleCreateRuleUpdate(e) {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
-<<<<<<< HEAD
-    let rule = Object.assign({}, newRule);
-    rule[field] = e.currentTarget.value;
-    this.setState({
-      newRule: rule
-=======
     this.setState({
       newRule: { ...newRule, [id]: value },
->>>>>>> modularizing components
     });
   }
 

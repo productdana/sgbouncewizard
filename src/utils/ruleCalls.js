@@ -17,3 +17,5 @@ export const getRule = async ruleId => {
   }
   throw new Error("Error retrieving all rules");
 };
+
+export const postRule = async () => {};
