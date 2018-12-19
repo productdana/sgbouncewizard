@@ -4,6 +4,7 @@ import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
+import Loader from "@sendgrid/ui-components/loader";
 import {
   HeaderCell,
   TableCell,
@@ -90,7 +91,12 @@ const BounceRulesContainer = ({
   numRules,
   filterOptions,
   addFilter,
+<<<<<<< HEAD
   invalidFilter
+=======
+  invalidFilter,
+  isFetching,
+>>>>>>> add is fetching
 }) => {
   const isRulesEmpty = rules === undefined || rules.length === 0;
   return (
@@ -150,6 +156,11 @@ const BounceRulesContainer = ({
       <Row>
         <Column width={10} offset={2}>
           <div {...WriteSelectors.ruleTable}>
+            {isFetching && (
+              <div className="bounce-rule-loader">
+                <Loader centered />
+              </div>
+            )}
             {!isRulesEmpty && (
               <RuleListContainer
                 handleRuleClick={handleRuleClick}
@@ -158,11 +169,12 @@ const BounceRulesContainer = ({
                 rules={filteredRules}
               />
             )}
-            {isRulesEmpty && (
-              <div {...WriteSelectors.emptyRulesWarning}>
-                <EmptyRules />
-              </div>
-            )}
+            {isRulesEmpty &&
+              !isFetching && (
+                <div {...WriteSelectors.emptyRulesWarning}>
+                  <EmptyRules />
+                </div>
+              )}
           </div>
         </Column>
       </Row>

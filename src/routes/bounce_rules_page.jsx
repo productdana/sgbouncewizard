@@ -18,6 +18,7 @@ export default class BounceRulesPage extends React.Component {
       pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
+      isFetching: true,
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -37,7 +38,12 @@ export default class BounceRulesPage extends React.Component {
     if (status === 200) {
       this.setState({
         rules,
+<<<<<<< HEAD
         numRules: rules.length,
+=======
+        numRules,
+        isFetching: false,
+>>>>>>> add is fetching
       });
     }
   }
