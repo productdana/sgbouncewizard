@@ -8,14 +8,6 @@ export const listRules = async () => {
   throw new Error("Error retrieving all rules");
 };
 
-export const mockListRules = async () => {
-  const response = await axios.get(`${process.env.API_URL}/rules`);
-  if (response.status === 200) {
-    return response;
-  }
-  throw new Error("Error retrieving all rules");
-};
-
 export const getRule = async ruleId => {
   const response = axios.get(`${process.env.API_URL}/${ruleId}`).catch(err => {
     throw new Error(err);

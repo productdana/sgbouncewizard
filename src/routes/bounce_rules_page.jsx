@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import BounceRulesContainer from "../components/BounceRulesContainer";
-import { mockListRules } from "../utils/ruleCalls";
+import { listRules } from "../utils/ruleCalls";
 
 export default class BounceRulesPage extends React.Component {
   constructor(props) {
@@ -30,13 +30,12 @@ export default class BounceRulesPage extends React.Component {
   }
 
   async componentDidMount() {
-    const { data, status } = await mockListRules();
+    const { data, status } = await listRules();
+    const { rules } = data;
     if (status === 200) {
-      // console.log(data[0]);
-      // const { rules, numRules } = data;
       this.setState({
-        rules: data,
-        numRules: data.length,
+        rules,
+        numRules: rules.length,
       });
     }
   }
