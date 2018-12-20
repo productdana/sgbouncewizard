@@ -31,11 +31,11 @@ export default class BounceRulesPage extends React.Component {
 
   async componentDidMount() {
     const { data, status } = await listRules();
+    const { rules } = data;
     if (status === 200) {
-      const { rules, numRules } = data;
       this.setState({
         rules,
-        numRules,
+        numRules: rules.length,
       });
     }
   }

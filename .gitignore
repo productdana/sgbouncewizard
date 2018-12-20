@@ -1,4 +1,5 @@
 /node_modules
 /dist/**/*
 .env
+.env.mock
 .DS_Store

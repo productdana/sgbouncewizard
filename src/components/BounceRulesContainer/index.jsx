@@ -114,7 +114,6 @@ const BounceRulesContainer = ({
         >
           Export CSV
         </CSVLink>
-        ;
       </Column>
       <Column width={1} offset={11}>
         <div style={{ textAlign: "left" }}>
