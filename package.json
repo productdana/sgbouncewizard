@@ -10,7 +10,7 @@
     "cypress:run:localhost": "cypress run",
     "cypress:run:app": "cypress run --config baseUrl=http://deployedappurl.cloudfront.net",
     "dev": "webpack-dev-server --env.ENVIRONMENT=dev --open --mode=development ",
-    "local": "webpack-dev-server --env.ENVIRONMENT=local --open --mode=development ",
+    "dev:mock": "webpack-dev-server --env.ENVIRONMENT=mock --open --mode=development ",
     "precommit": "lint-staged",
     "prepush": "jest",
     "storybook": "start-storybook -p 6009",
