@@ -9,7 +9,8 @@
     "cypress:open:app": "cypress open --config baseUrl=http://deployedappurl.cloudfront.net",
     "cypress:run:localhost": "cypress run",
     "cypress:run:app": "cypress run --config baseUrl=http://deployedappurl.cloudfront.net",
-    "dev": "webpack-dev-server --open --mode=development",
+    "dev": "webpack-dev-server --env.ENVIRONMENT=dev --open --mode=development ",
+    "local": "webpack-dev-server --env.ENVIRONMENT=local --open --mode=development ",
     "precommit": "lint-staged",
     "prepush": "jest",
     "storybook": "start-storybook -p 6009",
@@ -17,7 +18,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "json-server": "json-server --watch db.json"
+    "json-server": "json-server --watch db.json -p 3004"
   },
   "repository": {
     "type": "git",
