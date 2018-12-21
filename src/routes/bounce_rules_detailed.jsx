@@ -13,6 +13,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       isChangeModalOpen: false,
       isCancelConfirmOpen: false,
       isConfirmOpen: false,
+      pagesToDisplay: 5,
     };
 
     this.onChangeRule = this.onChangeRule.bind(this);
