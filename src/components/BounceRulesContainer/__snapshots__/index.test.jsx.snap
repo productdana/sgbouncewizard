@@ -5,19 +5,32 @@ exports[`should render correctly 1`] = `
   className="container"
   data-test="bounce-rules-page"
 >
-  <Header
-    name="Kenny"
-  />
-  <Component>
-    <Component
-      offset={2}
-      width={6}
+  <div
+    className="header-container"
+  >
+    <div
+      className="mako-grid__row"
     >
-      <Component
-        withoutTrailingSlash={false}
+      <div
+        className="mako-grid__col-3 col-start-2"
       >
-        <a
-          href="/bounce_rules"
+        <img
+          alt="sendgrid-logo"
+          className="sg-logo"
+          data-test="sg-logo"
+          src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
+          style={
+            Object {
+              "maxWidth": "45%",
+            }
+          }
+        />
+      </div>
+      <div
+        className="mako-grid__col-2 col-start-10"
+      >
+        <div
+          className="header-user-container"
         >
 <<<<<<< HEAD
           Bounce Rules
@@ -135,73 +148,23 @@ exports[`should render correctly 1`] = `
           }
         }
       >
-        <Component
-          active={false}
-          badge={null}
-          className="create-rule-button"
+        <button
+          className="btn btn-primary create-rule-button"
           data-test="create-rule-button"
           disabled={false}
-          group={false}
-          icon={null}
-          loading={false}
           onClick={[Function]}
-          onDark={false}
-          small={false}
-          type="primary"
+          type="button"
         >
           Create Rule
-        </Component>
+        </button>
       </div>
-    </Component>
-  </Component>
-  <Component>
-    <Component
-      offset={2}
-      width={10}
-    >
-      <RuleFilter
-        filterOptions={Array []}
-      />
-    </Component>
-  </Component>
-  <Component>
-    <Component
-      offset={2}
-      width={10}
-    >
-      <RuleListContainer
-        rules={
-          Array [
-            Object {
-              "bounce_action": "no_action",
-              "description": "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-              "enhanced_code": "",
-              "id": 504,
-              "priority": 0,
-              "regex": "no MX record for domain",
-              "response_code": "550",
-            },
-          ]
-        }
-      />
-    </Component>
-  </Component>
-  <Component>
-    <Component
-      offset={5}
-      width={4}
-    >
-      <Pagination
-        pageIndex={1}
-      />
-    </Component>
-  </Component>
-  <SideModal
-    bodyNode={<body />}
-    modalContainer={<body />}
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
   >
     <div
-      className="create-rule-modal"
+      className="mako-grid__col-10 col-start-2"
     >
       <div
         data-test="rule-filter"
@@ -569,45 +532,84 @@ exports[`should render correctly 1`] = `
           role="button"
           tabIndex="0"
         >
-          <Component
-            active={false}
-            badge={null}
-            className="sg-button"
-            disabled={false}
-            group={false}
-            icon={null}
-            loading={false}
-            onClick={[Function]}
-            onDark={false}
-            small={false}
-            type="secondary"
-          >
-            Cancel
-          </Component>
-        </Component>
-        <Component
-          offset={11}
-          width={2}
+          Prev
+        </a>
+        <div
+          className="pagination-links"
         >
-          <Component
-            active={false}
-            badge={null}
-            className="sg-button"
-            disabled={false}
-            group={false}
-            icon={null}
-            loading={false}
+          <a
+            className="pagination-link"
             onClick={[Function]}
-            onDark={false}
-            small={false}
-            type="primary"
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
           >
-            Submit
-          </Component>
-        </Component>
-      </Component>
+            1
+          </a>
+          <a
+            className="pagination-link is-active"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            2
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            3
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            4
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            5
+          </a>
+          <a
+            className="pagination-ellipses"
+          >
+            …
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          />
+        </div>
+        <a
+          className="btn btn-secondary btn-small pagination-next"
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+          Next
+        </a>
+      </div>
     </div>
+<<<<<<< HEAD
   </SideModal>
 >>>>>>> create rule backbone
+=======
+  </div>
+>>>>>>> fixed rulecalls
 </div>
 `;
