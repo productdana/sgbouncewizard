@@ -89,7 +89,6 @@ const BounceRulesContainer = ({
   filterOptions,
   addFilter,
   invalidFilter,
-  handleCreateRuleClicked,
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -119,13 +118,7 @@ const BounceRulesContainer = ({
       <Column width={1} offset={11}>
         <div style={{ textAlign: "left" }}>
           <Button
-<<<<<<< HEAD
             {...WriteSelectors.createRuleButton}
-=======
-            onClick={handleCreateRuleClicked}
-            onKeyDown={handleCreateRuleClicked}
-            data-test="create-rule-button"
->>>>>>> modal refactoring
             className="create-rule-button"
             type="primary"
           >

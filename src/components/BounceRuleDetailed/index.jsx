@@ -44,7 +44,7 @@ const BounceRuleDetailed = ({
           </h1>
         </Column>
         {isEditClicked ? (
-          <Column className=" sg-right" width={4} offset={8}>
+          <Column className=" sg-right" width={2} offset={10}>
             <Button
               onClick={handleButtonClicked}
               id="cancelClicked"
