@@ -81,10 +81,9 @@ module.exports = env => {
         chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css"
       }),
       new Dotenv({
-        // path: fs.existsSync("./.env." + env.ENVIRONMENT)
-        //   ? "./.env." + env.ENVIRONMENT
-        //   : "./.env"
-        path: "./.env.mock"
+        path: fs.existsSync("./.env." + env.ENVIRONMENT)
+          ? "./.env." + env.ENVIRONMENT
+          : "./.env"
       })
     ],
     devServer: {
