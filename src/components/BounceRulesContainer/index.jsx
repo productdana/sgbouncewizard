@@ -85,6 +85,7 @@ const BounceRulesContainer = ({
   selectedRule,
   pageIndex,
   pageInterval,
+  pagesToDisplay,
   numRules,
   filterOptions,
   addFilter,
@@ -154,18 +155,21 @@ const BounceRulesContainer = ({
         </div>
       </Column>
     </Row>
-    <Row>
-      <Column width={4} offset={5}>
-        <Pagination
-          prevPageIndex={prevPageIndex}
-          nextPageIndex={nextPageIndex}
-          pageIndex={pageIndex}
-          pageInterval={pageInterval}
-          numRules={numRules}
-          updatePageIndex={updatePageIndex}
-        />
-      </Column>
-    </Row>
+    {numRules > pageInterval && (
+      <Row>
+        <Column width={4} offset={5}>
+          <Pagination
+            prevPageIndex={prevPageIndex}
+            nextPageIndex={nextPageIndex}
+            pageIndex={pageIndex}
+            pageInterval={pageInterval}
+            numRules={numRules}
+            updatePageIndex={updatePageIndex}
+            pagesToDisplay={pagesToDisplay}
+          />
+        </Column>
+      </Row>
+    )}
   </div>
 );
 

@@ -15,12 +15,14 @@ export default class BounceRulesPage extends React.Component {
       rules: [],
       pageIndex: 1,
       pageInterval: 10,
+      pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
     this.updateSearchCategory = this.updateSearchCategory.bind(this);
+    this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handleRuleClick = this.handleRuleClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.prevPageIndex = this.prevPageIndex.bind(this);
@@ -78,7 +80,9 @@ export default class BounceRulesPage extends React.Component {
 
   paginate(rules) {
     const { pageIndex, pageInterval } = this.state;
-    return rules.slice(pageIndex - 1, pageIndex - 1 + pageInterval);
+    const ruleStartIndex = (pageIndex - 1) * pageInterval;
+    const ruleEndIndex = (pageIndex - 1 * pageIndex + pageInterval) * pageIndex;
+    return rules.slice(ruleStartIndex, ruleEndIndex);
   }
 
   updatePageIndex(newIndex) {
@@ -90,13 +94,16 @@ export default class BounceRulesPage extends React.Component {
 
   prevPageIndex() {
     this.setState(prevState => ({
-      pageIndex: prevState.pageIndex > 1 ? prevState.pageIndex - 1 : 0,
+      pageIndex:
+        prevState.pageIndex > 1
+          ? prevState.pageIndex - prevState.pagesToDisplay
+          : 0,
     }));
   }
 
   nextPageIndex() {
     this.setState(prevState => ({
-      pageIndex: prevState.pageIndex + 1,
+      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
     }));
   }
 
