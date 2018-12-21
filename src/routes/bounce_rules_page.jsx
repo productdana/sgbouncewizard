@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import BounceRulesContainer from "../components/BounceRulesContainer";
-import { listRules } from "../utils/ruleCalls";
+import { listRules, postRule } from "../utils/ruleCalls";
 
 export default class BounceRulesPage extends React.Component {
   constructor(props) {
@@ -20,6 +20,7 @@ export default class BounceRulesPage extends React.Component {
       invalidFilter: false,
       isCreateRuleOpen: false,
       isCreateRuleConfirmationOpen: false,
+      newRule: "",
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -35,15 +36,15 @@ export default class BounceRulesPage extends React.Component {
     this.handleCreateRuleClosed = this.handleCreateRuleClosed.bind(this);
     this.handleCreateRuleUpdate = this.handleCreateRuleUpdate.bind(this);
     this.handleCreateRuleSubmit = this.handleCreateRuleSubmit.bind(this);
+    this.handleCreateConfirm = this.handleCreateConfirm.bind(this);
   }
 
   async componentDidMount() {
     const { data, status } = await listRules();
-    const { rules } = data;
     if (status === 200) {
       this.setState({
-        rules,
-        numRules: rules.length,
+        rules: data,
+        numRules: data.length,
       });
     }
   }
@@ -51,26 +52,26 @@ export default class BounceRulesPage extends React.Component {
   handleRuleClick(rule) {
     this.setState({
       isRedirectingToDetail: true,
-      selectedRule: rule
+      selectedRule: rule,
     });
   }
 
   handleKeyDown(rule) {
     this.setState({
       isRedirectingToDetail: true,
-      selectedRule: rule
+      selectedRule: rule,
     });
   }
 
   updateSearchToken(e) {
     this.setState({
-      searchToken: e.target.value.toLowerCase()
+      searchToken: e.target.value.toLowerCase(),
     });
   }
 
   updateSearchCategory(e) {
     this.setState({
-      searchCategory: e.value.toLowerCase()
+      searchCategory: e.value.toLowerCase(),
     });
   }
 
@@ -94,22 +95,30 @@ export default class BounceRulesPage extends React.Component {
   updatePageIndex(newIndex) {
     this.setState(prevState => ({
       pageIndex:
-        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex
+        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
     }));
   }
 
   prevPageIndex() {
     this.setState(prevState => ({
+<<<<<<< HEAD
       pageIndex:
         prevState.pageIndex > 1
           ? prevState.pageIndex - prevState.pagesToDisplay
           : 0
+=======
+      pageIndex: prevState.pageIndex > 1 ? prevState.pageIndex - 1 : 0,
+>>>>>>> added post to database
     }));
   }
 
   nextPageIndex() {
     this.setState(prevState => ({
+<<<<<<< HEAD
       pageIndex: prevState.pageIndex + prevState.pagesToDisplay
+=======
+      pageIndex: prevState.pageIndex + 1,
+>>>>>>> added post to database
     }));
   }
 
@@ -132,7 +141,7 @@ export default class BounceRulesPage extends React.Component {
     const { searchCategory, searchToken } = this.state;
     if (!searchCategory || !searchToken) {
       this.setState({
-        invalidFilter: true
+        invalidFilter: true,
       });
       return;
     }
@@ -141,13 +150,13 @@ export default class BounceRulesPage extends React.Component {
         invalidFilter: false,
         filterOptions: [
           ...prevState.filterOptions,
-          { searchCategory, searchToken }
+          { searchCategory, searchToken },
         ],
-        searchToken: ""
+        searchToken: "",
       }));
     } else {
       this.setState({
-        invalidFilter: true
+        invalidFilter: true,
       });
     }
   }
@@ -158,7 +167,7 @@ export default class BounceRulesPage extends React.Component {
     const index = newFilter.indexOf(filter);
     newFilter.splice(index, 1);
     this.setState({
-      filterOptions: [...newFilter]
+      filterOptions: [...newFilter],
     });
   }
 
@@ -171,8 +180,8 @@ export default class BounceRulesPage extends React.Component {
         enhanced_code: "",
         regex: "",
         priority: "",
-        bounce_action: ""
-      }
+        bounce_action: "",
+      },
     });
   }
 
@@ -206,6 +215,18 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
+  async handleCreateConfirm() {
+    const { rules } = this.state;
+    let { newRule } = this.state;
+    newRule = { ...newRule, id: rules.length + 1 };
+    const { status } = await postRule(newRule);
+    if (status === 200) {
+      this.setState({
+        isCreateRuleConfirmationOpen: false,
+      });
+    }
+  }
+
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
     const filteredRules = this.filterRules(this.paginate(rules));
@@ -214,7 +235,7 @@ export default class BounceRulesPage extends React.Component {
         push
         to={{
           pathname: `/bounce_rules/${selectedRule.id}`,
-          state: { currentRule: selectedRule }
+          state: { currentRule: selectedRule },
         }}
       />
     ) : (
@@ -234,6 +255,7 @@ export default class BounceRulesPage extends React.Component {
         handleCreateRuleClosed={this.handleCreateRuleClosed}
         handleCreateRuleUpdate={this.handleCreateRuleUpdate}
         handleCreateRuleSubmit={this.handleCreateRuleSubmit}
+        handleCreateConfirm={this.handleCreateConfirm}
         {...this.state}
       />
     );

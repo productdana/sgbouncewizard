@@ -21,14 +21,15 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.handleModalConfirm = this.handleModalConfirm.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { match, location } = this.props;
     if (location.state == null) {
-      getRule(match.params.bounceRuleId).then(response => {
+      const { data, status } = await getRule(match.params.bounceRuleId);
+      if (status === 200) {
         this.setState({
-          currentRule: response.data,
+          currentRule: data,
         });
-      });
+      }
     } else {
       this.setState({
         currentRule: location.state.currentRule,

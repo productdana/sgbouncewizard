@@ -16,7 +16,10 @@ const ConfirmationBody = () => (
   </div>
 );
 
-const ConfirmationFooter = ({ handleCreateRuleClosed }) => (
+const ConfirmationFooter = ({
+  handleCreateRuleClosed,
+  handleCreateConfirm,
+}) => (
   <div>
     <Row>
       <Column width={1} offset={10}>
@@ -30,7 +33,11 @@ const ConfirmationFooter = ({ handleCreateRuleClosed }) => (
         </Button>
       </Column>
       <Column width={1} offset={11}>
-        <Button className="sg-button" type="primary">
+        <Button
+          className="sg-button"
+          onClick={handleCreateConfirm}
+          type="primary"
+        >
           {"Confirm"}
         </Button>
       </Column>
@@ -38,14 +45,20 @@ const ConfirmationFooter = ({ handleCreateRuleClosed }) => (
   </div>
 );
 
-const CreateRuleConfirmationModal = ({ handleCreateRuleClosed }) => (
+const CreateRuleConfirmationModal = ({
+  handleCreateRuleClosed,
+  handleCreateConfirm,
+}) => (
   <CenterModal
     open
     renderBody={<ConfirmationBody />}
     renderHeader={<ConfirmationHeader />}
-    renderFooter={
-      <ConfirmationFooter handleCreateRuleClosed={handleCreateRuleClosed} />
-    }
+    renderFooter={(
+      <ConfirmationFooter
+        handleCreateRuleClosed={handleCreateRuleClosed}
+        handleCreateConfirm={handleCreateConfirm}
+      />
+)}
   />
 );
 

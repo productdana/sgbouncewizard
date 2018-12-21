@@ -96,7 +96,9 @@ const BounceRulesContainer = ({
   handleCreateRuleClicked,
   handleCreateRuleUpdate,
   handleCreateRuleSubmit,
-  isCreateRuleConfirmationOpen
+  isCreateRuleConfirmationOpen,
+  handleCreateConfirm,
+  newRule
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -187,6 +189,7 @@ const BounceRulesContainer = ({
     {isCreateRuleConfirmationOpen && (
       <CreateRuleConfirmationModal
         handleCreateRuleClosed={handleCreateRuleClosed}
+        handleCreateConfirm={handleCreateConfirm}
       />
     )}
   </div>
