@@ -10,7 +10,7 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableRow
+  TableRow,
 } from "@sendgrid/ui-components/table/table";
 import Header from "../Header";
 import { Row } from "../Row";
@@ -50,7 +50,7 @@ const BounceRuleMin = ({ rule, handleRuleClick }) => {
     id,
     bounce_action: bounceAction,
     response_code: responseCode,
-    description
+    description,
   } = rule;
   return (
     <TableRow>
@@ -98,7 +98,7 @@ const BounceRulesContainer = ({
   handleCreateRuleSubmit,
   isCreateRuleConfirmationOpen,
   handleCreateConfirm,
-  newRule
+  newRule,
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -175,6 +175,7 @@ const BounceRulesContainer = ({
           pageInterval={pageInterval}
           numRules={numRules}
           updatePageIndex={updatePageIndex}
+          pagesToDisplay={pagesToDisplay}
         />
       </Column>
     </Row>

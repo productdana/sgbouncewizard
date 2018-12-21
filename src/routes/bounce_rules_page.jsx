@@ -101,24 +101,16 @@ export default class BounceRulesPage extends React.Component {
 
   prevPageIndex() {
     this.setState(prevState => ({
-<<<<<<< HEAD
       pageIndex:
         prevState.pageIndex > 1
           ? prevState.pageIndex - prevState.pagesToDisplay
-          : 0
-=======
-      pageIndex: prevState.pageIndex > 1 ? prevState.pageIndex - 1 : 0,
->>>>>>> added post to database
+          : 0,
     }));
   }
 
   nextPageIndex() {
     this.setState(prevState => ({
-<<<<<<< HEAD
-      pageIndex: prevState.pageIndex + prevState.pagesToDisplay
-=======
-      pageIndex: prevState.pageIndex + 1,
->>>>>>> added post to database
+      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
     }));
   }
 
