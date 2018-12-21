@@ -2,7 +2,6 @@ import React from "react";
 import _ from "underscore";
 import BounceRuleDetailed from "../components/BounceRuleDetailed";
 import { getRule } from "../utils/ruleCalls";
-// import isEquivalent from "../utils/helper";
 
 export default class BounceRuleDetailedPage extends React.Component {
   constructor(props) {
