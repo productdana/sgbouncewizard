@@ -2,6 +2,7 @@ import React from "react";
 import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Button } from "@sendgrid/ui-components/button";
+import Alert from "@sendgrid/ui-components/alert";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 import "./index.scss";
@@ -10,7 +11,9 @@ const CreateRuleModal = ({
   handleCreateRuleUpdate,
   handleCreateRuleSubmit,
   newRule,
+  isInvalidInput,
   handleCreateRuleClosed,
+  handleAlertClose,
 }) => {
   const {
     priority,
@@ -26,6 +29,11 @@ const CreateRuleModal = ({
         <Row>
           <Column>
             <h1 className="h2.is-size-h1">Create a Bounce Rule</h1>
+            {isInvalidInput && (
+              <Alert type="danger" onClick={handleAlertClose}>
+                One or more fields contain invalid characters.
+              </Alert>
+            )}
           </Column>
         </Row>
         <Row>

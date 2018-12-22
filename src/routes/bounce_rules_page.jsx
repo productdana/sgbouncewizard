@@ -21,6 +21,7 @@ export default class BounceRulesPage extends React.Component {
       isCreateRuleOpen: false,
       isCreateRuleConfirmationOpen: false,
       newRule: "",
+      isInvalidInput: false,
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -37,6 +38,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleCreateRuleUpdate = this.handleCreateRuleUpdate.bind(this);
     this.handleCreateRuleSubmit = this.handleCreateRuleSubmit.bind(this);
     this.handleCreateConfirm = this.handleCreateConfirm.bind(this);
+    this.handleAlertClose = this.handleAlertClose.bind(this);
   }
 
   async componentDidMount() {
@@ -193,6 +195,31 @@ export default class BounceRulesPage extends React.Component {
 
   handleCreateRuleSubmit(e) {
     e.preventDefault();
+
+    const { newRule } = this.state;
+    const {
+      description,
+      response_code: responseCode,
+      enhanced_code: enhancedCode,
+      regex,
+      priority,
+      bounce_action: bounceAction,
+    } = newRule;
+
+    if (
+      !description &&
+      !responseCode &&
+      !enhancedCode &&
+      !regex &&
+      !priority &&
+      !bounceAction
+    ) {
+      this.setState({
+        isInvalidInput: true,
+      });
+      return;
+    }
+
     this.setState({
       isCreateRuleOpen: false,
       isCreateRuleConfirmationOpen: true,
@@ -218,6 +245,12 @@ export default class BounceRulesPage extends React.Component {
         rules: [data, ...rules],
       });
     }
+  }
+
+  handleAlertClose() {
+    this.setState({
+      isInvalidInput: false,
+    });
   }
 
   render() {
@@ -250,6 +283,7 @@ export default class BounceRulesPage extends React.Component {
         handleCreateRuleUpdate={this.handleCreateRuleUpdate}
         handleCreateRuleSubmit={this.handleCreateRuleSubmit}
         handleCreateConfirm={this.handleCreateConfirm}
+        handleAlertClose={this.handleAlertClose}
         {...this.state}
       />
     );

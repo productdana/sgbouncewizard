@@ -99,6 +99,8 @@ const BounceRulesContainer = ({
   isCreateRuleConfirmationOpen,
   handleCreateConfirm,
   newRule,
+  isInvalidInput,
+  handleAlertClose,
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -178,9 +180,11 @@ const BounceRulesContainer = ({
     {isCreateRuleOpen && (
       <CreateRuleModal
         newRule={newRule}
+        isInvalidInput={isInvalidInput}
         handleCreateRuleClosed={handleCreateRuleClosed}
         handleCreateRuleUpdate={handleCreateRuleUpdate}
         handleCreateRuleSubmit={handleCreateRuleSubmit}
+        handleAlertClose={handleAlertClose}
       />
     )}
     {isCreateRuleConfirmationOpen && (
