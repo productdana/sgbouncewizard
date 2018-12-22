@@ -79,13 +79,6 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.confirmationSubmit);
   }
 
-  // description: "",
-  // response_code: "",
-  // enhanced_code: "",
-  // regex: "",
-  // priority: "",
-  // bounce_action: ""
-
   fillForm(
     priority,
     bounceAction,
