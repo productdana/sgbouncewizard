@@ -3,6 +3,7 @@ import { CenterModal } from "@sendgrid/ui-components/center-modal";
 import { Button } from "@sendgrid/ui-components/button";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
+import { WriteSelectors } from "../selectors";
 
 const ConfirmationHeader = () => (
   <div>
@@ -11,7 +12,7 @@ const ConfirmationHeader = () => (
 );
 
 const ConfirmationBody = () => (
-  <div>
+  <div {...WriteSelectors.confirmModal}>
     <p>Please review the bounce rule before submitting.</p>
   </div>
 );
@@ -35,6 +36,7 @@ const ConfirmationFooter = ({
       <Column width={1} offset={11}>
         <Button
           className="sg-button"
+          {...WriteSelectors.confirmationSubmit}
           onClick={handleCreateConfirm}
           type="primary"
         >

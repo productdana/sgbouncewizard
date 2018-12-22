@@ -16,7 +16,7 @@ export const postRule = async data => {
       headers: { contentType: "application/json; charset=UTF-8" },
     }
   );
-  if (response.status === 201) {
+  if (response.status === 201 || response.status === 200) {
     return response;
   }
   throw new Error("Error retrieving all rules");

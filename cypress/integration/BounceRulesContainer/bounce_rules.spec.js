@@ -14,4 +14,18 @@ describe("Bounce Rules Page", () => {
     BounceRulesPage.ruleFilter.should("be.visible");
     BounceRulesPage.ruleTable.should("be.visible");
   });
+
+  it("should create a bounce rule", () => {
+    BounceRulesPage.createRuleButton.click();
+    BounceRulesPage.fillForm(
+      "1",
+      "404",
+      "528",
+      "testDescription",
+      "492",
+      "testRegex"
+    );
+    BounceRulesPage.confirmModal.should("be.visible");
+    BounceRulesPage.confirmationSubmit.click();
+  });
 });

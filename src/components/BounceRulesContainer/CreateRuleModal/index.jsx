@@ -3,9 +3,11 @@ import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Button } from "@sendgrid/ui-components/button";
 import Alert from "@sendgrid/ui-components/alert";
+import PropTypes from "prop-types";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 import "./index.scss";
+import { WriteSelectors } from "../selectors";
 
 const CreateRuleModal = ({
   handleCreateRuleUpdate,
@@ -24,7 +26,11 @@ const CreateRuleModal = ({
     regex,
   } = newRule;
   return (
-    <SideModal className="create-rule-modal" isOpen>
+    <SideModal
+      {...WriteSelectors.createRuleModal}
+      className="create-rule-modal"
+      isOpen
+    >
       <Row>
         <Column>
           <h1 className="h2.is-size-h1">Create a Bounce Rule</h1>
@@ -44,6 +50,7 @@ const CreateRuleModal = ({
                   Priority
                   <TextInput
                     onChange={handleCreateRuleUpdate}
+                    {...WriteSelectors.priority}
                     value={priority}
                     type="text"
                     id="priority"
@@ -54,6 +61,7 @@ const CreateRuleModal = ({
                   Bounce Action
                   <TextInput
                     onChange={handleCreateRuleUpdate}
+                    {...WriteSelectors.bounceAction}
                     value={bounceAction}
                     type="text"
                     id="bounce_action"
@@ -64,6 +72,7 @@ const CreateRuleModal = ({
                   Response Code
                   <TextInput
                     onChange={handleCreateRuleUpdate}
+                    {...WriteSelectors.responseCode}
                     value={responseCode}
                     type="text"
                     id="response_code"
@@ -74,6 +83,7 @@ const CreateRuleModal = ({
                   Description
                   <TextInput
                     onChange={handleCreateRuleUpdate}
+                    {...WriteSelectors.description}
                     value={description}
                     type="text"
                     id="description"
@@ -84,6 +94,7 @@ const CreateRuleModal = ({
                   Enhanced Code
                   <TextInput
                     onChange={handleCreateRuleUpdate}
+                    {...WriteSelectors.enhancedCode}
                     value={enhancedCode}
                     type="text"
                     id="enhanced_code"
@@ -94,6 +105,7 @@ const CreateRuleModal = ({
                   Regular Expression
                   <TextInput
                     onChange={handleCreateRuleUpdate}
+                    {...WriteSelectors.regex}
                     value={regex}
                     type="text"
                     id="regex"
@@ -118,6 +130,7 @@ const CreateRuleModal = ({
           </Button>
           <Button
             className="sg-button"
+            {...WriteSelectors.submitButton}
             form="create-rule-form"
             type="primary"
             isSubmit
@@ -128,6 +141,24 @@ const CreateRuleModal = ({
       </Row>
     </SideModal>
   );
+};
+
+CreateRuleModal.propTypes = {
+  handleCreateRuleUpdate: PropTypes.func,
+  handleCreateRuleSubmit: PropTypes.func,
+  newRule: PropTypes.shape,
+  isInvalidInput: PropTypes.bool,
+  handleCreateRuleClosed: PropTypes.func,
+  handleAlertClose: PropTypes.func,
+};
+
+CreateRuleModal.defaultProps = {
+  handleCreateRuleUpdate: () => {},
+  handleCreateRuleSubmit: () => {},
+  newRule: {},
+  isInvalidInput: false,
+  handleCreateRuleClosed: () => {},
+  handleAlertClose: () => {},
 };
 
 export default CreateRuleModal;
