@@ -183,7 +183,10 @@ export default class BounceRulesPage extends React.Component {
     const { id } = e.currentTarget;
     switch (id) {
       case "create-rule-close":
-        this.setState({ isCreateRuleOpen: false });
+        this.setState({
+          isCreateRuleOpen: false,
+          isInvalidInput: false,
+        });
         break;
       case "create-rule-confirmation-close":
         this.setState({ isCreateRuleConfirmationOpen: false });
@@ -207,11 +210,11 @@ export default class BounceRulesPage extends React.Component {
     } = newRule;
 
     if (
-      !description &&
-      !responseCode &&
-      !enhancedCode &&
-      !regex &&
-      !priority &&
+      !description ||
+      !responseCode ||
+      !enhancedCode ||
+      !regex ||
+      !priority ||
       !bounceAction
     ) {
       this.setState({
