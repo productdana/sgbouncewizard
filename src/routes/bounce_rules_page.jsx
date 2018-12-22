@@ -43,7 +43,7 @@ export default class BounceRulesPage extends React.Component {
     const { data, status } = await listRules();
     if (status === 200) {
       this.setState({
-        rules: data,
+        rules: data.reverse(),
         numRules: data.length,
       });
     }
@@ -211,16 +211,18 @@ export default class BounceRulesPage extends React.Component {
     const { rules } = this.state;
     let { newRule } = this.state;
     newRule = { ...newRule, id: rules.length + 1 };
-    const { status } = await postRule(newRule);
-    if (status === 200) {
+    const { data, status } = await postRule(newRule);
+    if (status === 201) {
       this.setState({
         isCreateRuleConfirmationOpen: false,
+        rules: [data, ...rules],
       });
     }
   }
 
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
+
     const filteredRules = this.filterRules(this.paginate(rules));
     return isRedirectingToDetail ? (
       <Redirect
