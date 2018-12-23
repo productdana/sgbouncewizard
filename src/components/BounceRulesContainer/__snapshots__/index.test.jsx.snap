@@ -460,6 +460,7 @@ exports[`should render correctly 1`] = `
                   <span
                     data-tooltip="Delete"
                     data-tooltip-pos="up"
+                    id={504}
                   >
                     <i
                       className="sg-icon sg-icon-trash"
