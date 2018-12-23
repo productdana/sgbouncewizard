@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import BounceRulesContainer from "../components/BounceRulesContainer";
-import { listRules } from "../utils/ruleCalls";
+import { listRules, deleteRule } from "../utils/ruleCalls";
 
 export default class BounceRulesPage extends React.Component {
   constructor(props) {
@@ -18,6 +18,8 @@ export default class BounceRulesPage extends React.Component {
       pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
+      isDeleteConfirmationOpen: false,
+      idToDelete: null,
     };
 
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -29,15 +31,17 @@ export default class BounceRulesPage extends React.Component {
     this.nextPageIndex = this.nextPageIndex.bind(this);
     this.addFilter = this.addFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
+    this.handleDeleteRuleClicked = this.handleDeleteRuleClicked.bind(this);
+    this.handleDeleteRuleConfirm = this.handleDeleteRuleConfirm.bind(this);
+    this.handleConfirmClose = this.handleConfirmClose.bind(this);
   }
 
   async componentDidMount() {
     const { data, status } = await listRules();
-    const { rules } = data;
     if (status === 200) {
       this.setState({
-        rules,
-        numRules: rules.length,
+        rules: data,
+        numRules: data.length,
       });
     }
   }
@@ -156,6 +160,32 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
+  handleDeleteRuleClicked(e) {
+    const { id } = e.currentTarget;
+    this.setState({
+      isDeleteConfirmationOpen: true,
+      idToDelete: parseInt(id, 10),
+    });
+  }
+
+  async handleDeleteRuleConfirm() {
+    const { rules, idToDelete } = this.state;
+    const { status } = await deleteRule(idToDelete);
+    if (status === 200) {
+      this.setState({
+        rules: rules.filter(rule => rule.id !== idToDelete),
+        isDeleteConfirmationOpen: false,
+        idToDelete: null,
+      });
+    }
+  }
+
+  handleConfirmClose() {
+    this.setState({
+      isDeleteConfirmationOpen: false,
+    });
+  }
+
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
     const filteredRules = this.filterRules(this.paginate(rules));
@@ -180,6 +210,9 @@ export default class BounceRulesPage extends React.Component {
         filteredRules={filteredRules}
         addFilter={this.addFilter}
         removeFilter={this.removeFilter}
+        handleDeleteRuleClicked={this.handleDeleteRuleClicked}
+        handleDeleteRuleConfirm={this.handleDeleteRuleConfirm}
+        handleConfirmClose={this.handleConfirmClose}
         {...this.state}
       />
     );

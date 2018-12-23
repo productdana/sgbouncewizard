@@ -13,14 +13,19 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import Header from "../Header";
-
 import { Row } from "../Row";
 import { Column } from "../Column";
 import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
+import DeleteConfirmation from "./DeleteConfirmation";
 import { WriteSelectors } from "./selectors";
 
-const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
+const RuleListContainer = ({
+  rules,
+  handleKeyDown,
+  handleRuleClick,
+  handleDeleteRuleClicked,
+}) => (
   <Table>
     <TableHeader>
       <TableRow>
@@ -36,6 +41,7 @@ const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
         <BounceRuleMin
           handleKeyDown={handleKeyDown}
           handleRuleClick={handleRuleClick}
+          handleDeleteRuleClicked={handleDeleteRuleClicked}
           key={rule.id}
           rule={rule}
         />
@@ -44,7 +50,7 @@ const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
   </Table>
 );
 
-const BounceRuleMin = ({ rule, handleRuleClick }) => {
+const BounceRuleMin = ({ rule, handleDeleteRuleClicked }) => {
   const {
     id,
     bounce_action: bounceAction,
@@ -60,11 +66,16 @@ const BounceRuleMin = ({ rule, handleRuleClick }) => {
       <ActionsCell>
         <Action
           title="View"
-          onClick={() => handleRuleClick(rule)}
+          onClick={() => handleDeleteRuleClicked(rule)}
           icon="view"
         />
         <Action title="Edit" icon="pencil" />
-        <Action title="Delete" icon="trash" />
+        <Action
+          title="Delete"
+          onClick={handleDeleteRuleClicked}
+          id={id}
+          icon="trash"
+        />
       </ActionsCell>
     </TableRow>
   );
@@ -74,6 +85,7 @@ const BounceRulesContainer = ({
   rules,
   handleRuleClick,
   handleKeyDown,
+  handleDeleteRuleClicked,
   updateSearchToken,
   updateSearchCategory,
   removeFilter,
@@ -90,6 +102,10 @@ const BounceRulesContainer = ({
   filterOptions,
   addFilter,
   invalidFilter,
+  isDeleteConfirmationOpen,
+  handleDeleteRuleConfirm,
+  idToDelete,
+  handleConfirmClose,
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -149,6 +165,7 @@ const BounceRulesContainer = ({
           <RuleListContainer
             handleRuleClick={handleRuleClick}
             handleKeyDown={handleKeyDown}
+            handleDeleteRuleClicked={handleDeleteRuleClicked}
             selectedRule={selectedRule}
             rules={filteredRules}
           />
@@ -169,6 +186,13 @@ const BounceRulesContainer = ({
           />
         </Column>
       </Row>
+    )}
+    {isDeleteConfirmationOpen && (
+      <DeleteConfirmation
+        idToDelete={idToDelete}
+        handleConfirmClose={handleConfirmClose}
+        handleDeleteRuleConfirm={handleDeleteRuleConfirm}
+      />
     )}
   </div>
 );
