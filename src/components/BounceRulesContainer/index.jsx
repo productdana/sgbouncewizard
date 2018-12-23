@@ -17,7 +17,7 @@ import { Row } from "../Row";
 import { Column } from "../Column";
 import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
-import DeleteConfirmation from "./DeleteConfirmation";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import DeleteConfirmationAlert from "./DeleteConfirmationAlert";
 import { WriteSelectors } from "./selectors";
 
@@ -51,7 +51,7 @@ const RuleListContainer = ({
   </Table>
 );
 
-const BounceRuleMin = ({ rule, handleDeleteRuleClicked }) => {
+const BounceRuleMin = ({ rule, handleRuleClick, handleDeleteRuleClicked }) => {
   const {
     id,
     bounce_action: bounceAction,
@@ -67,7 +67,7 @@ const BounceRuleMin = ({ rule, handleDeleteRuleClicked }) => {
       <ActionsCell>
         <Action
           title="View"
-          onClick={() => handleDeleteRuleClicked(rule)}
+          onClick={() => handleRuleClick(rule)}
           icon="view"
         />
         <Action title="Edit" icon="pencil" />
@@ -191,7 +191,7 @@ const BounceRulesContainer = ({
       </Row>
     )}
     {isDeleteConfirmationOpen && (
-      <DeleteConfirmation
+      <DeleteConfirmationModal
         idToDelete={idToDelete}
         handleConfirmClose={handleConfirmClose}
         handleDeleteRuleConfirm={handleDeleteRuleConfirm}

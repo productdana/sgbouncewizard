@@ -3,6 +3,7 @@ import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import { Column } from "../../Column";
 import { Row } from "../../Row";
+import "../index.scss";
 
 const ConfirmModalBody = ({
   handleConfirmClose,
@@ -53,11 +54,11 @@ const DeleteConfirmation = ({
 }) => (
   <CenterModal
     open
+    className="delete-confirm-modal"
     renderBody={(
       <ConfirmModalBody
         handleConfirmClose={handleConfirmClose}
         handleDeleteRuleConfirm={handleDeleteRuleConfirm}
-        modalType="saveModal"
         idToDelete={idToDelete}
       />
 )}
