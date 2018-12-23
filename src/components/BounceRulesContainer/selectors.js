@@ -19,6 +19,16 @@ const testHooks = {
   ruleTable: "rule-table",
   deleteConfirmation: "delete-confirmation",
   deleteAlert: "delete-alert",
+  createRuleModal: "create-rule-modal",
+  priority: "priority",
+  description: "description",
+  bounceAction: "bounce-action",
+  responseCode: "response-code",
+  enhancedCode: "enhanced-code",
+  regex: "regex",
+  submitButton: "submit-button",
+  confirmModal: "confirm-modal",
+  confirmationSubmit: "confirm-submit",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:

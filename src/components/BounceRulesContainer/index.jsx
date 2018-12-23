@@ -20,6 +20,8 @@ import Pagination from "../Pagination";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import DeleteConfirmationAlert from "./DeleteConfirmationAlert";
 import { WriteSelectors } from "./selectors";
+import CreateRuleModal from "./CreateRuleModal";
+import CreateRuleConfirmationModal from "./CreateRuleConfirmationModal";
 
 const RuleListContainer = ({
   rules,
@@ -103,12 +105,22 @@ const BounceRulesContainer = ({
   filterOptions,
   addFilter,
   invalidFilter,
+  isCreateRuleOpen,
+  handleCreateRuleClosed,
+  handleCreateRuleClicked,
+  handleCreateRuleUpdate,
+  handleCreateRuleSubmit,
+  isCreateRuleConfirmationOpen,
+  handleCreateConfirm,
+  newRule,
+  isInvalidInput,
+  handleAlertClose,
   isDeleteConfirmationOpen,
-  handleDeleteRuleConfirm,
+  isDeleteAlertOpen,
   idToDelete,
   handleConfirmClose,
-  isDeleteAlertOpen,
-  handleAlertClose,
+
+  handleDeleteRuleConfirm,
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -125,26 +137,24 @@ const BounceRulesContainer = ({
       <Column width={2} offset={2}>
         <h1>Bounce Rules</h1>
       </Column>
-      <Column className=" csv-button-col" width={1} offset={10}>
+      <Column className=" csv-button-col" width={4} offset={8}>
         <CSVLink
           {...WriteSelectors.csvButton}
           filename="bounce_rules.csv"
-          className="sg-button btn btn-secondary"
+          className="sg-button btn btn-secondary sg-right"
           data={rules}
         >
           Export CSV
         </CSVLink>
-      </Column>
-      <Column width={1} offset={11}>
-        <div style={{ textAlign: "left" }}>
-          <Button
-            {...WriteSelectors.createRuleButton}
-            className="create-rule-button"
-            type="primary"
-          >
-            Create Rule
-          </Button>
-        </div>
+        <Button
+          {...WriteSelectors.createRuleButton}
+          onClick={handleCreateRuleClicked}
+          onKeyDown={handleCreateRuleClicked}
+          className="create-rule-button"
+          type="primary"
+        >
+          Create Rule
+        </Button>
       </Column>
     </Row>
     <Row>
@@ -175,20 +185,36 @@ const BounceRulesContainer = ({
         </div>
       </Column>
     </Row>
-    {numRules > pageInterval && (
-      <Row>
-        <Column width={4} offset={5}>
-          <Pagination
-            prevPageIndex={prevPageIndex}
-            nextPageIndex={nextPageIndex}
-            pageIndex={pageIndex}
-            pageInterval={pageInterval}
-            numRules={numRules}
-            updatePageIndex={updatePageIndex}
-            pagesToDisplay={pagesToDisplay}
-          />
-        </Column>
-      </Row>
+    <Row>
+      <Column width={4} offset={5}>
+        <Pagination
+          prevPageIndex={prevPageIndex}
+          nextPageIndex={nextPageIndex}
+          pageIndex={pageIndex}
+          pageInterval={pageInterval}
+          numRules={numRules}
+          updatePageIndex={updatePageIndex}
+          pagesToDisplay={pagesToDisplay}
+        />
+      </Column>
+    </Row>
+    {isCreateRuleOpen && (
+      <CreateRuleModal
+        {...WriteSelectors.createRuleModal}
+        newRule={newRule}
+        isInvalidInput={isInvalidInput}
+        handleCreateRuleClosed={handleCreateRuleClosed}
+        handleCreateRuleUpdate={handleCreateRuleUpdate}
+        handleCreateRuleSubmit={handleCreateRuleSubmit}
+        handleAlertClose={handleAlertClose}
+      />
+    )}
+    {isCreateRuleConfirmationOpen && (
+      <CreateRuleConfirmationModal
+        {...WriteSelectors.confirmModal}
+        handleCreateRuleClosed={handleCreateRuleClosed}
+        handleCreateConfirm={handleCreateConfirm}
+      />
     )}
     {isDeleteConfirmationOpen && (
       <DeleteConfirmationModal

@@ -5,7 +5,14 @@ import BounceRuleContainer from ".";
 import Pagination from "../Pagination";
 import { Selectors } from "./selectors";
 
-const { csvButton, createRuleButton, ruleFilter, ruleTable } = Selectors;
+const {
+  csvButton,
+  createRuleButton,
+  ruleFilter,
+  ruleTable,
+  createRuleModal,
+  confirmModal,
+} = Selectors;
 
 const testRules = [
   {
@@ -27,6 +34,7 @@ const wrapper = shallow(
     pageIndex={1}
     numRules={1}
     pageInterval={0}
+    pagesToDisplay={5}
   />
 );
 
@@ -38,6 +46,7 @@ it("should render correctly", () => {
         filteredRules={testRules}
         filterOptions={[]}
         pageIndex={2}
+        pagesToDisplay={5}
       />
     )
     .toJSON();
@@ -62,4 +71,14 @@ it("should render a rule list component", () => {
 
 it("should render paginiation", () => {
   expect(wrapper.find(Pagination)).toHaveLength(1);
+});
+
+it("should render create rule modal", () => {
+  wrapper.setProps({ isCreateRuleOpen: true });
+  expect(wrapper.find(createRuleModal)).toHaveLength(1);
+});
+
+it("should render create rule confirmation", () => {
+  wrapper.setProps({ isCreateRuleConfirmationOpen: true });
+  expect(wrapper.find(confirmModal)).toHaveLength(1);
 });
