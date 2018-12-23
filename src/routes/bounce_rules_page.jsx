@@ -20,7 +20,7 @@ export default class BounceRulesPage extends React.Component {
       invalidFilter: false,
       isCreateRuleOpen: false,
       isCreateRuleConfirmationOpen: false,
-      newRule: "",
+      newRule: {},
       isInvalidInput: false,
     };
 

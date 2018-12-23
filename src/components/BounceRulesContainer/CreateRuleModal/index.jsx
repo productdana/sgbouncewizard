@@ -146,7 +146,6 @@ const CreateRuleModal = ({
 CreateRuleModal.propTypes = {
   handleCreateRuleUpdate: PropTypes.func,
   handleCreateRuleSubmit: PropTypes.func,
-  newRule: PropTypes.shape,
   isInvalidInput: PropTypes.bool,
   handleCreateRuleClosed: PropTypes.func,
   handleAlertClose: PropTypes.func,
@@ -155,7 +154,6 @@ CreateRuleModal.propTypes = {
 CreateRuleModal.defaultProps = {
   handleCreateRuleUpdate: () => {},
   handleCreateRuleSubmit: () => {},
-  newRule: {},
   isInvalidInput: false,
   handleCreateRuleClosed: () => {},
   handleAlertClose: () => {},

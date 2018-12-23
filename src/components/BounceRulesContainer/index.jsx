@@ -179,6 +179,7 @@ const BounceRulesContainer = ({
     </Row>
     {isCreateRuleOpen && (
       <CreateRuleModal
+        {...WriteSelectors.createRuleModal}
         newRule={newRule}
         isInvalidInput={isInvalidInput}
         handleCreateRuleClosed={handleCreateRuleClosed}
@@ -189,6 +190,7 @@ const BounceRulesContainer = ({
     )}
     {isCreateRuleConfirmationOpen && (
       <CreateRuleConfirmationModal
+        {...WriteSelectors.confirmModal}
         handleCreateRuleClosed={handleCreateRuleClosed}
         handleCreateConfirm={handleCreateConfirm}
       />
