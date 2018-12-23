@@ -24,6 +24,10 @@ const BounceRuleDetailed = ({
   handleModalClose,
   onChangeRule,
   handleButtonClicked,
+  pagesToDisplay,
+  pageIndex,
+  pageInterval,
+  numRules,
 }) => {
   const { id } = currentRule;
   return (
@@ -119,12 +123,13 @@ const BounceRuleDetailed = ({
       <Row>
         <Column width={4} offset={5}>
           <Pagination
-            prevPageIndex={1}
-            nextPageIndex={10}
-            pageIndex={1}
-            pageInterval={1}
-            numRules={3}
+            prevPageIndex={() => {}}
+            nextPageIndex={() => {}}
+            pageIndex={pageIndex}
+            pageInterval={pageInterval}
+            numRules={numRules}
             updatePageIndex={() => {}}
+            pagesToDisplay={pagesToDisplay}
           />
         </Column>
       </Row>

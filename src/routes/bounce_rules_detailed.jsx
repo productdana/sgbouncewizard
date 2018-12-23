@@ -13,6 +13,9 @@ export default class BounceRuleDetailedPage extends React.Component {
       isChangeModalOpen: false,
       isCancelConfirmOpen: false,
       isConfirmOpen: false,
+      pageIndex: 1,
+      pageInterval: 10,
+      pagesToDisplay: 5,
     };
 
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -141,6 +144,35 @@ export default class BounceRuleDetailedPage extends React.Component {
         break;
       }
     }
+  }
+
+  paginate(rules) {
+    const { pageIndex, pageInterval } = this.state;
+    const ruleStartIndex = (pageIndex - 1) * pageInterval;
+    const ruleEndIndex = (pageIndex - 1 * pageIndex + pageInterval) * pageIndex;
+    return rules.slice(ruleStartIndex, ruleEndIndex);
+  }
+
+  updatePageIndex(newIndex) {
+    this.setState(prevState => ({
+      pageIndex:
+        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
+    }));
+  }
+
+  prevPageIndex() {
+    this.setState(prevState => ({
+      pageIndex:
+        prevState.pageIndex > 1
+          ? prevState.pageIndex - prevState.pagesToDisplay
+          : 0,
+    }));
+  }
+
+  nextPageIndex() {
+    this.setState(prevState => ({
+      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
+    }));
   }
 
   render() {
