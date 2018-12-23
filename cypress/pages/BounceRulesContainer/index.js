@@ -26,6 +26,14 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.ruleTable);
   }
 
+  get deleteConfirmation() {
+    return cy.get(Selectors.deleteConfirmation);
+  }
+
+  get deleteConfirmationAlert() {
+    return cy.get(Selectors.deleteConfirmationAlert);
+  }
+
   open() {
     super.open("/bounce_rules");
   }

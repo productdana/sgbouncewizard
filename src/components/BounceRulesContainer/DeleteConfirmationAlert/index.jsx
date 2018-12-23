@@ -2,6 +2,7 @@ import React from "react";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import { Column } from "../../Column";
 import { Row } from "../../Row";
+import { WriteSelectors } from "../selectors";
 
 const ConfirmModalBody = () => (
   <div>
@@ -22,6 +23,7 @@ const ConfirmModalBody = () => (
 
 const DeleteConfirmationAlert = ({ handleModalClose }) => (
   <CenterModal
+    {...WriteSelectors.deleteAlert}
     open
     hasX
     renderBody={<ConfirmModalBody />}

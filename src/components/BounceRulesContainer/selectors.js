@@ -14,8 +14,11 @@ const testHooks = {
   breadcrumb: "bounce-rules-breadcrumb",
   csvButton: "export-csv-button",
   createRuleButton: "create-rule-button",
+  bounceRule: "bounce-rule",
   ruleFilter: "rule-filter",
   ruleTable: "rule-table",
+  deleteConfirmation: "delete-confirmation",
+  deleteAlert: "delete-alert",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:

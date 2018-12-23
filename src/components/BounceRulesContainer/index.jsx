@@ -59,7 +59,7 @@ const BounceRuleMin = ({ rule, handleRuleClick, handleDeleteRuleClicked }) => {
     description,
   } = rule;
   return (
-    <TableRow>
+    <TableRow {...WriteSelectors.bounceRule}>
       <TableCell>{id}</TableCell>
       <TableCell>{bounceAction}</TableCell>
       <TableCell>{responseCode}</TableCell>

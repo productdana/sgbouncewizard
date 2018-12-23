@@ -4,6 +4,7 @@ import Button from "@sendgrid/ui-components/button";
 import { Column } from "../../Column";
 import { Row } from "../../Row";
 import "../index.scss";
+import { WriteSelectors } from "../selectors";
 
 const ConfirmModalBody = ({
   handleConfirmClose,
@@ -53,6 +54,7 @@ const DeleteConfirmation = ({
   idToDelete,
 }) => (
   <CenterModal
+    {...WriteSelectors.deleteConfirmation}
     open
     className="delete-confirm-modal"
     renderBody={(
