@@ -67,15 +67,6 @@ class BounceRulesPage extends Page {
   }
 
   get confirmationSubmit() {
-    cy.server();
-    cy.route("POST", "/bounce_rules", {
-      id: "999",
-      "bounce-action": "404",
-      "response-code": "528",
-      description: "testDescription",
-      "enhanced-code": "492",
-      regex: "testRegex",
-    });
     return cy.get(Selectors.confirmationSubmit);
   }
 
