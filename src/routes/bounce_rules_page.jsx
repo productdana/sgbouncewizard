@@ -19,6 +19,7 @@ export default class BounceRulesPage extends React.Component {
       filterOptions: [],
       invalidFilter: false,
       isDeleteConfirmationOpen: false,
+      isDeleteAlertOpen: false,
       idToDelete: null,
     };
 
@@ -34,6 +35,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleDeleteRuleClicked = this.handleDeleteRuleClicked.bind(this);
     this.handleDeleteRuleConfirm = this.handleDeleteRuleConfirm.bind(this);
     this.handleConfirmClose = this.handleConfirmClose.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   async componentDidMount() {
@@ -177,7 +179,17 @@ export default class BounceRulesPage extends React.Component {
         isDeleteConfirmationOpen: false,
         idToDelete: null,
       });
+    } else {
+      this.setState({
+        isDeleteAlertOpen: true,
+      });
     }
+  }
+
+  handleModalClose() {
+    this.setState({
+      isDeleteAlertOpen: false,
+    });
   }
 
   handleConfirmClose() {
@@ -213,6 +225,7 @@ export default class BounceRulesPage extends React.Component {
         handleDeleteRuleClicked={this.handleDeleteRuleClicked}
         handleDeleteRuleConfirm={this.handleDeleteRuleConfirm}
         handleConfirmClose={this.handleConfirmClose}
+        handleModalClose={this.handleModalClose}
         {...this.state}
       />
     );

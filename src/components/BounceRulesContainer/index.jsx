@@ -18,6 +18,7 @@ import { Column } from "../Column";
 import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
 import DeleteConfirmation from "./DeleteConfirmation";
+import DeleteConfirmationAlert from "./DeleteConfirmationAlert";
 import { WriteSelectors } from "./selectors";
 
 const RuleListContainer = ({
@@ -106,6 +107,8 @@ const BounceRulesContainer = ({
   handleDeleteRuleConfirm,
   idToDelete,
   handleConfirmClose,
+  isDeleteAlertOpen,
+  handleAlertClose,
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -193,6 +196,9 @@ const BounceRulesContainer = ({
         handleConfirmClose={handleConfirmClose}
         handleDeleteRuleConfirm={handleDeleteRuleConfirm}
       />
+    )}
+    {isDeleteAlertOpen && (
+      <DeleteConfirmationAlert handleAlertClose={handleAlertClose} />
     )}
   </div>
 );
