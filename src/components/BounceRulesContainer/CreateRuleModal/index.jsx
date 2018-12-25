@@ -1,6 +1,7 @@
 import React from "react";
 import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { TextInput } from "@sendgrid/ui-components/text-input";
+import { CenterModal } from "@sendgrid/ui-components/center-modal";
 import { Button } from "@sendgrid/ui-components/button";
 import Alert from "@sendgrid/ui-components/alert";
 import PropTypes from "prop-types";
@@ -9,12 +10,65 @@ import { Column } from "../../Column";
 import "./index.scss";
 import { WriteSelectors } from "../selectors";
 
+const ConfirmationHeader = () => (
+  <div>
+    <h2>Are you sure you&apos;d like to create this rule?</h2>
+  </div>
+);
+
+const ConfirmationBody = () => (
+  <div {...WriteSelectors.confirmModal}>
+    <p>Please review the bounce rule before submitting.</p>
+  </div>
+);
+
+const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
+  <div>
+    <Row>
+      <Column width={1} offset={10}>
+        <Button
+          className="sg-button"
+          onClick={handleModalClose}
+          data-modal="create-confirmation"
+          type="secondary"
+        >
+          {"Close"}
+        </Button>
+      </Column>
+      <Column width={1} offset={11}>
+        <Button
+          className="sg-button"
+          {...WriteSelectors.confirmationSubmit}
+          onClick={handleCreateConfirm}
+          type="primary"
+        >
+          {"Confirm"}
+        </Button>
+      </Column>
+    </Row>
+  </div>
+);
+
+const CreateConfirmationModal = ({ handleModalClose, handleCreateConfirm }) => (
+  <CenterModal
+    open
+    renderBody={<ConfirmationBody />}
+    renderHeader={<ConfirmationHeader />}
+    renderFooter={(
+      <ConfirmationFooter
+        handleModalClose={handleModalClose}
+        handleCreateConfirm={handleCreateConfirm}
+      />
+)}
+  />
+);
+
 const CreateRuleModal = ({
-  handleCreateRuleUpdate,
-  handleCreateRuleSubmit,
+  handleRuleUpdate,
+  handleCreateSubmit,
   newRule,
   isInvalidInput,
-  handleCreateRuleClosed,
+  handleModalClose,
   handleAlertClose,
 }) => {
   const {
@@ -44,12 +98,12 @@ const CreateRuleModal = ({
       <Row>
         <Column>
           <div className="rule-form-container">
-            <form onSubmit={handleCreateRuleSubmit} id="create-rule-form">
+            <form onSubmit={handleCreateSubmit} id="create-rule-form">
               <div className="input-text-wrap">
                 <label htmlFor="priority">
                   Priority
                   <TextInput
-                    onChange={handleCreateRuleUpdate}
+                    onChange={handleRuleUpdate}
                     {...WriteSelectors.priority}
                     value={priority}
                     type="text"
@@ -60,7 +114,7 @@ const CreateRuleModal = ({
                 <label htmlFor="bounce_action">
                   Bounce Action
                   <TextInput
-                    onChange={handleCreateRuleUpdate}
+                    onChange={handleRuleUpdate}
                     {...WriteSelectors.bounceAction}
                     value={bounceAction}
                     type="text"
@@ -71,7 +125,7 @@ const CreateRuleModal = ({
                 <label htmlFor="response_code">
                   Response Code
                   <TextInput
-                    onChange={handleCreateRuleUpdate}
+                    onChange={handleRuleUpdate}
                     {...WriteSelectors.responseCode}
                     value={responseCode}
                     type="text"
@@ -82,7 +136,7 @@ const CreateRuleModal = ({
                 <label htmlFor="description">
                   Description
                   <TextInput
-                    onChange={handleCreateRuleUpdate}
+                    onChange={handleRuleUpdate}
                     {...WriteSelectors.description}
                     value={description}
                     type="text"
@@ -93,7 +147,7 @@ const CreateRuleModal = ({
                 <label htmlFor="enhanced_code">
                   Enhanced Code
                   <TextInput
-                    onChange={handleCreateRuleUpdate}
+                    onChange={handleRuleUpdate}
                     {...WriteSelectors.enhancedCode}
                     value={enhancedCode}
                     type="text"
@@ -104,7 +158,7 @@ const CreateRuleModal = ({
                 <label htmlFor="regex">
                   Regular Expression
                   <TextInput
-                    onChange={handleCreateRuleUpdate}
+                    onChange={handleRuleUpdate}
                     {...WriteSelectors.regex}
                     value={regex}
                     type="text"
@@ -122,9 +176,9 @@ const CreateRuleModal = ({
           <Button
             type="secondary"
             className="sg-button sg-right"
-            onClick={handleCreateRuleClosed}
-            onKeyDown={handleCreateRuleClosed}
-            id="create-rule-close"
+            onClick={handleModalClose}
+            onKeyDown={handleModalClose}
+            data-modal="create-rule"
           >
             Cancel
           </Button>
@@ -144,19 +198,20 @@ const CreateRuleModal = ({
 };
 
 CreateRuleModal.propTypes = {
-  handleCreateRuleUpdate: PropTypes.func,
-  handleCreateRuleSubmit: PropTypes.func,
+  handleRuleUpdate: PropTypes.func,
+  handleCreateSubmit: PropTypes.func,
   isInvalidInput: PropTypes.bool,
-  handleCreateRuleClosed: PropTypes.func,
+  handleModalClose: PropTypes.func,
   handleAlertClose: PropTypes.func,
 };
 
 CreateRuleModal.defaultProps = {
-  handleCreateRuleUpdate: () => {},
-  handleCreateRuleSubmit: () => {},
+  handleRuleUpdate: () => {},
+  handleCreateSubmit: () => {},
   isInvalidInput: false,
-  handleCreateRuleClosed: () => {},
+  handleModalClose: () => {},
   handleAlertClose: () => {},
 };
 
+export { CreateConfirmationModal };
 export default CreateRuleModal;

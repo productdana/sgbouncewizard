@@ -27,24 +27,20 @@ export default class BounceRulesPage extends React.Component {
       isInvalidInput: false,
     };
 
+    this.handleRuleClick = this.handleRuleClick.bind(this);
     this.updateSearchToken = this.updateSearchToken.bind(this);
     this.updateSearchCategory = this.updateSearchCategory.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
-    this.handleRuleClick = this.handleRuleClick.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.prevPageIndex = this.prevPageIndex.bind(this);
     this.nextPageIndex = this.nextPageIndex.bind(this);
     this.addFilter = this.addFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
-    this.handleDeleteRuleClicked = this.handleDeleteRuleClicked.bind(this);
-    this.handleDeleteRuleConfirm = this.handleDeleteRuleConfirm.bind(this);
-    this.handleConfirmClose = this.handleConfirmClose.bind(this);
+    this.handleModalOpen = this.handleModalOpen.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
-    this.handleCreateRuleClicked = this.handleCreateRuleClicked.bind(this);
-    this.handleCreateRuleClosed = this.handleCreateRuleClosed.bind(this);
-    this.handleCreateRuleUpdate = this.handleCreateRuleUpdate.bind(this);
-    this.handleCreateRuleSubmit = this.handleCreateRuleSubmit.bind(this);
+    this.handleRuleUpdate = this.handleRuleUpdate.bind(this);
+    this.handleCreateSubmit = this.handleCreateSubmit.bind(this);
     this.handleCreateConfirm = this.handleCreateConfirm.bind(this);
+    this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
     this.handleAlertClose = this.handleAlertClose.bind(this);
   }
 
@@ -65,13 +61,6 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
-  handleKeyDown(rule) {
-    this.setState({
-      isRedirectingToDetail: true,
-      selectedRule: rule,
-    });
-  }
-
   updateSearchToken(e) {
     this.setState({
       searchToken: e.target.value.toLowerCase(),
@@ -86,7 +75,6 @@ export default class BounceRulesPage extends React.Component {
 
   filterRules(rules) {
     const { searchToken } = this.state;
-
     return rules.filter(
       rule =>
         rule.bounce_action.toLowerCase().includes(searchToken) ||
@@ -162,7 +150,7 @@ export default class BounceRulesPage extends React.Component {
     }
   }
 
-  removeFilter(e, filter) {
+  removeFilter(filter) {
     const { filterOptions } = this.state;
     const newFilter = [...filterOptions];
     const index = newFilter.indexOf(filter);
@@ -172,15 +160,63 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
-  handleDeleteRuleClicked(e) {
+  handleModalOpen(e) {
+    const btnType = e.currentTarget.getAttribute("data-button");
     const { id } = e.currentTarget;
-    this.setState({
-      isDeleteConfirmationOpen: true,
-      idToDelete: parseInt(id, 10),
-    });
+    switch (btnType) {
+      case "delete-button":
+        this.setState({
+          isDeleteConfirmationOpen: true,
+          idToDelete: parseInt(id, 10),
+        });
+        break;
+      case "create-button":
+        this.setState({
+          isCreateRuleOpen: true,
+          newRule: {
+            description: "",
+            response_code: "",
+            enhanced_code: "",
+            regex: "",
+            priority: "",
+            bounce_action: "",
+          },
+        });
+
+        break;
+      default:
+        break;
+    }
   }
 
-  async handleDeleteRuleConfirm() {
+  handleModalClose(e) {
+    const modalType = e.currentTarget.getAttribute("data-modal");
+    switch (modalType) {
+      case "delete-alert":
+        this.setState({
+          isDeleteAlertOpen: false,
+        });
+        break;
+      case "delete-confirmation":
+        this.setState({
+          isDeleteConfirmationOpen: false,
+        });
+        break;
+      case "create-rule":
+        this.setState({
+          isCreateRuleOpen: false,
+          isInvalidInput: false,
+        });
+        break;
+      case "create-confirmation":
+        this.setState({ isCreateRuleConfirmationOpen: false });
+        break;
+      default:
+        break;
+    }
+  }
+
+  async handleDeleteConfirm() {
     const { rules, idToDelete } = this.state;
     const { status } = await deleteRule(idToDelete);
     if (status === 200) {
@@ -196,50 +232,7 @@ export default class BounceRulesPage extends React.Component {
     }
   }
 
-  handleModalClose() {
-    this.setState({
-      isDeleteAlertOpen: false,
-    });
-  }
-
-  handleConfirmClose() {
-    this.setState({
-      isDeleteConfirmationOpen: false,
-    });
-  }
-
-  handleCreateRuleClicked() {
-    this.setState({
-      isCreateRuleOpen: true,
-      newRule: {
-        description: "",
-        response_code: "",
-        enhanced_code: "",
-        regex: "",
-        priority: "",
-        bounce_action: "",
-      },
-    });
-  }
-
-  handleCreateRuleClosed(e) {
-    const { id } = e.currentTarget;
-    switch (id) {
-      case "create-rule-close":
-        this.setState({
-          isCreateRuleOpen: false,
-          isInvalidInput: false,
-        });
-        break;
-      case "create-rule-confirmation-close":
-        this.setState({ isCreateRuleConfirmationOpen: false });
-        break;
-      default:
-        break;
-    }
-  }
-
-  handleCreateRuleSubmit(e) {
+  handleCreateSubmit(e) {
     e.preventDefault();
 
     const { newRule } = this.state;
@@ -272,7 +265,7 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
-  handleCreateRuleUpdate(e) {
+  handleRuleUpdate(e) {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
     this.setState({
@@ -301,7 +294,6 @@ export default class BounceRulesPage extends React.Component {
 
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
-
     const filteredRules = this.filterRules(this.paginate(rules));
     return isRedirectingToDetail ? (
       <Redirect
@@ -314,28 +306,39 @@ export default class BounceRulesPage extends React.Component {
     ) : (
       <BounceRulesContainer
         handleRuleClick={this.handleRuleClick}
-        handleKeyDown={this.handleKeyDown}
         updateSearchToken={this.updateSearchToken}
         updateSearchCategory={this.updateSearchCategory}
-        filterRules={this.filterRules}
+        updatePageIndex={this.updatePageIndex}
         prevPageIndex={this.prevPageIndex}
         nextPageIndex={this.nextPageIndex}
-        updatePageIndex={this.updatePageIndex}
-        filteredRules={filteredRules}
         addFilter={this.addFilter}
         removeFilter={this.removeFilter}
-        handleDeleteRuleClicked={this.handleDeleteRuleClicked}
-        handleDeleteRuleConfirm={this.handleDeleteRuleConfirm}
-        handleConfirmClose={this.handleConfirmClose}
+        filteredRules={filteredRules}
+        handleModalOpen={this.handleModalOpen}
         handleModalClose={this.handleModalClose}
-        handleCreateRuleClicked={this.handleCreateRuleClicked}
-        handleCreateRuleClosed={this.handleCreateRuleClosed}
-        handleCreateRuleUpdate={this.handleCreateRuleUpdate}
-        handleCreateRuleSubmit={this.handleCreateRuleSubmit}
+        handleRuleUpdate={this.handleRuleUpdate}
+        handleCreateSubmit={this.handleCreateSubmit}
         handleCreateConfirm={this.handleCreateConfirm}
+        handleDeleteConfirm={this.handleDeleteConfirm}
         handleAlertClose={this.handleAlertClose}
         {...this.state}
       />
     );
   }
 }
+
+// this.handleRuleClick = this.handleRuleClick.bind(this);
+// this.updateSearchToken = this.updateSearchToken.bind(this);
+// this.updateSearchCategory = this.updateSearchCategory.bind(this);
+// this.updatePageIndex = this.updatePageIndex.bind(this);
+// this.prevPageIndex = this.prevPageIndex.bind(this);
+// this.nextPageIndex = this.nextPageIndex.bind(this);
+// this.addFilter = this.addFilter.bind(this);
+// this.removeFilter = this.removeFilter.bind(this);
+// this.handleModalOpen = this.handleModalOpen.bind(this);
+// this.handleModalClose = this.handleModalClose.bind(this);
+// this.handleRuleUpdate = this.handleRuleUpdate.bind(this);
+// this.handleCreateSubmit = this.handleCreateSubmit.bind(this);
+// this.handleCreateConfirm = this.handleCreateConfirm.bind(this);
+// this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
+// this.handleAlertClose = this.handleAlertClose.bind(this);

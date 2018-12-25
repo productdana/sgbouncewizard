@@ -128,49 +128,13 @@
       "bounce_action": "retry"
     },
     {
-      "id": 204,
-      "response_code": "0",
-      "enhanced_code": "5.2.0",
-      "regex": "",
-      "priority": 0,
-      "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
-      "bounce_action": "no_action"
-    },
-    {
-      "id": 205,
-      "response_code": "0",
-      "enhanced_code": "4.2.1",
-      "regex": "",
-      "priority": 0,
-      "description": "UkZDMzQ2MyBNYWlsYm94IGRpc2FibGVkIG5vdCBhY2NlcHRpbmcgbWVzc2FnZXM=",
-      "bounce_action": "retry"
-    },
-    {
-      "id": 206,
-      "response_code": "0",
-      "enhanced_code": "5.2.1",
-      "regex": "",
-      "priority": 0,
-      "description": "UkZDMzQ2MyBNYWlsYm94IGRpc2FibGVkIG5vdCBhY2NlcHRpbmcgbWVzc2FnZXM=",
-      "bounce_action": "suppress"
-    },
-    {
-      "id": 207,
-      "response_code": "0",
-      "enhanced_code": "4.2.2",
-      "regex": "",
-      "priority": 0,
-      "description": "UkZDMzQ2MyBNYWlsYm94IGZ1bGw=",
-      "bounce_action": "retry"
-    },
-    {
       "description": "testDescription",
       "response_code": "528",
       "enhanced_code": "492",
       "regex": "testRegex",
       "priority": "1",
       "bounce_action": "404",
-      "id": 19
+      "id": 15
     }
   ]
 }

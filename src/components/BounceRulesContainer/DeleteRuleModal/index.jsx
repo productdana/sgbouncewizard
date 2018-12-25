@@ -1,14 +1,42 @@
 import React from "react";
-import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
+import CenterModal from "@sendgrid/ui-components/center-modal";
 import { Column } from "../../Column";
 import { Row } from "../../Row";
 import "../index.scss";
 import { WriteSelectors } from "../selectors";
 
+const DeleteAlertBody = () => (
+  <div>
+    <Row>
+      <Column>
+        <div>
+          <h2>There was an error deleting this rule.</h2>
+          <p>
+            {
+              "The rule may have already been removed. If the problem persists, please try again later."
+            }
+          </p>
+        </div>
+      </Column>
+    </Row>
+  </div>
+);
+
+const DeleteConfirmationAlert = ({ handleModalClose }) => (
+  <CenterModal
+    {...WriteSelectors.deleteAlert}
+    open
+    hasX
+    renderBody={<DeleteAlertBody />}
+    data-modal="delete-alert"
+    onClose={handleModalClose}
+  />
+);
+
 const ConfirmModalBody = ({
-  handleConfirmClose,
-  handleDeleteRuleConfirm,
+  handleModalClose,
+  handleDeleteConfirm,
   idToDelete,
 }) => (
   <div>
@@ -28,7 +56,8 @@ const ConfirmModalBody = ({
       <Column width={1} offset={10}>
         <Button
           className="sg-button"
-          onClick={handleConfirmClose}
+          onClick={handleModalClose}
+          data-modal="delete-confirmation"
           type="secondary"
         >
           {"Close"}
@@ -38,7 +67,7 @@ const ConfirmModalBody = ({
         <Button
           className="sg-button"
           id={idToDelete}
-          onClick={handleDeleteRuleConfirm}
+          onClick={handleDeleteConfirm}
           type="primary"
         >
           {"Confirm"}
@@ -48,9 +77,9 @@ const ConfirmModalBody = ({
   </div>
 );
 
-const DeleteConfirmation = ({
-  handleConfirmClose,
-  handleDeleteRuleConfirm,
+const DeleteConfirmationModal = ({
+  handleModalClose,
+  handleDeleteConfirm,
   idToDelete,
 }) => (
   <CenterModal
@@ -59,12 +88,13 @@ const DeleteConfirmation = ({
     className="delete-confirm-modal"
     renderBody={(
       <ConfirmModalBody
-        handleConfirmClose={handleConfirmClose}
-        handleDeleteRuleConfirm={handleDeleteRuleConfirm}
+        handleModalClose={handleModalClose}
+        handleDeleteConfirm={handleDeleteConfirm}
         idToDelete={idToDelete}
       />
 )}
   />
 );
 
-export default DeleteConfirmation;
+export { DeleteConfirmationAlert };
+export default DeleteConfirmationModal;
