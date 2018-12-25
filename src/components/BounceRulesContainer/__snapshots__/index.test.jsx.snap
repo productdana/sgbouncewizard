@@ -98,6 +98,7 @@ exports[`should render correctly 1`] = `
       </a>
       <button
         className="btn btn-primary create-rule-button"
+        data-button="create-button"
         data-test="create-rule-button"
         disabled={false}
         onClick={[Function]}
@@ -448,6 +449,7 @@ exports[`should render correctly 1`] = `
                     />
                   </span>
                   <span
+                    data-button="delete-button"
                     data-tooltip="Delete"
                     data-tooltip-pos="up"
                     id={504}
