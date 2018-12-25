@@ -450,6 +450,7 @@ exports[`should render correctly 1`] = `
                   </span>
                   <span
                     data-button="delete-button"
+                    data-rule="no_action"
                     data-tooltip="Delete"
                     data-tooltip-pos="up"
                     id={504}
