@@ -72,6 +72,7 @@ const BounceRuleMin = ({ rule, handleRuleClick, handleModalOpen }) => {
           title="Delete"
           onClick={handleModalOpen}
           data-button="delete-button"
+          data-rule={bounceAction}
           id={id}
           icon="trash"
         />

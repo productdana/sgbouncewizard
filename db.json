@@ -126,15 +126,6 @@
       "priority": 0,
       "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
       "bounce_action": "retry"
-    },
-    {
-      "description": "testDescription",
-      "response_code": "528",
-      "enhanced_code": "492",
-      "regex": "testRegex",
-      "priority": "1",
-      "bounce_action": "404",
-      "id": 15
     }
   ]
 }

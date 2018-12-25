@@ -34,6 +34,10 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.deleteConfirmation);
   }
 
+  get deleteConfirmationConfirm() {
+    return cy.get(Selectors.deleteConfirmationConfirm);
+  }
+
   get deleteConfirmationAlert() {
     return cy.get(Selectors.deleteConfirmationAlert);
   }
@@ -76,6 +80,10 @@ class BounceRulesPage extends Page {
 
   get confirmationSubmit() {
     return cy.get(Selectors.confirmationSubmit);
+  }
+
+  get testRule() {
+    return cy.get("[data-rule='cypressTest']");
   }
 
   fillForm(

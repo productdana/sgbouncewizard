@@ -65,6 +65,7 @@ const ConfirmModalBody = ({
       </Column>
       <Column width={1} offset={11}>
         <Button
+          {...WriteSelectors.deleteConfirmationConfirm}
           className="sg-button"
           id={idToDelete}
           onClick={handleDeleteConfirm}

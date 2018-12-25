@@ -19,7 +19,7 @@ describe("Bounce Rules Page", () => {
     BounceRulesPage.createRuleButton.click();
     BounceRulesPage.fillForm(
       "1",
-      "404",
+      "cypressTest",
       "528",
       "testDescription",
       "492",
@@ -27,5 +27,10 @@ describe("Bounce Rules Page", () => {
     );
     BounceRulesPage.confirmModal.should("be.visible");
     BounceRulesPage.confirmationSubmit.click();
+  });
+
+  it("should delete a bounce rule", () => {
+    BounceRulesPage.testRule.click();
+    BounceRulesPage.deleteConfirmationConfirm.click();
   });
 });
