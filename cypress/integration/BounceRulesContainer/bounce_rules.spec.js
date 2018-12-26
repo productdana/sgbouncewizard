@@ -27,10 +27,12 @@ describe("Bounce Rules Page", () => {
     );
     BounceRulesPage.confirmModal.should("be.visible");
     BounceRulesPage.confirmationSubmit.click();
+    BounceRulesPage.testRule.should("be.visible");
   });
 
   it("should delete a bounce rule", () => {
     BounceRulesPage.testRule.click();
     BounceRulesPage.deleteConfirmationConfirm.click();
+    BounceRulesPage.testRule.should("not.be.visible");
   });
 });

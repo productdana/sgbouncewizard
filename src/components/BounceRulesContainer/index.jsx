@@ -23,7 +23,7 @@ import DeleteConfirmationModal, {
 import CreateRuleModal, { CreateConfirmationModal } from "./CreateRuleModal";
 import { WriteSelectors } from "./selectors";
 
-const RuleListContainer = ({ rules, handleRuleClick, handleModalOpen }) => (
+const RuleListContainer = ({ rules, handleActionOpen }) => (
   <Table>
     <TableHeader>
       <TableRow>
@@ -37,9 +37,7 @@ const RuleListContainer = ({ rules, handleRuleClick, handleModalOpen }) => (
     <TableBody>
       {rules.map(rule => (
         <BounceRuleMin
-          handleKeyDown={handleRuleClick}
-          handleRuleClick={handleRuleClick}
-          handleModalOpen={handleModalOpen}
+          handleActionOpen={handleActionOpen}
           key={rule.id}
           rule={rule}
         />
@@ -48,7 +46,7 @@ const RuleListContainer = ({ rules, handleRuleClick, handleModalOpen }) => (
   </Table>
 );
 
-const BounceRuleMin = ({ rule, handleRuleClick, handleModalOpen }) => {
+const BounceRuleMin = ({ rule, handleActionOpen }) => {
   const {
     id,
     bounce_action: bounceAction,
@@ -64,16 +62,18 @@ const BounceRuleMin = ({ rule, handleRuleClick, handleModalOpen }) => {
       <ActionsCell>
         <Action
           title="View"
-          onClick={() => handleRuleClick(rule)}
+          onClick={handleActionOpen}
+          id="isRedirectingToDetail"
+          rule={id}
           icon="view"
         />
         <Action title="Edit" icon="pencil" />
         <Action
           title="Delete"
-          onClick={handleModalOpen}
-          data-button="delete-button"
+          onClick={handleActionOpen}
+          rule={id}
           data-rule={bounceAction}
-          id={id}
+          id="isDeleteConfirmationOpen"
           icon="trash"
         />
       </ActionsCell>
@@ -83,7 +83,6 @@ const BounceRuleMin = ({ rule, handleRuleClick, handleModalOpen }) => {
 
 const BounceRulesContainer = ({
   rules,
-  handleRuleClick,
   updateSearchToken,
   updateSearchCategory,
   removeFilter,
@@ -107,13 +106,13 @@ const BounceRulesContainer = ({
   handleCreateConfirm,
   newRule,
   isInvalidInput,
-  handleAlertClose,
   isDeleteConfirmationOpen,
   isDeleteAlertOpen,
   idToDelete,
   handleDeleteConfirm,
-  handleModalOpen,
   handleModalClose,
+  handleCreateOpen,
+  handleActionOpen,
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -141,8 +140,9 @@ const BounceRulesContainer = ({
         </CSVLink>
         <Button
           {...WriteSelectors.createRuleButton}
-          onClick={handleModalOpen}
-          onKeyDown={handleModalOpen}
+          onClick={handleCreateOpen}
+          onKeyDown={handleCreateOpen}
+          id="isCreateRuleOpen"
           data-button="create-button"
           className="create-rule-button"
           type="primary"
@@ -170,8 +170,7 @@ const BounceRulesContainer = ({
       <Column width={10} offset={2}>
         <div {...WriteSelectors.ruleTable}>
           <RuleListContainer
-            handleRuleClick={handleRuleClick}
-            handleModalOpen={handleModalOpen}
+            handleActionOpen={handleActionOpen}
             selectedRule={selectedRule}
             rules={filteredRules}
           />
@@ -199,7 +198,6 @@ const BounceRulesContainer = ({
         handleModalClose={handleModalClose}
         handleRuleUpdate={handleRuleUpdate}
         handleCreateSubmit={handleCreateSubmit}
-        handleAlertClose={handleAlertClose}
       />
     )}
     {isCreateRuleConfirmationOpen && (

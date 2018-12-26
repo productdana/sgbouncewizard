@@ -29,7 +29,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
         <Button
           className="sg-button"
           onClick={handleModalClose}
-          data-modal="create-confirmation"
+          id="isCreateRuleOpen"
           type="secondary"
         >
           {"Close"}
@@ -69,7 +69,6 @@ const CreateRuleModal = ({
   newRule,
   isInvalidInput,
   handleModalClose,
-  handleAlertClose,
 }) => {
   const {
     priority,
@@ -89,7 +88,7 @@ const CreateRuleModal = ({
         <Column>
           <h1 className="h2.is-size-h1">Create a Bounce Rule</h1>
           {isInvalidInput && (
-            <Alert type="danger" onClick={handleAlertClose}>
+            <Alert type="danger" onClick={handleModalClose} id="isInvalidInput">
               One or more fields contain invalid characters.
             </Alert>
           )}
@@ -178,7 +177,7 @@ const CreateRuleModal = ({
             className="sg-button sg-right"
             onClick={handleModalClose}
             onKeyDown={handleModalClose}
-            data-modal="create-rule"
+            id="isCreateRuleOpen"
           >
             Cancel
           </Button>

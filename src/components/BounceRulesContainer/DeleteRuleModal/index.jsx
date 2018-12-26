@@ -29,16 +29,12 @@ const DeleteConfirmationAlert = ({ handleModalClose }) => (
     open
     hasX
     renderBody={<DeleteAlertBody />}
-    data-modal="delete-alert"
+    id="isDeleteAlertOpen"
     onClose={handleModalClose}
   />
 );
 
-const ConfirmModalBody = ({
-  handleModalClose,
-  handleDeleteConfirm,
-  idToDelete,
-}) => (
+const ConfirmModalBody = ({ handleModalClose, handleDeleteConfirm }) => (
   <div>
     <Row>
       <Column>
@@ -57,7 +53,7 @@ const ConfirmModalBody = ({
         <Button
           className="sg-button"
           onClick={handleModalClose}
-          data-modal="delete-confirmation"
+          id="isDeleteConfirmationOpen"
           type="secondary"
         >
           {"Close"}
@@ -67,7 +63,6 @@ const ConfirmModalBody = ({
         <Button
           {...WriteSelectors.deleteConfirmationConfirm}
           className="sg-button"
-          id={idToDelete}
           onClick={handleDeleteConfirm}
           type="primary"
         >
