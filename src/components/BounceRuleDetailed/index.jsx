@@ -119,11 +119,20 @@ const BounceRuleDetailed = ({
       <Row>
         <Column width={4} offset={5}>
           <Pagination
+<<<<<<< HEAD
             prevPageIndex={() => {}}
             nextPageIndex={() => {}}
             pageIndex={pageIndex}
             pageInterval={pageInterval}
             numRules={numRules}
+=======
+            prevPageIndex={1}
+            nextPageIndex={10}
+            pagesToDisplay={5}
+            pageIndex={1}
+            pageInterval={1}
+            numRules={3}
+>>>>>>> fix details pagination error
             updatePageIndex={() => {}}
             pagesToDisplay={pagesToDisplay}
           />

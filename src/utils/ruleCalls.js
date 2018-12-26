@@ -23,6 +23,7 @@ export const postRule = async data => {
 };
 
 export const getRule = async ruleId => {
+<<<<<<< HEAD
   const response = await axios.get(
     `${process.env.API_URL}/bounce_rules/${ruleId}`,
     {
@@ -43,6 +44,13 @@ export const deleteRule = async ruleId => {
       params: { id: ruleId },
     }
   );
+=======
+  const response = axios
+    .get(`${process.env.API_URL}//bounce_rules/${ruleId}`)
+    .catch(err => {
+      throw new Error(err);
+    });
+>>>>>>> fix details pagination error
   if (response.status === 200) {
     return response;
   }
