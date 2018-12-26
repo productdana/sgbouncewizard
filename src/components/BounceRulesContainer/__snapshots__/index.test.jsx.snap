@@ -101,6 +101,7 @@ exports[`should render correctly 1`] = `
         data-button="create-button"
         data-test="create-rule-button"
         disabled={false}
+        id="isCreateRuleOpen"
         onClick={[Function]}
         type="button"
       >
@@ -432,7 +433,8 @@ exports[`should render correctly 1`] = `
                   <span
                     data-tooltip="View"
                     data-tooltip-pos="up"
-                    onClick={[Function]}
+                    id="isRedirectingToDetail"
+                    rule={504}
                   >
                     <i
                       className="sg-icon sg-icon-view"
@@ -449,11 +451,11 @@ exports[`should render correctly 1`] = `
                     />
                   </span>
                   <span
-                    data-button="delete-button"
                     data-rule="no_action"
                     data-tooltip="Delete"
                     data-tooltip-pos="up"
-                    id={504}
+                    id="isDeleteConfirmationOpen"
+                    rule={504}
                   >
                     <i
                       className="sg-icon sg-icon-trash"
