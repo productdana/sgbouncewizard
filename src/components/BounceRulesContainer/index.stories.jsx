@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { RuleListContainer } from "./index";
-import CreateRuleModal from "./CreateRuleModal";
-import CreateRuleConfirmationModal from "./CreateRuleConfirmationModal";
+import CreateRuleModal, { CreateConfirmationModal } from "./CreateRuleModal";
+import DeleteRuleModal, { DeleteConfirmationAlert } from "./DeleteRuleModal";
 
 const emptyRule = {
   id: "",
@@ -48,4 +48,8 @@ storiesOf("Create Rule Modal", module)
   .add("Invalid Input", () => (
     <CreateRuleModal newRule={emptyRule} isInvalidInput />
   ))
-  .add("Confirmation", () => <CreateRuleConfirmationModal />);
+  .add("Confirmation", () => <CreateConfirmationModal />);
+
+storiesOf("Delete Rule Confirmation", module)
+  .add("Default", () => <DeleteRuleModal />)
+  .add("Alert", () => <DeleteConfirmationAlert />);
