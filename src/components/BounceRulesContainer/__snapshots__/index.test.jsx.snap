@@ -406,7 +406,7 @@ exports[`should render correctly 1`] = `
           </thead>
           <tbody>
             <tr
-              data-test="bounce-rule"
+              data-cypress="no_action"
             >
               <td>
                 504
@@ -451,7 +451,7 @@ exports[`should render correctly 1`] = `
                     />
                   </span>
                   <span
-                    data-rule="no_action"
+                    data-rule={504}
                     data-tooltip="Delete"
                     data-tooltip-pos="up"
                     id="isDeleteConfirmationOpen"
