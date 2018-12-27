@@ -19,20 +19,20 @@ Before running, make sure you have the proper environmental files and endpoints 
 
 This runs the application with a json database stored locally. No backend service is required.
 
-1. run "npm run dev:mock"
-2. run "npm run json-server"
+1. `$ npm run dev:mock`
+2. `$ npm run json-server`
 
 ## Starting Front End w/ Docker Container
 
 Please make sure the backend service and mySQL docker container are running prior to running the front end application.
 
-- run "npm run dev"
+- `$ npm run dev`
 
 ## Running Storybook
 
 > Storybook is a UI development environment and playground for UI components. The tool enables users to create components independently and showcase components interactively in an isolated development environment.
 
-- npm run storybook
+`$ npm run storybook`
 
 ## Running Jest
 
@@ -40,11 +40,11 @@ Please make sure the backend service and mySQL docker container are running prio
 
 In order to run tests:
 
-- npm run test
+`$ npm run test`
 
 In order to update snapshots:
 
-- npm run test -- -u
+`$ npm run test -- -u`
 
 ## Running Cypress
 
@@ -54,10 +54,10 @@ Cypress mimics user actions in a browser to perform tests such as succesfully lo
 
 #### Using Json-Server
 
-- npm run cypress&#58;open&#58;mock
+- `$ npm run cypress`:`open`:`mock`
 
 #### Using Docker Container
 
-- npm run cypress&#58;open
+- `$ npm run cypress`:`open`
 
 This opens up a Cypress application containing various tests categorized by pages. Clicking on any of the \*.spec.js files will begin the test.
