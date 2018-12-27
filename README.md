@@ -4,12 +4,12 @@ UCI Capstone 2018-19 Bounce Wizard
 
 ### Team Members:
 
-Kristen DeVore
-Joseph Bustamante
-Cody Han
-Khuong Tiet
-Gevorg Gabrielyan
-Kenny Matsudo
+- Kristen DeVore
+- Joseph Bustamante
+- Cody Han
+- Khuong Tiet
+- Gevorg Gabrielyan
+- Kenny Matsudo
 
 ## Setup
 
