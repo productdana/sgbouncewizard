@@ -167,6 +167,61 @@
       "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
       "bounce_action": "retry"
     }
+  ],
+  "changelogs": [
+    {
+      "id": 173,
+      "changes": [
+        {
+          "user_id": "t_swift",
+          "createdat": "1545864797",
+          "comment": "this is my first commit",
+          "response_code": "0",
+          "enhanced_code": "4.2.0",
+          "regex": "",
+          "priority": 0,
+          "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
+          "bounce_action": "retry"
+        },
+        {
+          "user_id": "t_swift",
+          "createdat": "1745864797",
+          "comment": "this is my second commit",
+          "response_code": "1",
+          "enhanced_code": "5.2.0",
+          "regex": "asdasd",
+          "priority": 2,
+          "description": "gsklfdsdkfs",
+          "bounce_action": "retry"
+        }
+      ]
+    },
+    {
+      "id": 174,
+      "changes": [
+        {
+          "user_id": "papa_ziv",
+          "createdat": "1645864797",
+          "response_code": "0",
+          "enhanced_code": "4.2.0",
+          "regex": "",
+          "priority": 0,
+          "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
+          "bounce_action": "retry"
+        },
+        {
+          "id": 174,
+          "user_id": "papa_ziv",
+          "createdat": "1945864797",
+          "response_code": "1",
+          "enhanced_code": "5.2.0",
+          "regex": "asdasd",
+          "priority": 2,
+          "description": "gsklfdsdkfs",
+          "bounce_action": "retry"
+        }
+      ]
+    }
   ]
 }
 >>>>>>> fix details pagination error
