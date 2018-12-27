@@ -13,9 +13,8 @@ const DeleteAlertBody = () => (
         <div>
           <h2>There was an error deleting this rule.</h2>
           <p>
-            {
-              "The rule may have already been removed. If the problem persists, please try again later."
-            }
+            The rule may have already been removed. If the problem persists,
+            please try again later.
           </p>
         </div>
       </Column>
@@ -41,9 +40,8 @@ const ConfirmModalBody = ({ handleModalClose, handleDeleteConfirm }) => (
         <div>
           <h2>Are you sure you&apos;d like to delete this rule?</h2>
           <p>
-            {
-              "Doing so will effect how current email will be handled via this bounce rule. This action will go into effect immediately."
-            }
+            Doing so will effect how current email will be handled via this
+            bounce rule. This action will go into effect immediately.
           </p>
         </div>
       </Column>
@@ -56,7 +54,7 @@ const ConfirmModalBody = ({ handleModalClose, handleDeleteConfirm }) => (
           id="isDeleteConfirmationOpen"
           type="secondary"
         >
-          {"Close"}
+          Close
         </Button>
       </Column>
       <Column width={1} offset={11}>
@@ -66,7 +64,7 @@ const ConfirmModalBody = ({ handleModalClose, handleDeleteConfirm }) => (
           onClick={handleDeleteConfirm}
           type="primary"
         >
-          {"Confirm"}
+          Confirm
         </Button>
       </Column>
     </Row>

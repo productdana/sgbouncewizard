@@ -3,10 +3,6 @@ import Page from "../page";
 import { Selectors } from "../../../src/components/BounceRulesContainer/selectors";
 
 class BounceRulesPage extends Page {
-  open() {
-    super.open("/bounce_rules");
-  }
-
   get page() {
     return cy.get(Selectors.page);
   }
@@ -83,16 +79,20 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.confirmationSubmit);
   }
 
-  createdRuleButton(id) {
-    return cy.get(`[data-rule="${id}"]`);
-  }
-
   get createdDeleteRuleAPI() {
     return cy.get('[data-cypress="cypressDeleteTest"]');
   }
 
   get createdCreateRuleAPI() {
     return cy.get('[data-cypress="cypressCreateTest"]');
+  }
+
+  open() {
+    super.open("/bounce_rules");
+  }
+
+  createdRuleButton(id) {
+    return cy.get(`[data-rule="${id}"]`);
   }
 
   deleteBounceRuleAPI(testRule) {

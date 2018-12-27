@@ -26,7 +26,7 @@ const ConfirmModalBody = ({
           id={modalType}
           type="secondary"
         >
-          {"Close"}
+          Close
         </Button>
       </Column>
       <Column width={1} offset={11}>
@@ -36,7 +36,7 @@ const ConfirmModalBody = ({
           onClick={handleModalConfirm}
           type="primary"
         >
-          {"Confirm"}
+          Confirm
         </Button>
       </Column>
     </Row>

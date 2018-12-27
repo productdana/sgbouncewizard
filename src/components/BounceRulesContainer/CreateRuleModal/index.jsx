@@ -32,7 +32,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
           id="isCreateRuleOpen"
           type="secondary"
         >
-          {"Close"}
+          Close
         </Button>
       </Column>
       <Column width={1} offset={11}>
@@ -42,7 +42,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
           onClick={handleCreateConfirm}
           type="primary"
         >
-          {"Confirm"}
+          Confirm
         </Button>
       </Column>
     </Row>
