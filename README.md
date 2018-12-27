@@ -1,16 +1,23 @@
 # sgbouncewizard
 
-UCI Capstone 2018-19 bounce wizard
+UCI Capstone 2018-19 Bounce Wizard
+
+### Team Members:
+
+Kristen DeVore
+Joseph Bustamante
+Cody Han
+Khuong Tiet
+Gevorg Gabrielyan
+Kenny Matsudo
 
 ## Setup
 
-Before running, make sure you have two environmental files are the root of the project.
-File1: .env
-Contains: API_URL=http://localhost:3000
-File2: .env.mock
-Contains: API_URL=http://localhost:3004
+Before running, make sure you have the proper environmental files and endpoints configured. Please contact team members for more information.
 
 ## Starting Front End w/ json-server
+
+This runs the application with a json database stored locally. No backend service is required.
 
 1. run "npm run dev:mock"
 2. run "npm run json-server"
@@ -19,4 +26,38 @@ Contains: API_URL=http://localhost:3004
 
 Please make sure the backend service and mySQL docker container are running prior to running the front end application.
 
-1. run "npm run dev"
+- run "npm run dev"
+
+## Running Storybook
+
+> Storybook is a UI development environment and playground for UI components. The tool enables users to create components independently and showcase components interactively in an isolated development environment.
+
+- npm run storybook
+
+## Running Jest
+
+> Jest is used by Facebook to test all JavaScript code including React applications.
+
+In order to run tests:
+
+- npm run test
+
+In order to update snapshots:
+
+- npm run test -- -u
+
+## Running Cypress
+
+> Cypress is a next generation front end testing tool built for the modern web.
+
+Cypress mimics user actions in a browser to perform tests such as succesfully loging in, creating bounce rules, and deleting bounce rules.
+
+#### Using Json-Server
+
+- npm run cypress&#58;open&#58;mock
+
+#### Using Docker Container
+
+- npm run cypress&#58;open
+
+This opens up a Cypress application containing various tests categorized by pages. Clicking on any of the \*.spec.js files will begin the test.
