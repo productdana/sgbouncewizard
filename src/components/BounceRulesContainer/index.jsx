@@ -54,7 +54,7 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
     description,
   } = rule;
   return (
-    <TableRow {...WriteSelectors.bounceRule}>
+    <TableRow data-cypress={bounceAction}>
       <TableCell>{id}</TableCell>
       <TableCell>{bounceAction}</TableCell>
       <TableCell>{responseCode}</TableCell>
@@ -72,7 +72,8 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
           title="Delete"
           onClick={handleActionOpen}
           rule={id}
-          data-rule={bounceAction}
+          data-rule={id}
+          // data-rule={bounceAction}
           id="isDeleteConfirmationOpen"
           icon="trash"
         />

@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack -p",
     "cypress:open:localhost": "cypress open",
+    "cypress:open:mock": "cypress open --env API_URL=http://localhost:3004",
     "cypress:open:app": "cypress open --config baseUrl=http://deployedappurl.cloudfront.net",
     "cypress:run:localhost": "cypress run",
     "cypress:run:app": "cypress run --config baseUrl=http://deployedappurl.cloudfront.net",

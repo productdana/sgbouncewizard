@@ -1,3 +1,4 @@
+import _ from "underscore";
 import Page from "../page";
 import { Selectors } from "../../../src/components/BounceRulesContainer/selectors";
 
@@ -82,42 +83,78 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.confirmationSubmit);
   }
 
-  get testRule() {
-    return cy.get("[data-rule='cypressTest']");
+  createdRuleButton(id) {
+    return cy.get(`[data-rule="${id}"]`);
   }
 
-  fillForm(
-    priority,
-    bounceAction,
-    responseCode,
-    description,
-    enhancedCode,
-    regex
-  ) {
-    if (priority) {
-      this.priority.type(priority);
-    }
+  get createdDeleteRuleAPI() {
+    return cy.get('[data-cypress="cypressDeleteTest"]');
+  }
 
-    if (bounceAction) {
-      this.bounceAction.type(bounceAction);
-    }
+  get createdCreateRuleAPI() {
+    return cy.get('[data-cypress="cypressCreateTest"]');
+  }
 
-    if (responseCode) {
-      this.responseCode.type(responseCode);
-    }
+  deleteBounceRuleAPI(testRule) {
+    return new Promise(resolve => {
+      cy.task("getRules").then(res => {
+        if (!res.errno) {
+          for (let i = 0; i < res.length; i++) {
+            if (_.isEqual(testRule, _.omit(res[i], "id"))) {
+              cy.task("deleteRule", res[i].id);
+              cy.log("DELETE SUCCESS");
+            }
+          }
+        } else {
+          cy.log("DELETE ERROR");
+        }
+        cy.reload().then(() => resolve());
+      });
+    });
+  }
 
-    if (description) {
-      this.description.type(description);
-    }
-    if (enhancedCode) {
-      this.enhancedCode.type(enhancedCode);
-    }
+  createBounceRuleAPI(testRule) {
+    return new Promise(resolve => {
+      cy.task("createRule", testRule).then(res => {
+        cy.reload().then(() => resolve(res.id));
+      });
+    });
+  }
 
-    if (regex) {
-      this.regex.type(regex);
-    }
+  createBounceRuleUI(bounceRule) {
+    return new Promise(resolve => {
+      const {
+        priority,
+        bounce_action: bounceAction,
+        response_code: responseCode,
+        description,
+        enhanced_code: enhancedCode,
+        regex,
+      } = bounceRule;
 
-    return this.submitButton.click();
+      this.createRuleButton.click();
+
+      if (priority) {
+        this.priority.type(priority);
+      }
+      if (bounceAction) {
+        this.bounceAction.type(bounceAction);
+      }
+      if (responseCode) {
+        this.responseCode.type(responseCode);
+      }
+      if (description) {
+        this.description.type(description);
+      }
+      if (enhancedCode) {
+        this.enhancedCode.type(enhancedCode);
+      }
+      if (regex) {
+        this.regex.type(regex);
+      }
+
+      resolve(this.submitButton.click());
+    });
   }
 }
 

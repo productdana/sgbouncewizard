@@ -226,8 +226,13 @@ export default class BounceRulesPage extends React.Component {
   }
 
   handleRuleUpdate(e) {
-    const { id, value } = e.currentTarget;
+    const { id } = e.currentTarget;
+    let { value } = e.currentTarget;
+    if (id === "response_code" || id === "priority") {
+      value = parseInt(value, 10);
+    }
     const { newRule } = this.state;
+
     this.setState({
       newRule: { ...newRule, [id]: value },
     });

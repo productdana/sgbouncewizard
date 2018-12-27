@@ -1,5 +1,23 @@
 import BounceRulesPage from "../../Pages/BounceRulesContainer";
 
+const testDeleteRule = {
+  priority: 1,
+  bounce_action: "cypressDeleteTest",
+  response_code: 528,
+  description: "testDescription",
+  enhanced_code: "492",
+  regex: "testRegex",
+};
+
+const testCreateRule = {
+  priority: 2,
+  bounce_action: "cypressCreateTest",
+  response_code: 918,
+  description: "testDescription",
+  enhanced_code: "492",
+  regex: "testRegex",
+};
+
 describe("Bounce Rules Page", () => {
   beforeEach(() => {
     cy.login("hadarziv@sg.com", "papa");
@@ -16,23 +34,24 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should create a bounce rule", () => {
-    BounceRulesPage.createRuleButton.click();
-    BounceRulesPage.fillForm(
-      "1",
-      "cypressTest",
-      "528",
-      "testDescription",
-      "492",
-      "testRegex"
-    );
-    BounceRulesPage.confirmModal.should("be.visible");
-    BounceRulesPage.confirmationSubmit.click();
-    BounceRulesPage.testRule.should("be.visible");
+    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
+      BounceRulesPage.createBounceRuleUI(testCreateRule).then(() => {
+        BounceRulesPage.confirmModal.should("be.visible");
+        BounceRulesPage.confirmationSubmit.click().then(() => {
+          BounceRulesPage.createdCreateRuleAPI.should("be.visible").then(() => {
+            BounceRulesPage.deleteBounceRuleAPI(testCreateRule);
+          });
+        });
+      });
+    });
   });
 
   it("should delete a bounce rule", () => {
-    BounceRulesPage.testRule.click();
-    BounceRulesPage.deleteConfirmationConfirm.click();
-    BounceRulesPage.testRule.should("not.be.visible");
+    BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(id => {
+      BounceRulesPage.createdRuleButton(id).click();
+      BounceRulesPage.deleteConfirmationConfirm.click().then(() => {
+        BounceRulesPage.createdDeleteRuleAPI.should("not.be.visible");
+      });
+    });
   });
 });
