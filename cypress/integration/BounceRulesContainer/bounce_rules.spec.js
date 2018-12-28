@@ -35,23 +35,15 @@ describe("Bounce Rules Page", () => {
 
   it("should create a bounce rule", () => {
     BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
-      BounceRulesPage.createBounceRuleUI(testCreateRule).then(() => {
-        BounceRulesPage.confirmModal.should("be.visible");
-        BounceRulesPage.confirmationSubmit.click().then(() => {
-          BounceRulesPage.createdCreateRuleAPI.should("be.visible").then(() => {
-            BounceRulesPage.deleteBounceRuleAPI(testCreateRule);
-          });
-        });
-      });
+      BounceRulesPage.createBounceRuleUI(testCreateRule);
+      BounceRulesPage.testBounceRuleToCreate.should("be.visible");
     });
   });
 
   it("should delete a bounce rule", () => {
-    BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(id => {
-      BounceRulesPage.createdRuleButton(id).click();
-      BounceRulesPage.deleteConfirmationConfirm.click().then(() => {
-        BounceRulesPage.createdDeleteRuleAPI.should("not.be.visible");
-      });
+    BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(res => {
+      BounceRulesPage.deleteBounceRuleUI(res.id);
+      BounceRulesPage.testBounceRuleToDelete.should("not.be.visible");
     });
   });
 });

@@ -73,7 +73,6 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
           onClick={handleActionOpen}
           rule={id}
           data-rule={id}
-          // data-rule={bounceAction}
           id="isDeleteConfirmationOpen"
           icon="trash"
         />

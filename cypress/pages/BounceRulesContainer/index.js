@@ -79,11 +79,11 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.confirmationSubmit);
   }
 
-  get createdDeleteRuleAPI() {
+  get testBounceRuleToDelete() {
     return cy.get('[data-cypress="cypressDeleteTest"]');
   }
 
-  get createdCreateRuleAPI() {
+  get testBounceRuleToCreate() {
     return cy.get('[data-cypress="cypressCreateTest"]');
   }
 
@@ -96,65 +96,69 @@ class BounceRulesPage extends Page {
   }
 
   deleteBounceRuleAPI(testRule) {
-    return new Promise(resolve => {
-      cy.task("getRules").then(res => {
+    return cy
+      .task("getRules")
+      .then(res => {
         if (!res.errno) {
           for (let i = 0; i < res.length; i++) {
             if (_.isEqual(testRule, _.omit(res[i], "id"))) {
-              cy.task("deleteRule", res[i].id);
-              cy.log("DELETE SUCCESS");
+              return cy.task("deleteRule", res[i].id);
             }
           }
-        } else {
-          cy.log("DELETE ERROR");
+          return true;
         }
-        cy.reload().then(() => resolve());
+        return false;
+      })
+      .then(() => {
+        cy.reload();
+        cy.log("Delete Successfull");
       });
-    });
   }
 
   createBounceRuleAPI(testRule) {
-    return new Promise(resolve => {
-      cy.task("createRule", testRule).then(res => {
-        cy.reload().then(() => resolve(res.id));
-      });
-    });
+    return cy.task("createRule", testRule);
   }
 
   createBounceRuleUI(bounceRule) {
-    return new Promise(resolve => {
-      const {
-        priority,
-        bounce_action: bounceAction,
-        response_code: responseCode,
-        description,
-        enhanced_code: enhancedCode,
-        regex,
-      } = bounceRule;
+    const {
+      priority,
+      bounce_action: bounceAction,
+      response_code: responseCode,
+      description,
+      enhanced_code: enhancedCode,
+      regex,
+    } = bounceRule;
 
-      this.createRuleButton.click();
+    this.createRuleButton.click();
 
-      if (priority) {
-        this.priority.type(priority);
-      }
-      if (bounceAction) {
-        this.bounceAction.type(bounceAction);
-      }
-      if (responseCode) {
-        this.responseCode.type(responseCode);
-      }
-      if (description) {
-        this.description.type(description);
-      }
-      if (enhancedCode) {
-        this.enhancedCode.type(enhancedCode);
-      }
-      if (regex) {
-        this.regex.type(regex);
-      }
+    if (priority) {
+      this.priority.type(priority);
+    }
+    if (bounceAction) {
+      this.bounceAction.type(bounceAction);
+    }
+    if (responseCode) {
+      this.responseCode.type(responseCode);
+    }
+    if (description) {
+      this.description.type(description);
+    }
+    if (enhancedCode) {
+      this.enhancedCode.type(enhancedCode);
+    }
+    if (regex) {
+      this.regex.type(regex);
+    }
 
-      resolve(this.submitButton.click());
-    });
+    this.submitButton.click();
+    this.confirmModal.should("be.visible");
+    return this.confirmationSubmit.click();
+  }
+
+  deleteBounceRuleUI(id) {
+    cy.reload();
+    this.createdRuleButton(id).click();
+    return this.deleteConfirmationConfirm.click();
   }
 }
 

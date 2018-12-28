@@ -63,6 +63,15 @@
       "priority": 0,
       "description": "UkZDMzQ2MyBEZXN0aW5hdGlvbiBtYWlsYm94IGhhcyBtb3ZlZA==",
       "bounce_action": "suppress"
+    },
+    {
+      "priority": 2,
+      "bounce_action": "cypressCreateTest",
+      "response_code": 918,
+      "description": "testDescription",
+      "enhanced_code": "492",
+      "regex": "testRegex",
+      "id": 8
     }
   ]
 }
