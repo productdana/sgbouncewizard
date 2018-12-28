@@ -112,7 +112,6 @@ class BounceRulesPage extends Page {
       .then(result => {
         if (result) {
           cy.log("Delete Successful");
-          cy.reload();
         }
         cy.log("Delete Unsuccessful");
       });
@@ -159,7 +158,6 @@ class BounceRulesPage extends Page {
   }
 
   deleteBounceRuleUI(id) {
-    cy.reload();
     this.createdRuleButton(id).click();
     return this.deleteConfirmationConfirm.click();
   }

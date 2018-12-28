@@ -21,10 +21,10 @@ const testCreateRule = {
 describe("Bounce Rules Page", () => {
   beforeEach(() => {
     cy.login("hadarziv@sg.com", "papa");
-    BounceRulesPage.open();
   });
 
   it("should pass healthchecks", () => {
+    BounceRulesPage.open();
     BounceRulesPage.page.should("be.visible");
     BounceRulesPage.breadcrumb.should("be.visible");
     BounceRulesPage.csvButton.should("be.visible");
@@ -35,6 +35,7 @@ describe("Bounce Rules Page", () => {
 
   it("should create a bounce rule", () => {
     BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
+      BounceRulesPage.open();
       BounceRulesPage.createBounceRuleUI(testCreateRule);
       BounceRulesPage.testBounceRuleToCreate.should("be.visible");
     });
@@ -42,6 +43,7 @@ describe("Bounce Rules Page", () => {
 
   it("should delete a bounce rule", () => {
     BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(res => {
+      BounceRulesPage.open();
       BounceRulesPage.deleteBounceRuleUI(res.id);
       BounceRulesPage.testBounceRuleToDelete.should("not.be.visible");
     });
