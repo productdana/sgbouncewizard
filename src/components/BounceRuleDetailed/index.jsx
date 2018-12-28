@@ -16,6 +16,7 @@ import "./index.scss";
 const BounceRuleDetailed = ({
   currentRule,
   newRule,
+  changelog,
   isEditClicked,
   isChangeModalOpen,
   isConfirmOpen,
@@ -30,6 +31,7 @@ const BounceRuleDetailed = ({
   numRules,
 }) => {
   const { id } = currentRule;
+  const isChangelogEmpty = changelog === undefined || changelog.length < 1;
   return (
     <div className="detailed-page-container">
       <Header />
@@ -113,9 +115,12 @@ const BounceRuleDetailed = ({
           <Changelog
             data-test="changelog-container"
             handleButtonClicked={handleButtonClicked}
+            changelog={changelog}
+            isChangelogEmpty={isChangelogEmpty}
           />
         </Column>
       </Row>
+<<<<<<< HEAD
       <Row>
         <Column width={4} offset={5}>
           <Pagination
@@ -138,6 +143,23 @@ const BounceRuleDetailed = ({
           />
         </Column>
       </Row>
+=======
+      {!isChangelogEmpty && (
+        <Row>
+          <Column width={4} offset={5}>
+            <Pagination
+              prevPageIndex={1}
+              nextPageIndex={10}
+              pagesToDisplay={5}
+              pageIndex={1}
+              pageInterval={1}
+              numRules={3}
+              updatePageIndex={() => {}}
+            />
+          </Column>
+        </Row>
+      )}
+>>>>>>> added empty changelog
 
       {isChangeModalOpen && (
         <ChangeModal

@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "underscore";
 import BounceRuleDetailed from "../components/BounceRuleDetailed";
-import { getRule } from "../utils/ruleCalls";
+import { getRule, getChangelog } from "../utils/ruleCalls";
 
 export default class BounceRuleDetailedPage extends React.Component {
   constructor(props) {
@@ -9,6 +9,7 @@ export default class BounceRuleDetailedPage extends React.Component {
 
     this.state = {
       currentRule: null,
+      changelog: [],
       isEditClicked: false,
       isChangeModalOpen: false,
       isCancelConfirmOpen: false,
@@ -16,6 +17,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       pageIndex: 1,
       pageInterval: 10,
       pagesToDisplay: 5,
+      isNetworkError: false
     };
 
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -26,16 +28,26 @@ export default class BounceRuleDetailedPage extends React.Component {
 
   async componentDidMount() {
     const { match, location } = this.props;
+    getChangelog(match.params.bounceRuleId)
+      .then(res => {
+        const { data } = res;
+        this.setState({
+          changelog: data.changelog
+        });
+      })
+      .catch(() => {
+        this.setState({ isNetworkError: true });
+      });
     if (location.state == null) {
       const { data, status } = await getRule(match.params.bounceRuleId);
       if (status === 200) {
         this.setState({
-          currentRule: data,
+          currentRule: data
         });
       }
     } else {
       this.setState({
-        currentRule: location.state.currentRule,
+        currentRule: location.state.currentRule
       });
     }
   }
@@ -44,7 +56,7 @@ export default class BounceRuleDetailedPage extends React.Component {
     const { id, value } = event.currentTarget;
     const { currentRule } = this.state;
     this.setState({
-      currentRule: { ...currentRule, [id]: value },
+      currentRule: { ...currentRule, [id]: value }
     });
   }
 
@@ -53,19 +65,19 @@ export default class BounceRuleDetailedPage extends React.Component {
     switch (id) {
       case "changeModal": {
         this.setState({
-          isChangeModalOpen: false,
+          isChangeModalOpen: false
         });
         break;
       }
       case "cancelModal": {
         this.setState({
-          isCancelConfirmOpen: false,
+          isCancelConfirmOpen: false
         });
         break;
       }
       case "saveModal": {
         this.setState({
-          isConfirmOpen: false,
+          isConfirmOpen: false
         });
         break;
       }
@@ -82,11 +94,11 @@ export default class BounceRuleDetailedPage extends React.Component {
       case "cancelClicked": {
         if (!_.isEqual(prevRule, currentRule)) {
           this.setState({
-            isCancelConfirmOpen: true,
+            isCancelConfirmOpen: true
           });
         } else {
           this.setState({
-            isEditClicked: false,
+            isEditClicked: false
           });
         }
         break;
@@ -94,25 +106,25 @@ export default class BounceRuleDetailedPage extends React.Component {
       case "editClicked": {
         this.setState({
           isEditClicked: true,
-          prevRule: { ...currentRule },
+          prevRule: { ...currentRule }
         });
         break;
       }
       case "saveClicked": {
         if (!_.isEqual(prevRule, currentRule)) {
           this.setState({
-            isConfirmOpen: true,
+            isConfirmOpen: true
           });
         } else {
           this.setState({
-            isEditClicked: false,
+            isEditClicked: false
           });
         }
         break;
       }
       case "changeClicked": {
         this.setState({
-          isChangeModalOpen: true,
+          isChangeModalOpen: true
         });
         break;
       }
@@ -130,14 +142,14 @@ export default class BounceRuleDetailedPage extends React.Component {
         this.setState({
           currentRule: { ...prevRule },
           isCancelConfirmOpen: false,
-          isEditClicked: false,
+          isEditClicked: false
         });
         break;
       }
       case "saveModal": {
         this.setState({
           isConfirmOpen: false,
-          isEditClicked: false,
+          isEditClicked: false
         });
         break;
       }
@@ -157,7 +169,7 @@ export default class BounceRuleDetailedPage extends React.Component {
   updatePageIndex(newIndex) {
     this.setState(prevState => ({
       pageIndex:
-        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
+        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex
     }));
   }
 
@@ -166,13 +178,13 @@ export default class BounceRuleDetailedPage extends React.Component {
       pageIndex:
         prevState.pageIndex > 1
           ? prevState.pageIndex - prevState.pagesToDisplay
-          : 0,
+          : 0
     }));
   }
 
   nextPageIndex() {
     this.setState(prevState => ({
-      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
+      pageIndex: prevState.pageIndex + prevState.pagesToDisplay
     }));
   }
 
