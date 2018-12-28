@@ -109,9 +109,12 @@ class BounceRulesPage extends Page {
         }
         return false;
       })
-      .then(() => {
-        cy.reload();
-        cy.log("Delete Successfull");
+      .then(result => {
+        if (result) {
+          cy.log("Delete Successful");
+          cy.reload();
+        }
+        cy.log("Delete Unsuccessful");
       });
   }
 
