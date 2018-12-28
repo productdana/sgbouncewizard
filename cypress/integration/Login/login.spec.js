@@ -2,8 +2,11 @@ import LoginPage from "../../Pages/Login";
 import BounceRulesPage from "../../pages/BounceRulesContainer";
 
 describe("Login Page", () => {
-  it("should pass healthchecks", () => {
+  beforeEach(() => {
     LoginPage.open();
+  });
+
+  it("should pass healthchecks", () => {
     LoginPage.emailInput.should("be.visible");
     LoginPage.passwordInput.should("be.visible");
     LoginPage.loginButton.should("be.visible");
@@ -15,7 +18,6 @@ describe("Login Page", () => {
       password: "papa",
     };
     const { email, password } = validCredentials;
-    LoginPage.open();
     LoginPage.login(email, password).then(() => {
       BounceRulesPage.page.should("be.visible");
     });
@@ -27,7 +29,6 @@ describe("Login Page", () => {
       password: "papa",
     };
     const { email, password } = invalidCredentials;
-    LoginPage.open();
     LoginPage.login(email, password).then(() => {
       LoginPage.invalidCredentialsAlert.should("be.visible");
     });
@@ -39,7 +40,6 @@ describe("Login Page", () => {
       password: "papa",
     };
     const { email, password } = invalidInput;
-    LoginPage.open();
     LoginPage.login(email, password).then(() => {
       LoginPage.invalidInputAlert.should("be.visible");
     });
