@@ -18,7 +18,6 @@ describe("Login Page", () => {
       password: "papa",
     };
     const { email, password } = validCredentials;
-
     LoginPage.login(email, password).then(() => {
       BounceRulesPage.page.should("be.visible");
     });
@@ -30,7 +29,6 @@ describe("Login Page", () => {
       password: "papa",
     };
     const { email, password } = invalidCredentials;
-
     LoginPage.login(email, password).then(() => {
       LoginPage.invalidCredentialsAlert.should("be.visible");
     });
@@ -42,7 +40,6 @@ describe("Login Page", () => {
       password: "papa",
     };
     const { email, password } = invalidInput;
-
     LoginPage.login(email, password).then(() => {
       LoginPage.invalidInputAlert.should("be.visible");
     });

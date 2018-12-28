@@ -83,10 +83,10 @@ exports[`should render correctly 1`] = `
       </h1>
     </div>
     <div
-      className="mako-grid__col-1 col-start-10  csv-button-col"
+      className="mako-grid__col-4 col-start-8  csv-button-col"
     >
       <a
-        className="sg-button btn btn-secondary"
+        className="sg-button btn btn-secondary sg-right"
         data-test="export-csv-button"
         download="bounce_rules.csv"
         href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\"
@@ -96,27 +96,17 @@ exports[`should render correctly 1`] = `
       >
         Export CSV
       </a>
-    </div>
-    <div
-      className="mako-grid__col-1 col-start-11"
-    >
-      <div
-        style={
-          Object {
-            "textAlign": "left",
-          }
-        }
+      <button
+        className="btn btn-primary create-rule-button"
+        data-button="create-button"
+        data-test="create-rule-button"
+        disabled={false}
+        id="isCreateRuleOpen"
+        onClick={[Function]}
+        type="button"
       >
-        <button
-          className="btn btn-primary create-rule-button"
-          data-test="create-rule-button"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Create Rule
-        </button>
-      </div>
+        Create Rule
+      </button>
     </div>
   </div>
   <div
@@ -415,7 +405,9 @@ exports[`should render correctly 1`] = `
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr
+              data-cypress="no_action"
+            >
               <td>
                 504
               </td>
@@ -441,7 +433,8 @@ exports[`should render correctly 1`] = `
                   <span
                     data-tooltip="View"
                     data-tooltip-pos="up"
-                    onClick={[Function]}
+                    id="isRedirectingToDetail"
+                    rule={504}
                   >
                     <i
                       className="sg-icon sg-icon-view"
@@ -458,8 +451,11 @@ exports[`should render correctly 1`] = `
                     />
                   </span>
                   <span
+                    data-rule={504}
                     data-tooltip="Delete"
                     data-tooltip-pos="up"
+                    id="isDeleteConfirmationOpen"
+                    rule={504}
                   >
                     <i
                       className="sg-icon sg-icon-trash"
@@ -471,6 +467,82 @@ exports[`should render correctly 1`] = `
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-4 col-start-5"
+    >
+      <div
+        className="pagination pagination-container"
+      >
+        <a
+          className="btn btn-secondary btn-small pagination-prev is-disabled"
+          role="button"
+          tabIndex="0"
+        >
+          Prev
+        </a>
+        <div
+          className="pagination-links"
+        >
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            1
+          </a>
+          <a
+            className="pagination-link is-active"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            2
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            3
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            4
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            5
+          </a>
+        </div>
+        <a
+          className="btn btn-secondary btn-small pagination-next "
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+          Next
+        </a>
       </div>
     </div>
   </div>

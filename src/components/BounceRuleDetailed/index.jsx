@@ -24,6 +24,10 @@ const BounceRuleDetailed = ({
   handleModalClose,
   onChangeRule,
   handleButtonClicked,
+  pagesToDisplay,
+  pageIndex,
+  pageInterval,
+  numRules,
 }) => {
   const { id } = currentRule;
   return (
@@ -44,13 +48,13 @@ const BounceRuleDetailed = ({
           </h1>
         </Column>
         {isEditClicked ? (
-          <Column className=" sg-right" width={2} offset={10}>
+          <Column className="csv-button-col" width={4} offset={8}>
             <Button
               onClick={handleButtonClicked}
               id="cancelClicked"
               onKeyDown={handleButtonClicked}
               data-test="cancel-button"
-              className="header-button cancel-button"
+              className="sg-button cancel-button sg-right"
               type="secondary"
             >
               {"Cancel"}
@@ -60,25 +64,21 @@ const BounceRuleDetailed = ({
               id="saveClicked"
               onKeyDown={handleButtonClicked}
               data-test="save-button"
-              className="header-button save-button"
+              className="sg-button save-button"
               type="primary"
             >
               {"Save"}
             </Button>
           </Column>
         ) : (
-          <Column
-            className="details-button-column sg-right"
-            width={1}
-            offset={11}
-          >
+          <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
                 onClick={handleButtonClicked}
                 id="editClicked"
                 onKeyDown={handleButtonClicked}
                 data-test="edit-button"
-                className="header-button edit-button"
+                className="sg-button edit-button"
                 type="primary"
               >
                 {"Edit Rule"}
@@ -119,12 +119,13 @@ const BounceRuleDetailed = ({
       <Row>
         <Column width={4} offset={5}>
           <Pagination
-            prevPageIndex={1}
-            nextPageIndex={10}
-            pageIndex={1}
-            pageInterval={1}
-            numRules={3}
+            prevPageIndex={() => {}}
+            nextPageIndex={() => {}}
+            pageIndex={pageIndex}
+            pageInterval={pageInterval}
+            numRules={numRules}
             updatePageIndex={() => {}}
+            pagesToDisplay={pagesToDisplay}
           />
         </Column>
       </Row>

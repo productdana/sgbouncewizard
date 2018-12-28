@@ -13,14 +13,17 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import Header from "../Header";
-
 import { Row } from "../Row";
 import { Column } from "../Column";
 import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
+import DeleteConfirmationModal, {
+  DeleteConfirmationAlert,
+} from "./DeleteRuleModal";
+import CreateRuleModal, { CreateConfirmationModal } from "./CreateRuleModal";
 import { WriteSelectors } from "./selectors";
 
-const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
+const RuleListContainer = ({ rules, handleActionOpen }) => (
   <Table>
     <TableHeader>
       <TableRow>
@@ -34,8 +37,7 @@ const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
     <TableBody>
       {rules.map(rule => (
         <BounceRuleMin
-          handleKeyDown={handleKeyDown}
-          handleRuleClick={handleRuleClick}
+          handleActionOpen={handleActionOpen}
           key={rule.id}
           rule={rule}
         />
@@ -44,7 +46,7 @@ const RuleListContainer = ({ rules, handleKeyDown, handleRuleClick }) => (
   </Table>
 );
 
-const BounceRuleMin = ({ rule, handleRuleClick }) => {
+const BounceRuleMin = ({ rule, handleActionOpen }) => {
   const {
     id,
     bounce_action: bounceAction,
@@ -52,7 +54,7 @@ const BounceRuleMin = ({ rule, handleRuleClick }) => {
     description,
   } = rule;
   return (
-    <TableRow>
+    <TableRow data-cypress={bounceAction}>
       <TableCell>{id}</TableCell>
       <TableCell>{bounceAction}</TableCell>
       <TableCell>{responseCode}</TableCell>
@@ -60,11 +62,20 @@ const BounceRuleMin = ({ rule, handleRuleClick }) => {
       <ActionsCell>
         <Action
           title="View"
-          onClick={() => handleRuleClick(rule)}
+          onClick={handleActionOpen}
+          id="isRedirectingToDetail"
+          rule={id}
           icon="view"
         />
         <Action title="Edit" icon="pencil" />
-        <Action title="Delete" icon="trash" />
+        <Action
+          title="Delete"
+          onClick={handleActionOpen}
+          rule={id}
+          data-rule={id}
+          id="isDeleteConfirmationOpen"
+          icon="trash"
+        />
       </ActionsCell>
     </TableRow>
   );
@@ -72,8 +83,6 @@ const BounceRuleMin = ({ rule, handleRuleClick }) => {
 
 const BounceRulesContainer = ({
   rules,
-  handleRuleClick,
-  handleKeyDown,
   updateSearchToken,
   updateSearchCategory,
   removeFilter,
@@ -90,6 +99,20 @@ const BounceRulesContainer = ({
   filterOptions,
   addFilter,
   invalidFilter,
+  isCreateRuleOpen,
+  handleRuleUpdate,
+  handleCreateSubmit,
+  isCreateRuleConfirmationOpen,
+  handleCreateConfirm,
+  newRule,
+  isInvalidInput,
+  isDeleteConfirmationOpen,
+  isDeleteAlertOpen,
+  idToDelete,
+  handleDeleteConfirm,
+  handleModalClose,
+  handleCreateOpen,
+  handleActionOpen,
 }) => (
   <div {...WriteSelectors.page} className="container">
     <Header name="Kenny" />
@@ -106,26 +129,26 @@ const BounceRulesContainer = ({
       <Column width={2} offset={2}>
         <h1>Bounce Rules</h1>
       </Column>
-      <Column className=" csv-button-col" width={1} offset={10}>
+      <Column className=" csv-button-col" width={4} offset={8}>
         <CSVLink
           {...WriteSelectors.csvButton}
           filename="bounce_rules.csv"
-          className="sg-button btn btn-secondary"
+          className="sg-button btn btn-secondary sg-right"
           data={rules}
         >
           Export CSV
         </CSVLink>
-      </Column>
-      <Column width={1} offset={11}>
-        <div style={{ textAlign: "left" }}>
-          <Button
-            {...WriteSelectors.createRuleButton}
-            className="create-rule-button"
-            type="primary"
-          >
-            Create Rule
-          </Button>
-        </div>
+        <Button
+          {...WriteSelectors.createRuleButton}
+          onClick={handleCreateOpen}
+          onKeyDown={handleCreateOpen}
+          id="isCreateRuleOpen"
+          data-button="create-button"
+          className="create-rule-button"
+          type="primary"
+        >
+          Create Rule
+        </Button>
       </Column>
     </Row>
     <Row>
@@ -147,28 +170,52 @@ const BounceRulesContainer = ({
       <Column width={10} offset={2}>
         <div {...WriteSelectors.ruleTable}>
           <RuleListContainer
-            handleRuleClick={handleRuleClick}
-            handleKeyDown={handleKeyDown}
+            handleActionOpen={handleActionOpen}
             selectedRule={selectedRule}
             rules={filteredRules}
           />
         </div>
       </Column>
     </Row>
-    {numRules > pageInterval && (
-      <Row>
-        <Column width={4} offset={5}>
-          <Pagination
-            prevPageIndex={prevPageIndex}
-            nextPageIndex={nextPageIndex}
-            pageIndex={pageIndex}
-            pageInterval={pageInterval}
-            numRules={numRules}
-            updatePageIndex={updatePageIndex}
-            pagesToDisplay={pagesToDisplay}
-          />
-        </Column>
-      </Row>
+    <Row>
+      <Column width={4} offset={5}>
+        <Pagination
+          prevPageIndex={prevPageIndex}
+          nextPageIndex={nextPageIndex}
+          pageIndex={pageIndex}
+          pageInterval={pageInterval}
+          numRules={numRules}
+          updatePageIndex={updatePageIndex}
+          pagesToDisplay={pagesToDisplay}
+        />
+      </Column>
+    </Row>
+    {isCreateRuleOpen && (
+      <CreateRuleModal
+        {...WriteSelectors.createRuleModal}
+        newRule={newRule}
+        isInvalidInput={isInvalidInput}
+        handleModalClose={handleModalClose}
+        handleRuleUpdate={handleRuleUpdate}
+        handleCreateSubmit={handleCreateSubmit}
+      />
+    )}
+    {isCreateRuleConfirmationOpen && (
+      <CreateConfirmationModal
+        {...WriteSelectors.confirmModal}
+        handleModalClose={handleModalClose}
+        handleCreateConfirm={handleCreateConfirm}
+      />
+    )}
+    {isDeleteConfirmationOpen && (
+      <DeleteConfirmationModal
+        idToDelete={idToDelete}
+        handleModalClose={handleModalClose}
+        handleDeleteConfirm={handleDeleteConfirm}
+      />
+    )}
+    {isDeleteAlertOpen && (
+      <DeleteConfirmationAlert handleModalClose={handleModalClose} />
     )}
   </div>
 );

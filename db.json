@@ -1,690 +1,77 @@
 {
-  "bounce_rules": {
-    "rules": [
-      {
-        "id": 173,
-        "response_code": "421",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBTZXJ2aWNlIG5vdCBhdmFpbGFibGU=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 174,
-        "response_code": "450",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBNYWlsYm94IHVuYXZhaWxhYmxl",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 175,
-        "response_code": "451",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBMb2NhbCBlcnJvciBpbiBwcm9jZXNzaW5n",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 176,
-        "response_code": "452",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBJbnN1ZmZpY2llbnQgc3lzdGVtIHN0b3JhZ2U=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 177,
-        "response_code": "454",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzIwNyBUTFMgbm90IGF2YWlsYWJsZQ==",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 178,
-        "response_code": "455",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBTZXJ2ZXIgdW5hYmxlIHRvIGFjY29tb2RhdGUgcGFyYW1ldGVycw==",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 179,
-        "response_code": "500",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBTeW50YXggZXJyb3IgY29tbWFuZCB1bnJlY29nbml6ZWQ=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 180,
-        "response_code": "501",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBTeW50YXggZXJyb3IgaW4gcGFyYW1ldGVycyBvciBhcmd1bWVudHM=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 181,
-        "response_code": "502",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBDb21tYW5kIG5vdCBpbXBsZW1lbnRlZA==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 182,
-        "response_code": "503",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBCYWQgc2VxdWVuY2Ugb2YgY29tbWFuZHM=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 183,
-        "response_code": "521",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNzUwNCBTZXJ2ZXIgZG9lcyBub3QgYWNjZXB0IG1haWw=",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 184,
-        "response_code": "530",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNDk1NCBNdXN0IGlzc3VlIGEgU1RBUlRUTFMgY29tbWFuZCBmaXJzdA==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 185,
-        "response_code": "550",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBNYWlsYm94IHVuYXZhaWxhYmxl",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 186,
-        "response_code": "551",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBVc2VyIG5vdCBsb2NhbA==",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 187,
-        "response_code": "552",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBFeGNlZWRlZCBzdG9yYWdlIGFsbG9jYXRpb24=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 188,
-        "response_code": "553",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBNYWlsYm94IG5hbWUgbm90IGFsbG93ZWQ=",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 189,
-        "response_code": "554",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBUcmFuc2FjdGlvbiBmYWlsZWQ=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 190,
-        "response_code": "555",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNTMyMSBQYXJhbWV0ZXJzIG5vdCByZWNvZ25pemVkIG9yIG5vdCBpbXBsZW1lbnRlZA==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 191,
-        "response_code": "556",
-        "enhanced_code": "",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNzUwNCBSZWNpcGllbnQgYWRkcmVzcyBoYXMgbnVsbCBNWA==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 192,
-        "response_code": "0",
-        "enhanced_code": "5.1.1",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgZGVzdGluYXRpb24gbWFpbGJveCBhZGRyZXNz",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 193,
-        "response_code": "0",
-        "enhanced_code": "5.1.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgZGVzdGluYXRpb24gc3lzdGVtIGFkZHJlc3M=",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 194,
-        "response_code": "0",
-        "enhanced_code": "5.1.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgZGVzdGluYXRpb24gbWFpbGJveCBhZGRyZXNzIHN5bnRheA==",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 195,
-        "response_code": "0",
-        "enhanced_code": "5.1.4",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBEZXN0aW5hdGlvbiBtYWlsYm94IGFkZHJlc3MgYW1iaWd1b3Vz",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 196,
-        "response_code": "0",
-        "enhanced_code": "5.1.6",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBEZXN0aW5hdGlvbiBtYWlsYm94IGhhcyBtb3ZlZA==",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 197,
-        "response_code": "0",
-        "enhanced_code": "4.1.7",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgc2VuZGVycyBtYWlsYm94IGFkZHJlc3Mgc3ludGF4",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 198,
-        "response_code": "0",
-        "enhanced_code": "5.1.7",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgc2VuZGVycyBtYWlsYm94IGFkZHJlc3Mgc3ludGF4",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 199,
-        "response_code": "0",
-        "enhanced_code": "4.1.8",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgc2VuZGVycyBzeXN0ZW0gYWRkcmVzcw==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 200,
-        "response_code": "0",
-        "enhanced_code": "5.1.8",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgc2VuZGVycyBzeXN0ZW0gYWRkcmVzcw==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 201,
-        "response_code": "0",
-        "enhanced_code": "5.1.9",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzg4NiBNZXNzYWdlIHJlbGF5ZWQgdG8gbm9uLWNvbXBsaWFudCBtYWlsZXI=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 202,
-        "response_code": "0",
-        "enhanced_code": "5.1.10",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDNzUwNSBSZWNpcGllbnQgYWRkcmVzcyBoYXMgbnVsbCBNWA==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 203,
-        "response_code": "0",
-        "enhanced_code": "4.2.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 204,
-        "response_code": "0",
-        "enhanced_code": "5.2.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 205,
-        "response_code": "0",
-        "enhanced_code": "4.2.1",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNYWlsYm94IGRpc2FibGVkIG5vdCBhY2NlcHRpbmcgbWVzc2FnZXM=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 206,
-        "response_code": "0",
-        "enhanced_code": "5.2.1",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNYWlsYm94IGRpc2FibGVkIG5vdCBhY2NlcHRpbmcgbWVzc2FnZXM=",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 207,
-        "response_code": "0",
-        "enhanced_code": "4.2.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNYWlsYm94IGZ1bGw=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 208,
-        "response_code": "0",
-        "enhanced_code": "5.2.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNYWlsYm94IGZ1bGw=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 209,
-        "response_code": "0",
-        "enhanced_code": "5.2.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNZXNzYWdlIGxlbmd0aCBleGNlZWRzIGFkbWluaXN0cmF0aXZlIGxpbWl0",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 210,
-        "response_code": "0",
-        "enhanced_code": "5.2.4",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNYWlsaW5nIGxpc3QgZXhwYW5zaW9uIHByb2JsZW0=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 211,
-        "response_code": "0",
-        "enhanced_code": "4.3.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbCBzeXN0ZW0gc3RhdHVz",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 212,
-        "response_code": "0",
-        "enhanced_code": "5.3.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbCBzeXN0ZW0gc3RhdHVz",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 213,
-        "response_code": "0",
-        "enhanced_code": "4.3.1",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNYWlsIHN5c3RlbSBmdWxs",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 214,
-        "response_code": "0",
-        "enhanced_code": "4.3.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBTeXN0ZW0gbm90IGFjY2VwdGluZyBuZXR3b3JrIG1lc3NhZ2Vz",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 215,
-        "response_code": "0",
-        "enhanced_code": "5.3.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBTeXN0ZW0gbm90IGFjY2VwdGluZyBuZXR3b3JrIG1lc3NhZ2Vz",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 216,
-        "response_code": "0",
-        "enhanced_code": "4.3.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBTeXN0ZW0gbm90IGNhcGFibGUgb2Ygc2VsZWN0ZWQgZmVhdHVyZXM=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 217,
-        "response_code": "0",
-        "enhanced_code": "5.3.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBTeXN0ZW0gbm90IGNhcGFibGUgb2Ygc2VsZWN0ZWQgZmVhdHVyZXM=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 218,
-        "response_code": "0",
-        "enhanced_code": "5.3.4",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNZXNzYWdlIHRvbyBiaWcgZm9yIHN5c3RlbQ==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 219,
-        "response_code": "0",
-        "enhanced_code": "4.3.5",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBTeXN0ZW0gaW5jb3JyZWN0bHkgY29uZmlndXJlZA==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 220,
-        "response_code": "0",
-        "enhanced_code": "5.3.5",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBTeXN0ZW0gaW5jb3JyZWN0bHkgY29uZmlndXJlZA==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 221,
-        "response_code": "0",
-        "enhanced_code": "4.4.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbmV0d29yayBvciByb3V0aW5nIHN0YXR1cw==",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 222,
-        "response_code": "0",
-        "enhanced_code": "5.4.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbmV0d29yayBvciByb3V0aW5nIHN0YXR1cw==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 223,
-        "response_code": "0",
-        "enhanced_code": "5.4.1",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBObyBhbnN3ZXIgZnJvbSBob3N0",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 224,
-        "response_code": "0",
-        "enhanced_code": "4.4.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgY29ubmVjdGlvbg==",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 225,
-        "response_code": "0",
-        "enhanced_code": "5.4.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBCYWQgY29ubmVjdGlvbg==",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 226,
-        "response_code": "0",
-        "enhanced_code": "4.4.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBEaXJlY3Rvcnkgc2VydmVyIGZhaWx1cmU=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 227,
-        "response_code": "0",
-        "enhanced_code": "5.4.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBEaXJlY3Rvcnkgc2VydmVyIGZhaWx1cmU=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 228,
-        "response_code": "0",
-        "enhanced_code": "4.4.4",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBVbmFibGUgdG8gcm91dGU=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 229,
-        "response_code": "0",
-        "enhanced_code": "5.4.4",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBVbmFibGUgdG8gcm91dGU=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 230,
-        "response_code": "0",
-        "enhanced_code": "4.4.5",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNYWlsIHN5c3RlbSBjb25nZXN0aW9u",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 231,
-        "response_code": "0",
-        "enhanced_code": "4.4.6",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBSb3V0aW5nIGxvb3AgZGV0ZWN0ZWQ=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 232,
-        "response_code": "0",
-        "enhanced_code": "5.4.6",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBSb3V0aW5nIGxvb3AgZGV0ZWN0ZWQ=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 233,
-        "response_code": "0",
-        "enhanced_code": "4.4.7",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBEZWxpdmVyeSB0aW1lIGV4cGlyZWQ=",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 234,
-        "response_code": "0",
-        "enhanced_code": "5.4.7",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBEZWxpdmVyeSB0aW1lIGV4cGlyZWQ=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 235,
-        "response_code": "0",
-        "enhanced_code": "4.5.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgcHJvdG9jb2wgc3RhdHVz",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 236,
-        "response_code": "0",
-        "enhanced_code": "5.5.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgcHJvdG9jb2wgc3RhdHVz",
-        "bounce_action": "suppress"
-      },
-      {
-        "id": 237,
-        "response_code": "0",
-        "enhanced_code": "4.5.1",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBJbnZhbGlkIGNvbW1hbmQ=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 238,
-        "response_code": "0",
-        "enhanced_code": "5.5.1",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBJbnZhbGlkIGNvbW1hbmQ=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 239,
-        "response_code": "0",
-        "enhanced_code": "5.5.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBTeW50YXggZXJyb3I=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 240,
-        "response_code": "0",
-        "enhanced_code": "4.5.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBUb28gbWFueSByZWNpcGllbnRz",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 241,
-        "response_code": "0",
-        "enhanced_code": "5.5.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBUb28gbWFueSByZWNpcGllbnRz",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 242,
-        "response_code": "0",
-        "enhanced_code": "5.5.4",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBJbnZhbGlkIGNvbW1hbmQgYXJndW1lbnRz",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 243,
-        "response_code": "0",
-        "enhanced_code": "4.5.5",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBXcm9uZyBwcm90b2NvbCB2ZXJzaW9u",
-        "bounce_action": "retry"
-      },
-      {
-        "id": 244,
-        "response_code": "0",
-        "enhanced_code": "5.5.5",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBXcm9uZyBwcm90b2NvbCB2ZXJzaW9u",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 245,
-        "response_code": "0",
-        "enhanced_code": "5.6.0",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWVkaWEgZXJyb3I=",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 246,
-        "response_code": "0",
-        "enhanced_code": "5.6.1",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBNZWRpYSBub3Qgc3VwcG9ydGVk",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 247,
-        "response_code": "0",
-        "enhanced_code": "5.6.2",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBDb252ZXJzaW9uIHJlcXVpcmVkIGFuZCBwcm9oaWJpdGVk",
-        "bounce_action": "no_action"
-      },
-      {
-        "id": 248,
-        "response_code": "0",
-        "enhanced_code": "5.6.3",
-        "regex": "",
-        "priority": 0,
-        "description": "UkZDMzQ2MyBDb252ZXJzaW9uIHJlcXVpcmVkIGJ1dCBub3Qgc3VwcG9ydGVk",
-        "bounce_action": "no_action"
-      }
-    ]
-  }
+  "user": {},
+  "bounce_rules": [
+    {
+      "id": 190,
+      "response_code": 555,
+      "enhanced_code": "",
+      "regex": "",
+      "priority": 0,
+      "description": "UkZDNTMyMSBQYXJhbWV0ZXJzIG5vdCByZWNvZ25pemVkIG9yIG5vdCBpbXBsZW1lbnRlZA==",
+      "bounce_action": "no_action"
+    },
+    {
+      "id": 191,
+      "response_code": 556,
+      "enhanced_code": "",
+      "regex": "",
+      "priority": 0,
+      "description": "UkZDNzUwNCBSZWNpcGllbnQgYWRkcmVzcyBoYXMgbnVsbCBNWA==",
+      "bounce_action": "no_action"
+    },
+    {
+      "id": 192,
+      "response_code": 0,
+      "enhanced_code": "5.1.1",
+      "regex": "",
+      "priority": 0,
+      "description": "UkZDMzQ2MyBCYWQgZGVzdGluYXRpb24gbWFpbGJveCBhZGRyZXNz",
+      "bounce_action": "suppress"
+    },
+    {
+      "id": 193,
+      "response_code": 0,
+      "enhanced_code": "5.1.2",
+      "regex": "",
+      "priority": 0,
+      "description": "UkZDMzQ2MyBCYWQgZGVzdGluYXRpb24gc3lzdGVtIGFkZHJlc3M=",
+      "bounce_action": "suppress"
+    },
+    {
+      "id": 194,
+      "response_code": 0,
+      "enhanced_code": "5.1.3",
+      "regex": "",
+      "priority": 0,
+      "description": "UkZDMzQ2MyBCYWQgZGVzdGluYXRpb24gbWFpbGJveCBhZGRyZXNzIHN5bnRheA==",
+      "bounce_action": "suppress"
+    },
+    {
+      "id": 195,
+      "response_code": 0,
+      "enhanced_code": "5.1.4",
+      "regex": "",
+      "priority": 0,
+      "description": "UkZDMzQ2MyBEZXN0aW5hdGlvbiBtYWlsYm94IGFkZHJlc3MgYW1iaWd1b3Vz",
+      "bounce_action": "no_action"
+    },
+    {
+      "id": 196,
+      "response_code": 0,
+      "enhanced_code": "5.1.6",
+      "regex": "",
+      "priority": 0,
+      "description": "UkZDMzQ2MyBEZXN0aW5hdGlvbiBtYWlsYm94IGhhcyBtb3ZlZA==",
+      "bounce_action": "suppress"
+    },
+    {
+      "priority": 2,
+      "bounce_action": "cypressCreateTest",
+      "response_code": 918,
+      "description": "testDescription",
+      "enhanced_code": "492",
+      "regex": "testRegex",
+      "id": 8
+    }
+  ]
 }
