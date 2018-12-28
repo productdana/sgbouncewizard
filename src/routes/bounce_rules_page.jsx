@@ -160,11 +160,12 @@ export default class BounceRulesPage extends React.Component {
   }
 
   handleActionOpen(e) {
+    const { rules } = this.state;
     const { id } = e.currentTarget;
-    const rule = e.currentTarget.getAttribute("rule");
+    const ruleId = parseInt(e.currentTarget.getAttribute("rule"), 10);
     this.setState({
       [id]: true,
-      selectedRule: rule,
+      selectedRule: rules.find(rule => rule.id === ruleId),
     });
   }
 
@@ -178,10 +179,10 @@ export default class BounceRulesPage extends React.Component {
 
   async handleDeleteConfirm() {
     const { rules, selectedRule } = this.state;
-    const { status } = await deleteRule(selectedRule);
+    const { status } = await deleteRule(selectedRule.id);
     if (status === 200) {
       this.setState({
-        rules: rules.filter(rule => rule.id !== parseInt(selectedRule, 10)),
+        rules: rules.filter(rule => rule.id !== parseInt(selectedRule.id, 10)),
         isDeleteConfirmationOpen: false,
         selectedRule: null,
       });
@@ -253,6 +254,7 @@ export default class BounceRulesPage extends React.Component {
 
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
+    // console.log("REDIRECTED: " + `/bounce_rules/${selectedRule.id}`);
     const filteredRules = this.filterRules(this.paginate(rules));
     return isRedirectingToDetail ? (
       <Redirect
