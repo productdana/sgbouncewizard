@@ -50,7 +50,7 @@ In order to update snapshots:
 
 > Cypress is a next generation front end testing tool built for the modern web.
 
-Cypress mimics user actions in a browser to perform tests such as succesfully loging in, creating bounce rules, and deleting bounce rules.
+Cypress mimics user actions in a browser to perform tests such as successfully logging in, creating bounce rules, and deleting bounce rules.
 
 #### Using Json-Server
 
