@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
@@ -18,20 +18,21 @@ module.exports = (on, config) => {
   // `config` is the resolved Cypress config
   on("task", {
     createRule: data =>
-      fetch(`${mockAPI}bounce_rules/`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then(res => res.json())
-        .catch(err => err),
+      axios
+        .post(`${mockAPI}bounce_rules/`, data, {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then(res => res.data)
+        .catch(() => false),
     deleteRule: ruleId =>
-      fetch(`${mockAPI}bounce_rules/${ruleId}`, { method: "DELETE" })
-        .then(res => res)
-        .catch(err => err),
+      axios
+        .delete(`${mockAPI}bounce_rules/${ruleId}`)
+        .then(res => res.data)
+        .catch(() => false),
     getRules: () =>
-      fetch(`${mockAPI}bounce_rules`)
-        .then(res => res.json())
-        .catch(err => err),
+      axios
+        .get(`${mockAPI}bounce_rules/`)
+        .then(res => res.data)
+        .catch(() => false),
   });
 };
