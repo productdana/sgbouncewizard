@@ -21,14 +21,17 @@ const BounceRuleDetailed = ({
   isChangeModalOpen,
   isConfirmOpen,
   isCancelConfirmOpen,
-  handleModalConfirm,
   handleModalClose,
   onChangeRule,
-  handleButtonClicked,
   pagesToDisplay,
   pageIndex,
   pageInterval,
   numRules,
+  handleEditClicked,
+  handleCancelSaveClicked,
+  handleChangelogClicked,
+  handleCancelConfirmation,
+  handleSaveConfirmation,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
@@ -52,38 +55,38 @@ const BounceRuleDetailed = ({
         {isEditClicked ? (
           <Column className="csv-button-col" width={4} offset={8}>
             <Button
-              onClick={handleButtonClicked}
-              id="cancelClicked"
-              onKeyDown={handleButtonClicked}
+              onClick={handleCancelSaveClicked}
+              id="isCancelConfirmOpen"
+              onKeyDown={handleCancelSaveClicked}
               data-test="cancel-button"
               className="sg-button cancel-button sg-right"
               type="secondary"
             >
-              {"Cancel"}
+              Cancel
             </Button>
             <Button
-              onClick={handleButtonClicked}
-              id="saveClicked"
-              onKeyDown={handleButtonClicked}
+              onClick={handleCancelSaveClicked}
+              id="isConfirmOpen"
+              onKeyDown={handleCancelSaveClicked}
               data-test="save-button"
               className="sg-button save-button"
               type="primary"
             >
-              {"Save"}
+              Save
             </Button>
           </Column>
         ) : (
           <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
-                onClick={handleButtonClicked}
-                id="editClicked"
-                onKeyDown={handleButtonClicked}
+                onClick={handleEditClicked}
+                id="isEditClicked"
+                onKeyDown={handleEditClicked}
                 data-test="edit-button"
                 className="sg-button edit-button"
                 type="primary"
               >
-                {"Edit Rule"}
+                Edit Rule
               </Button>
             </span>
           </Column>
@@ -104,7 +107,7 @@ const BounceRuleDetailed = ({
               <DetailsContainer
                 data-test="detailed-container"
                 currentRule={currentRule}
-                handleButtonClicked={handleButtonClicked}
+                handleEditClicked={handleEditClicked}
               />
             )}
           </div>
@@ -114,7 +117,7 @@ const BounceRuleDetailed = ({
         <Column width={10} offset={2}>
           <Changelog
             data-test="changelog-container"
-            handleButtonClicked={handleButtonClicked}
+            handleChangelogClicked={handleChangelogClicked}
             changelog={changelog}
             isChangelogEmpty={isChangelogEmpty}
           />
@@ -140,7 +143,6 @@ const BounceRuleDetailed = ({
           data-test="change-modal"
           currentRule={currentRule}
           handleModalClose={handleModalClose}
-          handleModalConfirm={handleModalConfirm}
         />
       )}
       {isConfirmOpen && (
@@ -148,7 +150,7 @@ const BounceRuleDetailed = ({
           data-test="confirm-modal"
           currentRule={currentRule}
           handleModalClose={handleModalClose}
-          handleModalConfirm={handleModalConfirm}
+          handleSaveConfirmation={handleSaveConfirmation}
         />
       )}
       {isCancelConfirmOpen && (
@@ -156,7 +158,7 @@ const BounceRuleDetailed = ({
           data-test="cancel-confirm-modal"
           currentRule={currentRule}
           handleModalClose={handleModalClose}
-          handleModalConfirm={handleModalConfirm}
+          handleCancelConfirmation={handleCancelConfirmation}
         />
       )}
     </div>

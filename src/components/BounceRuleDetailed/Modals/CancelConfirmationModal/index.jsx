@@ -4,11 +4,7 @@ import Button from "@sendgrid/ui-components/button";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 
-const ConfirmModalBody = ({
-  handleModalClose,
-  handleModalConfirm,
-  modalType,
-}) => (
+const ConfirmModalBody = ({ handleModalClose, handleCancelConfirmation }) => (
   <div>
     <Row>
       <Column>
@@ -23,7 +19,7 @@ const ConfirmModalBody = ({
         <Button
           className="sg-button"
           onClick={handleModalClose}
-          id={modalType}
+          id="isCancelConfirmOpen"
           type="secondary"
         >
           Close
@@ -32,8 +28,7 @@ const ConfirmModalBody = ({
       <Column width={1} offset={11}>
         <Button
           className="sg-button"
-          id={modalType}
-          onClick={handleModalConfirm}
+          onClick={handleCancelConfirmation}
           type="primary"
         >
           Confirm
@@ -46,7 +41,7 @@ const ConfirmModalBody = ({
 const CancelConfirmModal = ({
   currentRule,
   handleModalClose,
-  handleModalConfirm,
+  handleCancelConfirmation,
 }) => (
   <CenterModal
     open
@@ -54,7 +49,7 @@ const CancelConfirmModal = ({
       <ConfirmModalBody
         handleModalClose={handleModalClose}
         currentRule={currentRule}
-        handleModalConfirm={handleModalConfirm}
+        handleCancelConfirmation={handleCancelConfirmation}
         modalType="cancelModal"
       />
 )}

@@ -24,7 +24,7 @@ const ChangeModalBody = ({ currentRule, handleModalClose }) => (
     </Row>
     <Row>
       <Column className="changelog-modal-button sg-right" width={1} offset={12}>
-        <Button id="changeModal" onClick={handleModalClose}>
+        <Button id="isChangeModalOpen" onClick={handleModalClose}>
           Close
         </Button>
       </Column>

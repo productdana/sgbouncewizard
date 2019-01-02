@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 
-const DetailsContainer = ({ currentRule, handleButtonClicked }) => {
+const DetailsContainer = ({ currentRule, handleEditClicked }) => {
   const {
     description,
     id,
@@ -19,9 +19,9 @@ const DetailsContainer = ({ currentRule, handleButtonClicked }) => {
   } = currentRule;
   return (
     <div
-      onClick={handleButtonClicked}
-      id="editClicked"
-      onKeyDown={handleButtonClicked}
+      onClick={handleEditClicked}
+      id="isEditClicked"
+      onKeyDown={handleEditClicked}
       role="searchbox"
       tabIndex={0}
       className="detail-container card "
