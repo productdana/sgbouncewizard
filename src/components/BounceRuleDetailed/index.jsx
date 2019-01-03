@@ -171,10 +171,44 @@ const BounceRuleDetailed = ({
   );
 };
 BounceRuleDetailed.propTypes = {
-  // currentRule: PropTypes.object,
-  // newRule: PropTypes.object,
-  // changelog: PropTypes.array,
-  // selectedChange: PropTypes.object,
+  currentRule: PropTypes.shape({
+    id: PropTypes.number,
+    response_code: PropTypes.number,
+    enhanced_code: PropTypes.string,
+    regex: PropTypes.string,
+    priority: PropTypes.number,
+    description: PropTypes.string,
+    bounce_action: PropTypes.string,
+  }),
+  newRule: PropTypes.shape({
+    id: PropTypes.number,
+    response_code: PropTypes.number,
+    enhanced_code: PropTypes.string,
+    regex: PropTypes.string,
+    priority: PropTypes.number,
+    description: PropTypes.string,
+    bounce_action: PropTypes.string,
+  }),
+  changelog: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      response_code: PropTypes.number,
+      enhanced_code: PropTypes.string,
+      regex: PropTypes.string,
+      priority: PropTypes.number,
+      description: PropTypes.string,
+      bounce_action: PropTypes.string,
+    })
+  ),
+  selectedChange: PropTypes.shape({
+    id: PropTypes.number,
+    response_code: PropTypes.number,
+    enhanced_code: PropTypes.string,
+    regex: PropTypes.string,
+    priority: PropTypes.number,
+    description: PropTypes.string,
+    bounce_action: PropTypes.string,
+  }),
   isEditClicked: PropTypes.bool,
   isChangeModalOpen: PropTypes.bool,
   isConfirmOpen: PropTypes.bool,
@@ -194,6 +228,10 @@ BounceRuleDetailed.propTypes = {
 };
 
 BounceRuleDetailed.defaultProps = {
+  currentRule: {},
+  newRule: {},
+  selectedChange: {},
+  changelog: [],
   isEditClicked: false,
   isChangeModalOpen: false,
   isConfirmOpen: false,
