@@ -42,9 +42,9 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should delete a bounce rule", () => {
-    BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(res => {
+    BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(() => {
       BounceRulesPage.open();
-      BounceRulesPage.deleteBounceRuleUI(res.id);
+      BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
       BounceRulesPage.testBounceRuleToDelete.should("not.be.visible");
     });
   });

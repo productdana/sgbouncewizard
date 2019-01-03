@@ -241,13 +241,13 @@ export default class BounceRulesPage extends React.Component {
 
   async handleCreateConfirm() {
     const { rules } = this.state;
-    let { newRule } = this.state;
-    newRule = { ...newRule, id: rules.length + 1 };
+    const { newRule } = this.state;
     const { data, status } = await postRule(newRule);
-    if (status === 201) {
+    newRule.id = data;
+    if (status === 200) {
       this.setState({
         isCreateRuleConfirmationOpen: false,
-        rules: [data, ...rules],
+        rules: [newRule, ...rules],
       });
     }
   }

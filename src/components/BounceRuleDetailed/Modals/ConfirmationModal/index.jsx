@@ -4,6 +4,7 @@ import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
+import { WriteSelectors } from "../../selectors";
 
 const ConfirmModalBody = ({
   currentRule,
@@ -64,6 +65,7 @@ const ConfirmationModal = ({
   onChangeRule,
 }) => (
   <CenterModal
+    {...WriteSelectors.saveConfirmationModal}
     open
     renderBody={(
       <ConfirmModalBody

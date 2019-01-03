@@ -13,6 +13,7 @@ import { Column } from "../Column";
 import Header from "../Header";
 import Pagination from "../Pagination";
 import "./index.scss";
+import { WriteSelectors } from "./selectors";
 
 const BounceRuleDetailed = ({
   currentRule,
@@ -60,7 +61,7 @@ const BounceRuleDetailed = ({
               onClick={handleCancelSaveClicked}
               id="isCancelConfirmOpen"
               onKeyDown={handleCancelSaveClicked}
-              data-test="cancel-button"
+              {...WriteSelectors.cancelButton}
               className="sg-button cancel-button sg-right"
               type="secondary"
             >
@@ -70,7 +71,7 @@ const BounceRuleDetailed = ({
               onClick={handleCancelSaveClicked}
               id="isConfirmOpen"
               onKeyDown={handleCancelSaveClicked}
-              data-test="save-button"
+              {...WriteSelectors.saveButton}
               className="sg-button save-button"
               type="primary"
             >

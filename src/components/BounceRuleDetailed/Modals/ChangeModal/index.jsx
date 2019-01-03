@@ -9,6 +9,7 @@ import {
 } from "@sendgrid/ui-components/table/table";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
+import { WriteSelectors } from "../../selectors";
 
 const ChangeModalBody = ({ currentRule, handleModalClose, selectedChange }) => (
   <div className="changelog-modal">
@@ -23,7 +24,7 @@ const ChangeModalBody = ({ currentRule, handleModalClose, selectedChange }) => (
       </Column>
     </Row>
     <Row>
-      <Column className="changelog-modal-button sg-right" width={1} offset={12}>
+      <Column className="changelog-modal-button" width={2} offset={11}>
         <Button id="isChangeModalOpen" onClick={handleModalClose}>
           Close
         </Button>
@@ -35,7 +36,6 @@ const ChangeModalBody = ({ currentRule, handleModalClose, selectedChange }) => (
 const ChangeTable = ({ currentRule }) => {
   const {
     description,
-    id,
     response_code: responseCode,
     enhanced_code: enhancedCode,
     bounce_action: bounceAction,
@@ -50,10 +50,23 @@ const ChangeTable = ({ currentRule }) => {
       <TableBody>
         <TableRow>
           <TableCell>
-            <strong>ID</strong>
+            <strong>Change Comment</strong>
           </TableCell>
-          <TableCell>{id}</TableCell>
+          <TableCell>{comment}</TableCell>
         </TableRow>
+        <TableRow>
+          <TableCell>
+            <strong>User</strong>
+          </TableCell>
+          <TableCell>{userId}</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <strong>Time Created</strong>
+          </TableCell>
+          <TableCell>{createdAt}</TableCell>
+        </TableRow>
+
         <TableRow>
           <TableCell>
             <strong>Bounce Action</strong>
@@ -90,24 +103,6 @@ const ChangeTable = ({ currentRule }) => {
           </TableCell>
           <TableCell>{description}</TableCell>
         </TableRow>
-        <TableRow>
-          <TableCell>
-            <strong>User</strong>
-          </TableCell>
-          <TableCell>{userId}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <strong>Time Created</strong>
-          </TableCell>
-          <TableCell>{createdAt}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <strong>Change Comment</strong>
-          </TableCell>
-          <TableCell>{comment}</TableCell>
-        </TableRow>
       </TableBody>
     </Table>
   );
@@ -115,6 +110,7 @@ const ChangeTable = ({ currentRule }) => {
 
 const ChangeModal = ({ currentRule, handleModalClose, selectedChange }) => (
   <CenterModal
+    {...WriteSelectors.changelogModal}
     large
     open
     renderBody={(

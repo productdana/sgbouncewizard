@@ -9,7 +9,8 @@ const axios = require("axios");
 // You can read more here:
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
-const mockAPI = "http://localhost:3004/";
+// const mockAPI = "http://localhost:3004/";
+const API = "http://localhost:3000/";
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 // eslint-disable-next-line no-unused-vars
@@ -19,19 +20,19 @@ module.exports = (on, config) => {
   on("task", {
     createRule: data =>
       axios
-        .post(`${mockAPI}bounce_rules/`, data, {
+        .post(`${API}bounce_rules/`, data, {
           headers: { "Content-Type": "application/json" },
         })
         .then(res => res.data)
         .catch(() => false),
     deleteRule: ruleId =>
       axios
-        .delete(`${mockAPI}bounce_rules/${ruleId}`)
+        .delete(`${API}bounce_rules/${ruleId}`)
         .then(res => res.data)
         .catch(() => false),
     getRules: () =>
       axios
-        .get(`${mockAPI}bounce_rules/`)
+        .get(`${API}bounce_rules/`)
         .then(res => res.data)
         .catch(() => false),
   });

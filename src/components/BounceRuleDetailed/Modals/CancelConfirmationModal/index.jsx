@@ -3,6 +3,7 @@ import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
+import { WriteSelectors } from "../../selectors";
 
 const ConfirmModalBody = ({ handleModalClose, handleCancelConfirmation }) => (
   <div>
@@ -44,6 +45,7 @@ const CancelConfirmModal = ({
   handleCancelConfirmation,
 }) => (
   <CenterModal
+    {...WriteSelectors.cancelConfirmationModal}
     open
     renderBody={(
       <ConfirmModalBody

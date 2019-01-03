@@ -98,18 +98,23 @@
 }
 
 .changelog-modal {
-  padding: 3vh;
+  padding: 2vh;
+
+  .table-wrap td,
+  .table-wrap th {
+    padding: 0.8rem;
+  }
 
   h1 {
     margin-bottom: 0px;
   }
   .change-table {
     > td {
-      padding: 15px;
+      padding: 10rem;
     }
   }
 
   .changelog-modal-button {
-    margin-top: 25px;
+    text-align: right;
   }
 }

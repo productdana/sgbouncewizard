@@ -10,6 +10,7 @@ import {
 import Moment from "react-moment";
 import Card from "@sendgrid/ui-components/card";
 import { Row } from "../../Row";
+import { WriteSelectors } from "../selectors";
 
 const EmptyChangelog = () => (
   <Row>
@@ -29,7 +30,7 @@ const Changelog = ({
   isChangelogEmpty,
   changelogLimit,
 }) => (
-  <div>
+  <div {...WriteSelectors.changelog}>
     <h2>Changelog</h2>
     {isChangelogEmpty && <EmptyChangelog />}
     {!isChangelogEmpty && (
@@ -43,7 +44,7 @@ const Changelog = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {changelog.slice(0, changelogLimit).map((change, index) => (
+          {changelog.slice(1, changelogLimit).map((change, index) => (
             <ChangelogMin
               key={change.created_at}
               index={index}
