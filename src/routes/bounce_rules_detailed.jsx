@@ -16,7 +16,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       isConfirmOpen: false,
       pageIndex: 1,
       pageInterval: 10,
-      pagesToDisplay: 5,
+      pagesToDisplay: 1,
       isNetworkError: false,
     };
 
@@ -35,7 +35,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       .then(res => {
         const { data } = res;
         this.setState({
-          changelog: data.changelog,
+          changelog: data,
         });
       })
       .catch(() => {
@@ -70,8 +70,11 @@ export default class BounceRuleDetailedPage extends React.Component {
     });
   }
 
-  handleChangelogClicked() {
+  handleChangelogClicked(e) {
+    const { changelog } = this.state;
+    const changeIndex = e.currentTarget.getAttribute("index");
     this.setState({
+      selectedChange: changelog[changeIndex],
       isChangeModalOpen: true,
     });
   }

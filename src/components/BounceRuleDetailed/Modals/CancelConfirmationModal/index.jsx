@@ -50,7 +50,6 @@ const CancelConfirmModal = ({
         handleModalClose={handleModalClose}
         currentRule={currentRule}
         handleCancelConfirmation={handleCancelConfirmation}
-        modalType="cancelModal"
       />
 )}
   />

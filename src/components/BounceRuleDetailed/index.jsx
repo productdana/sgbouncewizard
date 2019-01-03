@@ -17,6 +17,7 @@ const BounceRuleDetailed = ({
   currentRule,
   newRule,
   changelog,
+  selectedChange,
   isEditClicked,
   isChangeModalOpen,
   isConfirmOpen,
@@ -33,6 +34,8 @@ const BounceRuleDetailed = ({
   handleCancelConfirmation,
   handleSaveConfirmation,
 }) => {
+  console.log(selectedChange);
+  console.log(currentRule);
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
   return (
@@ -142,6 +145,7 @@ const BounceRuleDetailed = ({
         <ChangeModal
           data-test="change-modal"
           currentRule={currentRule}
+          selectedChange={selectedChange}
           handleModalClose={handleModalClose}
         />
       )}

@@ -10,15 +10,15 @@ import {
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 
-const ChangeModalBody = ({ currentRule, handleModalClose }) => (
+const ChangeModalBody = ({ currentRule, handleModalClose, selectedChange }) => (
   <div className="changelog-modal">
     <Row>
       <Column width={6} offset={1}>
-        <h1>Current</h1>
-        <ChangeTable currentRule={currentRule} />
+        <h1>Previous</h1>
+        <ChangeTable currentRule={selectedChange} />
       </Column>
       <Column width={6} offset={7}>
-        <h1>Previous</h1>
+        <h1>Current</h1>
         <ChangeTable currentRule={currentRule} />
       </Column>
     </Row>
@@ -41,6 +41,9 @@ const ChangeTable = ({ currentRule }) => {
     bounce_action: bounceAction,
     regex,
     priority,
+    comment,
+    user_id: userId,
+    created_at: createdAt,
   } = currentRule;
   return (
     <Table className="change-table">
@@ -87,18 +90,37 @@ const ChangeTable = ({ currentRule }) => {
           </TableCell>
           <TableCell>{description}</TableCell>
         </TableRow>
+        <TableRow>
+          <TableCell>
+            <strong>Created By</strong>
+          </TableCell>
+          <TableCell>{userId}</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <strong>Created At</strong>
+          </TableCell>
+          <TableCell>{createdAt}</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <strong>Change Comment</strong>
+          </TableCell>
+          <TableCell>{comment}</TableCell>
+        </TableRow>
       </TableBody>
     </Table>
   );
 };
 
-const ChangeModal = ({ currentRule, handleModalClose }) => (
+const ChangeModal = ({ currentRule, handleModalClose, selectedChange }) => (
   <CenterModal
     large
     open
     renderBody={(
       <ChangeModalBody
         handleModalClose={handleModalClose}
+        selectedChange={selectedChange}
         currentRule={currentRule}
       />
 )}

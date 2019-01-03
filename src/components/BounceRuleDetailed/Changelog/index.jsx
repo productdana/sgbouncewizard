@@ -39,9 +39,10 @@ const Changelog = ({ handleChangelogClicked, changelog, isChangelogEmpty }) => (
           </TableRow>
         </TableHeader>
         <TableBody>
-          {changelog.map(change => (
+          {changelog.map((change, index) => (
             <ChangelogMin
-              key={change.createdat}
+              key={change.created_at}
+              index={index}
               change={change}
               handleChangelogClicked={handleChangelogClicked}
             />
@@ -52,13 +53,13 @@ const Changelog = ({ handleChangelogClicked, changelog, isChangelogEmpty }) => (
   </div>
 );
 
-const ChangelogMin = ({ change, handleChangelogClicked }) => {
-  const { createdat, user_id: userId, comment } = change;
+const ChangelogMin = ({ change, handleChangelogClicked, index }) => {
+  const { created_at: createdAt, user_id: userId, comment } = change;
 
   return (
     <TableRow>
       <TableCell>
-        <Moment unix>{createdat}</Moment>
+        <Moment unix>{createdAt}</Moment>
       </TableCell>
       <TableCell>{userId}</TableCell>
       <TableCell>{comment}</TableCell>
@@ -66,6 +67,7 @@ const ChangelogMin = ({ change, handleChangelogClicked }) => {
         <i
           onClick={handleChangelogClicked}
           id="changeClicked"
+          index={index}
           onKeyDown={handleChangelogClicked}
           className="sg-icon sg-icon-view changelog-view-icon"
           role="button"

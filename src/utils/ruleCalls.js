@@ -24,10 +24,7 @@ export const postRule = async data => {
 
 export const getRule = async ruleId => {
   const response = await axios.get(
-    `${process.env.API_URL}/bounce_rules/${ruleId}`,
-    {
-      headers: { contentType: "application/json; charset=UTF-8" },
-    }
+    `${process.env.API_URL}/bounce_rules/${ruleId}`
   );
   if (response.status === 200) {
     return response;
@@ -39,8 +36,11 @@ export const deleteRule = async ruleId => {
   const response = await axios.delete(
     `${process.env.API_URL}/bounce_rules/${ruleId}`,
     {
-      headers: { contentType: "application/json; charset=UTF-8" },
+      headers: {
+        contentType: "application/json; charset=UTF-8",
+      },
       params: { id: ruleId },
+      crossdomain: true,
     }
   );
   if (response.status === 200) {
