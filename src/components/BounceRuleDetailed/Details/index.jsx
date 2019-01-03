@@ -91,7 +91,11 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
   );
 };
 
-export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
+export const DetailsContainerEditable = ({
+  currentRule,
+  onChangeRule,
+  onChangeRuleInt,
+}) => {
   const {
     description,
     id,
@@ -135,7 +139,7 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
-                  onChange={onChangeRule}
+                  onChange={onChangeRuleInt}
                   id="id"
                   value={id}
                   type="text"
@@ -149,7 +153,7 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
-                  onChange={onChangeRule}
+                  onChange={onChangeRuleInt}
                   id="response_code"
                   value={responseCode}
                   type="text"
@@ -195,7 +199,7 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
-                  onChange={onChangeRule}
+                  onChange={onChangeRuleInt}
                   id="priority"
                   value={priority}
                   type="text"

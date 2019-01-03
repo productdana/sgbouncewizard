@@ -254,7 +254,6 @@ export default class BounceRulesPage extends React.Component {
 
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
-    // console.log("REDIRECTED: " + `/bounce_rules/${selectedRule.id}`);
     const filteredRules = this.filterRules(this.paginate(rules));
     return isRedirectingToDetail ? (
       <Redirect

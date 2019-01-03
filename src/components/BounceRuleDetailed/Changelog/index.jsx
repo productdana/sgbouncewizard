@@ -8,7 +8,6 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import Moment from "react-moment";
-
 import Card from "@sendgrid/ui-components/card";
 import { Row } from "../../Row";
 
@@ -24,7 +23,12 @@ const EmptyChangelog = () => (
   </Row>
 );
 
-const Changelog = ({ handleChangelogClicked, changelog, isChangelogEmpty }) => (
+const Changelog = ({
+  handleChangelogClicked,
+  changelog,
+  isChangelogEmpty,
+  changelogLimit,
+}) => (
   <div>
     <h2>Changelog</h2>
     {isChangelogEmpty && <EmptyChangelog />}
@@ -39,7 +43,7 @@ const Changelog = ({ handleChangelogClicked, changelog, isChangelogEmpty }) => (
           </TableRow>
         </TableHeader>
         <TableBody>
-          {changelog.map((change, index) => (
+          {changelog.slice(0, changelogLimit).map((change, index) => (
             <ChangelogMin
               key={change.created_at}
               index={index}

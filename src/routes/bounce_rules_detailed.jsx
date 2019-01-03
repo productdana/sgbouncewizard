@@ -18,6 +18,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       pageInterval: 10,
       pagesToDisplay: 1,
       isNetworkError: false,
+      changelogLimit: 10,
     };
 
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -27,6 +28,7 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.handleChangelogClicked = this.handleChangelogClicked.bind(this);
     this.handleCancelConfirmation = this.handleCancelConfirmation.bind(this);
     this.handleSaveConfirmation = this.handleSaveConfirmation.bind(this);
+    this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
   }
 
   async componentDidMount() {
@@ -56,15 +58,22 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   onChangeRule(e) {
-    const { id } = e.currentTarget;
-    let { value } = e.currentTarget;
+    const { id, value } = e.currentTarget;
     const { currentRule } = this.state;
-    if (id === "response_code" || id === "priority") {
-      value = parseInt(value, 10);
-    }
     this.setState({
       currentRule: { ...currentRule, [id]: value },
     });
+  }
+
+  onChangeRuleInt(e) {
+    const re = /^[0-9\b]+$/;
+    const { currentRule } = this.state;
+    const { id, value } = e.currentTarget;
+    if (re.test(value)) {
+      this.setState({
+        currentRule: { ...currentRule, [id]: parseInt(value, 10) },
+      });
+    }
   }
 
   handleModalClose(e) {
@@ -178,6 +187,7 @@ export default class BounceRuleDetailedPage extends React.Component {
           handleChangelogClicked={this.handleChangelogClicked}
           handleCancelConfirmation={this.handleCancelConfirmation}
           handleSaveConfirmation={this.handleSaveConfirmation}
+          onChangeRuleInt={this.onChangeRuleInt}
           {...this.state}
         />
       )
