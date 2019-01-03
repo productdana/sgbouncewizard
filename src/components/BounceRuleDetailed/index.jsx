@@ -51,9 +51,7 @@ const BounceRuleDetailed = ({
       </Row>
       <Row>
         <Column width={6} offset={2}>
-          <h1>
-            {"Bounce Rule"} {id}
-          </h1>
+          <h1>Bounce Rule {id}</h1>
         </Column>
         {isEditClicked ? (
           <Column className="csv-button-col" width={4} offset={8}>
@@ -154,6 +152,7 @@ const BounceRuleDetailed = ({
           data-test="confirm-modal"
           currentRule={currentRule}
           handleModalClose={handleModalClose}
+          onChangeRule={onChangeRule}
           handleSaveConfirmation={handleSaveConfirmation}
         />
       )}
