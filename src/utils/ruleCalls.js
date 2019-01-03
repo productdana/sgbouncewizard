@@ -58,3 +58,14 @@ export const getChangelog = async ruleId => {
   }
   throw new Error("Error retrieving all rules");
 };
+
+export const putRule = async (ruleId, data) => {
+  const response = await axios.put(
+    `${process.env.API_URL}/bounce_rules/${ruleId}`,
+    data
+  );
+  if (response.status === 201 || response.status === 200) {
+    return response;
+  }
+  throw new Error("Error retrieving all rules");
+};

@@ -92,13 +92,13 @@ const ChangeTable = ({ currentRule }) => {
         </TableRow>
         <TableRow>
           <TableCell>
-            <strong>Created By</strong>
+            <strong>User</strong>
           </TableCell>
           <TableCell>{userId}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
-            <strong>Created At</strong>
+            <strong>Time Created</strong>
           </TableCell>
           <TableCell>{createdAt}</TableCell>
         </TableRow>

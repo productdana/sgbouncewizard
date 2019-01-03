@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "underscore";
 import BounceRuleDetailed from "../components/BounceRuleDetailed";
-import { getRule, getChangelog } from "../utils/ruleCalls";
+import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
 
 export default class BounceRuleDetailedPage extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       .then(res => {
         const { data } = res;
         this.setState({
-          changelog: data,
+          changelog: data.reverse(),
         });
       })
       .catch(() => {
@@ -56,8 +56,12 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   onChangeRule(e) {
-    const { id, value } = e.currentTarget;
+    const { id } = e.currentTarget;
+    let { value } = e.currentTarget;
     const { currentRule } = this.state;
+    if (id === "response_code" || id === "priority") {
+      value = parseInt(value, 10);
+    }
     this.setState({
       currentRule: { ...currentRule, [id]: value },
     });
@@ -111,7 +115,21 @@ export default class BounceRuleDetailedPage extends React.Component {
     });
   }
 
-  handleSaveConfirmation() {
+  async handleSaveConfirmation() {
+    const { currentRule } = this.state;
+    const { id } = currentRule;
+    const newRule = _.omit(currentRule, ["created_at"]);
+    await putRule(id, newRule);
+    getChangelog(id)
+      .then(res => {
+        const { data } = res;
+        this.setState({
+          changelog: data.reverse(),
+        });
+      })
+      .catch(() => {
+        this.setState({ isNetworkError: true });
+      });
     this.setState({
       isConfirmOpen: false,
       isEditClicked: false,

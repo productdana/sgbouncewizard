@@ -34,8 +34,6 @@ const BounceRuleDetailed = ({
   handleCancelConfirmation,
   handleSaveConfirmation,
 }) => {
-  console.log(selectedChange);
-  console.log(currentRule);
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
   return (
