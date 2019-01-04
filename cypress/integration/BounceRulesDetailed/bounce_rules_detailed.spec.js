@@ -13,7 +13,10 @@ let ruleId;
 describe("Bounce Rule Detailed", () => {
   before(async () => {
     ruleId = await BounceRuleDetailed.createTestRuleAPI(testCreateRule);
-    cy.log(ruleId);
+  });
+
+  beforeEach(() => {
+    BounceRuleDetailed.open(ruleId);
   });
 
   after(() => {
@@ -21,9 +24,22 @@ describe("Bounce Rule Detailed", () => {
   });
 
   it("should pass healthchecks", () => {
-    BounceRuleDetailed.open(ruleId);
     BounceRuleDetailed.details.should("be.visible");
     BounceRuleDetailed.changelog.should("be.visible");
     BounceRuleDetailed.editButton.should("be.visible");
+  });
+
+  it("should edit a bounce rule", () => {
+    BounceRuleDetailed.updateRule().then(() => {
+      BounceRuleDetailed.testChangelog.contains(
+        "This is a new commit from a Cypress Test"
+      );
+    });
+  });
+
+  it("should view a change", () => {
+    BounceRuleDetailed.viewChangelog().then(() => {
+      BounceRuleDetailed.changelogModal.should("be.visible");
+    });
   });
 });

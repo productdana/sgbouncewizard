@@ -16,7 +16,7 @@ const testHooks = {
   editButton: "edit-button",
   saveButton: "save-button",
   cancelButton: "cancel-button",
-  description: "desription",
+  description: "description",
   bounceId: "bounce_id",
   responseCode: "response-code",
   enhancedCode: "enhanced-code",
@@ -26,6 +26,8 @@ const testHooks = {
   changelogModal: "changelog-modal",
   saveConfirmationModal: "save-confirmation-modal",
   cancelConfirmationModal: "cancel-confirmation-modal",
+  commitInput: "commit-input",
+  confirmSubmit: "confirm-submit",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:

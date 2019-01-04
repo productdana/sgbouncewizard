@@ -24,6 +24,7 @@ const ConfirmModalBody = ({
               bounce rule. This action will go into effect immediately.
             </p>
             <TextInput
+              {...WriteSelectors.commitInput}
               onChange={onChangeRule}
               value={comment}
               id="comment"
@@ -46,6 +47,7 @@ const ConfirmModalBody = ({
         </Column>
         <Column width={1} offset={11}>
           <Button
+            {...WriteSelectors.confirmSubmit}
             className="sg-button"
             onClick={handleSaveConfirmation}
             type="primary"

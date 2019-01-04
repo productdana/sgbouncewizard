@@ -124,6 +124,7 @@ export const DetailsContainerEditable = ({
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.description}
                   onChange={onChangeRule}
                   id="description"
                   value={description}
@@ -144,6 +145,7 @@ export const DetailsContainerEditable = ({
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.bounceId}
                   onChange={onChangeRuleInt}
                   id="id"
                   value={id}
@@ -158,6 +160,7 @@ export const DetailsContainerEditable = ({
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.responseCode}
                   onChange={onChangeRuleInt}
                   id="response_code"
                   value={responseCode}
@@ -172,6 +175,7 @@ export const DetailsContainerEditable = ({
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.enhancedCode}
                   onChange={onChangeRule}
                   id="enhanced_code"
                   value={enhancedCode}
@@ -190,6 +194,7 @@ export const DetailsContainerEditable = ({
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.regex}
                   onChange={onChangeRule}
                   id="regex"
                   value={regex}
@@ -204,6 +209,7 @@ export const DetailsContainerEditable = ({
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.priority}
                   onChange={onChangeRuleInt}
                   id="priority"
                   value={priority}
@@ -218,6 +224,7 @@ export const DetailsContainerEditable = ({
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.bounceAction}
                   onChange={onChangeRule}
                   id="bounce_action"
                   value={bounceAction}

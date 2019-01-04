@@ -67,6 +67,22 @@ class BounceRuleDetailed extends Page {
     return cy.get(Selectors.cancelConfirmationModal);
   }
 
+  get commitInput() {
+    return cy.get(Selectors.commitInput);
+  }
+
+  get confirmSubmit() {
+    return cy.get(Selectors.confirmSubmit);
+  }
+
+  get testChangelog() {
+    return cy.get(`${Selectors.changelog  } tbody`).eq(0);
+  }
+
+  get firstChangelog() {
+    return cy.get('[index="0"]');
+  }
+
   open(ruleId) {
     super.open(`/bounce_rules/${ruleId}`);
   }
@@ -80,7 +96,7 @@ class BounceRuleDetailed extends Page {
       if (res) {
         for (let i = 0; i < res.length; i++) {
           if (_.isEqual(id, res[i].id)) {
-            cy.log("DELETE SUCCESFULL");
+            cy.log("Cleanup Successful");
             return cy.task("deleteRule", res[i].id);
           }
         }
@@ -88,6 +104,20 @@ class BounceRuleDetailed extends Page {
       }
       return false;
     });
+  }
+
+  updateRule() {
+    this.editButton.click();
+    this.description
+      .clear()
+      .type("This is a new description from the Cypress Test!");
+    this.saveButton.click();
+    this.commitInput.clear().type("This is a new commit from a Cypress Test");
+    return this.confirmSubmit.click();
+  }
+
+  viewChangelog() {
+    return this.firstChangelog.click();
   }
 }
 

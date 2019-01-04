@@ -55,7 +55,7 @@ export const putRule = async (ruleId, data) => {
     `${process.env.API_URL}/bounce_rules/${ruleId}`,
     data
   );
-  if (response.status === 201 || response.status === 200) {
+  if (response.status === 200) {
     return response;
   }
   throw new Error("Error retrieving all rules");
