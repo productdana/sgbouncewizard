@@ -9,7 +9,10 @@ import {
 } from "@sendgrid/ui-components/table/table";
 import Moment from "react-moment";
 import Card from "@sendgrid/ui-components/card";
+import { CSVLink } from "react-csv";
 import { Row } from "../../Row";
+import { Column } from "../../Column";
+
 import { WriteSelectors } from "../selectors";
 
 const EmptyChangelog = () => (
@@ -31,7 +34,16 @@ const Changelog = ({
   changelogLimit,
 }) => (
   <div {...WriteSelectors.changelog}>
-    <h2>Changelog</h2>
+    <Row id="changelog-title">
+      <Column width={1} offset={1}>
+        <h2>Changelog</h2>
+      </Column>
+      <Column width={2} offset={11} className="changelog-csv sg-right">
+        <CSVLink data={changelog} filename="changelog.csv" target="_blank">
+          Export as CSV
+        </CSVLink>
+      </Column>
+    </Row>
     {isChangelogEmpty && <EmptyChangelog />}
     {!isChangelogEmpty && (
       <Table>
