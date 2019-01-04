@@ -8,6 +8,15 @@ const testCreateRule = {
   enhanced_code: "384",
   regex: "kjfgsdlfg",
 };
+const updatedRule = {
+  updatedDescription: "This is a new description from the Cypress Test!",
+  updatedBounceAction: "This is a new bounce action from the Cypress Test!",
+  updatedResponseCode: 999,
+  updatedEnhancedCode: "10.2.5",
+  updatedRegex: "cyress",
+  updatedCommit: "This is a new commit from a Cypress Test",
+  updatedPriority: 1,
+};
 let ruleId;
 
 describe("Bounce Rule Detailed", () => {
@@ -20,7 +29,13 @@ describe("Bounce Rule Detailed", () => {
   });
 
   after(() => {
-    BounceRuleDetailed.deleteBounceRuleAPI(ruleId);
+    BounceRuleDetailed.deleteBounceRuleAPI(ruleId).then(isCleanupSuccess => {
+      if (isCleanupSuccess) {
+        cy.log("Cleanup successful");
+      } else {
+        cy.log("Cleanup failed");
+      }
+    });
   });
 
   it("should pass healthchecks", () => {
@@ -30,16 +45,29 @@ describe("Bounce Rule Detailed", () => {
   });
 
   it("should edit a bounce rule", () => {
-    BounceRuleDetailed.updateRule().then(() => {
-      BounceRuleDetailed.testChangelog.contains(
-        "This is a new commit from a Cypress Test"
-      );
-    });
-  });
-
-  it("should view a change", () => {
-    BounceRuleDetailed.viewChangelog().then(() => {
-      BounceRuleDetailed.changelogModal.should("be.visible");
+    BounceRuleDetailed.updateRule(updatedRule).then(() => {
+      BounceRuleDetailed.firstChangelog.click().then(() => {
+        BounceRuleDetailed.changelogModal.should("be.visible");
+        BounceRuleDetailed.changelogModal.should(
+          "contain",
+          updatedRule.updatedDescription
+        );
+        BounceRuleDetailed.changelogModal.should(
+          "contain",
+          updatedRule.updatedBounceAction
+        );
+        BounceRuleDetailed.changelogModal.should(
+          "contain",
+          updatedRule.updatedEnhancedCode
+        );
+        BounceRuleDetailed.changelogModal.should(
+          "contain",
+          updatedRule.updatedRegex
+        );
+        BounceRuleDetailed.changelogModal.contains(
+          "This is a new commit from a Cypress Test"
+        );
+      });
     });
   });
 });

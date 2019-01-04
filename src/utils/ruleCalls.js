@@ -23,7 +23,7 @@ export const getRule = async ruleId => {
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Error retrieving all rules");
+  throw new Error("Error retrieving rules");
 };
 
 export const deleteRule = async ruleId => {
@@ -37,7 +37,7 @@ export const deleteRule = async ruleId => {
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Error retrieving all rules");
+  throw new Error("Error deleting bounce rule");
 };
 
 export const getChangelog = async ruleId => {
@@ -47,7 +47,7 @@ export const getChangelog = async ruleId => {
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Error retrieving all rules");
+  throw new Error("Error retrieving all changelogs");
 };
 
 export const putRule = async (ruleId, data) => {
@@ -58,5 +58,5 @@ export const putRule = async (ruleId, data) => {
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Error retrieving all rules");
+  throw new Error("Error updating bounce rule ");
 };

@@ -15,6 +15,23 @@ import { Column } from "../../Column";
 
 import { WriteSelectors } from "../selectors";
 
+function showIndividualChanges(
+  changelog,
+  changelogLimit,
+  handleChangelogClicked
+) {
+  return changelog
+    .slice(0, changelogLimit)
+    .map((change, index) => (
+      <IndividualChange
+        key={change.created_at}
+        index={index}
+        change={change}
+        handleChangelogClicked={handleChangelogClicked}
+      />
+    ));
+}
+
 const EmptyChangelog = () => (
   <Row>
     <Card
@@ -56,21 +73,18 @@ const Changelog = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {changelog.slice(0, changelogLimit).map((change, index) => (
-            <ChangelogMin
-              key={change.created_at}
-              index={index}
-              change={change}
-              handleChangelogClicked={handleChangelogClicked}
-            />
-          ))}
+          {showIndividualChanges(
+            changelog,
+            changelogLimit,
+            handleChangelogClicked
+          )}
         </TableBody>
       </Table>
     )}
   </div>
 );
 
-const ChangelogMin = ({ change, handleChangelogClicked, index }) => {
+const IndividualChange = ({ change, handleChangelogClicked, index }) => {
   const { created_at: createdAt, user_id: userId, comment } = change;
 
   return (

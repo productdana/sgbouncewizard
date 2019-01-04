@@ -1,4 +1,3 @@
-import _ from "underscore";
 import Page from "../page";
 import { Selectors } from "../../../src/components/BounceRuleDetailed/selectors";
 
@@ -76,7 +75,7 @@ class BounceRuleDetailed extends Page {
   }
 
   get testChangelog() {
-    return cy.get(`${Selectors.changelog  } tbody`).eq(0);
+    return cy.get(`${Selectors.changelog} tbody`).eq(0);
   }
 
   get firstChangelog() {
@@ -94,11 +93,11 @@ class BounceRuleDetailed extends Page {
   deleteBounceRuleAPI(id) {
     return cy.task("getRules").then(res => {
       if (res) {
-        for (let i = 0; i < res.length; i++) {
-          if (_.isEqual(id, res[i].id)) {
-            cy.log("Cleanup Successful");
-            return cy.task("deleteRule", res[i].id);
-          }
+        const isMatchingBounceRule = res.find(
+          bounceRule => id === bounceRule.id
+        );
+        if (isMatchingBounceRule) {
+          return cy.task("deleteRule", isMatchingBounceRule.id);
         }
         return true;
       }
@@ -106,18 +105,42 @@ class BounceRuleDetailed extends Page {
     });
   }
 
-  updateRule() {
-    this.editButton.click();
-    this.description
-      .clear()
-      .type("This is a new description from the Cypress Test!");
-    this.saveButton.click();
-    this.commitInput.clear().type("This is a new commit from a Cypress Test");
-    return this.confirmSubmit.click();
-  }
+  updateRule(bounceRuleChange) {
+    const {
+      updatedDescription,
+      updatedPriority,
+      updatedBounceAction,
+      updatedResponseCode,
+      updatedEnhancedCode,
+      updatedRegex,
+      updatedCommit,
+    } = bounceRuleChange;
 
-  viewChangelog() {
-    return this.firstChangelog.click();
+    this.editButton.click();
+    if (updatedDescription) {
+      this.description.clear().type(updatedDescription);
+    }
+    if (updatedPriority) {
+      this.priority.clear();
+    }
+    if (updatedBounceAction) {
+      this.bounceAction.clear().type(updatedBounceAction);
+    }
+    if (updatedResponseCode) {
+      this.responseCode.clear();
+    }
+    if (updatedEnhancedCode) {
+      this.enhancedCode.clear().type(updatedEnhancedCode);
+    }
+    if (updatedRegex) {
+      this.regex.clear().type(updatedRegex);
+    }
+    this.saveButton.click();
+    if (updatedCommit) {
+      this.commitInput.clear().type(updatedCommit);
+    }
+
+    return this.confirmSubmit.click();
   }
 }
 

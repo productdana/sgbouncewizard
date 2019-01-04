@@ -28,7 +28,7 @@ module.exports = (on, config) => {
     deleteRule: ruleId =>
       axios
         .delete(`${API}bounce_rules/${ruleId}`)
-        .then(res => res.data)
+        .then(() => true)
         .catch(() => false),
     getRules: () =>
       axios

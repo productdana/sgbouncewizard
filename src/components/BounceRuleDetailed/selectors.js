@@ -22,7 +22,7 @@ const testHooks = {
   enhancedCode: "enhanced-code",
   regex: "regex",
   priority: "priority",
-  bounce_action: "bounce-action",
+  bounceAction: "bounce-action",
   changelogModal: "changelog-modal",
   saveConfirmationModal: "save-confirmation-modal",
   cancelConfirmationModal: "cancel-confirmation-modal",

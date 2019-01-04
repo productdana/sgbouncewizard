@@ -100,10 +100,11 @@ class BounceRulesPage extends Page {
       .task("getRules")
       .then(res => {
         if (res) {
-          for (let i = 0; i < res.length; i++) {
-            if (_.isEqual(testRule, _.omit(res[i], "id"))) {
-              return cy.task("deleteRule", res[i].id);
-            }
+          const isMatchingBounceRule = res.find(bounceRule =>
+            _.isEqual(testRule, _.omit(bounceRule, "id"))
+          );
+          if (isMatchingBounceRule) {
+            return cy.task("deleteRule", isMatchingBounceRule.id);
           }
           return true;
         }
@@ -111,6 +112,7 @@ class BounceRulesPage extends Page {
       })
       .then(result => {
         if (result) {
+          cy.log(result);
           return cy.log("Delete Successful");
         }
         return cy.log("Delete Unsuccessful");
