@@ -8,20 +8,22 @@ const testCreateRule = {
   enhanced_code: "384",
   regex: "kjfgsdlfg",
 };
+let ruleId;
 
 describe("Bounce Rule Detailed", () => {
-  before(() => {
-    BounceRuleDetailed.createTestRuleAPI(testCreateRule);
+  before(async () => {
+    ruleId = await BounceRuleDetailed.createTestRuleAPI(testCreateRule);
+    cy.log(ruleId);
   });
 
   after(() => {
-    BounceRuleDetailed.deleteBounceRuleAPI(testCreateRule);
+    BounceRuleDetailed.deleteBounceRuleAPI(ruleId);
   });
 
-  // it("should pass healthchecks", () => {
-  //   BounceRuleDetailed.open();
-  //   BounceRuleDetailed.details.should("be.visible");
-  //   BounceRuleDetailed.changelog.should("be.visible");
-  //   BounceRuleDetailed.editButton.should("be.visible");
-  // });
+  it("should pass healthchecks", () => {
+    BounceRuleDetailed.open(ruleId);
+    BounceRuleDetailed.details.should("be.visible");
+    BounceRuleDetailed.changelog.should("be.visible");
+    BounceRuleDetailed.editButton.should("be.visible");
+  });
 });

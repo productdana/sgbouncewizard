@@ -44,7 +44,7 @@ const Changelog = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {changelog.slice(1, changelogLimit).map((change, index) => (
+          {changelog.slice(0, changelogLimit).map((change, index) => (
             <ChangelogMin
               key={change.created_at}
               index={index}

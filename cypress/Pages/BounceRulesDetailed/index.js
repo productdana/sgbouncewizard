@@ -72,31 +72,22 @@ class BounceRuleDetailed extends Page {
   }
 
   createTestRuleAPI(testRule) {
-    cy.task("createRule", testRule).then(res => res);
+    return cy.task("createRule", testRule);
   }
 
-  deleteBounceRuleAPI(testRule) {
-    return cy
-      .task("getRules")
-      .then(res => {
-        if (res) {
-          for (let i = 0; i < res.length; i++) {
-            if (_.isEqual(testRule, _.omit(res[i], "id"))) {
-              cy.log("Rule To Delete Found!");
-              return cy.task("deleteRule", res[i].id);
-            }
+  deleteBounceRuleAPI(id) {
+    return cy.task("getRules").then(res => {
+      if (res) {
+        for (let i = 0; i < res.length; i++) {
+          if (_.isEqual(id, res[i].id)) {
+            cy.log("DELETE SUCCESFULL");
+            return cy.task("deleteRule", res[i].id);
           }
-          return true;
         }
-        return false;
-      })
-      .then(result => {
-        if (result) {
-          cy.log(result);
-          return cy.log("Delete Successful");
-        }
-        return cy.log("Delete Unsuccessful");
-      });
+        return true;
+      }
+      return false;
+    });
   }
 }
 
