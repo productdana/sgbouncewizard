@@ -102,6 +102,7 @@ const BounceRulesContainer = ({
   invalidFilter,
   isCreateRuleOpen,
   handleRuleUpdate,
+  handleRuleUpdateInt,
   handleCreateSubmit,
   isCreateRuleConfirmationOpen,
   handleCreateConfirm,
@@ -198,6 +199,7 @@ const BounceRulesContainer = ({
         isInvalidInput={isInvalidInput}
         handleModalClose={handleModalClose}
         handleRuleUpdate={handleRuleUpdate}
+        handleRuleUpdateInt={handleRuleUpdateInt}
         handleCreateSubmit={handleCreateSubmit}
       />
     )}

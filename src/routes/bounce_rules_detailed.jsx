@@ -66,10 +66,13 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   onChangeRuleInt(e) {
-    const re = /^[0-9\b]+$/;
     const { currentRule } = this.state;
     const { id, value } = e.currentTarget;
-    if (re.test(value)) {
+    if (!value) {
+      this.setState({
+        currentRule: { ...currentRule, [id]: value },
+      });
+    } else {
       this.setState({
         currentRule: { ...currentRule, [id]: parseInt(value, 10) },
       });

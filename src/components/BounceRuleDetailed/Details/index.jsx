@@ -149,7 +149,7 @@ export const DetailsContainerEditable = ({
                   onChange={onChangeRuleInt}
                   id="id"
                   value={id}
-                  type="text"
+                  type="number"
                   label={id}
                 />
               </TableCell>
@@ -164,7 +164,7 @@ export const DetailsContainerEditable = ({
                   onChange={onChangeRuleInt}
                   id="response_code"
                   value={responseCode}
-                  type="text"
+                  type="number"
                   label={responseCode}
                 />
               </TableCell>
@@ -213,7 +213,7 @@ export const DetailsContainerEditable = ({
                   onChange={onChangeRuleInt}
                   id="priority"
                   value={priority}
-                  type="text"
+                  type="number"
                   label={priority}
                 />
               </TableCell>

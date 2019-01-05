@@ -37,6 +37,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleCreateOpen = this.handleCreateOpen.bind(this);
     this.handleRuleUpdate = this.handleRuleUpdate.bind(this);
+    this.handleRuleUpdateInt = this.handleRuleUpdateInt.bind(this);
     this.handleCreateSubmit = this.handleCreateSubmit.bind(this);
     this.handleCreateConfirm = this.handleCreateConfirm.bind(this);
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
@@ -226,16 +227,25 @@ export default class BounceRulesPage extends React.Component {
   }
 
   handleRuleUpdate(e) {
-    const { id } = e.currentTarget;
-    let { value } = e.currentTarget;
-    if (id === "response_code" || id === "priority") {
-      value = parseInt(value, 10);
-    }
+    const { id, value } = e.currentTarget;
     const { newRule } = this.state;
-
     this.setState({
       newRule: { ...newRule, [id]: value },
     });
+  }
+
+  handleRuleUpdateInt(e) {
+    const { id, value } = e.currentTarget;
+    const { newRule } = this.state;
+    if (!value) {
+      this.setState({
+        newRule: { ...newRule, [id]: value },
+      });
+    } else {
+      this.setState({
+        newRule: { ...newRule, [id]: parseInt(value, 10) },
+      });
+    }
   }
 
   async handleCreateConfirm() {
@@ -273,6 +283,7 @@ export default class BounceRulesPage extends React.Component {
         removeFilter={this.removeFilter}
         filteredRules={filteredRules}
         handleRuleUpdate={this.handleRuleUpdate}
+        handleRuleUpdateInt={this.handleRuleUpdateInt}
         handleCreateSubmit={this.handleCreateSubmit}
         handleCreateConfirm={this.handleCreateConfirm}
         handleDeleteConfirm={this.handleDeleteConfirm}
