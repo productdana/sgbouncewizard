@@ -20,7 +20,6 @@ export default class BounceRulesPage extends React.Component {
       invalidFilter: false,
       isDeleteConfirmationOpen: false,
       isDeleteAlertOpen: false,
-      idToDelete: null,
       isCreateRuleOpen: false,
       isCreateRuleConfirmationOpen: false,
       newRule: {},
