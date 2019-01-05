@@ -37,7 +37,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       .then(res => {
         const { data } = res;
         this.setState({
-          changelog: data.changelog.reverse(),
+          changelog: data.reverse(),
         });
       })
       .catch(() => {

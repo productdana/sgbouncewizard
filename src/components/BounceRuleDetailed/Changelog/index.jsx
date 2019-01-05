@@ -7,9 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
-import Moment from "react-moment";
 import Card from "@sendgrid/ui-components/card";
 import { CSVLink } from "react-csv";
+import moment from "moment";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 
@@ -89,9 +89,7 @@ const IndividualChange = ({ change, handleChangelogClicked, index }) => {
 
   return (
     <TableRow>
-      <TableCell>
-        <Moment unix>{createdAt}</Moment>
-      </TableCell>
+      <TableCell>{moment.unix(createdAt).format("MM/DD/YYYY LTS")}</TableCell>
       <TableCell>{userId}</TableCell>
       <TableCell>{comment}</TableCell>
       <TableCell className="changelog-view-icon-cell">
