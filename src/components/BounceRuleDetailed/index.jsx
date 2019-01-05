@@ -40,6 +40,7 @@ const BounceRuleDetailed = ({
   handleSaveConfirmation,
   handleRevertConfirm,
   onChangeRuleInt,
+  onChangeRuleRevert,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
@@ -156,12 +157,11 @@ const BounceRuleDetailed = ({
       )}
       {isRevertConfirmOpen && (
         <RevertConfirmationModal
+          currentRule={currentRule}
+          selectedChange={selectedChange}
           handleModalClose={handleModalClose}
           handleRevertConfirm={handleRevertConfirm}
-          // data-test="change-modal"
-          // currentRule={currentRule}
-          // selectedChange={selectedChange}
-          // handleModalClose={handleModalClose}
+          onChangeRuleRevert={onChangeRuleRevert}
         />
       )}
       {isConfirmOpen && (
