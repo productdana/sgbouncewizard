@@ -17,7 +17,7 @@ import { WriteSelectors } from "./selectors";
 
 const BounceRuleDetailed = ({
   currentRule,
-  newRule,
+  updatedRule,
   changelog,
   selectedChange,
   isEditClicked,
@@ -104,7 +104,7 @@ const BounceRuleDetailed = ({
                 currentRule={currentRule}
                 onChangeRule={onChangeRule}
                 onChangeRuleInt={onChangeRuleInt}
-                newRule={newRule}
+                updatedRule={updatedRule}
               />
             )}
             {!isEditClicked && (
@@ -154,7 +154,7 @@ const BounceRuleDetailed = ({
       {isConfirmOpen && (
         <ConfirmationModal
           data-test="confirm-modal"
-          currentRule={currentRule}
+          updatedRule={updatedRule}
           handleModalClose={handleModalClose}
           onChangeRule={onChangeRule}
           handleSaveConfirmation={handleSaveConfirmation}
@@ -251,5 +251,4 @@ BounceRuleDetailed.defaultProps = {
   handleSaveConfirmation: () => {},
 };
 
-BounceRuleDetailed.defaultProps = {};
 export default BounceRuleDetailed;

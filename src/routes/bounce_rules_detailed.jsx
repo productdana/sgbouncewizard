@@ -32,7 +32,7 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   async componentDidMount() {
-    const { match, location } = this.props;
+    const { match } = this.props;
     getChangelog(match.params.bounceRuleId)
       .then(res => {
         const { data } = res;
@@ -43,35 +43,29 @@ export default class BounceRuleDetailedPage extends React.Component {
       .catch(() => {
         this.setState({ isNetworkError: true });
       });
-    if (location.state == null) {
-      const { data, status } = await getRule(match.params.bounceRuleId);
-      if (status === 200) {
-        this.setState({
-          currentRule: data,
-        });
-      }
-    } else {
+    const { data, status } = await getRule(match.params.bounceRuleId);
+    if (status === 200) {
       this.setState({
-        currentRule: location.state.currentRule,
+        currentRule: data,
       });
     }
   }
 
   onChangeRule(e) {
     const { id, value } = e.currentTarget;
-    const { currentRule } = this.state;
+    const { updatedRule } = this.state;
     this.setState({
-      currentRule: { ...currentRule, [id]: value },
+      updatedRule: { ...updatedRule, [id]: value },
     });
   }
 
   onChangeRuleInt(e) {
     const re = /^[0-9\b]+$/;
-    const { currentRule } = this.state;
+    const { updatedRule } = this.state;
     const { id, value } = e.currentTarget;
     if (re.test(value)) {
       this.setState({
-        currentRule: { ...currentRule, [id]: parseInt(value, 10) },
+        updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
       });
     }
   }
@@ -97,14 +91,19 @@ export default class BounceRuleDetailedPage extends React.Component {
     const { currentRule } = this.state;
     this.setState({
       [id]: true,
-      prevRule: { ...currentRule },
+      updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
     });
   }
 
   handleCancelSaveClicked(e) {
     const { id } = e.currentTarget;
-    const { currentRule, prevRule } = this.state;
-    if (!_.isEqual(prevRule, currentRule)) {
+    const { currentRule, updatedRule } = this.state;
+    if (
+      !_.isEqual(
+        updatedRule,
+        _.omit(currentRule, ["created_at", "comment", "user_id"])
+      )
+    ) {
       this.setState({
         [id]: true,
       });
@@ -116,24 +115,21 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   handleCancelConfirmation() {
-    const { prevRule } = this.state;
     this.setState({
-      currentRule: { ...prevRule },
       isCancelConfirmOpen: false,
       isEditClicked: false,
     });
   }
 
   async handleSaveConfirmation() {
-    const { currentRule, prevRule } = this.state;
-    const { id } = currentRule;
-    const newRule = _.omit(currentRule, ["created_at"]);
-    await putRule(id, prevRule);
+    const { updatedRule } = this.state;
+    const { id } = updatedRule;
+    await putRule(id, updatedRule);
     getChangelog(id)
       .then(res => {
         const { data } = res;
         this.setState({
-          currentRule: newRule,
+          currentRule: updatedRule,
           changelog: data.reverse(),
         });
       })

@@ -94,9 +94,9 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
 };
 
 export const DetailsContainerEditable = ({
-  currentRule,
   onChangeRule,
   onChangeRuleInt,
+  updatedRule,
 }) => {
   const {
     description,
@@ -106,7 +106,7 @@ export const DetailsContainerEditable = ({
     bounce_action: bounceAction,
     regex,
     priority,
-  } = currentRule;
+  } = updatedRule;
   return (
     <div
       {...WriteSelectors.detailsEditable}
