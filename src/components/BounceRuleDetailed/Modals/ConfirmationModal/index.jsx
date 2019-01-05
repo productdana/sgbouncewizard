@@ -7,12 +7,12 @@ import { Row } from "../../../Row";
 import { WriteSelectors } from "../../selectors";
 
 const ConfirmModalBody = ({
-  currentRule,
+  updatedRule,
   handleModalClose,
   handleSaveConfirmation,
   onChangeRule,
 }) => {
-  const { comment } = currentRule;
+  const { comment } = updatedRule;
   return (
     <div>
       <Row>
@@ -61,7 +61,7 @@ const ConfirmModalBody = ({
 };
 
 const ConfirmationModal = ({
-  currentRule,
+  updatedRule,
   handleModalClose,
   handleSaveConfirmation,
   onChangeRule,
@@ -71,7 +71,7 @@ const ConfirmationModal = ({
     open
     renderBody={(
       <ConfirmModalBody
-        currentRule={currentRule}
+        updatedRule={updatedRule}
         handleModalClose={handleModalClose}
         handleSaveConfirmation={handleSaveConfirmation}
         onChangeRule={onChangeRule}

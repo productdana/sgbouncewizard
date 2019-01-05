@@ -18,7 +18,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       pageInterval: 10,
       pagesToDisplay: 1,
       isNetworkError: false,
-      changelogLimit: 10,
+      changelogLimit: 10
     };
 
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -32,49 +32,44 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   async componentDidMount() {
-    const { match, location } = this.props;
+    const { match } = this.props;
     getChangelog(match.params.bounceRuleId)
       .then(res => {
         const { data } = res;
         this.setState({
-          changelog: data.reverse(),
+          changelog: data.reverse()
         });
       })
       .catch(() => {
         this.setState({ isNetworkError: true });
       });
-    if (location.state == null) {
-      const { data, status } = await getRule(match.params.bounceRuleId);
-      if (status === 200) {
-        this.setState({
-          currentRule: data,
-        });
-      }
-    } else {
+    const { data, status } = await getRule(match.params.bounceRuleId);
+    if (status === 200) {
       this.setState({
-        currentRule: location.state.currentRule,
+        currentRule: data
       });
     }
   }
 
   onChangeRule(e) {
     const { id, value } = e.currentTarget;
-    const { currentRule } = this.state;
+    const { updatedRule } = this.state;
     this.setState({
-      currentRule: { ...currentRule, [id]: value },
+      updatedRule: { ...updatedRule, [id]: value }
     });
   }
 
   onChangeRuleInt(e) {
-    const { currentRule } = this.state;
+    const re = /^[0-9\b]+$/;
+    const { updatedRule } = this.state;
     const { id, value } = e.currentTarget;
     if (!value) {
       this.setState({
-        currentRule: { ...currentRule, [id]: value },
+        currentRule: { ...currentRule, [id]: value }
       });
     } else {
       this.setState({
-        currentRule: { ...currentRule, [id]: parseInt(value, 10) },
+        updatedRule: { ...updatedRule, [id]: parseInt(value, 10) }
       });
     }
   }
@@ -82,7 +77,7 @@ export default class BounceRuleDetailedPage extends React.Component {
   handleModalClose(e) {
     const { id } = e.currentTarget;
     this.setState({
-      [id]: false,
+      [id]: false
     });
   }
 
@@ -91,7 +86,7 @@ export default class BounceRuleDetailedPage extends React.Component {
     const changeIndex = e.currentTarget.getAttribute("index");
     this.setState({
       selectedChange: changelog[changeIndex],
-      isChangeModalOpen: true,
+      isChangeModalOpen: true
     });
   }
 
@@ -100,44 +95,46 @@ export default class BounceRuleDetailedPage extends React.Component {
     const { currentRule } = this.state;
     this.setState({
       [id]: true,
-      prevRule: { ...currentRule },
+      updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"])
     });
   }
 
   handleCancelSaveClicked(e) {
     const { id } = e.currentTarget;
-    const { currentRule, prevRule } = this.state;
-    if (!_.isEqual(prevRule, currentRule)) {
+    const { currentRule, updatedRule } = this.state;
+    if (
+      !_.isEqual(
+        updatedRule,
+        _.omit(currentRule, ["created_at", "comment", "user_id"])
+      )
+    ) {
       this.setState({
-        [id]: true,
+        [id]: true
       });
     } else {
       this.setState({
-        isEditClicked: false,
+        isEditClicked: false
       });
     }
   }
 
   handleCancelConfirmation() {
-    const { prevRule } = this.state;
     this.setState({
-      currentRule: { ...prevRule },
       isCancelConfirmOpen: false,
-      isEditClicked: false,
+      isEditClicked: false
     });
   }
 
   async handleSaveConfirmation() {
-    const { currentRule, prevRule } = this.state;
-    const { id } = currentRule;
-    const newRule = _.omit(currentRule, ["created_at"]);
-    await putRule(id, prevRule);
+    const { updatedRule } = this.state;
+    const { id } = updatedRule;
+    await putRule(id, updatedRule);
     getChangelog(id)
       .then(res => {
         const { data } = res;
         this.setState({
-          currentRule: newRule,
-          changelog: data.reverse(),
+          currentRule: updatedRule,
+          changelog: data.reverse()
         });
       })
       .catch(() => {
@@ -145,7 +142,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       });
     this.setState({
       isConfirmOpen: false,
-      isEditClicked: false,
+      isEditClicked: false
     });
   }
 
@@ -159,7 +156,7 @@ export default class BounceRuleDetailedPage extends React.Component {
   updatePageIndex(newIndex) {
     this.setState(prevState => ({
       pageIndex:
-        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
+        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex
     }));
   }
 
@@ -168,13 +165,13 @@ export default class BounceRuleDetailedPage extends React.Component {
       pageIndex:
         prevState.pageIndex > 1
           ? prevState.pageIndex - prevState.pagesToDisplay
-          : 0,
+          : 0
     }));
   }
 
   nextPageIndex() {
     this.setState(prevState => ({
-      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
+      pageIndex: prevState.pageIndex + prevState.pagesToDisplay
     }));
   }
 
