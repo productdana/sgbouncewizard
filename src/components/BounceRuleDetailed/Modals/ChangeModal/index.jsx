@@ -20,9 +20,12 @@ const ChangeModalBody = ({ currentRule, handleModalClose, selectedChange }) => (
       </Column>
       <Column width={6} offset={7}>
         <h1>Current</h1>
-        <ChangeTable currentRule={currentRule} />
+        <div>
+          <ChangeTable currentRule={currentRule} />
+        </div>
       </Column>
     </Row>
+
     <Row>
       <Column className="changelog-modal-button" width={2} offset={11}>
         <Button id="isChangeModalOpen" onClick={handleModalClose}>

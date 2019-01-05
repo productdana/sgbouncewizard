@@ -14,6 +14,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       isChangeModalOpen: false,
       isCancelConfirmOpen: false,
       isConfirmOpen: false,
+      isRevertConfirmOpen: false,
       pageIndex: 1,
       pageInterval: 10,
       pagesToDisplay: 1,
@@ -29,6 +30,7 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.handleCancelConfirmation = this.handleCancelConfirmation.bind(this);
     this.handleSaveConfirmation = this.handleSaveConfirmation.bind(this);
     this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
+    this.handleRevertConfirm = this.handleRevertConfirm.bind(this);
   }
 
   async componentDidMount() {
@@ -74,15 +76,36 @@ export default class BounceRuleDetailedPage extends React.Component {
     const { id } = e.currentTarget;
     this.setState({
       [id]: false,
+      selectedChange: null,
     });
   }
 
   handleChangelogClicked(e) {
     const { changelog } = this.state;
+    const { id } = e.currentTarget;
     const changeIndex = e.currentTarget.getAttribute("index");
     this.setState({
       selectedChange: changelog[changeIndex],
-      isChangeModalOpen: true,
+      [id]: true,
+    });
+  }
+
+  async handleRevertConfirm() {
+    const { selectedChange } = this.state;
+    await putRule(selectedChange.id, selectedChange);
+    getChangelog(selectedChange.id)
+      .then(res => {
+        const { data } = res;
+        this.setState({
+          changelog: data.reverse(),
+        });
+      })
+      .catch(() => {
+        this.setState({ isNetworkError: true });
+      });
+    this.setState({
+      isConfirmOpen: false,
+      isEditClicked: false,
     });
   }
 
@@ -185,6 +208,7 @@ export default class BounceRuleDetailedPage extends React.Component {
           handleCancelConfirmation={this.handleCancelConfirmation}
           handleSaveConfirmation={this.handleSaveConfirmation}
           onChangeRuleInt={this.onChangeRuleInt}
+          handleRevertConfirm={this.handleRevertConfirm}
           {...this.state}
         />
       )

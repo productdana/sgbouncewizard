@@ -14,6 +14,7 @@ import Header from "../Header";
 import Pagination from "../Pagination";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
+import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
 
 const BounceRuleDetailed = ({
   currentRule,
@@ -24,6 +25,7 @@ const BounceRuleDetailed = ({
   isChangeModalOpen,
   isConfirmOpen,
   isCancelConfirmOpen,
+  isRevertConfirmOpen,
   changelogLimit,
   handleModalClose,
   onChangeRule,
@@ -36,6 +38,7 @@ const BounceRuleDetailed = ({
   handleChangelogClicked,
   handleCancelConfirmation,
   handleSaveConfirmation,
+  handleRevertConfirm,
   onChangeRuleInt,
 }) => {
   const { id } = currentRule;
@@ -149,6 +152,16 @@ const BounceRuleDetailed = ({
           currentRule={currentRule}
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
+        />
+      )}
+      {isRevertConfirmOpen && (
+        <RevertConfirmationModal
+          handleModalClose={handleModalClose}
+          handleRevertConfirm={handleRevertConfirm}
+          // data-test="change-modal"
+          // currentRule={currentRule}
+          // selectedChange={selectedChange}
+          // handleModalClose={handleModalClose}
         />
       )}
       {isConfirmOpen && (
