@@ -41,6 +41,7 @@ const BounceRuleDetailed = ({
   handleRevertConfirm,
   onChangeRuleInt,
   onChangeRuleRevert,
+  newCommitMessage,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
@@ -162,6 +163,7 @@ const BounceRuleDetailed = ({
           handleModalClose={handleModalClose}
           handleRevertConfirm={handleRevertConfirm}
           onChangeRuleRevert={onChangeRuleRevert}
+          newCommitMessage={newCommitMessage}
         />
       )}
       {isConfirmOpen && (
