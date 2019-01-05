@@ -128,14 +128,15 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   async handleSaveConfirmation() {
-    const { currentRule } = this.state;
+    const { currentRule, prevRule } = this.state;
     const { id } = currentRule;
     const newRule = _.omit(currentRule, ["created_at"]);
-    await putRule(id, newRule);
+    await putRule(id, prevRule);
     getChangelog(id)
       .then(res => {
         const { data } = res;
         this.setState({
+          currentRule: newRule,
           changelog: data.reverse(),
         });
       })
