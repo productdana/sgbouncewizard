@@ -87,17 +87,23 @@ class BounceRuleDetailed extends Page {
   }
 
   createTestRuleAPI(testRule) {
-    return cy.task("createRule", testRule);
+    return cy.task("createRule", {
+      env: Cypress.env("testEnv"),
+      data: testRule,
+    });
   }
 
   deleteBounceRuleAPI(id) {
-    return cy.task("getRules").then(res => {
+    return cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
       if (res) {
         const isMatchingBounceRule = res.find(
           bounceRule => id === bounceRule.id
         );
         if (isMatchingBounceRule) {
-          return cy.task("deleteRule", isMatchingBounceRule.id);
+          return cy.task("deleteRule", {
+            env: Cypress.env("testEnv"),
+            id: isMatchingBounceRule.id,
+          });
         }
         return true;
       }

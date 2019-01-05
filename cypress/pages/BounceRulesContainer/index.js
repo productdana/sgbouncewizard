@@ -97,14 +97,17 @@ class BounceRulesPage extends Page {
 
   deleteBounceRuleAPI(testRule) {
     return cy
-      .task("getRules")
+      .task("getRules", { env: Cypress.env("testEnv") })
       .then(res => {
         if (res) {
           const isMatchingBounceRule = res.find(bounceRule =>
             _.isEqual(testRule, _.omit(bounceRule, "id"))
           );
           if (isMatchingBounceRule) {
-            return cy.task("deleteRule", isMatchingBounceRule.id);
+            return cy.task("deleteRule", {
+              env: Cypress.env("testEnv"),
+              id: isMatchingBounceRule.id,
+            });
           }
           return true;
         }
@@ -120,7 +123,10 @@ class BounceRulesPage extends Page {
   }
 
   createBounceRuleAPI(testRule) {
-    return cy.task("createRule", testRule);
+    return cy.task("createRule", {
+      env: Cypress.env("testEnv"),
+      data: testRule,
+    });
   }
 
   createBounceRuleUI(bounceRule) {
@@ -160,19 +166,29 @@ class BounceRulesPage extends Page {
   }
 
   deleteBounceRuleUI(testRule) {
-    cy.task("getRules").then(res => {
-      for (let i = 0; i < res.length; i++) {
-        if (
-          _.isEqual(
-            testRule,
-            _.omit(res[i], ["id", "created_at", "user_id", "comment"])
-          )
-        ) {
-          cy.log("FOUND RULE!");
-          this.createdRuleButton(res[i].id).click();
-          return this.deleteConfirmationConfirm.click();
-        }
+    cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
+      const ruleToDelete = res.find(bounceRule =>
+        _.isEqual(
+          testRule,
+          _.omit(bounceRule, ["id", "created_at", "user_id", "comment"])
+        )
+      );
+      if (ruleToDelete) {
+        this.createdRuleButton(ruleToDelete.id).click();
+        return this.deleteConfirmationConfirm.click();
       }
+      // for (let i = 0; i < res.length; i++) {
+      //   if (
+      //     _.isEqual(
+      //       testRule,
+      //       _.omit(res[i], ["id", "created_at", "user_id", "comment"])
+      //     )
+      //   ) {
+      //     cy.log("FOUND RULE!");
+      //     this.createdRuleButton(res[i].id).click();
+      //     return this.deleteConfirmationConfirm.click();
+      //   }
+      // }
       return false;
     });
   }
