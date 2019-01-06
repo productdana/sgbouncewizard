@@ -24,6 +24,7 @@ const BounceRuleDetailed = ({
   isChangeModalOpen,
   isConfirmOpen,
   isCancelConfirmOpen,
+  isUpdateError,
   changelogLimit,
   handleModalClose,
   onChangeRule,
@@ -158,6 +159,7 @@ const BounceRuleDetailed = ({
           handleModalClose={handleModalClose}
           onChangeRule={onChangeRule}
           handleSaveConfirmation={handleSaveConfirmation}
+          isUpdateError={isUpdateError}
         />
       )}
       {isCancelConfirmOpen && (
@@ -213,6 +215,7 @@ BounceRuleDetailed.propTypes = {
   isEditClicked: PropTypes.bool,
   isChangeModalOpen: PropTypes.bool,
   isConfirmOpen: PropTypes.bool,
+  isUpdateError: PropTypes.bool,
   isCancelConfirmOpen: PropTypes.bool,
   changelogLimit: PropTypes.number,
   handleModalClose: PropTypes.func,
@@ -237,6 +240,7 @@ BounceRuleDetailed.defaultProps = {
   isChangeModalOpen: false,
   isConfirmOpen: false,
   isCancelConfirmOpen: false,
+  isUpdateError: false,
   changelogLimit: 10,
   handleModalClose: () => {},
   onChangeRule: () => {},

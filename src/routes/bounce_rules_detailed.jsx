@@ -14,6 +14,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       isChangeModalOpen: false,
       isCancelConfirmOpen: false,
       isConfirmOpen: false,
+      isUpdateError: false,
       pageIndex: 1,
       pageInterval: 10,
       pagesToDisplay: 1,
@@ -75,6 +76,8 @@ export default class BounceRuleDetailedPage extends React.Component {
 
   handleModalClose(e) {
     const { id } = e.currentTarget;
+    console.log(id);
+
     this.setState({
       [id]: false,
     });
@@ -127,22 +130,28 @@ export default class BounceRuleDetailedPage extends React.Component {
   async handleSaveConfirmation() {
     const { updatedRule } = this.state;
     const { id } = updatedRule;
-    await putRule(id, updatedRule);
-    getChangelog(id)
-      .then(res => {
-        const { data } = res;
+    await putRule(id, updatedRule)
+      .then(() => {
         this.setState({
-          currentRule: updatedRule,
-          changelog: data.reverse(),
+          isConfirmOpen: false,
+          isEditClicked: false,
         });
       })
       .catch(() => {
-        this.setState({ isNetworkError: true });
+        this.setState({
+          isUpdateError: true,
+        });
       });
-    this.setState({
-      isConfirmOpen: false,
-      isEditClicked: false,
+    getChangelog(id).then(res => {
+      const { data } = res;
+      this.setState({
+        currentRule: updatedRule,
+        changelog: data.reverse(),
+      });
     });
+    // .catch(() => {
+    //   this.setState({ isNetworkError: true });
+    // });
   }
 
   paginate(rules) {
