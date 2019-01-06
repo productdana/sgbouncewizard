@@ -1,7 +1,7 @@
 import Page from "../page";
 import { Selectors } from "../../../src/components/BounceRuleDetailed/selectors";
 
-class BounceRuleDetailed extends Page {
+class BounceRuleDetailedPage extends Page {
   get details() {
     return cy.get(Selectors.details);
   }
@@ -93,24 +93,6 @@ class BounceRuleDetailed extends Page {
     });
   }
 
-  deleteBounceRuleAPI(id) {
-    return cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
-      if (res) {
-        const isMatchingBounceRule = res.find(
-          bounceRule => id === bounceRule.id
-        );
-        if (isMatchingBounceRule) {
-          return cy.task("deleteRule", {
-            env: Cypress.env("testEnv"),
-            id: isMatchingBounceRule.id,
-          });
-        }
-        return true;
-      }
-      return false;
-    });
-  }
-
   updateRule(bounceRuleChange) {
     const {
       updatedDescription,
@@ -148,6 +130,24 @@ class BounceRuleDetailed extends Page {
 
     return this.confirmSubmit.click();
   }
+
+  teardownBounceRule(rule) {
+    return cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
+      if (res) {
+        const isMatchingBounceRule = res.find(
+          bounceRule => rule.bounce_action === bounceRule.bounce_action
+        );
+        if (isMatchingBounceRule) {
+          return cy.task("deleteRule", {
+            env: Cypress.env("testEnv"),
+            id: isMatchingBounceRule.id,
+          });
+        }
+        return true;
+      }
+      return false;
+    });
+  }
 }
 
-export default new BounceRuleDetailed();
+export default new BounceRuleDetailedPage();

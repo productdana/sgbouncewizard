@@ -177,18 +177,6 @@ class BounceRulesPage extends Page {
         this.createdRuleButton(ruleToDelete.id).click();
         return this.deleteConfirmationConfirm.click();
       }
-      // for (let i = 0; i < res.length; i++) {
-      //   if (
-      //     _.isEqual(
-      //       testRule,
-      //       _.omit(res[i], ["id", "created_at", "user_id", "comment"])
-      //     )
-      //   ) {
-      //     cy.log("FOUND RULE!");
-      //     this.createdRuleButton(res[i].id).click();
-      //     return this.deleteConfirmationConfirm.click();
-      //   }
-      // }
       return false;
     });
   }
