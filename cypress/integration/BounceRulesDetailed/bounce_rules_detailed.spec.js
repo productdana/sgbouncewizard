@@ -23,9 +23,8 @@ describe("Bounce Rule Detailed", () => {
       .then(isTearDownSuccess => {
         if (isTearDownSuccess) {
           return cy.log("Successfully tore down the bounce rule!");
-        } 
-          return cy.log("Failed to tear down test bounce rule!");
-        
+        }
+        return cy.log("Failed to tear down test bounce rule!");
       })
       .then(() => BounceRuleDetailedPage.createTestRuleAPI(testCreateRule))
       .then(createdRuleId => {

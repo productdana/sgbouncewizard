@@ -15,15 +15,11 @@ import { Column } from "../../Column";
 
 import { WriteSelectors } from "../selectors";
 
-function showIndividualChanges(
-  changelog,
-  changelogLimit,
-  handleChangelogClicked
-) {
+function showChange(changelog, changelogLimit, handleChangelogClicked) {
   return changelog
     .slice(0, changelogLimit)
     .map((change, index) => (
-      <IndividualChange
+      <Change
         key={change.created_at}
         index={index}
         change={change}
@@ -73,18 +69,14 @@ const Changelog = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {showIndividualChanges(
-            changelog,
-            changelogLimit,
-            handleChangelogClicked
-          )}
+          {showChange(changelog, changelogLimit, handleChangelogClicked)}
         </TableBody>
       </Table>
     )}
   </div>
 );
 
-const IndividualChange = ({ change, handleChangelogClicked, index }) => {
+const Change = ({ change, handleChangelogClicked, index }) => {
   const { created_at: createdAt, user_id: userId, comment } = change;
 
   return (
