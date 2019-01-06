@@ -11,7 +11,7 @@ const testCreateRule = {
 const updatedRule = {
   updatedDescription: "This is a new description from the Cypress Test!",
   updatedBounceAction: "This is a new bounce action from the Cypress Test!",
-  updatedResponseCode: 999,
+  updatedResponseCode: 1,
   updatedEnhancedCode: "10.2.5",
   updatedRegex: "cyress",
   updatedCommit: "This is a new commit from a Cypress Test",

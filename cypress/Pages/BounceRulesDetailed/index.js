@@ -127,13 +127,13 @@ class BounceRuleDetailed extends Page {
       this.description.clear().type(updatedDescription);
     }
     if (updatedPriority) {
-      this.priority.clear();
+      this.priority.clear().type(updatedPriority);
     }
     if (updatedBounceAction) {
       this.bounceAction.clear().type(updatedBounceAction);
     }
     if (updatedResponseCode) {
-      this.responseCode.clear();
+      this.responseCode.clear().type(updatedResponseCode);
     }
     if (updatedEnhancedCode) {
       this.enhancedCode.clear().type(updatedEnhancedCode);
