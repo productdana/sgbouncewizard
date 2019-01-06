@@ -149,9 +149,6 @@ export default class BounceRuleDetailedPage extends React.Component {
         changelog: data.reverse(),
       });
     });
-    // .catch(() => {
-    //   this.setState({ isNetworkError: true });
-    // });
   }
 
   paginate(rules) {
