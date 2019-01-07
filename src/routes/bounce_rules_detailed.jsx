@@ -17,7 +17,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       isUpdateError: false,
       pageIndex: 1,
       pageInterval: 10,
-      pagesToDisplay: 1,
+      pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
     };
@@ -30,15 +30,21 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.handleCancelConfirmation = this.handleCancelConfirmation.bind(this);
     this.handleSaveConfirmation = this.handleSaveConfirmation.bind(this);
     this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
+    this.updatePageIndex = this.updatePageIndex.bind(this);
   }
 
   async componentDidMount() {
     const { match } = this.props;
+    const { changelogLimit, pagesToDisplay } = this.state;
     getChangelog(match.params.bounceRuleId)
       .then(res => {
         const { data } = res;
         this.setState({
           changelog: data.reverse(),
+          pagesToDisplay:
+            data.length <= changelogLimit * pagesToDisplay
+              ? Math.ceil(data.length / changelogLimit)
+              : 5,
         });
       })
       .catch(() => {
@@ -76,8 +82,6 @@ export default class BounceRuleDetailedPage extends React.Component {
 
   handleModalClose(e) {
     const { id } = e.currentTarget;
-    console.log(id);
-
     this.setState({
       [id]: false,
     });
@@ -151,11 +155,11 @@ export default class BounceRuleDetailedPage extends React.Component {
     });
   }
 
-  paginate(rules) {
+  paginate(changelog) {
     const { pageIndex, pageInterval } = this.state;
     const ruleStartIndex = (pageIndex - 1) * pageInterval;
     const ruleEndIndex = (pageIndex - 1 * pageIndex + pageInterval) * pageIndex;
-    return rules.slice(ruleStartIndex, ruleEndIndex);
+    return changelog.slice(ruleStartIndex, ruleEndIndex);
   }
 
   updatePageIndex(newIndex) {
@@ -181,7 +185,9 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   render() {
-    const { currentRule } = this.state;
+    const { currentRule, changelog } = this.state;
+    const filteredChangelog = this.paginate(changelog);
+
     return (
       currentRule && (
         <BounceRuleDetailed
@@ -194,6 +200,8 @@ export default class BounceRuleDetailedPage extends React.Component {
           handleCancelConfirmation={this.handleCancelConfirmation}
           handleSaveConfirmation={this.handleSaveConfirmation}
           onChangeRuleInt={this.onChangeRuleInt}
+          updatePageIndex={this.updatePageIndex}
+          filteredChangelog={filteredChangelog}
           {...this.state}
         />
       )
