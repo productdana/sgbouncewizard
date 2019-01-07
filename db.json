@@ -60,9 +60,10 @@
       "response_code": 0,
       "enhanced_code": "5.1.6",
       "regex": "",
-      "priority": 0,
-      "description": "UkZDMzQ2MyBEZXN0aW5hdGlvbiBtYWlsYm94IGhhcyBtb3ZlZA==",
-      "bounce_action": "suppress"
+      "priority": 1,
+      "description": "UkZDMzQ2MyBEZXN0aW5hdGlvbiBtYWlsYm94IGhhcyBtb3ZlZA==asd",
+      "bounce_action": "suppress",
+      "comment": "Increased Priority by 1"
     },
     {
       "priority": 2,
@@ -71,7 +72,87 @@
       "description": "testDescription",
       "enhanced_code": "492",
       "regex": "testRegex",
-      "id": 8
+      "id": 197
+    },
+    {
+      "priority": 2,
+      "bounce_action": "cypressDetailedTest",
+      "response_code": 281,
+      "description": "cypressDetailedTest",
+      "enhanced_code": "384",
+      "regex": "kjfgsdlfg",
+      "id": 198
+    },
+    {
+      "priority": 2,
+      "bounce_action": "cypressDetailedTest",
+      "response_code": 281,
+      "description": "cypressDetailedTest",
+      "enhanced_code": "384",
+      "regex": "kjfgsdlfg",
+      "id": 199
+    }
+  ],
+  "changelogs": [
+    {
+      "id": 196,
+      "changelog": [
+        {
+          "id": 196,
+          "user_id": "t_swift",
+          "createdat": "1545864797",
+          "comment": "this is my first commit",
+          "response_code": 0,
+          "enhanced_code": "4.2.0",
+          "regex": "",
+          "priority": 0,
+          "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
+          "bounce_action": "retry"
+        },
+        {
+          "id": 196,
+          "user_id": "t_swift",
+          "createdat": "1745864797",
+          "comment": "this is my second commit",
+          "response_code": 1,
+          "enhanced_code": "5.2.0",
+          "regex": "asdasd",
+          "priority": 2,
+          "description": "gsklfdsdkfs",
+          "bounce_action": "retry"
+        }
+      ]
+    },
+    {
+      "id": 195,
+      "changelog": [
+        {
+          "id": 195,
+          "user_id": "papa_ziv",
+          "createdat": "1645864797",
+          "response_code": 0,
+          "enhanced_code": "4.2.0",
+          "regex": "",
+          "priority": 0,
+          "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
+          "bounce_action": "retry"
+        },
+        {
+          "id": 195,
+          "user_id": "papa_ziv",
+          "createdat": "1945864797",
+          "response_code": 1,
+          "enhanced_code": "5.2.0",
+          "regex": "asdasd",
+          "priority": 2,
+          "description": "gsklfdsdkfs",
+          "bounce_action": "retry"
+        }
+      ]
+    },
+    {
+      "id": 200,
+      "changelog": []
     }
   ]
 }

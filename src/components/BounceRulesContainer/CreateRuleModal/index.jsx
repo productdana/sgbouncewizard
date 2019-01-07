@@ -69,6 +69,7 @@ const CreateRuleModal = ({
   newRule,
   isInvalidInput,
   handleModalClose,
+  handleRuleUpdateInt,
 }) => {
   const {
     priority,
@@ -102,10 +103,10 @@ const CreateRuleModal = ({
                 <label htmlFor="priority">
                   Priority
                   <TextInput
-                    onChange={handleRuleUpdate}
+                    onChange={handleRuleUpdateInt}
                     {...WriteSelectors.priority}
                     value={priority}
-                    type="text"
+                    type="number"
                     id="priority"
                     isRequired
                   />
@@ -124,10 +125,10 @@ const CreateRuleModal = ({
                 <label htmlFor="response_code">
                   Response Code
                   <TextInput
-                    onChange={handleRuleUpdate}
+                    onChange={handleRuleUpdateInt}
                     {...WriteSelectors.responseCode}
                     value={responseCode}
-                    type="text"
+                    type="number"
                     id="response_code"
                     isRequired
                   />

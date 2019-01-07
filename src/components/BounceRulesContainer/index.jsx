@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
+import PropTypes from "prop-types";
 import Header from "../Header";
 import { Row } from "../Row";
 import { Column } from "../Column";
@@ -101,6 +102,7 @@ const BounceRulesContainer = ({
   invalidFilter,
   isCreateRuleOpen,
   handleRuleUpdate,
+  handleRuleUpdateInt,
   handleCreateSubmit,
   isCreateRuleConfirmationOpen,
   handleCreateConfirm,
@@ -197,6 +199,7 @@ const BounceRulesContainer = ({
         isInvalidInput={isInvalidInput}
         handleModalClose={handleModalClose}
         handleRuleUpdate={handleRuleUpdate}
+        handleRuleUpdateInt={handleRuleUpdateInt}
         handleCreateSubmit={handleCreateSubmit}
       />
     )}
@@ -219,6 +222,115 @@ const BounceRulesContainer = ({
     )}
   </div>
 );
+
+BounceRulesContainer.propTypes = {
+  rules: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      response_code: PropTypes.number,
+      enhanced_code: PropTypes.string,
+      regex: PropTypes.string,
+      priority: PropTypes.number,
+      description: PropTypes.string,
+      bounce_action: PropTypes.string,
+    })
+  ),
+  updateSearchToken: PropTypes.func,
+  updateSearchCategory: PropTypes.func,
+  removeFilter: PropTypes.func,
+  prevPageIndex: PropTypes.func,
+  nextPageIndex: PropTypes.func,
+  updatePageIndex: PropTypes.func,
+  filteredRules: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      response_code: PropTypes.number,
+      enhanced_code: PropTypes.string,
+      regex: PropTypes.string,
+      priority: PropTypes.number,
+      description: PropTypes.string,
+      bounce_action: PropTypes.string,
+    })
+  ),
+  searchToken: PropTypes.string,
+  selectedRule: PropTypes.shape({
+    id: PropTypes.number,
+    response_code: PropTypes.number,
+    enhanced_code: PropTypes.string,
+    regex: PropTypes.string,
+    priority: PropTypes.number,
+    description: PropTypes.string,
+    bounce_action: PropTypes.string,
+  }),
+  pageIndex: PropTypes.number,
+  pageInterval: PropTypes.number,
+  pagesToDisplay: PropTypes.number,
+  numRules: PropTypes.number,
+  filterOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      searchCategory: PropTypes.string,
+      searchToken: PropTypes.string,
+    })
+  ),
+  addFilter: PropTypes.func,
+  invalidFilter: PropTypes.bool,
+  isCreateRuleOpen: PropTypes.bool,
+  handleRuleUpdate: PropTypes.func,
+  handleCreateSubmit: PropTypes.func,
+  isCreateRuleConfirmationOpen: PropTypes.bool,
+  handleCreateConfirm: PropTypes.func,
+  newRule: PropTypes.shape({
+    id: PropTypes.number,
+    response_code: PropTypes.number,
+    enhanced_code: PropTypes.string,
+    regex: PropTypes.string,
+    priority: PropTypes.number,
+    description: PropTypes.string,
+    bounce_action: PropTypes.string,
+  }),
+  isInvalidInput: PropTypes.bool,
+  isDeleteConfirmationOpen: PropTypes.bool,
+  isDeleteAlertOpen: PropTypes.bool,
+  idToDelete: PropTypes.number,
+  handleDeleteConfirm: PropTypes.func,
+  handleModalClose: PropTypes.func,
+  handleCreateOpen: PropTypes.func,
+  handleActionOpen: PropTypes.func,
+};
+
+BounceRulesContainer.defaultProps = {
+  rules: [],
+  updateSearchToken: () => {},
+  updateSearchCategory: () => {},
+  removeFilter: () => {},
+  prevPageIndex: () => {},
+  nextPageIndex: () => {},
+  updatePageIndex: () => {},
+  filteredRules: [],
+  searchToken: "",
+  selectedRule: {},
+  pageIndex: 1,
+  pageInterval: 10,
+  pagesToDisplay: 5,
+  numRules: 0,
+  filterOptions: () => {},
+  addFilter: () => {},
+  invalidFilter: false,
+  isCreateRuleOpen: false,
+  handleRuleUpdate: () => {},
+  handleCreateSubmit: () => {},
+  isCreateRuleConfirmationOpen: false,
+  handleCreateConfirm: () => {},
+  newRule: {},
+  isInvalidInput: false,
+  isDeleteConfirmationOpen: false,
+  isDeleteAlertOpen: false,
+  idToDelete: null,
+  handleDeleteConfirm: () => {},
+  handleModalClose: () => {},
+  handleCreateOpen: () => {},
+  handleActionOpen: () => {},
+};
 
 export default BounceRulesContainer;
 export { RuleListContainer, BounceRuleMin };

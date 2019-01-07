@@ -6,8 +6,9 @@ import {
   TableCell,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
+import { WriteSelectors } from "../selectors";
 
-const DetailsContainer = ({ currentRule, handleButtonClicked }) => {
+const DetailsContainer = ({ currentRule, handleEditClicked }) => {
   const {
     description,
     id,
@@ -19,12 +20,13 @@ const DetailsContainer = ({ currentRule, handleButtonClicked }) => {
   } = currentRule;
   return (
     <div
-      onClick={handleButtonClicked}
-      id="editClicked"
-      onKeyDown={handleButtonClicked}
+      onClick={handleEditClicked}
+      id="isEditClicked"
+      onKeyDown={handleEditClicked}
       role="searchbox"
       tabIndex={0}
       className="detail-container card "
+      {...WriteSelectors.details}
     >
       <div className="editable">
         <i className="sg-icon sg-icon-editor-design" />
@@ -91,7 +93,11 @@ const DetailsContainer = ({ currentRule, handleButtonClicked }) => {
   );
 };
 
-export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
+export const DetailsContainerEditable = ({
+  onChangeRule,
+  onChangeRuleInt,
+  updatedRule,
+}) => {
   const {
     description,
     id,
@@ -100,9 +106,12 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
     bounce_action: bounceAction,
     regex,
     priority,
-  } = currentRule;
+  } = updatedRule;
   return (
-    <div className="detail-container detail-container-editable card ">
+    <div
+      {...WriteSelectors.detailsEditable}
+      className="detail-container detail-container-editable card "
+    >
       <div className="editable">
         <i className="sg-icon sg-icon-editor-design" />
       </div>
@@ -115,6 +124,7 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.description}
                   onChange={onChangeRule}
                   id="description"
                   value={description}
@@ -134,13 +144,9 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
                 <strong>Bounce ID</strong>
               </TableCell>
               <TableCell>
-                <TextInput
-                  onChange={onChangeRule}
-                  id="id"
-                  value={id}
-                  type="text"
-                  label={id}
-                />
+                <div className="uneditable">
+                  <strong>{id}</strong>
+                </div>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -149,10 +155,11 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
-                  onChange={onChangeRule}
+                  {...WriteSelectors.responseCode}
+                  onChange={onChangeRuleInt}
                   id="response_code"
                   value={responseCode}
-                  type="text"
+                  type="number"
                   label={responseCode}
                 />
               </TableCell>
@@ -163,6 +170,7 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.enhancedCode}
                   onChange={onChangeRule}
                   id="enhanced_code"
                   value={enhancedCode}
@@ -181,6 +189,7 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.regex}
                   onChange={onChangeRule}
                   id="regex"
                   value={regex}
@@ -195,10 +204,11 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
-                  onChange={onChangeRule}
+                  {...WriteSelectors.priority}
+                  onChange={onChangeRuleInt}
                   id="priority"
                   value={priority}
-                  type="text"
+                  type="number"
                   label={priority}
                 />
               </TableCell>
@@ -209,6 +219,7 @@ export const DetailsContainerEditable = ({ currentRule, onChangeRule }) => {
               </TableCell>
               <TableCell>
                 <TextInput
+                  {...WriteSelectors.bounceAction}
                   onChange={onChangeRule}
                   id="bounce_action"
                   value={bounceAction}
