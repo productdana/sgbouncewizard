@@ -2,35 +2,46 @@ import React from "react";
 import cn from "classnames";
 import "./index.scss";
 
+function lastPageToDisplay(currentPageIndex, pagesToDisplay, totalPages) {
+  const lastPageCalculation =
+    currentPageIndex +
+    (pagesToDisplay -
+      (currentPageIndex % pagesToDisplay === 0
+        ? pagesToDisplay
+        : currentPageIndex % pagesToDisplay));
+  const lastPage =
+    lastPageCalculation > totalPages ? totalPages : lastPageCalculation;
+  return lastPage;
+}
+
 const Pagination = ({
-  prevPageIndex,
-  nextPageIndex,
+  handlePrevClicked,
+  handleNextClicked,
   updatePageIndex,
-  pageIndex,
-  pageInterval,
+  currentPageIndex,
+  rulesToShow,
   pagesToDisplay,
   numRules,
 }) => {
-  const endPage =
-    pageIndex +
-    (pagesToDisplay -
-      (pageIndex % pagesToDisplay === 0
-        ? pagesToDisplay
-        : pageIndex % pagesToDisplay));
+  const totalPages = Math.ceil(numRules / rulesToShow);
+  const endPage = lastPageToDisplay(
+    currentPageIndex,
+    pagesToDisplay,
+    totalPages
+  );
   const startPage = endPage - (pagesToDisplay - 1);
-  const totalPages = Math.ceil(numRules / pageInterval);
-  const shouldDisplayFirstPage = pageIndex > pagesToDisplay;
-  const shouldDisplayLastPage = pageIndex < totalPages - pagesToDisplay;
-  const shouldDisplayPrev = pageIndex <= pagesToDisplay;
-  const shouldDisplayNext = pageIndex > totalPages - pagesToDisplay;
+  const shouldDisplayFirstPage = currentPageIndex >= pagesToDisplay;
+  const shouldDisplayLastPage = currentPageIndex <= endPage;
+  const shouldDisplayPrev = currentPageIndex === 1;
+  const shouldDisplayNext = currentPageIndex === totalPages;
   return (
     <div className="pagination pagination-container">
       <a
         className={`btn btn-secondary btn-small pagination-prev ${
           shouldDisplayPrev ? "is-disabled" : ""
         }`}
-        onClick={prevPageIndex}
-        onKeyDown={prevPageIndex}
+        onClick={handlePrevClicked}
+        onKeyDown={handlePrevClicked}
         role="button"
         tabIndex="0"
       >
@@ -40,8 +51,9 @@ const Pagination = ({
         <span>
           <a
             className="pagination-link"
-            onClick={() => updatePageIndex(1)}
-            onKeyDown={() => updatePageIndex(1)}
+            onClick={updatePageIndex}
+            onKeyDown={updatePageIndex}
+            value={1}
             role="button"
             tabIndex="0"
           >
@@ -58,10 +70,11 @@ const Pagination = ({
             <a
               key={number}
               className={cn("pagination-link", {
-                "is-active": number === pageIndex,
+                "is-active": number === currentPageIndex,
               })}
-              onClick={() => updatePageIndex(number)}
-              onKeyDown={() => updatePageIndex(number)}
+              onClick={updatePageIndex}
+              onKeyDown={updatePageIndex}
+              value={number}
               role="button"
               tabIndex="0"
             >
@@ -73,8 +86,9 @@ const Pagination = ({
             <a className="pagination-ellipses">&hellip;</a>
             <a
               className="pagination-link"
-              onClick={() => updatePageIndex(totalPages)}
-              onKeyDown={() => updatePageIndex(totalPages)}
+              onClick={updatePageIndex}
+              onKeyDown={updatePageIndex}
+              value={totalPages}
               role="button"
               tabIndex="0"
             >
@@ -87,8 +101,8 @@ const Pagination = ({
         className={`btn btn-secondary btn-small pagination-next ${
           shouldDisplayNext ? "is-disabled" : ""
         }`}
-        onClick={nextPageIndex}
-        onKeyDown={() => nextPageIndex}
+        onClick={handleNextClicked}
+        onKeyDown={handleNextClicked}
         role="button"
         tabIndex="0"
       >
