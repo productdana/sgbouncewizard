@@ -6,11 +6,30 @@ import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 import { WriteSelectors } from "../../selectors";
 
+const UpdateAlertError = ({ handleModalClose }) => (
+  <div {...WriteSelectors.networkErrorAlert} className="alert alert-danger">
+    <p>
+      <i className="sg-icon sg-icon-warning" />
+      We are unable to update the bounce rule due to some issues with the
+      network.
+      <i
+        onClick={handleModalClose}
+        onKeyDown={handleModalClose}
+        id="isUpdateError"
+        className="sg-icon sg-icon-x"
+        role="button"
+        tabIndex={0}
+      />
+    </p>
+  </div>
+);
+
 const ConfirmModalBody = ({
   updatedRule,
   handleModalClose,
   handleSaveConfirmation,
   onChangeRule,
+  isUpdateError,
 }) => {
   const { comment } = updatedRule;
   return (
@@ -19,8 +38,11 @@ const ConfirmModalBody = ({
         <Column>
           <div>
             <h2>Please enter a commit message and confirm your changes.</h2>
+            {isUpdateError && (
+              <UpdateAlertError handleModalClose={handleModalClose} />
+            )}
             <p>
-              Doing so will effect how current email will be handled via this
+              Doing so will affect how current email will be handled via this
               bounce rule. This action will go into effect immediately.
             </p>
             <TextInput
@@ -65,6 +87,7 @@ const ConfirmationModal = ({
   handleModalClose,
   handleSaveConfirmation,
   onChangeRule,
+  isUpdateError,
 }) => (
   <CenterModal
     {...WriteSelectors.saveConfirmationModal}
@@ -75,6 +98,7 @@ const ConfirmationModal = ({
         handleModalClose={handleModalClose}
         handleSaveConfirmation={handleSaveConfirmation}
         onChangeRule={onChangeRule}
+        isUpdateError={isUpdateError}
       />
 )}
   />

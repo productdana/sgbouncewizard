@@ -58,5 +58,5 @@ export const putRule = async (ruleId, data) => {
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Error updating bounce rule ");
+  throw new Error("Error updating bounce rule");
 };

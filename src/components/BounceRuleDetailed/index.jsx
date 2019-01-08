@@ -26,22 +26,26 @@ const BounceRuleDetailed = ({
   isConfirmOpen,
   isCancelConfirmOpen,
   isRevertConfirmOpen,
+  isUpdateError,
   changelogLimit,
   handleModalClose,
   onChangeRule,
   pagesToDisplay,
   pageIndex,
   pageInterval,
-  numRules,
   handleEditClicked,
   handleCancelSaveClicked,
   handleChangelogClicked,
   handleCancelConfirmation,
   handleSaveConfirmation,
   handleRevertConfirm,
-  onChangeRuleInt,
   onChangeRuleRevert,
   newCommitMessage,
+  onChangeRuleInt,
+  nextPageIndex,
+  prevPageIndex,
+  updatePageIndex,
+  filteredChangelog,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
@@ -128,7 +132,7 @@ const BounceRuleDetailed = ({
             data-test="changelog-container"
             changelogLimit={changelogLimit}
             handleChangelogClicked={handleChangelogClicked}
-            changelog={changelog}
+            changelog={filteredChangelog}
             isChangelogEmpty={isChangelogEmpty}
           />
         </Column>
@@ -137,13 +141,13 @@ const BounceRuleDetailed = ({
         <Row>
           <Column width={4} offset={5}>
             <Pagination
-              prevPageIndex={1}
-              nextPageIndex={10}
+              prevPageIndex={prevPageIndex}
+              nextPageIndex={nextPageIndex}
               pagesToDisplay={pagesToDisplay}
               pageIndex={pageIndex}
               pageInterval={pageInterval}
-              numRules={numRules}
-              updatePageIndex={() => {}}
+              numRules={changelog.length}
+              updatePageIndex={updatePageIndex}
             />
           </Column>
         </Row>
@@ -173,6 +177,7 @@ const BounceRuleDetailed = ({
           handleModalClose={handleModalClose}
           onChangeRule={onChangeRule}
           handleSaveConfirmation={handleSaveConfirmation}
+          isUpdateError={isUpdateError}
         />
       )}
       {isCancelConfirmOpen && (
@@ -228,6 +233,7 @@ BounceRuleDetailed.propTypes = {
   isEditClicked: PropTypes.bool,
   isChangeModalOpen: PropTypes.bool,
   isConfirmOpen: PropTypes.bool,
+  isUpdateError: PropTypes.bool,
   isCancelConfirmOpen: PropTypes.bool,
   changelogLimit: PropTypes.number,
   handleModalClose: PropTypes.func,
@@ -235,7 +241,6 @@ BounceRuleDetailed.propTypes = {
   pagesToDisplay: PropTypes.number,
   pageIndex: PropTypes.number,
   pageInterval: PropTypes.number,
-  numRules: PropTypes.number,
   handleEditClicked: PropTypes.func,
   handleCancelSaveClicked: PropTypes.func,
   handleChangelogClicked: PropTypes.func,
@@ -252,13 +257,13 @@ BounceRuleDetailed.defaultProps = {
   isChangeModalOpen: false,
   isConfirmOpen: false,
   isCancelConfirmOpen: false,
+  isUpdateError: false,
   changelogLimit: 10,
   handleModalClose: () => {},
   onChangeRule: () => {},
   pagesToDisplay: 1,
   pageIndex: 1,
   pageInterval: 10,
-  numRules: PropTypes.number,
   handleEditClicked: () => {},
   handleCancelSaveClicked: () => {},
   handleChangelogClicked: () => {},

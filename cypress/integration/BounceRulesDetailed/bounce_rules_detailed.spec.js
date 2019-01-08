@@ -1,71 +1,74 @@
-import BounceRuleDetailed from "../../Pages/BounceRulesDetailed";
+import BounceRuleDetailedPage from "../../Pages/BounceRulesDetailed";
 
 const testCreateRule = {
   priority: 2,
-  bounce_action: "cypressDetailedTest",
+  bounce_action: "[Cypress Detailed Test - Ignore]",
   response_code: 281,
   description: "cypressDetailedTest",
   enhanced_code: "384",
   regex: "kjfgsdlfg",
 };
 const updatedRule = {
-  updatedDescription: "This is a new description from the Cypress Test!",
-  updatedBounceAction: "This is a new bounce action from the Cypress Test!",
-  updatedResponseCode: 999,
+  updatedDescription: "[Cypress Detailed Test - Updating Description]",
+  updatedResponseCode: 1,
   updatedEnhancedCode: "10.2.5",
-  updatedRegex: "cyress",
-  updatedCommit: "This is a new commit from a Cypress Test",
-  updatedPriority: 1,
+  updatedCommit: "[Cypress Detailed Test - Updating Commit]",
 };
+
 let ruleId;
 
 describe("Bounce Rule Detailed", () => {
-  before(async () => {
-    ruleId = await BounceRuleDetailed.createTestRuleAPI(testCreateRule);
+  before(() => {
+    BounceRuleDetailedPage.teardownBounceRule(testCreateRule)
+      .then(isTearDownSuccess => {
+        if (isTearDownSuccess) {
+          return cy.log("Successfully tore down the bounce rule!");
+        }
+        return cy.log("Failed to tear down test bounce rule!");
+      })
+      .then(() => BounceRuleDetailedPage.createTestRuleAPI(testCreateRule))
+      .then(createdRuleId => {
+        if (createdRuleId) {
+          cy.log(
+            `Successfully created test bounce rule with rule ID ${ruleId}!`
+          );
+          ruleId = createdRuleId;
+        } else {
+          cy.log("Failed to create test bounce rule!");
+          ruleId = createdRuleId;
+        }
+      });
   });
 
   beforeEach(() => {
-    BounceRuleDetailed.open(ruleId);
-  });
-
-  after(() => {
-    BounceRuleDetailed.deleteBounceRuleAPI(ruleId).then(isCleanupSuccess => {
-      if (isCleanupSuccess) {
-        cy.log("Cleanup successful");
-      } else {
-        cy.log("Cleanup failed");
-      }
-    });
+    BounceRuleDetailedPage.open(ruleId);
   });
 
   it("should pass healthchecks", () => {
-    BounceRuleDetailed.details.should("be.visible");
-    BounceRuleDetailed.changelog.should("be.visible");
-    BounceRuleDetailed.editButton.should("be.visible");
+    BounceRuleDetailedPage.details.should("be.visible");
+    BounceRuleDetailedPage.changelog.should("be.visible");
+    BounceRuleDetailedPage.editButton.should("be.visible");
   });
 
   it("should edit a bounce rule", () => {
-    BounceRuleDetailed.updateRule(updatedRule).then(() => {
-      BounceRuleDetailed.firstChangelog.click().then(() => {
-        BounceRuleDetailed.changelogModal.should("be.visible");
-        BounceRuleDetailed.changelogModal.should(
+    BounceRuleDetailedPage.updateRule(updatedRule).then(() => {
+      BounceRuleDetailedPage.firstChangelog.click().then(() => {
+        BounceRuleDetailedPage.changelogModal.should("be.visible");
+        BounceRuleDetailedPage.changelogModal.should(
           "contain",
           updatedRule.updatedDescription
         );
-        BounceRuleDetailed.changelogModal.should(
-          "contain",
-          updatedRule.updatedBounceAction
-        );
-        BounceRuleDetailed.changelogModal.should(
+        BounceRuleDetailedPage.changelogModal.should(
           "contain",
           updatedRule.updatedEnhancedCode
         );
-        BounceRuleDetailed.changelogModal.should(
+        BounceRuleDetailedPage.changelogModal.should(
           "contain",
-          updatedRule.updatedRegex
+          updatedRule.updatedResponseCode
         );
-        BounceRuleDetailed.changelogModal.contains(
-          "This is a new commit from a Cypress Test"
+        BounceRuleDetailedPage.changelogModal.should(
+          "contain",
+          updatedRule.updatedCommit
         );
       });
     });

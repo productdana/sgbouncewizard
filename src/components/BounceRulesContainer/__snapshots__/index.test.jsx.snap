@@ -103,6 +103,7 @@ exports[`should render correctly 1`] = `
         disabled={false}
         id="isCreateRuleOpen"
         onClick={[Function]}
+        onKeyDown={[Function]}
         type="button"
       >
         Create Rule
@@ -323,7 +324,7 @@ exports[`should render correctly 1`] = `
                     Description
                   </label>
                   <input
-                    aria-describedby=""
+                    aria-describedby={false}
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
@@ -331,7 +332,6 @@ exports[`should render correctly 1`] = `
                     type="text"
                     value=""
                   />
-                  
                   
                 </div>
               </div>
@@ -347,6 +347,7 @@ exports[`should render correctly 1`] = `
               >
                 <button
                   className="btn btn-small btn-secondary"
+                  onClick={[Function]}
                   type="button"
                 >
                   Add a Filter
@@ -434,6 +435,7 @@ exports[`should render correctly 1`] = `
                     data-tooltip="View"
                     data-tooltip-pos="up"
                     id="isRedirectingToDetail"
+                    onClick={[Function]}
                     rule={504}
                   >
                     <i
@@ -455,6 +457,7 @@ exports[`should render correctly 1`] = `
                     data-tooltip="Delete"
                     data-tooltip-pos="up"
                     id="isDeleteConfirmationOpen"
+                    onClick={[Function]}
                     rule={504}
                   >
                     <i
@@ -481,6 +484,8 @@ exports[`should render correctly 1`] = `
       >
         <a
           className="btn btn-secondary btn-small pagination-prev is-disabled"
+          onClick={[Function]}
+          onKeyDown={[Function]}
           role="button"
           tabIndex="0"
         >
@@ -536,7 +541,8 @@ exports[`should render correctly 1`] = `
           </a>
         </div>
         <a
-          className="btn btn-secondary btn-small pagination-next "
+          className="btn btn-secondary btn-small pagination-next is-disabled"
+          onClick={[Function]}
           onKeyDown={[Function]}
           role="button"
           tabIndex="0"

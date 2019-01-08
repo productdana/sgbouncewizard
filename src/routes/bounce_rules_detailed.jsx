@@ -17,7 +17,8 @@ export default class BounceRuleDetailedPage extends React.Component {
       isRevertConfirmOpen: false,
       pageIndex: 1,
       pageInterval: 10,
-      pagesToDisplay: 1,
+      isUpdateError: false,
+      pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
     };
@@ -32,15 +33,21 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
     this.handleRevertConfirm = this.handleRevertConfirm.bind(this);
     this.onChangeRuleRevert = this.onChangeRuleRevert.bind(this);
+    this.updatePageIndex = this.updatePageIndex.bind(this);
   }
 
   async componentDidMount() {
     const { match } = this.props;
+    const { changelogLimit, pagesToDisplay } = this.state;
     getChangelog(match.params.bounceRuleId)
       .then(res => {
         const { data } = res;
         this.setState({
           changelog: data.reverse(),
+          pagesToDisplay:
+            data.length <= changelogLimit * pagesToDisplay
+              ? Math.ceil(data.length / changelogLimit)
+              : 5,
         });
       })
       .catch(() => {
@@ -54,23 +61,26 @@ export default class BounceRuleDetailedPage extends React.Component {
     }
   }
 
+  onChangeRuleInt(e) {
+    const { updatedRule } = this.state;
+    const { id, value } = e.currentTarget;
+    if (!value) {
+      this.setState({
+        updatedRule: { ...updatedRule, [id]: value },
+      });
+    } else {
+      this.setState({
+        updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
+      });
+    }
+  }
+
   onChangeRule(e) {
     const { id, value } = e.currentTarget;
     const { updatedRule } = this.state;
     this.setState({
       updatedRule: { ...updatedRule, [id]: value },
     });
-  }
-
-  onChangeRuleInt(e) {
-    const re = /^[0-9\b]+$/;
-    const { updatedRule } = this.state;
-    const { id, value } = e.currentTarget;
-    if (re.test(value)) {
-      this.setState({
-        updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
-      });
-    }
   }
 
   onChangeRuleRevert(e) {
@@ -159,29 +169,34 @@ export default class BounceRuleDetailedPage extends React.Component {
   async handleSaveConfirmation() {
     const { updatedRule } = this.state;
     const { id } = updatedRule;
-    await putRule(id, updatedRule);
-    getChangelog(id)
-      .then(res => {
-        const { data } = res;
+    await putRule(id, updatedRule)
+      .then(() => {
         this.setState({
-          currentRule: updatedRule,
-          changelog: data.reverse(),
+          isConfirmOpen: false,
+          isEditClicked: false,
+          isUpdateError: false,
         });
       })
       .catch(() => {
+        this.setState({ isUpdateError: true });
+      });
+    getChangelog(id).then(res => {
+      const { data } = res;
+      this.setState({
+        currentRule: updatedRule,
+        changelog: data.reverse(),
+        isNetworkError: false,
+      }).catch(() => {
         this.setState({ isNetworkError: true });
       });
-    this.setState({
-      isConfirmOpen: false,
-      isEditClicked: false,
     });
   }
 
-  paginate(rules) {
+  paginate(changelog) {
     const { pageIndex, pageInterval } = this.state;
     const ruleStartIndex = (pageIndex - 1) * pageInterval;
     const ruleEndIndex = (pageIndex - 1 * pageIndex + pageInterval) * pageIndex;
-    return rules.slice(ruleStartIndex, ruleEndIndex);
+    return changelog.slice(ruleStartIndex, ruleEndIndex);
   }
 
   updatePageIndex(newIndex) {
@@ -207,7 +222,9 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   render() {
-    const { currentRule } = this.state;
+    const { currentRule, changelog } = this.state;
+    const filteredChangelog = this.paginate(changelog);
+
     return (
       currentRule && (
         <BounceRuleDetailed
@@ -222,6 +239,8 @@ export default class BounceRuleDetailedPage extends React.Component {
           onChangeRuleInt={this.onChangeRuleInt}
           handleRevertConfirm={this.handleRevertConfirm}
           onChangeRuleRevert={this.onChangeRuleRevert}
+          updatePageIndex={this.updatePageIndex}
+          filteredChangelog={filteredChangelog}
           {...this.state}
         />
       )

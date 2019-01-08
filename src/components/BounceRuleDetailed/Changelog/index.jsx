@@ -100,7 +100,7 @@ const IndividualChange = ({ change, handleChangelogClicked, index }) => {
             id="isRevertConfirmOpen"
             onClick={handleChangelogClicked}
             onKeyDown={handleChangelogClicked}
-            index={index}
+            // index={index}
             icon="mc-return"
             role="button"
             tabIndex={0}
