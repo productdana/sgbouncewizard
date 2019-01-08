@@ -23,6 +23,15 @@ const Pagination = ({
   const shouldDisplayLastPage = pageIndex < totalPages - pagesToDisplay;
   const shouldDisplayPrev = pageIndex <= pagesToDisplay;
   const shouldDisplayNext = pageIndex > totalPages - pagesToDisplay;
+  console.log(prevPageIndex);
+  console.log(nextPageIndex);
+  console.log(updatePageIndex);
+  console.log("Page Index: ", pageIndex);
+  console.log(pageInterval);
+  console.log("Pages To Display:", pagesToDisplay);
+  console.log(numRules);
+  console.log("End Page:", endPage);
+  console.log("Start Page:", startPage);
   return (
     <div className="pagination pagination-container">
       <a

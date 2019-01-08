@@ -144,14 +144,9 @@ export const DetailsContainerEditable = ({
                 <strong>Bounce ID</strong>
               </TableCell>
               <TableCell>
-                <TextInput
-                  {...WriteSelectors.bounceId}
-                  onChange={onChangeRuleInt}
-                  id="id"
-                  value={id}
-                  type="text"
-                  label={id}
-                />
+                <div className="uneditable">
+                  <strong>{id}</strong>
+                </div>
               </TableCell>
             </TableRow>
             <TableRow>

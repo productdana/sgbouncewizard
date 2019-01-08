@@ -34,6 +34,8 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.handleRevertConfirm = this.handleRevertConfirm.bind(this);
     this.onChangeRuleRevert = this.onChangeRuleRevert.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
+    this.prevPageIndex = this.prevPageIndex.bind(this);
+    this.nextPageIndex = this.nextPageIndex.bind(this);
   }
 
   async componentDidMount() {
@@ -43,7 +45,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       .then(res => {
         const { data } = res;
         this.setState({
-          changelog: data.reverse(),
+          changelog: data,
           pagesToDisplay:
             data.length <= changelogLimit * pagesToDisplay
               ? Math.ceil(data.length / changelogLimit)
@@ -118,7 +120,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       .then(res => {
         const { data } = res;
         this.setState({
-          changelog: data.reverse(),
+          changelog: data,
         });
       })
       .catch(() => {
@@ -184,7 +186,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       const { data } = res;
       this.setState({
         currentRule: updatedRule,
-        changelog: data.reverse(),
+        changelog: data,
         isNetworkError: false,
       }).catch(() => {
         this.setState({ isNetworkError: true });
@@ -241,6 +243,8 @@ export default class BounceRuleDetailedPage extends React.Component {
           onChangeRuleRevert={this.onChangeRuleRevert}
           updatePageIndex={this.updatePageIndex}
           filteredChangelog={filteredChangelog}
+          prevPageIndex={this.prevPageIndex}
+          nextPageIndex={this.nextPageIndex}
           {...this.state}
         />
       )
