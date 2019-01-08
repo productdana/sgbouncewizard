@@ -14,6 +14,26 @@ function lastPageToDisplay(currentPageIndex, pagesToDisplay, totalPages) {
   return lastPage;
 }
 
+function firstPageToDisplay(endPage, pagesToDisplay) {
+  const startPage = endPage - (pagesToDisplay - 1);
+  return startPage <= 1 ? 1 : startPage;
+}
+
+function calShouldDisplayLastPage(
+  totalPages,
+  pagesToDisplay,
+  currentPageIndex,
+  endPage
+) {
+  if (totalPages < pagesToDisplay) {
+    return false;
+  }
+  if (currentPageIndex <= endPage) {
+    return true;
+  }
+  return false;
+}
+
 const Pagination = ({
   handlePrevClicked,
   handleNextClicked,
@@ -29,11 +49,17 @@ const Pagination = ({
     pagesToDisplay,
     totalPages
   );
-  const startPage = endPage - (pagesToDisplay - 1);
-  const shouldDisplayFirstPage = currentPageIndex >= pagesToDisplay;
-  const shouldDisplayLastPage = currentPageIndex <= endPage;
+  const startPage = firstPageToDisplay(endPage, pagesToDisplay);
+  const shouldDisplayFirstPage = currentPageIndex > pagesToDisplay;
+  const shouldDisplayLastPage = calShouldDisplayLastPage(
+    totalPages,
+    pagesToDisplay,
+    currentPageIndex,
+    endPage
+  );
   const shouldDisplayPrev = currentPageIndex === 1;
   const shouldDisplayNext = currentPageIndex === totalPages;
+
   return (
     <div className="pagination pagination-container">
       <a
