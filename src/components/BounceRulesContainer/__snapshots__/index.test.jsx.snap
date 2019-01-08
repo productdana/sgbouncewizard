@@ -500,17 +500,9 @@ exports[`should render correctly 1`] = `
             onKeyDown={[Function]}
             role="button"
             tabIndex="0"
+            value={-4}
           >
-            1
-          </a>
-          <a
-            className="pagination-link is-active"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex="0"
-          >
-            2
+            -4
           </a>
           <a
             className="pagination-link"
@@ -518,8 +510,9 @@ exports[`should render correctly 1`] = `
             onKeyDown={[Function]}
             role="button"
             tabIndex="0"
+            value={-3}
           >
-            3
+            -3
           </a>
           <a
             className="pagination-link"
@@ -527,8 +520,9 @@ exports[`should render correctly 1`] = `
             onKeyDown={[Function]}
             role="button"
             tabIndex="0"
+            value={-2}
           >
-            4
+            -2
           </a>
           <a
             className="pagination-link"
@@ -536,12 +530,23 @@ exports[`should render correctly 1`] = `
             onKeyDown={[Function]}
             role="button"
             tabIndex="0"
+            value={-1}
           >
-            5
+            -1
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+            value={0}
+          >
+            0
           </a>
         </div>
         <a
-          className="btn btn-secondary btn-small pagination-next is-disabled"
+          className="btn btn-secondary btn-small pagination-next "
           onClick={[Function]}
           onKeyDown={[Function]}
           role="button"
