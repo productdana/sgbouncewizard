@@ -18,7 +18,7 @@ const Header = () => (
       <Column width={2} offset={10}>
         <div className="header-user-container">
           <span data-test="user-greeting" className="header-greeting">
-            Hello, {localStorage.getItem("email") || "User"}!
+            Hello, {localStorage.getItem("username") || "User"}!
           </span>
           <a data-test="logout-button" className="header-logout" href="/">
             Logout

@@ -153,9 +153,14 @@ export default class BounceRulesPage extends React.Component {
   }
 
   handleCreateOpen(e) {
+    const { newRule } = this.state;
     const { id } = e.currentTarget;
     this.setState({
       [id]: true,
+      newRule: {
+        ...newRule,
+        user_id: parseInt(localStorage.getItem("user_id"), 10),
+      },
     });
   }
 
