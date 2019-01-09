@@ -99,6 +99,7 @@ export default class BounceRuleDetailedPage extends React.Component {
     const { changelog } = this.state;
     const { id } = e.currentTarget;
     const changeIndex = e.currentTarget.getAttribute("index");
+    console.log(changeIndex);
     this.setState({
       selectedChange: changelog[changeIndex],
       [id]: true,

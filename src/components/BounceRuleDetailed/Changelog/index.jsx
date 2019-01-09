@@ -92,7 +92,7 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
             id="isRevertConfirmOpen"
             onClick={handleChangelogClicked}
             onKeyDown={handleChangelogClicked}
-            // index={index}
+            index={index}
             icon="mc-return"
             role="button"
             tabIndex={0}
@@ -105,6 +105,7 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
             onClick={handleChangelogClicked}
             onKeyDown={handleChangelogClicked}
             index={index}
+            view-index={index}
             icon="view"
             role="button"
             tabIndex={0}
