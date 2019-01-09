@@ -37,7 +37,7 @@ exports[`should render correctly 1`] = `
             data-test="user-greeting"
           >
             Hello, 
-            Kenny
+            User
             !
           </span>
           <a
