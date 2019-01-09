@@ -10,18 +10,39 @@ import {
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 import { WriteSelectors } from "../../selectors";
+import "./index.scss";
 
-const ChangeModalBody = ({ currentRule, handleModalClose, selectedChange }) => (
+function getDifferences(currentRule, selectedChange) {
+  const differences = Object.keys(currentRule).filter(
+    k => currentRule[k] !== selectedChange[k]
+  );
+  return differences;
+}
+
+const ChangeModalBody = ({
+  currentRule,
+  handleModalClose,
+  selectedChange,
+  differences,
+}) => (
   <div className="changelog-modal">
     <Row>
       <Column width={6} offset={1}>
         <h1>Previous</h1>
-        <ChangeTable currentRule={selectedChange} />
+        <ChangeTable
+          isCurrentChange={false}
+          currentRule={selectedChange}
+          differences={differences}
+        />
       </Column>
       <Column width={6} offset={7}>
         <h1>Current</h1>
         <div>
-          <ChangeTable currentRule={currentRule} />
+          <ChangeTable
+            isCurrentChange
+            currentRule={currentRule}
+            differences={differences}
+          />
         </div>
       </Column>
     </Row>
@@ -36,7 +57,18 @@ const ChangeModalBody = ({ currentRule, handleModalClose, selectedChange }) => (
   </div>
 );
 
-const ChangeTable = ({ currentRule }) => {
+function displayChange(isCurrentChange, differences, keyToCheck) {
+  if (differences.includes(keyToCheck)) {
+    if (isCurrentChange) {
+      return "hasChangedCurrent";
+    } 
+      return "hasChangedPrevious";
+    
+  }
+  return "";
+}
+
+const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
   const {
     description,
     response_code: responseCode,
@@ -55,75 +87,135 @@ const ChangeTable = ({ currentRule }) => {
           <TableCell>
             <strong>Change Comment</strong>
           </TableCell>
-          <TableCell>{comment}</TableCell>
+          <TableCell
+            className={displayChange(isCurrentChange, differences, "comment")}
+          >
+            {comment}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>User</strong>
           </TableCell>
-          <TableCell>{userId}</TableCell>
+          <TableCell
+            className={displayChange(isCurrentChange, differences, "user_id")}
+          >
+            {userId}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Time Created</strong>
           </TableCell>
-          <TableCell>{createdAt}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "created_at"
+            )}
+          >
+            {createdAt}
+          </TableCell>
         </TableRow>
 
         <TableRow>
           <TableCell>
             <strong>Bounce Action</strong>
           </TableCell>
-          <TableCell>{bounceAction}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "bounce_action"
+            )}
+          >
+            {bounceAction}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Response Code</strong>
           </TableCell>
-          <TableCell>{responseCode}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "response_code"
+            )}
+          >
+            {responseCode}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Enhanced Code</strong>
           </TableCell>
-          <TableCell>{enhancedCode}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "enhanced_code"
+            )}
+          >
+            {enhancedCode}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>RegEx</strong>
           </TableCell>
-          <TableCell>{regex}</TableCell>
+          <TableCell
+            className={displayChange(isCurrentChange, differences, "regex")}
+          >
+            {regex}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Priority</strong>
           </TableCell>
-          <TableCell>{priority}</TableCell>
+          <TableCell
+            className={displayChange(isCurrentChange, differences, "priority")}
+          >
+            {priority}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Description</strong>
           </TableCell>
-          <TableCell>{description}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "description"
+            )}
+          >
+            {description}
+          </TableCell>
         </TableRow>
       </TableBody>
     </Table>
   );
 };
 
-const ChangeModal = ({ currentRule, handleModalClose, selectedChange }) => (
-  <CenterModal
-    {...WriteSelectors.changelogModal}
-    large
-    open
-    renderBody={(
-      <ChangeModalBody
-        handleModalClose={handleModalClose}
-        selectedChange={selectedChange}
-        currentRule={currentRule}
-      />
+const ChangeModal = ({ currentRule, handleModalClose, selectedChange }) => {
+  const differences = getDifferences(currentRule, selectedChange);
+  return (
+    <CenterModal
+      {...WriteSelectors.changelogModal}
+      large
+      open
+      renderBody={(
+        <ChangeModalBody
+          handleModalClose={handleModalClose}
+          selectedChange={selectedChange}
+          currentRule={currentRule}
+          differences={differences}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 export default ChangeModal;

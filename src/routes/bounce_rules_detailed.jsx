@@ -9,6 +9,7 @@ export default class BounceRuleDetailedPage extends React.Component {
 
     this.state = {
       currentRule: null,
+      updatedRule: null,
       changelog: [],
       isEditClicked: false,
       isChangeModalOpen: false,
@@ -98,8 +99,7 @@ export default class BounceRuleDetailedPage extends React.Component {
   handleChangelogClicked(e) {
     const { changelog } = this.state;
     const { id } = e.currentTarget;
-    const changeIndex = e.currentTarget.getAttribute("index");
-    console.log(changeIndex);
+    const changeIndex = parseInt(e.currentTarget.getAttribute("index"), 10);
     this.setState({
       selectedChange: changelog[changeIndex],
       [id]: true,
