@@ -3,7 +3,7 @@ import { Row } from "../Row";
 import { Column } from "../Column";
 import "./index.scss";
 
-const Header = ({ name }) => (
+const Header = () => (
   <div className="header-container">
     <Row>
       <Column width={3} offset={2}>
@@ -18,7 +18,7 @@ const Header = ({ name }) => (
       <Column width={2} offset={10}>
         <div className="header-user-container">
           <span data-test="user-greeting" className="header-greeting">
-            Hello, {name || "User"}!
+            Hello, {localStorage.getItem("email") || "User"}!
           </span>
           <a data-test="logout-button" className="header-logout" href="/">
             Logout

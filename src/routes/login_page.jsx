@@ -50,6 +50,7 @@ export default class LoginPage extends React.Component {
     try {
       const { data } = await authenticateUser({ email, password });
       if (data.id !== 0 && data.id !== undefined) {
+        localStorage.setItem("email", email);
         this.setState(() => ({
           isAuthenticating: false,
           isAuthenticated: true,

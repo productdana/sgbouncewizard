@@ -117,7 +117,7 @@ const BounceRulesContainer = ({
   handleActionOpen,
 }) => (
   <div {...WriteSelectors.page} className="container">
-    <Header name="Kenny" />
+    <Header />
     <Row>
       <Column width={6} offset={2}>
         <Breadcrumb>
