@@ -19,6 +19,16 @@ function getDifferences(currentRule, selectedChange) {
   return differences;
 }
 
+function displayChange(isCurrentChange, differences, keyToCheck) {
+  if (differences.includes(keyToCheck)) {
+    if (isCurrentChange) {
+      return "hasChangedCurrent";
+    }
+    return "hasChangedPrevious";
+  }
+  return "";
+}
+
 const ChangeModalBody = ({
   currentRule,
   handleModalClose,
@@ -56,17 +66,6 @@ const ChangeModalBody = ({
     </Row>
   </div>
 );
-
-function displayChange(isCurrentChange, differences, keyToCheck) {
-  if (differences.includes(keyToCheck)) {
-    if (isCurrentChange) {
-      return "hasChangedCurrent";
-    } 
-      return "hasChangedPrevious";
-    
-  }
-  return "";
-}
 
 const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
   const {
