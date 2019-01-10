@@ -178,15 +178,19 @@ const BounceRulesContainer = ({
           {isFetching && (
             <div className="bounce-rule-loader">
               <Loader centered />
+              <Row>
+                <p className="loading">Loading Rules</p>
+              </Row>
             </div>
           )}
-          {!isRulesEmpty && (
-            <RuleListContainer
-              handleActionOpen={handleActionOpen}
-              selectedRule={selectedRule}
-              rules={filteredRules}
-            />
-          )}
+          {!isRulesEmpty &&
+            !isFetching && (
+              <RuleListContainer
+                handleActionOpen={handleActionOpen}
+                selectedRule={selectedRule}
+                rules={filteredRules}
+              />
+            )}
           {isRulesEmpty &&
             !isFetching && (
               <div {...WriteSelectors.emptyRulesWarning}>
@@ -197,15 +201,18 @@ const BounceRulesContainer = ({
       </Row>
       <Row>
         <Column width={4} offset={5}>
-          <Pagination
-            prevPageIndex={prevPageIndex}
-            nextPageIndex={nextPageIndex}
-            pageIndex={pageIndex}
-            pageInterval={pageInterval}
-            numRules={numRules}
-            updatePageIndex={updatePageIndex}
-            pagesToDisplay={pagesToDisplay}
-          />
+          {!isRulesEmpty &&
+            !isFetching && (
+              <Pagination
+                prevPageIndex={prevPageIndex}
+                nextPageIndex={nextPageIndex}
+                pageIndex={pageIndex}
+                pageInterval={pageInterval}
+                numRules={numRules}
+                updatePageIndex={updatePageIndex}
+                pagesToDisplay={pagesToDisplay}
+              />
+            )}
         </Column>
       </Row>
       {isCreateRuleOpen && (
