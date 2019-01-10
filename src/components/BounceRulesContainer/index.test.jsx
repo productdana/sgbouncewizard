@@ -30,6 +30,7 @@ const testRules = [
 
 const wrapper = shallow(
   <BounceRuleContainer
+    rules={testRules}
     filteredRules={testRules}
     filterOptions={[]}
     pageIndex={1}

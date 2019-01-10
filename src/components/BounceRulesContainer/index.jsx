@@ -185,11 +185,13 @@ const BounceRulesContainer = ({
           )}
           {!isRulesEmpty &&
             !isFetching && (
-              <RuleListContainer
-                handleActionOpen={handleActionOpen}
-                selectedRule={selectedRule}
-                rules={filteredRules}
-              />
+              <div {...WriteSelectors.ruleTable}>
+                <RuleListContainer
+                  handleActionOpen={handleActionOpen}
+                  selectedRule={selectedRule}
+                  rules={filteredRules}
+                />
+              </div>
             )}
           {isRulesEmpty &&
             !isFetching && (
