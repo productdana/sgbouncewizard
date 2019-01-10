@@ -11,7 +11,7 @@ const authenticateUser = async credentials => {
   }).catch(() => {
     throw new Error("Network Error");
   });
-
+  console.log("authet Response:", response);
   if (response.status === 200) {
     return response;
   }
