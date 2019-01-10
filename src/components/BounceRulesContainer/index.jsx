@@ -115,9 +115,10 @@ const BounceRulesContainer = ({
   handleModalClose,
   handleCreateOpen,
   handleActionOpen,
+  logout,
 }) => (
   <div {...WriteSelectors.page} className="container">
-    <Header />
+    <Header logout={logout} />
     <Row>
       <Column width={6} offset={2}>
         <Breadcrumb>

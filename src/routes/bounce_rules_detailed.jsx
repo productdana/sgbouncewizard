@@ -1,5 +1,7 @@
 import React from "react";
 import _ from "underscore";
+import { Redirect } from "react-router-dom";
+
 import BounceRuleDetailed from "../components/BounceRuleDetailed";
 import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
 
@@ -21,7 +23,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       isNetworkError: false,
       changelogLimit: 10,
     };
-
+    this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleEditClicked = this.handleEditClicked.bind(this);
@@ -78,6 +80,12 @@ export default class BounceRuleDetailedPage extends React.Component {
         updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
       });
     }
+  }
+
+  logout() {
+    const { history } = this.props;
+    localStorage.clear();
+    history.push("/");
   }
 
   handleModalClose(e) {
@@ -187,24 +195,36 @@ export default class BounceRuleDetailedPage extends React.Component {
   render() {
     const { currentRule, changelog } = this.state;
     const filteredChangelog = this.paginate(changelog);
-
+    const isAuthenticated = localStorage.getItem("isAuth");
     return (
-      currentRule && (
-        <BounceRuleDetailed
-          handleModalClose={this.handleModalClose}
-          handleButtonClicked={this.handleButtonClicked}
-          onChangeRule={this.onChangeRule}
-          handleEditClicked={this.handleEditClicked}
-          handleCancelSaveClicked={this.handleCancelSaveClicked}
-          handleChangelogClicked={this.handleChangelogClicked}
-          handleCancelConfirmation={this.handleCancelConfirmation}
-          handleSaveConfirmation={this.handleSaveConfirmation}
-          onChangeRuleInt={this.onChangeRuleInt}
-          updatePageIndex={this.updatePageIndex}
-          filteredChangelog={filteredChangelog}
-          {...this.state}
-        />
-      )
+      <React.Fragment>
+        {!isAuthenticated && (
+          <Redirect
+            push
+            to={{
+              pathname: `/`,
+            }}
+          />
+        )}
+        {isAuthenticated &&
+          currentRule && (
+            <BounceRuleDetailed
+              logout={this.logout}
+              handleModalClose={this.handleModalClose}
+              handleButtonClicked={this.handleButtonClicked}
+              onChangeRule={this.onChangeRule}
+              handleEditClicked={this.handleEditClicked}
+              handleCancelSaveClicked={this.handleCancelSaveClicked}
+              handleChangelogClicked={this.handleChangelogClicked}
+              handleCancelConfirmation={this.handleCancelConfirmation}
+              handleSaveConfirmation={this.handleSaveConfirmation}
+              onChangeRuleInt={this.onChangeRuleInt}
+              updatePageIndex={this.updatePageIndex}
+              filteredChangelog={filteredChangelog}
+              {...this.state}
+            />
+          )}
+      </React.Fragment>
     );
   }
 }

@@ -52,6 +52,7 @@ export default class LoginPage extends React.Component {
       if (data.id !== 0 && data.id !== undefined) {
         localStorage.setItem("user_id", data.id);
         localStorage.setItem("username", data.first_name);
+        localStorage.setItem("isAuth", true);
         this.setState(() => ({
           isAuthenticating: false,
           isAuthenticated: true,
