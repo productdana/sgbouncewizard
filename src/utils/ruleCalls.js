@@ -42,7 +42,7 @@ export const deleteRule = async ruleId => {
 
 export const getChangelog = async ruleId => {
   const response = await axios.get(
-    `${process.env.API_URL}/changelogs/${ruleId}`
+    `${process.env.API_URL}/change_logs/${ruleId}`
   );
   if (response.status === 200) {
     return response;
