@@ -11,6 +11,8 @@ const {
   ruleFilter,
   ruleTable,
   emptyRulesWarning,
+  createRuleModal,
+  confirmModal,
 } = Selectors;
 
 const testRules = [
@@ -33,6 +35,7 @@ const wrapper = shallow(
     pageIndex={1}
     numRules={1}
     pageInterval={0}
+    pagesToDisplay={5}
   />
 );
 
@@ -44,6 +47,7 @@ it("should render correctly", () => {
         filteredRules={testRules}
         filterOptions={[]}
         pageIndex={2}
+        pagesToDisplay={5}
       />
     )
     .toJSON();
@@ -73,4 +77,14 @@ it("should render paginiation", () => {
 it("should render warning when no rules available", () => {
   wrapper.setProps({ filteredRules: [], rules: [] });
   expect(wrapper.find(emptyRulesWarning)).toHaveLength(1);
+});
+
+it("should render create rule modal", () => {
+  wrapper.setProps({ isCreateRuleOpen: true });
+  expect(wrapper.find(createRuleModal)).toHaveLength(1);
+});
+
+it("should render create rule confirmation", () => {
+  wrapper.setProps({ isCreateRuleConfirmationOpen: true });
+  expect(wrapper.find(confirmModal)).toHaveLength(1);
 });

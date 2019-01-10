@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "bounce_rules": [
     {
       "id": 173,
@@ -156,6 +157,13 @@
     {
       "id": 190,
       "response_code": "555",
+=======
+  "user": {},
+  "bounce_rules": [
+    {
+      "id": 190,
+      "response_code": 555,
+>>>>>>> origin
       "enhanced_code": "",
       "regex": "",
       "priority": 0,
@@ -164,7 +172,11 @@
     },
     {
       "id": 191,
+<<<<<<< HEAD
       "response_code": "556",
+=======
+      "response_code": 556,
+>>>>>>> origin
       "enhanced_code": "",
       "regex": "",
       "priority": 0,
@@ -173,7 +185,11 @@
     },
     {
       "id": 192,
+<<<<<<< HEAD
       "response_code": "0",
+=======
+      "response_code": 0,
+>>>>>>> origin
       "enhanced_code": "5.1.1",
       "regex": "",
       "priority": 0,
@@ -182,7 +198,11 @@
     },
     {
       "id": 193,
+<<<<<<< HEAD
       "response_code": "0",
+=======
+      "response_code": 0,
+>>>>>>> origin
       "enhanced_code": "5.1.2",
       "regex": "",
       "priority": 0,
@@ -191,7 +211,11 @@
     },
     {
       "id": 194,
+<<<<<<< HEAD
       "response_code": "0",
+=======
+      "response_code": 0,
+>>>>>>> origin
       "enhanced_code": "5.1.3",
       "regex": "",
       "priority": 0,
@@ -200,7 +224,11 @@
     },
     {
       "id": 195,
+<<<<<<< HEAD
       "response_code": "0",
+=======
+      "response_code": 0,
+>>>>>>> origin
       "enhanced_code": "5.1.4",
       "regex": "",
       "priority": 0,
@@ -209,6 +237,7 @@
     },
     {
       "id": 196,
+<<<<<<< HEAD
       "response_code": "0",
       "enhanced_code": "5.1.6",
       "regex": "",
@@ -683,6 +712,104 @@
       "priority": 0,
       "description": "UkZDMzQ2MyBDb252ZXJzaW9uIHJlcXVpcmVkIGJ1dCBub3Qgc3VwcG9ydGVk",
       "bounce_action": "no_action"
+=======
+      "response_code": 0,
+      "enhanced_code": "5.1.6",
+      "regex": "",
+      "priority": 1,
+      "description": "UkZDMzQ2MyBEZXN0aW5hdGlvbiBtYWlsYm94IGhhcyBtb3ZlZA==asd",
+      "bounce_action": "suppress",
+      "comment": "Increased Priority by 1"
+    },
+    {
+      "priority": 2,
+      "bounce_action": "cypressCreateTest",
+      "response_code": 918,
+      "description": "testDescription",
+      "enhanced_code": "492",
+      "regex": "testRegex",
+      "id": 197
+    },
+    {
+      "priority": 2,
+      "bounce_action": "cypressDetailedTest",
+      "response_code": 281,
+      "description": "cypressDetailedTest",
+      "enhanced_code": "384",
+      "regex": "kjfgsdlfg",
+      "id": 198
+    },
+    {
+      "priority": 2,
+      "bounce_action": "cypressDetailedTest",
+      "response_code": 281,
+      "description": "cypressDetailedTest",
+      "enhanced_code": "384",
+      "regex": "kjfgsdlfg",
+      "id": 199
+    }
+  ],
+  "changelogs": [
+    {
+      "id": 196,
+      "changelog": [
+        {
+          "id": 196,
+          "user_id": "t_swift",
+          "createdat": "1545864797",
+          "comment": "this is my first commit",
+          "response_code": 0,
+          "enhanced_code": "4.2.0",
+          "regex": "",
+          "priority": 0,
+          "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
+          "bounce_action": "retry"
+        },
+        {
+          "id": 196,
+          "user_id": "t_swift",
+          "createdat": "1745864797",
+          "comment": "this is my second commit",
+          "response_code": 1,
+          "enhanced_code": "5.2.0",
+          "regex": "asdasd",
+          "priority": 2,
+          "description": "gsklfdsdkfs",
+          "bounce_action": "retry"
+        }
+      ]
+    },
+    {
+      "id": 195,
+      "changelog": [
+        {
+          "id": 195,
+          "user_id": "papa_ziv",
+          "createdat": "1645864797",
+          "response_code": 0,
+          "enhanced_code": "4.2.0",
+          "regex": "",
+          "priority": 0,
+          "description": "UkZDMzQ2MyBPdGhlciBvciB1bmRlZmluZWQgbWFpbGJveCBzdGF0dXM=",
+          "bounce_action": "retry"
+        },
+        {
+          "id": 195,
+          "user_id": "papa_ziv",
+          "createdat": "1945864797",
+          "response_code": 1,
+          "enhanced_code": "5.2.0",
+          "regex": "asdasd",
+          "priority": 2,
+          "description": "gsklfdsdkfs",
+          "bounce_action": "retry"
+        }
+      ]
+    },
+    {
+      "id": 200,
+      "changelog": []
+>>>>>>> origin
     }
   ]
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "underscore";
 import BounceRuleDetailed from "../components/BounceRuleDetailed";
-import { getRule } from "../utils/ruleCalls";
+import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
 
 export default class BounceRuleDetailedPage extends React.Component {
   constructor(props) {
@@ -9,149 +9,199 @@ export default class BounceRuleDetailedPage extends React.Component {
 
     this.state = {
       currentRule: null,
+      changelog: [],
       isEditClicked: false,
       isChangeModalOpen: false,
       isCancelConfirmOpen: false,
       isConfirmOpen: false,
+      isUpdateError: false,
+      pageIndex: 1,
+      pageInterval: 10,
+      pagesToDisplay: 5,
+      isNetworkError: false,
+      changelogLimit: 10,
     };
 
     this.onChangeRule = this.onChangeRule.bind(this);
-    this.handleButtonClicked = this.handleButtonClicked.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
-    this.handleModalConfirm = this.handleModalConfirm.bind(this);
+    this.handleEditClicked = this.handleEditClicked.bind(this);
+    this.handleCancelSaveClicked = this.handleCancelSaveClicked.bind(this);
+    this.handleChangelogClicked = this.handleChangelogClicked.bind(this);
+    this.handleCancelConfirmation = this.handleCancelConfirmation.bind(this);
+    this.handleSaveConfirmation = this.handleSaveConfirmation.bind(this);
+    this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
+    this.updatePageIndex = this.updatePageIndex.bind(this);
   }
 
-  componentDidMount() {
-    const { match, location } = this.props;
-    if (location.state == null) {
-      getRule(match.params.bounceRuleId).then(response => {
+  async componentDidMount() {
+    const { match } = this.props;
+    const { changelogLimit, pagesToDisplay } = this.state;
+    getChangelog(match.params.bounceRuleId)
+      .then(res => {
+        const { data } = res;
         this.setState({
-          currentRule: response.data,
+          changelog: data.reverse(),
+          pagesToDisplay:
+            data.length <= changelogLimit * pagesToDisplay
+              ? Math.ceil(data.length / changelogLimit)
+              : 5,
         });
+      })
+      .catch(() => {
+        this.setState({ isNetworkError: true });
       });
-    } else {
+    const { data, status } = await getRule(match.params.bounceRuleId);
+    if (status === 200) {
       this.setState({
-        currentRule: location.state.currentRule,
+        currentRule: data,
       });
     }
   }
 
-  onChangeRule(event) {
-    const { id, value } = event.currentTarget;
-    const { currentRule } = this.state;
+  onChangeRule(e) {
+    const { id, value } = e.currentTarget;
+    const { updatedRule } = this.state;
     this.setState({
-      currentRule: { ...currentRule, [id]: value },
+      updatedRule: { ...updatedRule, [id]: value },
     });
   }
 
-  handleModalClose(event) {
-    const { id } = event.currentTarget;
-    switch (id) {
-      case "changeModal": {
-        this.setState({
-          isChangeModalOpen: false,
-        });
-        break;
-      }
-      case "cancelModal": {
-        this.setState({
-          isCancelConfirmOpen: false,
-        });
-        break;
-      }
-      case "saveModal": {
-        this.setState({
-          isConfirmOpen: false,
-        });
-        break;
-      }
-      default: {
-        break;
-      }
+  onChangeRuleInt(e) {
+    const { updatedRule } = this.state;
+    const { id, value } = e.currentTarget;
+    if (!value) {
+      this.setState({
+        updatedRule: { ...updatedRule, [id]: value },
+      });
+    } else {
+      this.setState({
+        updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
+      });
     }
   }
 
-  handleButtonClicked(event) {
-    const { currentRule, prevRule } = this.state;
-    const { id } = event.currentTarget;
-    switch (id) {
-      case "cancelClicked": {
-        if (!_.isEqual(prevRule, currentRule)) {
-          this.setState({
-            isCancelConfirmOpen: true,
-          });
-        } else {
-          this.setState({
-            isEditClicked: false,
-          });
-        }
-        break;
-      }
-      case "editClicked": {
-        this.setState({
-          isEditClicked: true,
-          prevRule: { ...currentRule },
-        });
-        break;
-      }
-      case "saveClicked": {
-        if (!_.isEqual(prevRule, currentRule)) {
-          this.setState({
-            isConfirmOpen: true,
-          });
-        } else {
-          this.setState({
-            isEditClicked: false,
-          });
-        }
-        break;
-      }
-      case "changeClicked": {
-        this.setState({
-          isChangeModalOpen: true,
-        });
-        break;
-      }
-      default: {
-        break;
-      }
+  handleModalClose(e) {
+    const { id } = e.currentTarget;
+    this.setState({
+      [id]: false,
+    });
+  }
+
+  handleChangelogClicked(e) {
+    const { changelog } = this.state;
+    const changeIndex = e.currentTarget.getAttribute("index");
+    this.setState({
+      selectedChange: changelog[changeIndex],
+      isChangeModalOpen: true,
+    });
+  }
+
+  handleEditClicked(e) {
+    const { id } = e.currentTarget;
+    const { currentRule } = this.state;
+    this.setState({
+      [id]: true,
+      updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
+    });
+  }
+
+  handleCancelSaveClicked(e) {
+    const { id } = e.currentTarget;
+    const { currentRule, updatedRule } = this.state;
+    if (
+      !_.isEqual(
+        updatedRule,
+        _.omit(currentRule, ["created_at", "comment", "user_id"])
+      )
+    ) {
+      this.setState({
+        [id]: true,
+      });
+    } else {
+      this.setState({
+        isEditClicked: false,
+      });
     }
   }
 
-  handleModalConfirm(event) {
-    const { prevRule } = this.state;
-    const { id } = event.currentTarget;
-    switch (id) {
-      case "cancelModal": {
-        this.setState({
-          currentRule: { ...prevRule },
-          isCancelConfirmOpen: false,
-          isEditClicked: false,
-        });
-        break;
-      }
-      case "saveModal": {
+  handleCancelConfirmation() {
+    this.setState({
+      isCancelConfirmOpen: false,
+      isEditClicked: false,
+    });
+  }
+
+  async handleSaveConfirmation() {
+    const { updatedRule } = this.state;
+    const { id } = updatedRule;
+    await putRule(id, updatedRule)
+      .then(() => {
         this.setState({
           isConfirmOpen: false,
           isEditClicked: false,
         });
-        break;
-      }
-      default: {
-        break;
-      }
-    }
+      })
+      .catch(() => {
+        this.setState({
+          isUpdateError: true,
+        });
+      });
+    getChangelog(id).then(res => {
+      const { data } = res;
+      this.setState({
+        currentRule: updatedRule,
+        changelog: data.reverse(),
+      });
+    });
+  }
+
+  paginate(changelog) {
+    const { pageIndex, pageInterval } = this.state;
+    const ruleStartIndex = (pageIndex - 1) * pageInterval;
+    const ruleEndIndex = (pageIndex - 1 * pageIndex + pageInterval) * pageIndex;
+    return changelog.slice(ruleStartIndex, ruleEndIndex);
+  }
+
+  updatePageIndex(newIndex) {
+    this.setState(prevState => ({
+      pageIndex:
+        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
+    }));
+  }
+
+  prevPageIndex() {
+    this.setState(prevState => ({
+      pageIndex:
+        prevState.pageIndex > 1
+          ? prevState.pageIndex - prevState.pagesToDisplay
+          : 0,
+    }));
+  }
+
+  nextPageIndex() {
+    this.setState(prevState => ({
+      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
+    }));
   }
 
   render() {
-    const { currentRule } = this.state;
+    const { currentRule, changelog } = this.state;
+    const filteredChangelog = this.paginate(changelog);
+
     return (
       currentRule && (
         <BounceRuleDetailed
           handleModalClose={this.handleModalClose}
           handleButtonClicked={this.handleButtonClicked}
-          handleModalConfirm={this.handleModalConfirm}
           onChangeRule={this.onChangeRule}
+          handleEditClicked={this.handleEditClicked}
+          handleCancelSaveClicked={this.handleCancelSaveClicked}
+          handleChangelogClicked={this.handleChangelogClicked}
+          handleCancelConfirmation={this.handleCancelConfirmation}
+          handleSaveConfirmation={this.handleSaveConfirmation}
+          onChangeRuleInt={this.onChangeRuleInt}
+          updatePageIndex={this.updatePageIndex}
+          filteredChangelog={filteredChangelog}
           {...this.state}
         />
       )

@@ -53,13 +53,6 @@
   }
 }
 
-.header-button {
-  width: 125px;
-  &.cancel-button {
-    margin-right: 10px;
-  }
-}
-
 .sg-button {
   width: 125px;
 }
@@ -91,6 +84,18 @@
     padding-right: 0;
     text-align: right;
   }
+
+  .changelog-csv {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    padding-left: 4rem;
+    margin: 0;
+  }
+
+  h2 {
+    margin-bottom: 5px;
+  }
 }
 
 .changelog-view-icon-cell {
@@ -105,18 +110,27 @@
 }
 
 .changelog-modal {
-  padding: 3vh;
+  padding: 2vh;
+
+  .table-wrap td,
+  .table-wrap th {
+    padding: 0.8rem;
+  }
 
   h1 {
     margin-bottom: 0px;
   }
   .change-table {
     > td {
-      padding: 15px;
+      padding: 10rem;
     }
   }
 
   .changelog-modal-button {
-    margin-top: 25px;
+    text-align: right;
   }
+}
+
+.uneditable {
+  padding: 10px;
 }

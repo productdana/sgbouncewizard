@@ -20,7 +20,7 @@ const Pagination = ({
   const startPage = endPage - (pagesToDisplay - 1);
   const totalPages = Math.ceil(numRules / pageInterval);
   const shouldDisplayFirstPage = pageIndex > pagesToDisplay;
-  const shouldDisplayLastPage = pageIndex <= totalPages - pagesToDisplay;
+  const shouldDisplayLastPage = pageIndex < totalPages - pagesToDisplay;
   const shouldDisplayPrev = pageIndex <= pagesToDisplay;
   const shouldDisplayNext = pageIndex > totalPages - pagesToDisplay;
   return (

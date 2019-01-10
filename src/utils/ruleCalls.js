@@ -8,12 +8,55 @@ export const listRules = async () => {
   throw new Error("Error retrieving all rules");
 };
 
+export const postRule = async data => {
+  const response = await axios.post(
+    `${process.env.API_URL}/bounce_rules`,
+    data
+  );
+  return response;
+};
+
 export const getRule = async ruleId => {
-  const response = axios.get(`${process.env.API_URL}/${ruleId}`).catch(err => {
-    throw new Error(err);
-  });
+  const response = await axios.get(
+    `${process.env.API_URL}/bounce_rules/${ruleId}`
+  );
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Error retrieving all rules");
+  throw new Error("Error retrieving rules");
+};
+
+export const deleteRule = async ruleId => {
+  const response = await axios.delete(
+    `${process.env.API_URL}/bounce_rules/${ruleId}`,
+    {
+      params: { id: ruleId },
+      crossdomain: true,
+    }
+  );
+  if (response.status === 200) {
+    return response;
+  }
+  throw new Error("Error deleting bounce rule");
+};
+
+export const getChangelog = async ruleId => {
+  const response = await axios.get(
+    `${process.env.API_URL}/changelogs/${ruleId}`
+  );
+  if (response.status === 200) {
+    return response;
+  }
+  throw new Error("Error retrieving all changelogs");
+};
+
+export const putRule = async (ruleId, data) => {
+  const response = await axios.put(
+    `${process.env.API_URL}/bounce_rules/${ruleId}`,
+    data
+  );
+  if (response.status === 200) {
+    return response;
+  }
+  throw new Error("Error updating bounce rule");
 };
