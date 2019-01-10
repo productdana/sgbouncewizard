@@ -141,6 +141,7 @@ export default class BounceRuleDetailedPage extends React.Component {
 
   async handleSaveConfirmation() {
     const { updatedRule } = this.state;
+    updatedRule.user_id = localStorage.getItem("user_id");
     const { id } = updatedRule;
     await putRule(id, updatedRule)
       .then(() => {
