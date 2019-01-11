@@ -3,6 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import StoryRouter from "storybook-react-router";
 import "./index.scss";
+import BounceRuleDetailed from ".";
 import DetailsContainer, { DetailsContainerEditable } from "./Details";
 import Changelog from "./Changelog";
 import ChangeModal from "./Modals/ChangeModal";
@@ -36,18 +37,30 @@ const sampleChangelog = {
   comment: "Testing changelog 1",
 };
 
+const store = {
+  currentRule: sampleRule,
+  updatedRule: sampleRule,
+  changelog: [sampleChangelog],
+  isEditClicked: false,
+  isChangeModalOpen: false,
+  isCancelConfirmOpen: false,
+  isConfirmOpen: false,
+  isUpdateError: false,
+  pageIndex: 1,
+  pageInterval: 10,
+  pagesToDisplay: 5,
+  isNetworkError: false,
+  changelogLimit: 10,
+};
+
 class BounceRuleDetailsContainer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentRule: sampleRule,
-      updatedRule: sampleRule,
-      isEditClicked: false,
-      changelog: [sampleChangelog],
+      ...store,
       ...this.props,
     };
-
     this.onChangeRule = this.onChangeRule.bind(this);
   }
 
@@ -80,6 +93,27 @@ class BounceRuleDetailsContainer extends React.Component {
     );
   }
 }
+
+storiesOf("Bounce Rule Detailed Page", module)
+  .addDecorator(StoryRouter())
+  .add("Default", () => (
+    <BounceRuleDetailsContainer
+      render={(
+        onChangeRule,
+        currentRule,
+        updatedRule,
+        isEditClicked,
+        changelog
+      ) => (
+        <BounceRuleDetailed
+          currentRule={currentRule}
+          updatedRule={updatedRule}
+          changelog={changelog}
+          filteredChangelog={changelog}
+        />
+      )}
+    />
+  ));
 
 storiesOf("Bounce Rule Details", module)
   .addDecorator(StoryRouter())
