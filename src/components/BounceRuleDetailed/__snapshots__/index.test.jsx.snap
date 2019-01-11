@@ -1,3 +1,417 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bounce Rule Detailed should render correctly 1`] = `undefined`;
+exports[`Bounce Rule Detailed should render correctly 1`] = `
+<div
+  className="detailed-page-container"
+>
+  <div
+    className="header-container"
+  >
+    <div
+      className="mako-grid__row"
+    >
+      <div
+        className="mako-grid__col-3 col-start-2"
+      >
+        <img
+          alt="sendgrid-logo"
+          className="sg-logo"
+          data-test="sg-logo"
+          src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
+          style={
+            Object {
+              "maxWidth": "150px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="mako-grid__col-2 col-start-10"
+      >
+        <div
+          className="header-user-container"
+        >
+          <span
+            className="header-greeting"
+            data-test="user-greeting"
+          >
+            Hello, 
+            User
+            !
+          </span>
+          <a
+            className="header-logout"
+            data-test="logout-button"
+            href="/"
+          >
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-6 col-start-2"
+    >
+      <ol
+        className="breadcrumb"
+      >
+        <li>
+          <a
+            href="/bounce_rules"
+            onClick={[Function]}
+          >
+            Bounce Rules
+          </a>
+        </li>
+        <li>
+          <a
+            href="/bounce_rules/504"
+            onClick={[Function]}
+          >
+            504
+          </a>
+        </li>
+        <li />
+      </ol>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-6 col-start-2"
+    >
+      <h1>
+        Bounce Rule 
+        504
+      </h1>
+    </div>
+    <div
+      className="mako-grid__col-1 col-start-11 details-button-column"
+    >
+      <span>
+        <button
+          className="btn btn-primary sg-button edit-button"
+          data-test="edit-button"
+          disabled={false}
+          id="isEditClicked"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          type="button"
+        >
+          Edit Rule
+        </button>
+      </span>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-10 col-start-2"
+    >
+      <div>
+        <div
+          className="detail-container card "
+          id="isEditClicked"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="searchbox"
+          tabIndex={0}
+        >
+          <div
+            className="editable"
+          >
+            <i
+              className="sg-icon sg-icon-editor-design"
+            />
+          </div>
+          <div
+            className="description-info"
+          >
+            <table
+              className="table-wrap table-fixed"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    className="description-cell"
+                  >
+                    <strong>
+                      Description
+                    </strong>
+                  </td>
+                  <td>
+                     
+                    bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl
+                     
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            className="detail-info"
+          >
+            <table
+              className="table-wrap"
+            >
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>
+                      Bounce ID
+                    </strong>
+                  </td>
+                  <td>
+                     
+                    504
+                     
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>
+                      Response Code
+                    </strong>
+                  </td>
+                  <td>
+                     
+                    550
+                     
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>
+                      Enhanced Code
+                    </strong>
+                  </td>
+                  <td>
+                     
+                    
+                     
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table
+              className="table-wrap"
+            >
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>
+                      Regex
+                    </strong>
+                  </td>
+                  <td>
+                     
+                    no MX record for domain
+                     
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>
+                      Priority
+                    </strong>
+                  </td>
+                  <td>
+                     
+                    0
+                     
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>
+                      Bounce Action
+                    </strong>
+                  </td>
+                  <td>
+                     
+                    no_action
+                     
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row changelog-container"
+  >
+    <div
+      className="mako-grid__col-10 col-start-2"
+    >
+      <div>
+        <div
+          className="mako-grid__row"
+          id="changelog-title"
+        >
+          <div
+            className="mako-grid__col-1 col-start-1"
+          >
+            <h2>
+              Changelog
+            </h2>
+          </div>
+          <div
+            className="mako-grid__col-2 col-start-11 changelog-csv sg-right"
+          >
+            <a
+              download="changelog.csv"
+              href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\",\\"user_id\\"
+\\"504\\",\\"550\\",\\"\\",\\"no MX record for domain\\",\\"0\\",\\"bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl\\",\\"no_action\\",\\"0\\""
+              onClick={[Function]}
+              target="_blank"
+            >
+              Export as CSV
+            </a>
+          </div>
+        </div>
+        <table
+          className="table-wrap"
+        >
+          <thead>
+            <tr>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Date
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                User
+              </th>
+              <th
+                className=""
+                onClick={[Function]}
+              >
+                Commit Message
+              </th>
+              <th
+                className="actions-align"
+                onClick={[Function]}
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Invalid date
+              </td>
+              <td>
+                0
+              </td>
+              <td />
+              <td
+                className="changelog-view-icon-cell"
+              >
+                <i
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="changeClicked"
+                  index={0}
+                  onClick={[MockFunction]}
+                  onKeyDown={[MockFunction]}
+                  role="button"
+                  tabIndex={0}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-4 col-start-5"
+    >
+      <div
+        className="pagination pagination-container"
+      >
+        <a
+          className="btn btn-secondary btn-small pagination-prev is-disabled"
+          role="button"
+          tabIndex="0"
+        >
+          Prev
+        </a>
+        <div
+          className="pagination-links"
+        >
+          <a
+            className="pagination-link is-active"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            1
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            2
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            3
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            4
+          </a>
+          <a
+            className="pagination-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            5
+          </a>
+        </div>
+        <a
+          className="btn btn-secondary btn-small pagination-next is-disabled"
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+          Next
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

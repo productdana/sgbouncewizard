@@ -26,7 +26,6 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
       role="searchbox"
       tabIndex={0}
       className="detail-container card "
-      {...WriteSelectors.details}
     >
       <div className="editable">
         <i className="sg-icon sg-icon-editor-design" />
@@ -108,10 +107,7 @@ export const DetailsContainerEditable = ({
     priority,
   } = updatedRule;
   return (
-    <div
-      {...WriteSelectors.detailsEditable}
-      className="detail-container detail-container-editable card "
-    >
+    <div className="detail-container detail-container-editable card ">
       <div className="editable">
         <i className="sg-icon sg-icon-editor-design" />
       </div>
