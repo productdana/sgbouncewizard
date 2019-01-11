@@ -99,8 +99,8 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           data-test="edit-button"
           disabled={false}
           id="isEditClicked"
-          onClick={[Function]}
-          onKeyDown={[Function]}
+          onClick={[MockFunction]}
+          onKeyDown={[MockFunction]}
           type="button"
         >
           Edit Rule
@@ -118,8 +118,8 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
         <div
           className="detail-container card "
           id="isEditClicked"
-          onClick={[Function]}
-          onKeyDown={[Function]}
+          onClick={[MockFunction]}
+          onKeyDown={[MockFunction]}
           role="searchbox"
           tabIndex={0}
         >
