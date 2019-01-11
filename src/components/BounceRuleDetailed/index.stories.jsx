@@ -73,21 +73,23 @@ class BounceRuleDetailsContainer extends React.Component {
   }
 
   render() {
-    const {
-      render,
-      currentRule,
-      updatedRule,
-      isEditClicked,
-      changelog,
-    } = this.state;
+    // const {
+    //   render,
+    //   currentRule,
+    //   updatedRule,
+    //   isEditClicked,
+    //   changelog
+    // } = this.state;
+    const { render } = this.state;
     return (
       <div>
         {render(
-          this.onChangeRule,
-          currentRule,
-          updatedRule,
-          isEditClicked,
-          changelog
+          // this.onChangeRule,
+          // currentRule,
+          // updatedRule,
+          // isEditClicked,
+          // changelog
+          { ...this.state }
         )}
       </div>
     );
@@ -98,18 +100,80 @@ storiesOf("Bounce Rule Detailed Page", module)
   .addDecorator(StoryRouter())
   .add("Default", () => (
     <BounceRuleDetailsContainer
-      render={(
-        onChangeRule,
-        currentRule,
-        updatedRule,
-        isEditClicked,
-        changelog
-      ) => (
+      render={({ currentRule, updatedRule, changelog }) => (
         <BounceRuleDetailed
           currentRule={currentRule}
           updatedRule={updatedRule}
           changelog={changelog}
           filteredChangelog={changelog}
+        />
+      )}
+    />
+  ))
+  .add("Empty Changelog", () => (
+    <BounceRuleDetailsContainer
+      render={({ currentRule, updatedRule }) => (
+        <BounceRuleDetailed
+          currentRule={currentRule}
+          updatedRule={updatedRule}
+          changelog={[]}
+          filteredChangelog={[]}
+        />
+      )}
+    />
+  ))
+  .add("Edit Mode", () => (
+    <BounceRuleDetailsContainer
+      render={({ onChangeRule, currentRule, updatedRule }) => (
+        <BounceRuleDetailed
+          currentRule={currentRule}
+          updatedRule={updatedRule}
+          isEditClicked
+          onChangeRule={onChangeRule}
+          changelog={[]}
+          filteredChangelog={[]}
+        />
+      )}
+    />
+  ))
+  .add("Confirm Changes", () => (
+    <BounceRuleDetailsContainer
+      render={({ onChangeRule, currentRule, updatedRule }) => (
+        <BounceRuleDetailed
+          currentRule={currentRule}
+          updatedRule={updatedRule}
+          isConfirmOpen
+          onChangeRule={onChangeRule}
+          changelog={[]}
+          filteredChangelog={[]}
+        />
+      )}
+    />
+  ))
+  .add("Cancel Changes", () => (
+    <BounceRuleDetailsContainer
+      render={({ onChangeRule, currentRule, updatedRule }) => (
+        <BounceRuleDetailed
+          currentRule={currentRule}
+          updatedRule={updatedRule}
+          isCancelConfirmOpen
+          onChangeRule={onChangeRule}
+          changelog={[]}
+          filteredChangelog={[]}
+        />
+      )}
+    />
+  ))
+  .add("Viewing Change Details", () => (
+    <BounceRuleDetailsContainer
+      render={({ currentRule, updatedRule }) => (
+        <BounceRuleDetailed
+          currentRule={currentRule}
+          updatedRule={updatedRule}
+          selectedChange={sampleChangelog}
+          changelog={[]}
+          filteredChangelog={[]}
+          isChangeModalOpen
         />
       )}
     />
@@ -120,13 +184,7 @@ storiesOf("Bounce Rule Details", module)
   .add("Default", () => <DetailsContainer currentRule={sampleRule} />)
   .add("Editable", () => (
     <BounceRuleDetailsContainer
-      render={(
-        onChangeRule,
-        currentRule,
-        updatedRule,
-        isEditClicked,
-        changelog
-      ) => (
+      render={({ onChangeRule, currentRule, updatedRule, changelog }) => (
         <DetailsContainerEditable
           currentRule={currentRule}
           updatedRule={updatedRule}
@@ -141,13 +199,7 @@ storiesOf("Bounce Rule Details", module)
 storiesOf("Bounce Rule Changelog", module)
   .add("Default", () => (
     <BounceRuleDetailsContainer
-      render={(
-        onChangeRule,
-        currentRule,
-        updatedRule,
-        isEditClicked,
-        changelog
-      ) => <Changelog changelog={changelog} />}
+      render={({ changelog }) => <Changelog changelog={changelog} />}
     />
   ))
   .add("Empty", () => <Changelog changelog={[]} isChangelogEmpty />);
@@ -155,7 +207,7 @@ storiesOf("Bounce Rule Changelog", module)
 storiesOf("Modals", module)
   .add("Change Log Modal", () => (
     <BounceRuleDetailsContainer
-      render={(currentRule, updatedRule) => (
+      render={({ currentRule, updatedRule }) => (
         <ChangeModal
           currentRule={currentRule}
           selectedChange={updatedRule}
@@ -166,7 +218,9 @@ storiesOf("Modals", module)
   ))
   .add("Confirmation Modal", () => (
     <BounceRuleDetailsContainer
-      render={updatedRule => <ConfirmationModal updatedRule={updatedRule} />}
+      render={({ updatedRule }) => (
+        <ConfirmationModal updatedRule={updatedRule} />
+      )}
     />
   ))
   .add("Cancellation Modal", () => (
