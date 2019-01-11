@@ -19,6 +19,7 @@ const sampleRule = {
     "mainly liberty domain block seeing ~50% of addresses engaging SG wide",
   bounce_action: "no_action",
   created_by: 99,
+  comment: "example comment",
 };
 
 const sampleChangelog = {
@@ -119,17 +120,19 @@ storiesOf("Bounce Rule Changelog", module)
 
 storiesOf("Modals", module)
   .add("Change Log Modal", () => (
-    <ChangeModal
-      currentRule={sampleRule}
-      handleModalClose={action("close modal")}
-      handleModalConfirm={action("open modal")}
+    <BounceRuleDetailsContainer
+      render={(currentRule, updatedRule) => (
+        <ChangeModal
+          currentRule={currentRule}
+          selectedChange={updatedRule}
+          handleModalClose={action("Modal")}
+        />
+      )}
     />
   ))
   .add("Confirmation Modal", () => (
-    <ConfirmationModal
-      currentRule={sampleRule}
-      handleModalClose={action("close modal")}
-      handleModalConfirm={action("open modal")}
+    <BounceRuleDetailsContainer
+      render={updatedRule => <ConfirmationModal updatedRule={updatedRule} />}
     />
   ))
   .add("Cancellation Modal", () => (
