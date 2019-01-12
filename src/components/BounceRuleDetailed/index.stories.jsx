@@ -53,7 +53,7 @@ const store = {
   changelogLimit: 10,
 };
 
-class BounceRuleDetailsContainer extends React.Component {
+class DetailsPageContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -73,33 +73,15 @@ class BounceRuleDetailsContainer extends React.Component {
   }
 
   render() {
-    // const {
-    //   render,
-    //   currentRule,
-    //   updatedRule,
-    //   isEditClicked,
-    //   changelog
-    // } = this.state;
     const { render } = this.state;
-    return (
-      <div>
-        {render(
-          // this.onChangeRule,
-          // currentRule,
-          // updatedRule,
-          // isEditClicked,
-          // changelog
-          { ...this.state }
-        )}
-      </div>
-    );
+    return <div>{render({ ...this.state }, this.onChangeRule)}</div>;
   }
 }
 
 storiesOf("Bounce Rule Detailed Page", module)
   .addDecorator(StoryRouter())
   .add("Default", () => (
-    <BounceRuleDetailsContainer
+    <DetailsPageContainer
       render={({ currentRule, updatedRule, changelog }) => (
         <BounceRuleDetailed
           currentRule={currentRule}
@@ -111,7 +93,7 @@ storiesOf("Bounce Rule Detailed Page", module)
     />
   ))
   .add("Empty Changelog", () => (
-    <BounceRuleDetailsContainer
+    <DetailsPageContainer
       render={({ currentRule, updatedRule }) => (
         <BounceRuleDetailed
           currentRule={currentRule}
@@ -123,8 +105,8 @@ storiesOf("Bounce Rule Detailed Page", module)
     />
   ))
   .add("Edit Mode", () => (
-    <BounceRuleDetailsContainer
-      render={({ onChangeRule, currentRule, updatedRule }) => (
+    <DetailsPageContainer
+      render={({ currentRule, updatedRule }, onChangeRule) => (
         <BounceRuleDetailed
           currentRule={currentRule}
           updatedRule={updatedRule}
@@ -137,8 +119,8 @@ storiesOf("Bounce Rule Detailed Page", module)
     />
   ))
   .add("Confirm Changes", () => (
-    <BounceRuleDetailsContainer
-      render={({ onChangeRule, currentRule, updatedRule }) => (
+    <DetailsPageContainer
+      render={({ currentRule, updatedRule }, onChangeRule) => (
         <BounceRuleDetailed
           currentRule={currentRule}
           updatedRule={updatedRule}
@@ -151,8 +133,8 @@ storiesOf("Bounce Rule Detailed Page", module)
     />
   ))
   .add("Cancel Changes", () => (
-    <BounceRuleDetailsContainer
-      render={({ onChangeRule, currentRule, updatedRule }) => (
+    <DetailsPageContainer
+      render={({ currentRule, updatedRule }, onChangeRule) => (
         <BounceRuleDetailed
           currentRule={currentRule}
           updatedRule={updatedRule}
@@ -165,7 +147,7 @@ storiesOf("Bounce Rule Detailed Page", module)
     />
   ))
   .add("Viewing Change Details", () => (
-    <BounceRuleDetailsContainer
+    <DetailsPageContainer
       render={({ currentRule, updatedRule }) => (
         <BounceRuleDetailed
           currentRule={currentRule}
@@ -183,8 +165,8 @@ storiesOf("Bounce Rule Details", module)
   .addDecorator(StoryRouter())
   .add("Default", () => <DetailsContainer currentRule={sampleRule} />)
   .add("Editable", () => (
-    <BounceRuleDetailsContainer
-      render={({ onChangeRule, currentRule, updatedRule, changelog }) => (
+    <DetailsPageContainer
+      render={({ currentRule, updatedRule, changelog }, onChangeRule) => (
         <DetailsContainerEditable
           currentRule={currentRule}
           updatedRule={updatedRule}
@@ -198,7 +180,7 @@ storiesOf("Bounce Rule Details", module)
 
 storiesOf("Bounce Rule Changelog", module)
   .add("Default", () => (
-    <BounceRuleDetailsContainer
+    <DetailsPageContainer
       render={({ changelog }) => <Changelog changelog={changelog} />}
     />
   ))
@@ -206,7 +188,7 @@ storiesOf("Bounce Rule Changelog", module)
 
 storiesOf("Modals", module)
   .add("Change Log Modal", () => (
-    <BounceRuleDetailsContainer
+    <DetailsPageContainer
       render={({ currentRule, updatedRule }) => (
         <ChangeModal
           currentRule={currentRule}
@@ -217,7 +199,7 @@ storiesOf("Modals", module)
     />
   ))
   .add("Confirmation Modal", () => (
-    <BounceRuleDetailsContainer
+    <DetailsPageContainer
       render={({ updatedRule }) => (
         <ConfirmationModal updatedRule={updatedRule} />
       )}
