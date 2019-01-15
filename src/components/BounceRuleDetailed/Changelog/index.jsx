@@ -61,8 +61,6 @@ const Changelog = ({
     </Row>
     {isChangelogEmpty && <EmptyChangelog />}
     {!isChangelogEmpty && (
-      // <React.Fragment>
-      // <CurrentTag />
       <Table>
         <TableHeader>
           <TableRow>
@@ -76,7 +74,6 @@ const Changelog = ({
           {showChanges(changelog, rulesToShow, handleChangelogClicked)}
         </TableBody>
       </Table>
-      // </React.Fragment>
     )}
   </div>
 );
