@@ -110,7 +110,7 @@ const BounceRuleDetailed = ({
           <div>
             {isEditClicked && (
               <DetailsContainerEditable
-                data-test="detailed-container-editable"
+                {...WriteSelectors.detailsEditable}
                 currentRule={currentRule}
                 onChangeRule={onChangeRule}
                 onChangeRuleInt={onChangeRuleInt}
@@ -119,7 +119,7 @@ const BounceRuleDetailed = ({
             )}
             {!isEditClicked && (
               <DetailsContainer
-                data-test="detailed-container"
+                {...WriteSelectors.details}
                 currentRule={currentRule}
                 handleEditClicked={handleEditClicked}
               />
@@ -130,7 +130,7 @@ const BounceRuleDetailed = ({
       <Row className="changelog-container">
         <Column width={10} offset={2}>
           <Changelog
-            data-test="changelog-container"
+            {...WriteSelectors.changelog}
             rulesToShow={rulesToShow}
             handleChangelogClicked={handleChangelogClicked}
             changelog={filteredChangelog}
@@ -155,7 +155,7 @@ const BounceRuleDetailed = ({
       )}
       {isChangeModalOpen && (
         <ChangeModal
-          data-test="change-modal"
+          {...WriteSelectors.changelogModal}
           currentRule={currentRule}
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
@@ -174,7 +174,7 @@ const BounceRuleDetailed = ({
       )}
       {isConfirmOpen && (
         <ConfirmationModal
-          data-test="confirm-modal"
+          {...WriteSelectors.saveConfirmationModal}
           updatedRule={updatedRule}
           handleModalClose={handleModalClose}
           onChangeRule={onChangeRule}
@@ -184,7 +184,7 @@ const BounceRuleDetailed = ({
       )}
       {isCancelConfirmOpen && (
         <CancelConfirmationModal
-          data-test="cancel-confirm-modal"
+          {...WriteSelectors.cancelConfirmationModal}
           currentRule={currentRule}
           handleModalClose={handleModalClose}
           handleCancelConfirmation={handleCancelConfirmation}

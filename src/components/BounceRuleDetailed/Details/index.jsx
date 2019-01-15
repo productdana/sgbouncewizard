@@ -26,7 +26,6 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
       role="searchbox"
       tabIndex={0}
       className="detail-container card "
-      {...WriteSelectors.details}
     >
       <div className="editable">
         <i className="sg-icon sg-icon-editor-design" />
@@ -108,10 +107,7 @@ export const DetailsContainerEditable = ({
     priority,
   } = updatedRule;
   return (
-    <div
-      {...WriteSelectors.detailsEditable}
-      className="detail-container detail-container-editable card "
-    >
+    <div className="detail-container detail-container-editable card ">
       <div className="editable">
         <i className="sg-icon sg-icon-editor-design" />
       </div>
@@ -129,7 +125,6 @@ export const DetailsContainerEditable = ({
                   id="description"
                   value={description}
                   type="text"
-                  label={description}
                 />
               </TableCell>
             </TableRow>
@@ -160,7 +155,6 @@ export const DetailsContainerEditable = ({
                   id="response_code"
                   value={responseCode}
                   type="number"
-                  label={responseCode}
                 />
               </TableCell>
             </TableRow>
@@ -175,7 +169,6 @@ export const DetailsContainerEditable = ({
                   id="enhanced_code"
                   value={enhancedCode}
                   type="text"
-                  label={enhancedCode}
                 />
               </TableCell>
             </TableRow>
@@ -194,7 +187,6 @@ export const DetailsContainerEditable = ({
                   id="regex"
                   value={regex}
                   type="text"
-                  label={regex}
                 />
               </TableCell>
             </TableRow>
@@ -209,7 +201,6 @@ export const DetailsContainerEditable = ({
                   id="priority"
                   value={priority}
                   type="number"
-                  label={priority}
                 />
               </TableCell>
             </TableRow>
@@ -224,7 +215,6 @@ export const DetailsContainerEditable = ({
                   id="bounce_action"
                   value={bounceAction}
                   type="text"
-                  label={bounceAction}
                 />
               </TableCell>
             </TableRow>
