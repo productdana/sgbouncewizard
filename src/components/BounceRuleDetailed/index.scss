@@ -101,6 +101,18 @@
   h2 {
     margin-bottom: 5px;
   }
+
+  .currentBadge {
+    position: absolute;
+    left: -55px;
+    margin-top: 3px;
+    background-color: #489be8;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
 }
 
 .changelog-view-icon-cell {

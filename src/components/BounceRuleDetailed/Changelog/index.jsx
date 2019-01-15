@@ -12,20 +12,19 @@ import Tooltip from "@sendgrid/ui-components/tooltip";
 import { CSVLink } from "react-csv";
 import moment from "moment";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
+import Badge from "@sendgrid/ui-components/badge";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 import { WriteSelectors } from "../selectors";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
-  return changelog
-    .slice(0, rulesToShow)
-    .map((change, index) => (
-      <Changes
-        key={change.created_at}
-        index={index}
-        change={change}
-        handleChangelogClicked={handleChangelogClicked}
-      />
+  return changelog.slice(0, rulesToShow).map((change, index) => (
+    <Changes
+      key={change.created_at}
+      index={index}
+      change={change}
+      handleChangelogClicked={handleChangelogClicked}
+    />
     ));
 }
 
@@ -60,6 +59,8 @@ const Changelog = ({
     </Row>
     {isChangelogEmpty && <EmptyChangelog />}
     {!isChangelogEmpty && (
+      // <React.Fragment>
+      // <CurrentTag />
       <Table>
         <TableHeader>
           <TableRow>
@@ -73,6 +74,7 @@ const Changelog = ({
           {showChanges(changelog, rulesToShow, handleChangelogClicked)}
         </TableBody>
       </Table>
+      // </React.Fragment>
     )}
   </div>
 );
@@ -82,7 +84,12 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
 
   return (
     <TableRow>
-      <TableCell>{moment.unix(createdAt).format("MM/DD/YYYY LTS")}</TableCell>
+      <TableCell>
+        <div style={{ position: "relative" }}>
+          <CurrentTag index={index} />
+        </div>
+        {moment.unix(createdAt).format("MM/DD/YYYY LTS")}
+      </TableCell>
       <TableCell>{userId}</TableCell>
       <TableCell>{comment}</TableCell>
       <ActionsCell>
@@ -114,6 +121,17 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
       </ActionsCell>
     </TableRow>
   );
+};
+
+const CurrentTag = ({ index }) => {
+  if (index === 0) {
+    return (
+      <Badge className="currentBadge" color="red" key="red">
+        Current
+      </Badge>
+    );
+  }
+  return null;
 };
 
 export default Changelog;
