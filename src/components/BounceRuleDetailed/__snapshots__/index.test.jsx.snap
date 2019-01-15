@@ -303,7 +303,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                 Commit Message
               </th>
               <th
-                className="actions-align"
+                className="actions-cell"
                 onClick={[Function]}
               >
                 Actions
@@ -313,6 +313,19 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           <tbody>
             <tr>
               <td>
+                <div
+                  style={
+                    Object {
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <span
+                    className="badge currentBadge"
+                  >
+                    Current
+                  </span>
+                </div>
                 Invalid date
               </td>
               <td>
@@ -320,17 +333,57 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
               </td>
               <td />
               <td
-                className="changelog-view-icon-cell"
+                className="actions"
               >
                 <i
-                  className="sg-icon sg-icon-view changelog-view-icon"
-                  id="changeClicked"
-                  index={0}
-                  onClick={[MockFunction]}
-                  onKeyDown={[MockFunction]}
-                  role="button"
-                  tabIndex={0}
+                  className="sg-icon sg-icon-ellipsis"
+                  style={null}
                 />
+                <div
+                  className="action-icons"
+                >
+                  <span
+                    data-tooltip="Revert to this change."
+                    data-tooltip-pos="up"
+                  >
+                    <span
+                      className="changelog-view-icon"
+                      data-tooltip-pos="up"
+                      id="isRevertConfirmOpen"
+                      index={0}
+                      onClick={[MockFunction]}
+                      onKeyDown={[MockFunction]}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <i
+                        className="sg-icon sg-icon-mc-return"
+                        style={null}
+                      />
+                    </span>
+                  </span>
+                  <span
+                    data-tooltip="View previous change details."
+                    data-tooltip-pos="up"
+                  >
+                    <span
+                      className="changelog-view-icon"
+                      data-tooltip-pos="up"
+                      id="isChangeModalOpen"
+                      index={0}
+                      onClick={[MockFunction]}
+                      onKeyDown={[MockFunction]}
+                      role="button"
+                      tabIndex={0}
+                      view-index={0}
+                    >
+                      <i
+                        className="sg-icon sg-icon-view"
+                        style={null}
+                      />
+                    </span>
+                  </span>
+                </div>
               </td>
             </tr>
           </tbody>
