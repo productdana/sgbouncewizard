@@ -17,7 +17,7 @@ const ConfirmationHeader = () => (
 );
 
 const ConfirmationBody = () => (
-  <div {...WriteSelectors.confirmModal}>
+  <div>
     <p>Please review the bounce rule before submitting.</p>
   </div>
 );
