@@ -70,7 +70,6 @@ describe("Bounce Rule Detailed", () => {
   });
 
   it("should render details table", () => {
-    console.log(wrapper.debug());
     expect(wrapper.find(details).exists()).toBeTruthy();
   });
 
@@ -112,7 +111,6 @@ describe("Bounce Rule Detailed", () => {
     wrapper.setProps({
       isChangeModalOpen: true,
     });
-    wrapper.update();
     expect(wrapper.find(changelogModal).exists()).toBeTruthy();
   });
 });
