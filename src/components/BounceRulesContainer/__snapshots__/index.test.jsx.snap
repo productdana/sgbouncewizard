@@ -494,55 +494,9 @@ exports[`should render correctly 1`] = `
         </a>
         <div
           className="pagination-links"
-        >
-          <a
-            className="pagination-link"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex="0"
-          >
-            1
-          </a>
-          <a
-            className="pagination-link is-active"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex="0"
-          >
-            2
-          </a>
-          <a
-            className="pagination-link"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex="0"
-          >
-            3
-          </a>
-          <a
-            className="pagination-link"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex="0"
-          >
-            4
-          </a>
-          <a
-            className="pagination-link"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex="0"
-          >
-            5
-          </a>
-        </div>
+        />
         <a
-          className="btn btn-secondary btn-small pagination-next is-disabled"
+          className="btn btn-secondary btn-small pagination-next "
           onClick={[Function]}
           onKeyDown={[Function]}
           role="button"

@@ -89,14 +89,14 @@ const BounceRulesContainer = ({
   updateSearchToken,
   updateSearchCategory,
   removeFilter,
-  prevPageIndex,
-  nextPageIndex,
+  handlePrevClicked,
+  handleNextClicked,
   updatePageIndex,
   filteredRules,
   searchToken,
   selectedRule,
-  pageIndex,
-  pageInterval,
+  currentPageIndex,
+  rulesToShow,
   pagesToDisplay,
   numRules,
   filterOptions,
@@ -207,10 +207,10 @@ const BounceRulesContainer = ({
           {!isRulesEmpty &&
             !isFetching && (
               <Pagination
-                prevPageIndex={prevPageIndex}
-                nextPageIndex={nextPageIndex}
-                pageIndex={pageIndex}
-                pageInterval={pageInterval}
+                handlePrevClicked={handlePrevClicked}
+                handleNextClicked={handleNextClicked}
+                currentPageIndex={currentPageIndex}
+                rulesToShow={rulesToShow}
                 numRules={numRules}
                 updatePageIndex={updatePageIndex}
                 pagesToDisplay={pagesToDisplay}
@@ -265,8 +265,8 @@ BounceRulesContainer.propTypes = {
   updateSearchToken: PropTypes.func,
   updateSearchCategory: PropTypes.func,
   removeFilter: PropTypes.func,
-  prevPageIndex: PropTypes.func,
-  nextPageIndex: PropTypes.func,
+  handlePrevClicked: PropTypes.func,
+  handleNextClicked: PropTypes.func,
   updatePageIndex: PropTypes.func,
   filteredRules: PropTypes.arrayOf(
     PropTypes.shape({
@@ -289,8 +289,8 @@ BounceRulesContainer.propTypes = {
     description: PropTypes.string,
     bounce_action: PropTypes.string,
   }),
-  pageIndex: PropTypes.number,
-  pageInterval: PropTypes.number,
+  currentPageIndex: PropTypes.number,
+  rulesToShow: PropTypes.number,
   pagesToDisplay: PropTypes.number,
   numRules: PropTypes.number,
   filterOptions: PropTypes.arrayOf(
@@ -330,14 +330,14 @@ BounceRulesContainer.defaultProps = {
   updateSearchToken: () => {},
   updateSearchCategory: () => {},
   removeFilter: () => {},
-  prevPageIndex: () => {},
-  nextPageIndex: () => {},
+  handlePrevClicked: () => {},
+  handleNextClicked: () => {},
   updatePageIndex: () => {},
   filteredRules: [],
   searchToken: "",
   selectedRule: {},
-  pageIndex: 1,
-  pageInterval: 10,
+  currentPageIndex: 1,
+  rulesToShow: 10,
   pagesToDisplay: 5,
   numRules: 0,
   filterOptions: () => {},
