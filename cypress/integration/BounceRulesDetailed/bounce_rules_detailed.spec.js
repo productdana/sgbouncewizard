@@ -41,6 +41,7 @@ describe("Bounce Rule Detailed", () => {
   });
 
   beforeEach(() => {
+    cy.login("hadarziv@sg.com", "papa");
     BounceRuleDetailedPage.open(ruleId);
   });
 

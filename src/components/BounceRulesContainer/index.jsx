@@ -118,11 +118,12 @@ const BounceRulesContainer = ({
   handleCreateOpen,
   handleActionOpen,
   isFetching,
+  logout,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   return (
     <div {...WriteSelectors.page} className="container">
-      <Header name="Kenny" />
+      <Header logout={logout} />
       <Row>
         <Column width={6} offset={2}>
           <Breadcrumb>

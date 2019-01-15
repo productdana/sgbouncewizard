@@ -26,7 +26,7 @@ export default class BounceRulesPage extends React.Component {
       newRule: {},
       isInvalidInput: false,
     };
-
+    this.logout = this.logout.bind(this);
     this.updateSearchToken = this.updateSearchToken.bind(this);
     this.updateSearchCategory = this.updateSearchCategory.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
@@ -53,6 +53,12 @@ export default class BounceRulesPage extends React.Component {
         numRules: data.length,
       });
     }
+  }
+
+  logout() {
+    const { history } = this.props;
+    localStorage.clear();
+    history.push("/");
   }
 
   updateSearchToken(e) {
@@ -155,9 +161,14 @@ export default class BounceRulesPage extends React.Component {
   }
 
   handleCreateOpen(e) {
+    const { newRule } = this.state;
     const { id } = e.currentTarget;
     this.setState({
       [id]: true,
+      newRule: {
+        ...newRule,
+        user_id: parseInt(localStorage.getItem("user_id"), 10),
+      },
     });
   }
 
@@ -266,34 +277,49 @@ export default class BounceRulesPage extends React.Component {
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
     const filteredRules = this.filterRules(this.paginate(rules));
-    return isRedirectingToDetail ? (
-      <Redirect
-        push
-        to={{
-          pathname: `/bounce_rules/${selectedRule.id}`,
-          state: { currentRule: selectedRule },
-        }}
-      />
-    ) : (
-      <BounceRulesContainer
-        updateSearchToken={this.updateSearchToken}
-        updateSearchCategory={this.updateSearchCategory}
-        updatePageIndex={this.updatePageIndex}
-        prevPageIndex={this.prevPageIndex}
-        nextPageIndex={this.nextPageIndex}
-        addFilter={this.addFilter}
-        removeFilter={this.removeFilter}
-        filteredRules={filteredRules}
-        handleRuleUpdate={this.handleRuleUpdate}
-        handleRuleUpdateInt={this.handleRuleUpdateInt}
-        handleCreateSubmit={this.handleCreateSubmit}
-        handleCreateConfirm={this.handleCreateConfirm}
-        handleDeleteConfirm={this.handleDeleteConfirm}
-        handleCreateOpen={this.handleCreateOpen}
-        handleActionOpen={this.handleActionOpen}
-        handleModalClose={this.handleModalClose}
-        {...this.state}
-      />
+    const isAuthenticated = localStorage.getItem("isAuth");
+    return (
+      <React.Fragment>
+        {!isAuthenticated && (
+          <Redirect
+            push
+            to={{
+              pathname: `/`,
+            }}
+          />
+        )}
+        {isRedirectingToDetail && (
+          <Redirect
+            push
+            to={{
+              pathname: `/bounce_rules/${selectedRule.id}`,
+              state: { currentRule: selectedRule },
+            }}
+          />
+        )}
+        {isAuthenticated && (
+          <BounceRulesContainer
+            logout={this.logout}
+            updateSearchToken={this.updateSearchToken}
+            updateSearchCategory={this.updateSearchCategory}
+            updatePageIndex={this.updatePageIndex}
+            prevPageIndex={this.prevPageIndex}
+            nextPageIndex={this.nextPageIndex}
+            addFilter={this.addFilter}
+            removeFilter={this.removeFilter}
+            filteredRules={filteredRules}
+            handleRuleUpdate={this.handleRuleUpdate}
+            handleRuleUpdateInt={this.handleRuleUpdateInt}
+            handleCreateSubmit={this.handleCreateSubmit}
+            handleCreateConfirm={this.handleCreateConfirm}
+            handleDeleteConfirm={this.handleDeleteConfirm}
+            handleCreateOpen={this.handleCreateOpen}
+            handleActionOpen={this.handleActionOpen}
+            handleModalClose={this.handleModalClose}
+            {...this.state}
+          />
+        )}
+      </React.Fragment>
     );
   }
 }
