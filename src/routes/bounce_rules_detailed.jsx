@@ -38,6 +38,7 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
+    this.handleRevertClicked = this.handleRevertClicked.bind(this);
   }
 
   async componentDidMount() {
@@ -112,6 +113,14 @@ export default class BounceRuleDetailedPage extends React.Component {
       selectedChange: changelog[changeIndex],
       [id]: true,
       newCommitMessage: "",
+      selectedChangelogIndex: changeIndex,
+    });
+  }
+
+  handleRevertClicked() {
+    this.setState({
+      isChangeModalOpen: false,
+      isRevertConfirmOpen: true,
     });
   }
 
@@ -256,6 +265,9 @@ export default class BounceRuleDetailedPage extends React.Component {
               handleSaveConfirmation={this.handleSaveConfirmation}
               onChangeRuleInt={this.onChangeRuleInt}
               updatePageIndex={this.updatePageIndex}
+              handleRevertClicked={this.handleRevertClicked}
+              onChangeRuleRevert={this.onChangeRuleRevert}
+              handleRevertConfirm={this.handleRevertConfirm}
               filteredChangelog={filteredChangelog}
               {...this.state}
             />

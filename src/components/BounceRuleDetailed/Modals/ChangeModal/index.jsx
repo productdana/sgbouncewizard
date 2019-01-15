@@ -34,6 +34,7 @@ const ChangeModalBody = ({
   handleModalClose,
   selectedChange,
   differences,
+  handleRevertClicked,
 }) => (
   <div className="changelog-modal">
     <Row>
@@ -58,9 +59,21 @@ const ChangeModalBody = ({
     </Row>
 
     <Row>
-      <Column className="changelog-modal-button" width={2} offset={11}>
-        <Button id="isChangeModalOpen" onClick={handleModalClose}>
+      <Column className="changelog-modal-button" width={3} offset={10}>
+        <Button
+          id="isChangeModalOpen"
+          className="sm-sg-button"
+          type="secondary"
+          onClick={handleModalClose}
+        >
           Close
+        </Button>
+        <Button
+          id="isChangeModalOpen"
+          className="sm-sg-button"
+          onClick={handleRevertClicked}
+        >
+          Revert
         </Button>
       </Column>
     </Row>
@@ -198,7 +211,12 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
   );
 };
 
-const ChangeModal = ({ currentRule, handleModalClose, selectedChange }) => {
+const ChangeModal = ({
+  currentRule,
+  handleModalClose,
+  selectedChange,
+  handleRevertClicked,
+}) => {
   const differences = getDifferences(currentRule, selectedChange);
   return (
     <CenterModal
@@ -211,6 +229,7 @@ const ChangeModal = ({ currentRule, handleModalClose, selectedChange }) => {
           selectedChange={selectedChange}
           currentRule={currentRule}
           differences={differences}
+          handleRevertClicked={handleRevertClicked}
         />
 )}
     />

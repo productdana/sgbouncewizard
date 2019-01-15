@@ -33,6 +33,7 @@ const BounceRuleDetailed = ({
   handleEditClicked,
   handleCancelSaveClicked,
   handleChangelogClicked,
+  handleRevertClicked,
   handleCancelConfirmation,
   handleSaveConfirmation,
   handleRevertConfirm,
@@ -158,6 +159,7 @@ const BounceRuleDetailed = ({
           currentRule={currentRule}
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
+          handleRevertClicked={handleRevertClicked}
         />
       )}
       {isRevertConfirmOpen && (

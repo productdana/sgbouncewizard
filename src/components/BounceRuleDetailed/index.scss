@@ -57,6 +57,11 @@
   width: 125px;
 }
 
+.sm-sg-button {
+  width: 100px;
+  margin: 10px;
+}
+
 .details-button-column {
   margin-top: 10px;
 }
@@ -89,8 +94,8 @@
     font-size: 15px;
     display: flex;
     align-items: center;
-    padding-left: 4rem;
     margin: 0;
+    grid-column: 12 / span 1;
   }
 
   h2 {
