@@ -19,7 +19,7 @@ function firstPageToDisplay(endPage, pagesToDisplay) {
   return startPage <= 1 ? 1 : startPage;
 }
 
-function calShouldDisplayLastPage(
+function calcShouldDisplayLastPage(
   totalPages,
   pagesToDisplay,
   currentPageIndex,
@@ -51,7 +51,7 @@ const Pagination = ({
   );
   const startPage = firstPageToDisplay(endPage, pagesToDisplay);
   const shouldDisplayFirstPage = currentPageIndex > pagesToDisplay;
-  const shouldDisplayLastPage = calShouldDisplayLastPage(
+  const shouldDisplayLastPage = calcShouldDisplayLastPage(
     totalPages,
     pagesToDisplay,
     currentPageIndex,
