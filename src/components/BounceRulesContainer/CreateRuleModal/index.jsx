@@ -29,7 +29,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
         <Button
           className="sg-button"
           onClick={handleModalClose}
-          id="isCreateRuleOpen"
+          id="isCreateRuleConfirmationOpen"
           type="secondary"
         >
           Close
