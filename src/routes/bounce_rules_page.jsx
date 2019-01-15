@@ -18,6 +18,7 @@ export default class BounceRulesPage extends React.Component {
       pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
+      isFetching: true,
       isDeleteConfirmationOpen: false,
       isDeleteAlertOpen: false,
       isCreateRuleOpen: false,
@@ -47,6 +48,7 @@ export default class BounceRulesPage extends React.Component {
     const { data, status } = await listRules();
     if (status === 200) {
       this.setState({
+        isFetching: false,
         rules: data.reverse(),
         numRules: data.length,
       });
@@ -304,8 +306,8 @@ export default class BounceRulesPage extends React.Component {
             updateSearchToken={this.updateSearchToken}
             updateSearchCategory={this.updateSearchCategory}
             updatePageIndex={this.updatePageIndex}
-            prevPageIndex={this.prevPageIndex}
-            nextPageIndex={this.nextPageIndex}
+            handlePrevClicked={this.handlePrevClicked}
+            handleNextClicked={this.handleNextClicked}
             addFilter={this.addFilter}
             removeFilter={this.removeFilter}
             filteredRules={filteredRules}
