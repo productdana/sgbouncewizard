@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { RuleListContainer } from "./index";
+import BounceRulesContainer, { RuleListContainer } from "./index";
 import CreateRuleModal, { CreateConfirmationModal } from "./CreateRuleModal";
 import DeleteRuleModal, { DeleteConfirmationAlert } from "./DeleteRuleModal";
 
@@ -33,6 +33,45 @@ const sampleRule2 = {
   description: "bWFpbmx5IGxpYmVydHkgZGluZyBTRyB3aWRl",
   bounce_action: "no_action",
 };
+
+storiesOf("Bounce Rule Page", module)
+  .add("Default", () => (
+    <BounceRulesContainer
+      filteredRules={[sampleRule1, sampleRule2]}
+      filterOptions={[]}
+    />
+  ))
+  .add("Empty Rules", () => (
+    <BounceRulesContainer filteredRules={[]} filterOptions={[]} />
+  ))
+  .add("Create Rule", () => (
+    <BounceRulesContainer
+      filteredRules={[sampleRule1, sampleRule2]}
+      filterOptions={[]}
+      isCreateRuleOpen
+    />
+  ))
+  .add("Create Rule Confirmation", () => (
+    <BounceRulesContainer
+      filteredRules={[sampleRule1, sampleRule2]}
+      filterOptions={[]}
+      isCreateRuleConfirmationOpen
+    />
+  ))
+  .add("Delete Rule Confirmation", () => (
+    <BounceRulesContainer
+      filteredRules={[sampleRule1, sampleRule2]}
+      filterOptions={[]}
+      isDeleteConfirmationOpen
+    />
+  ))
+  .add("Delete Rule Error", () => (
+    <BounceRulesContainer
+      filteredRules={[sampleRule1, sampleRule2]}
+      filterOptions={[]}
+      isDeleteAlertOpen
+    />
+  ));
 
 storiesOf("Bounce Rule Table", module)
   .add("Default", () => <RuleListContainer rules={[sampleRule1]} />)

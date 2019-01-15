@@ -37,13 +37,14 @@ exports[`should render correctly 1`] = `
             data-test="user-greeting"
           >
             Hello, 
-            Kenny
+            User
             !
           </span>
           <a
             className="header-logout"
             data-test="logout-button"
-            href="/"
+            role="button"
+            tabIndex={0}
           >
             Logout
           </a>
