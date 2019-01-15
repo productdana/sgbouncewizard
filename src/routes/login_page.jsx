@@ -48,8 +48,11 @@ export default class LoginPage extends React.Component {
     });
 
     try {
-      const { data } = await authenticateUser({ email, password });
-      if (data.id !== 0 && data.id !== undefined) {
+      const { data, status } = await authenticateUser({ email, password });
+      if (status === 200 && data.id !== 0 && data.id !== undefined) {
+        localStorage.setItem("user_id", data.id);
+        localStorage.setItem("username", data.first_name);
+        localStorage.setItem("isAuth", true);
         this.setState(() => ({
           isAuthenticating: false,
           isAuthenticated: true,
@@ -74,7 +77,7 @@ export default class LoginPage extends React.Component {
         isAuthenticated: false,
         isInvalidCredentials: false,
         isInvalidInput: false,
-        isAuthenticationError: true,
+        isAuthenticationError: false,
         isNetworkError: true,
       });
     }
