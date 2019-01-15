@@ -125,7 +125,6 @@ export const DetailsContainerEditable = ({
                   id="description"
                   value={description}
                   type="text"
-                  label={description}
                 />
               </TableCell>
             </TableRow>
@@ -156,7 +155,6 @@ export const DetailsContainerEditable = ({
                   id="response_code"
                   value={responseCode}
                   type="number"
-                  label={responseCode}
                 />
               </TableCell>
             </TableRow>
@@ -171,7 +169,6 @@ export const DetailsContainerEditable = ({
                   id="enhanced_code"
                   value={enhancedCode}
                   type="text"
-                  label={enhancedCode}
                 />
               </TableCell>
             </TableRow>
@@ -190,7 +187,6 @@ export const DetailsContainerEditable = ({
                   id="regex"
                   value={regex}
                   type="text"
-                  label={regex}
                 />
               </TableCell>
             </TableRow>
@@ -205,7 +201,6 @@ export const DetailsContainerEditable = ({
                   id="priority"
                   value={priority}
                   type="number"
-                  label={priority}
                 />
               </TableCell>
             </TableRow>
@@ -220,7 +215,6 @@ export const DetailsContainerEditable = ({
                   id="bounce_action"
                   value={bounceAction}
                   type="text"
-                  label={bounceAction}
                 />
               </TableCell>
             </TableRow>
