@@ -13,11 +13,11 @@ import moment from "moment";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 
-function showChange(changelog, changelogLimit, handleChangelogClicked) {
+function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
-    .slice(0, changelogLimit)
+    .slice(0, rulesToShow)
     .map((change, index) => (
-      <Change
+      <Changes
         key={change.created_at}
         index={index}
         change={change}
@@ -42,7 +42,7 @@ const Changelog = ({
   handleChangelogClicked,
   changelog,
   isChangelogEmpty,
-  changelogLimit,
+  rulesToShow,
 }) => (
   <div>
     <Row id="changelog-title">
@@ -67,14 +67,14 @@ const Changelog = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {showChange(changelog, changelogLimit, handleChangelogClicked)}
+          {showChanges(changelog, rulesToShow, handleChangelogClicked)}
         </TableBody>
       </Table>
     )}
   </div>
 );
 
-const Change = ({ change, handleChangelogClicked, index }) => {
+const Changes = ({ change, handleChangelogClicked, index }) => {
   const { created_at: createdAt, user_id: userId, comment } = change;
 
   return (

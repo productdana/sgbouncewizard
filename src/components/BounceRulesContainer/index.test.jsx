@@ -10,6 +10,7 @@ const {
   createRuleButton,
   ruleFilter,
   ruleTable,
+  emptyRulesWarning,
   createRuleModal,
   confirmModal,
 } = Selectors;
@@ -39,6 +40,7 @@ const newRule = {
 
 const wrapper = shallow(
   <BounceRuleContainer
+    rules={testRules}
     filteredRules={testRules}
     filterOptions={[]}
     pageIndex={1}
@@ -81,6 +83,11 @@ it("should render a rule list component", () => {
 
 it("should render paginiation", () => {
   expect(wrapper.find(Pagination)).toHaveLength(1);
+});
+
+it("should render warning when no rules available", () => {
+  wrapper.setProps({ filteredRules: [], rules: [] });
+  expect(wrapper.find(emptyRulesWarning)).toHaveLength(1);
 });
 
 it("should render create rule modal", () => {

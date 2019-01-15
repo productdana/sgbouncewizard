@@ -17,8 +17,8 @@ export default class BounceRuleDetailedPage extends React.Component {
       isCancelConfirmOpen: false,
       isConfirmOpen: false,
       isUpdateError: false,
-      pageIndex: 1,
-      pageInterval: 10,
+      currentPageIndex: 1,
+      rulesToShow: 10,
       pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
@@ -33,20 +33,17 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.handleSaveConfirmation = this.handleSaveConfirmation.bind(this);
     this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
+    this.handlePrevClicked = this.handlePrevClicked.bind(this);
+    this.handleNextClicked = this.handleNextClicked.bind(this);
   }
 
   async componentDidMount() {
     const { match } = this.props;
-    const { changelogLimit, pagesToDisplay } = this.state;
     getChangelog(match.params.bounceRuleId)
       .then(res => {
         const { data } = res;
         this.setState({
-          changelog: data.reverse(),
-          pagesToDisplay:
-            data.length <= changelogLimit * pagesToDisplay
-              ? Math.ceil(data.length / changelogLimit)
-              : 5,
+          changelog: data,
         });
       })
       .catch(() => {
@@ -141,7 +138,7 @@ export default class BounceRuleDetailedPage extends React.Component {
 
   async handleSaveConfirmation() {
     const { updatedRule } = this.state;
-    updatedRule.user_id = localStorage.getItem("user_id");
+    updatedRule.user_id = parseInt(localStorage.getItem("user_id"), 10);
     const { id } = updatedRule;
     await putRule(id, updatedRule)
       .then(() => {
@@ -159,37 +156,41 @@ export default class BounceRuleDetailedPage extends React.Component {
       const { data } = res;
       this.setState({
         currentRule: updatedRule,
-        changelog: data.reverse(),
+        changelog: data,
       });
     });
   }
 
   paginate(changelog) {
-    const { pageIndex, pageInterval } = this.state;
-    const ruleStartIndex = (pageIndex - 1) * pageInterval;
-    const ruleEndIndex = (pageIndex - 1 * pageIndex + pageInterval) * pageIndex;
+    const { currentPageIndex, rulesToShow } = this.state;
+    const ruleStartIndex = (currentPageIndex - 1) * rulesToShow;
+    const ruleEndIndex =
+      (currentPageIndex - 1 * currentPageIndex + rulesToShow) *
+      currentPageIndex;
     return changelog.slice(ruleStartIndex, ruleEndIndex);
   }
 
-  updatePageIndex(newIndex) {
+  updatePageIndex(e) {
+    const newIndex = parseInt(e.currentTarget.getAttribute("value"), 10);
+    this.setState(prevState => {
+      const isPageIndexUpdated = prevState.currentPageIndex !== newIndex;
+      return {
+        currentPageIndex: isPageIndexUpdated
+          ? newIndex
+          : prevState.currentPageIndex,
+      };
+    });
+  }
+
+  handlePrevClicked() {
     this.setState(prevState => ({
-      pageIndex:
-        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
+      currentPageIndex: prevState.currentPageIndex - 1,
     }));
   }
 
-  prevPageIndex() {
+  handleNextClicked() {
     this.setState(prevState => ({
-      pageIndex:
-        prevState.pageIndex > 1
-          ? prevState.pageIndex - prevState.pagesToDisplay
-          : 0,
-    }));
-  }
-
-  nextPageIndex() {
-    this.setState(prevState => ({
-      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
+      currentPageIndex: prevState.currentPageIndex + 1,
     }));
   }
 
@@ -219,6 +220,8 @@ export default class BounceRuleDetailedPage extends React.Component {
               handleChangelogClicked={this.handleChangelogClicked}
               handleCancelConfirmation={this.handleCancelConfirmation}
               handleSaveConfirmation={this.handleSaveConfirmation}
+              handlePrevClicked={this.handlePrevClicked}
+              handleNextClicked={this.handleNextClicked}
               onChangeRuleInt={this.onChangeRuleInt}
               updatePageIndex={this.updatePageIndex}
               filteredChangelog={filteredChangelog}

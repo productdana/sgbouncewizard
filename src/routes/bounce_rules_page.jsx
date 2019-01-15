@@ -13,11 +13,12 @@ export default class BounceRulesPage extends React.Component {
       isRedirectingToDetail: false,
       selectedRule: {},
       rules: [],
-      pageIndex: 1,
-      pageInterval: 10,
+      currentPageIndex: 1,
+      rulesToShow: 10,
       pagesToDisplay: 5,
       filterOptions: [],
       invalidFilter: false,
+      isFetching: true,
       isDeleteConfirmationOpen: false,
       isDeleteAlertOpen: false,
       isCreateRuleOpen: false,
@@ -29,8 +30,8 @@ export default class BounceRulesPage extends React.Component {
     this.updateSearchToken = this.updateSearchToken.bind(this);
     this.updateSearchCategory = this.updateSearchCategory.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
-    this.prevPageIndex = this.prevPageIndex.bind(this);
-    this.nextPageIndex = this.nextPageIndex.bind(this);
+    this.handlePrevClicked = this.handlePrevClicked.bind(this);
+    this.handleNextClicked = this.handleNextClicked.bind(this);
     this.addFilter = this.addFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
     this.handleActionOpen = this.handleActionOpen.bind(this);
@@ -47,6 +48,7 @@ export default class BounceRulesPage extends React.Component {
     const { data, status } = await listRules();
     if (status === 200) {
       this.setState({
+        isFetching: false,
         rules: data.reverse(),
         numRules: data.length,
       });
@@ -81,31 +83,34 @@ export default class BounceRulesPage extends React.Component {
   }
 
   paginate(rules) {
-    const { pageIndex, pageInterval } = this.state;
-    const ruleStartIndex = (pageIndex - 1) * pageInterval;
-    const ruleEndIndex = (pageIndex - 1 * pageIndex + pageInterval) * pageIndex;
+    const { currentPageIndex, rulesToShow } = this.state;
+    const ruleStartIndex = (currentPageIndex - 1) * rulesToShow;
+    const ruleEndIndex =
+      (currentPageIndex - 1 * currentPageIndex + rulesToShow) *
+      currentPageIndex;
     return rules.slice(ruleStartIndex, ruleEndIndex);
   }
 
   updatePageIndex(newIndex) {
+    this.setState(prevState => {
+      const isPageIndexUpdated = prevState.currentPageIndex !== newIndex;
+      return {
+        currentPageIndex: isPageIndexUpdated
+          ? newIndex
+          : prevState.currentPageIndex,
+      };
+    });
+  }
+
+  handlePrevClicked() {
     this.setState(prevState => ({
-      pageIndex:
-        prevState.pageIndex !== newIndex ? newIndex : prevState.pageIndex,
+      currentPageIndex: prevState.currentPageIndex - 1,
     }));
   }
 
-  prevPageIndex() {
+  handleNextClicked() {
     this.setState(prevState => ({
-      pageIndex:
-        prevState.pageIndex > 1
-          ? prevState.pageIndex - prevState.pagesToDisplay
-          : 0,
-    }));
-  }
-
-  nextPageIndex() {
-    this.setState(prevState => ({
-      pageIndex: prevState.pageIndex + prevState.pagesToDisplay,
+      currentPageIndex: prevState.currentPageIndex + 1,
     }));
   }
 
@@ -301,8 +306,8 @@ export default class BounceRulesPage extends React.Component {
             updateSearchToken={this.updateSearchToken}
             updateSearchCategory={this.updateSearchCategory}
             updatePageIndex={this.updatePageIndex}
-            prevPageIndex={this.prevPageIndex}
-            nextPageIndex={this.nextPageIndex}
+            handlePrevClicked={this.handlePrevClicked}
+            handleNextClicked={this.handleNextClicked}
             addFilter={this.addFilter}
             removeFilter={this.removeFilter}
             filteredRules={filteredRules}

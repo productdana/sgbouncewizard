@@ -17,6 +17,7 @@ const testHooks = {
   bounceRule: "bounce-rule",
   ruleFilter: "rule-filter",
   ruleTable: "rule-table",
+  emptyRulesWarning: "empty-rules-warning",
   deleteConfirmation: "delete-confirmation",
   deleteConfirmationConfirm: "delete-confirmation-confirm",
   deleteAlert: "delete-alert",

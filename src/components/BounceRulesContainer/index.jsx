@@ -4,6 +4,7 @@ import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
+import Loader from "@sendgrid/ui-components/loader";
 import {
   HeaderCell,
   TableCell,
@@ -18,6 +19,7 @@ import { Row } from "../Row";
 import { Column } from "../Column";
 import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
+import EmptyRules from "./EmptyRules";
 import DeleteConfirmationModal, {
   DeleteConfirmationAlert,
 } from "./DeleteRuleModal";
@@ -87,14 +89,14 @@ const BounceRulesContainer = ({
   updateSearchToken,
   updateSearchCategory,
   removeFilter,
-  prevPageIndex,
-  nextPageIndex,
+  handlePrevClicked,
+  handleNextClicked,
   updatePageIndex,
   filteredRules,
   searchToken,
   selectedRule,
-  pageIndex,
-  pageInterval,
+  currentPageIndex,
+  rulesToShow,
   pagesToDisplay,
   numRules,
   filterOptions,
@@ -115,114 +117,138 @@ const BounceRulesContainer = ({
   handleModalClose,
   handleCreateOpen,
   handleActionOpen,
+  isFetching,
   logout,
-}) => (
-  <div {...WriteSelectors.page} className="container">
-    <Header logout={logout} />
-    <Row>
-      <Column width={6} offset={2}>
-        <Breadcrumb>
-          <a {...WriteSelectors.breadcrumb} href="/bounce_rules">
-            Bounce Rules
-          </a>
-        </Breadcrumb>
-      </Column>
-    </Row>
-    <Row>
-      <Column width={2} offset={2}>
-        <h1>Bounce Rules</h1>
-      </Column>
-      <Column className=" csv-button-col" width={4} offset={8}>
-        <CSVLink
-          {...WriteSelectors.csvButton}
-          filename="bounce_rules.csv"
-          className="sg-button btn btn-secondary sg-right"
-          data={rules}
-        >
-          Export CSV
-        </CSVLink>
-        <Button
-          {...WriteSelectors.createRuleButton}
-          onClick={handleCreateOpen}
-          onKeyDown={handleCreateOpen}
-          id="isCreateRuleOpen"
-          data-button="create-button"
-          className="create-rule-button"
-          type="primary"
-        >
-          Create Rule
-        </Button>
-      </Column>
-    </Row>
-    <Row>
-      <Column width={10} offset={2}>
-        <div {...WriteSelectors.ruleFilter}>
-          <RuleFilter
-            searchToken={searchToken}
-            updateSearchToken={updateSearchToken}
-            updateSearchCategory={updateSearchCategory}
-            filterOptions={filterOptions}
-            addFilter={addFilter}
-            removeFilter={removeFilter}
-            invalidFilter={invalidFilter}
-          />
-        </div>
-      </Column>
-    </Row>
-    <Row>
-      <Column width={10} offset={2}>
-        <div {...WriteSelectors.ruleTable}>
-          <RuleListContainer
-            handleActionOpen={handleActionOpen}
-            selectedRule={selectedRule}
-            rules={filteredRules}
-          />
-        </div>
-      </Column>
-    </Row>
-    <Row>
-      <Column width={4} offset={5}>
-        <Pagination
-          prevPageIndex={prevPageIndex}
-          nextPageIndex={nextPageIndex}
-          pageIndex={pageIndex}
-          pageInterval={pageInterval}
-          numRules={numRules}
-          updatePageIndex={updatePageIndex}
-          pagesToDisplay={pagesToDisplay}
+}) => {
+  const isRulesEmpty = rules.length <= 0;
+  return (
+    <div {...WriteSelectors.page} className="container">
+      <Header logout={logout} />
+      <Row>
+        <Column width={6} offset={2}>
+          <Breadcrumb>
+            <a {...WriteSelectors.breadcrumb} href="/bounce_rules">
+              Bounce Rules
+            </a>
+          </Breadcrumb>
+        </Column>
+      </Row>
+      <Row>
+        <Column width={2} offset={2}>
+          <h1>Bounce Rules</h1>
+        </Column>
+        <Column className=" csv-button-col" width={4} offset={8}>
+          <CSVLink
+            {...WriteSelectors.csvButton}
+            filename="bounce_rules.csv"
+            className="sg-button btn btn-secondary sg-right"
+            data={rules}
+          >
+            Export CSV
+          </CSVLink>
+          <Button
+            {...WriteSelectors.createRuleButton}
+            onClick={handleCreateOpen}
+            onKeyDown={handleCreateOpen}
+            id="isCreateRuleOpen"
+            data-button="create-button"
+            className="create-rule-button"
+            type="primary"
+          >
+            Create Rule
+          </Button>
+        </Column>
+      </Row>
+      <Row>
+        <Column width={10} offset={2}>
+          <div {...WriteSelectors.ruleFilter}>
+            <RuleFilter
+              searchToken={searchToken}
+              updateSearchToken={updateSearchToken}
+              updateSearchCategory={updateSearchCategory}
+              filterOptions={filterOptions}
+              addFilter={addFilter}
+              removeFilter={removeFilter}
+              invalidFilter={invalidFilter}
+            />
+          </div>
+        </Column>
+      </Row>
+      <Row>
+        <Column width={10} offset={2}>
+          {isFetching && (
+            <div className="bounce-rule-loader">
+              <Loader centered />
+              <Row>
+                <p className="loading">Loading Rules</p>
+              </Row>
+            </div>
+          )}
+          {!isRulesEmpty &&
+            !isFetching && (
+              <div {...WriteSelectors.ruleTable}>
+                <RuleListContainer
+                  handleActionOpen={handleActionOpen}
+                  selectedRule={selectedRule}
+                  rules={filteredRules}
+                />
+              </div>
+            )}
+          {isRulesEmpty &&
+            !isFetching && (
+              <div {...WriteSelectors.emptyRulesWarning}>
+                <EmptyRules />
+              </div>
+            )}
+        </Column>
+      </Row>
+      <Row>
+        <Column width={4} offset={5}>
+          {!isRulesEmpty &&
+            !isFetching && (
+              <Pagination
+                handlePrevClicked={handlePrevClicked}
+                handleNextClicked={handleNextClicked}
+                currentPageIndex={currentPageIndex}
+                rulesToShow={rulesToShow}
+                numRules={numRules}
+                updatePageIndex={updatePageIndex}
+                pagesToDisplay={pagesToDisplay}
+              />
+            )}
+        </Column>
+      </Row>
+      {isCreateRuleOpen && (
+        <CreateRuleModal
+          {...WriteSelectors.createRuleModal}
+          newRule={newRule}
+          isInvalidInput={isInvalidInput}
+          handleModalClose={handleModalClose}
+          handleRuleUpdate={handleRuleUpdate}
+          handleRuleUpdateInt={handleRuleUpdateInt}
+          handleCreateSubmit={handleCreateSubmit}
         />
-      </Column>
-    </Row>
-    {isCreateRuleOpen && (
-      <CreateRuleModal
-        {...WriteSelectors.createRuleModal}
-        newRule={newRule}
-        isInvalidInput={isInvalidInput}
-        handleModalClose={handleModalClose}
-        handleRuleUpdate={handleRuleUpdate}
-        handleRuleUpdateInt={handleRuleUpdateInt}
-        handleCreateSubmit={handleCreateSubmit}
-      />
-    )}
-    {isCreateRuleConfirmationOpen && (
-      <CreateConfirmationModal
-        {...WriteSelectors.confirmModal}
-        handleModalClose={handleModalClose}
-        handleCreateConfirm={handleCreateConfirm}
-      />
-    )}
-    {isDeleteConfirmationOpen && (
-      <DeleteConfirmationModal
-        idToDelete={idToDelete}
-        handleModalClose={handleModalClose}
-        handleDeleteConfirm={handleDeleteConfirm}
-      />
-    )}
-    {isDeleteAlertOpen && (
-      <DeleteConfirmationAlert handleModalClose={handleModalClose} />
-    )}
-  </div>
-);
+      )}
+      {isCreateRuleConfirmationOpen && (
+        <CreateConfirmationModal
+          {...WriteSelectors.confirmModal}
+          handleModalClose={handleModalClose}
+          handleCreateConfirm={handleCreateConfirm}
+        />
+      )}
+      {isDeleteConfirmationOpen && (
+        <DeleteConfirmationModal
+          idToDelete={idToDelete}
+          handleModalClose={handleModalClose}
+          handleDeleteConfirm={handleDeleteConfirm}
+        />
+      )}
+      {isDeleteAlertOpen && (
+        <DeleteConfirmationAlert handleModalClose={handleModalClose} />
+      )}
+    </div>
+  );
+};
 
 BounceRulesContainer.propTypes = {
   rules: PropTypes.arrayOf(
@@ -239,8 +265,8 @@ BounceRulesContainer.propTypes = {
   updateSearchToken: PropTypes.func,
   updateSearchCategory: PropTypes.func,
   removeFilter: PropTypes.func,
-  prevPageIndex: PropTypes.func,
-  nextPageIndex: PropTypes.func,
+  handlePrevClicked: PropTypes.func,
+  handleNextClicked: PropTypes.func,
   updatePageIndex: PropTypes.func,
   filteredRules: PropTypes.arrayOf(
     PropTypes.shape({
@@ -263,8 +289,8 @@ BounceRulesContainer.propTypes = {
     description: PropTypes.string,
     bounce_action: PropTypes.string,
   }),
-  pageIndex: PropTypes.number,
-  pageInterval: PropTypes.number,
+  currentPageIndex: PropTypes.number,
+  rulesToShow: PropTypes.number,
   pagesToDisplay: PropTypes.number,
   numRules: PropTypes.number,
   filterOptions: PropTypes.arrayOf(
@@ -304,14 +330,14 @@ BounceRulesContainer.defaultProps = {
   updateSearchToken: () => {},
   updateSearchCategory: () => {},
   removeFilter: () => {},
-  prevPageIndex: () => {},
-  nextPageIndex: () => {},
+  handlePrevClicked: () => {},
+  handleNextClicked: () => {},
   updatePageIndex: () => {},
   filteredRules: [],
   searchToken: "",
   selectedRule: {},
-  pageIndex: 1,
-  pageInterval: 10,
+  currentPageIndex: 1,
+  rulesToShow: 10,
   pagesToDisplay: 5,
   numRules: 0,
   filterOptions: () => {},
