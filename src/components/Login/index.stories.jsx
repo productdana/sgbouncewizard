@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import Login from "./index";
 
-storiesOf("Login", module)
+storiesOf("Login Page", module)
   .add("Empty Default", () => <Login />)
   .add("Some Inputs", () => (
     <Login username="testusername" password="testpassword" />

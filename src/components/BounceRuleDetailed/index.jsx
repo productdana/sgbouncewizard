@@ -41,12 +41,13 @@ const BounceRuleDetailed = ({
   prevPageIndex,
   updatePageIndex,
   filteredChangelog,
+  logout,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
   return (
     <div className="detailed-page-container">
-      <Header />
+      <Header logout={logout} />
       <Row>
         <Column width={6} offset={2}>
           <Breadcrumb>
