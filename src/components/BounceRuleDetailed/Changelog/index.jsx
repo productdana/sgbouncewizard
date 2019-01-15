@@ -18,13 +18,15 @@ import { Column } from "../../Column";
 import { WriteSelectors } from "../selectors";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
-  return changelog.slice(0, rulesToShow).map((change, index) => (
-    <Changes
-      key={change.created_at}
-      index={index}
-      change={change}
-      handleChangelogClicked={handleChangelogClicked}
-    />
+  return changelog
+    .slice(0, rulesToShow)
+    .map((change, index) => (
+      <Changes
+        key={change.created_at}
+        index={index}
+        change={change}
+        handleChangelogClicked={handleChangelogClicked}
+      />
     ));
 }
 

@@ -182,7 +182,7 @@ export default class BounceRuleDetailedPage extends React.Component {
 
   async handleSaveConfirmation() {
     const { updatedRule } = this.state;
-    updatedRule.user_id = localStorage.getItem("user_id");
+    updatedRule.user_id = parseInt(localStorage.getItem("user_id"), 10);
     const { id } = updatedRule;
     await putRule(id, updatedRule)
       .then(() => {
@@ -263,6 +263,8 @@ export default class BounceRuleDetailedPage extends React.Component {
               handleChangelogClicked={this.handleChangelogClicked}
               handleCancelConfirmation={this.handleCancelConfirmation}
               handleSaveConfirmation={this.handleSaveConfirmation}
+              handlePrevClicked={this.handlePrevClicked}
+              handleNextClicked={this.handleNextClicked}
               onChangeRuleInt={this.onChangeRuleInt}
               updatePageIndex={this.updatePageIndex}
               handleRevertClicked={this.handleRevertClicked}
