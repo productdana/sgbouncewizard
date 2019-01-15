@@ -30,7 +30,7 @@ function displayChange(isCurrentChange, differences, keyToCheck) {
 }
 
 const ChangeModalBody = ({
-  currentRule,
+  changelog,
   handleModalClose,
   selectedChange,
   differences,
@@ -51,7 +51,7 @@ const ChangeModalBody = ({
         <div>
           <ChangeTable
             isCurrentChange
-            currentRule={currentRule}
+            currentRule={changelog[0]}
             differences={differences}
           />
         </div>
@@ -212,12 +212,12 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
 };
 
 const ChangeModal = ({
-  currentRule,
+  changelog,
   handleModalClose,
   selectedChange,
   handleRevertClicked,
 }) => {
-  const differences = getDifferences(currentRule, selectedChange);
+  const differences = getDifferences(changelog[0], selectedChange);
   return (
     <CenterModal
       {...WriteSelectors.changelogModal}
@@ -225,9 +225,9 @@ const ChangeModal = ({
       open
       renderBody={(
         <ChangeModalBody
+          changelog={changelog}
           handleModalClose={handleModalClose}
           selectedChange={selectedChange}
-          currentRule={currentRule}
           differences={differences}
           handleRevertClicked={handleRevertClicked}
         />

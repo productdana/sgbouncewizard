@@ -157,6 +157,7 @@ const BounceRuleDetailed = ({
         <ChangeModal
           {...WriteSelectors.changelogModal}
           currentRule={currentRule}
+          changelog={changelog}
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
           handleRevertClicked={handleRevertClicked}
