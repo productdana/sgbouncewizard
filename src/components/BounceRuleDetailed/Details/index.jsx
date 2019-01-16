@@ -20,6 +20,7 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
   } = currentRule;
   return (
     <div
+      {...WriteSelectors.details}
       onClick={handleEditClicked}
       id="isEditClicked"
       onKeyDown={handleEditClicked}
