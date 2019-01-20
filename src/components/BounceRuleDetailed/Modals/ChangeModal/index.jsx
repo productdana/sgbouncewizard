@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import {
@@ -126,7 +127,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "created_at"
             )}
           >
-            {createdAt}
+            {moment.unix(createdAt).format("MM/DD/YYYY LTS")}
           </TableCell>
         </TableRow>
 

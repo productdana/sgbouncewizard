@@ -90,33 +90,36 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
       </TableCell>
       <TableCell>{userId}</TableCell>
       <TableCell>{comment}</TableCell>
-      <ActionsCell>
-        <Tooltip content="Revert to this change.">
-          <Action
-            className="changelog-view-icon"
-            id="isRevertConfirmOpen"
-            onClick={handleChangelogClicked}
-            onKeyDown={handleChangelogClicked}
-            index={index}
-            icon="mc-return"
-            role="button"
-            tabIndex={0}
-          />
-        </Tooltip>
-        <Tooltip content="View previous change details.">
-          <Action
-            className="changelog-view-icon"
-            id="isChangeModalOpen"
-            onClick={handleChangelogClicked}
-            onKeyDown={handleChangelogClicked}
-            index={index}
-            view-index={index}
-            icon="view"
-            role="button"
-            tabIndex={0}
-          />
-        </Tooltip>
-      </ActionsCell>
+      {index === 0 && <TableCell />}
+      {index !== 0 && (
+        <ActionsCell>
+          <Tooltip content="Revert to this change.">
+            <Action
+              className="changelog-view-icon"
+              id="isRevertConfirmOpen"
+              onClick={handleChangelogClicked}
+              onKeyDown={handleChangelogClicked}
+              index={index}
+              icon="mc-return"
+              role="button"
+              tabIndex={0}
+            />
+          </Tooltip>
+          <Tooltip content="View previous change details.">
+            <Action
+              className="changelog-view-icon"
+              id="isChangeModalOpen"
+              onClick={handleChangelogClicked}
+              onKeyDown={handleChangelogClicked}
+              index={index}
+              view-index={index}
+              icon="view"
+              role="button"
+              tabIndex={0}
+            />
+          </Tooltip>
+        </ActionsCell>
+      )}
     </TableRow>
   );
 };
