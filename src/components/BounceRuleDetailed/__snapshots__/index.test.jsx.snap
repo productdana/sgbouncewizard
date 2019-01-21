@@ -332,58 +332,8 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                 0
               </td>
               <td />
-              <td
-                className="actions"
-              >
-                <i
-                  className="sg-icon sg-icon-ellipsis"
-                  style={null}
-                />
-                <div
-                  className="action-icons"
-                >
-                  <span
-                    data-tooltip="Revert to this change."
-                    data-tooltip-pos="up"
-                  >
-                    <span
-                      className="changelog-view-icon"
-                      data-tooltip-pos="up"
-                      id="isRevertConfirmOpen"
-                      index={0}
-                      onClick={[MockFunction]}
-                      onKeyDown={[MockFunction]}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      <i
-                        className="sg-icon sg-icon-mc-return"
-                        style={null}
-                      />
-                    </span>
-                  </span>
-                  <span
-                    data-tooltip="View previous change details."
-                    data-tooltip-pos="up"
-                  >
-                    <span
-                      className="changelog-view-icon"
-                      data-tooltip-pos="up"
-                      id="isChangeModalOpen"
-                      index={0}
-                      onClick={[MockFunction]}
-                      onKeyDown={[MockFunction]}
-                      role="button"
-                      tabIndex={0}
-                      view-index={0}
-                    >
-                      <i
-                        className="sg-icon sg-icon-view"
-                        style={null}
-                      />
-                    </span>
-                  </span>
-                </div>
+              <td>
+                 
               </td>
             </tr>
           </tbody>
