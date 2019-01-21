@@ -1,0 +1,11 @@
+FROM cypress/browsers:chrome65-ff57
+
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+
+RUN npm install cypress
+
+COPY cypress /usr/app/cypress
+COPY cypress.json /usr/src/app/cypress.json
+
+RUN ./node_modules/.bin/cypress verify

@@ -1,0 +1,17 @@
+version: "3.6"
+
+services:
+  sgbouncewizard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+
+  cypress:
+    build:
+      context: .
+      dockerfile: Dockerfile.cypress
+    depends_on:
+      - sgbouncewizard
+    network_mode: "host"

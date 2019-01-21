@@ -107,7 +107,6 @@ export default class LoginPage extends React.Component {
       isNetworkError,
     } = this.state;
     const redirectLink = "/bounce_rules";
-
     return isAuthenticated ? (
       <Redirect to={redirectLink} />
     ) : (
