@@ -90,7 +90,7 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
       </TableCell>
       <TableCell>{userId}</TableCell>
       <TableCell>{comment}</TableCell>
-      {index === 0 && <TableCell />}
+      {index === 0 && <TableCell>&nbsp;</TableCell>}
       {index !== 0 && (
         <ActionsCell>
           <Tooltip content="Revert to this change.">
