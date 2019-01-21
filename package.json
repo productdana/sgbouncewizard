@@ -8,7 +8,7 @@
     "cypress:open:localhost": "cypress open --env testEnv=localhost",
     "cypress:open:mock": "cypress open --env testEnv=mock",
     "cypress:open:app": "cypress open --config baseUrl=http://deployedappurl.cloudfront.net",
-    "cypress:run:localhost": "cypress run",
+    "cypress:run:localhost": "cypress run --env testEnv=localhost",
     "cypress:run:app": "cypress run --config baseUrl=http://deployedappurl.cloudfront.net",
     "dev": "webpack-dev-server --env.ENVIRONMENT=dev --open --mode=development ",
     "dev:mock": "webpack-dev-server --env.ENVIRONMENT=mock --open --mode=development ",
