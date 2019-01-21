@@ -74,10 +74,16 @@ module.exports = env => {
       ]
     },
     plugins: [
+      new Dotenv({
+        path: fs.existsSync("./.env." + env.ENVIRONMENT)
+          ? "./.env." + env.ENVIRONMENT
+          : "./.env"
+      }),
       new webpack.DefinePlugin({
         "process.env": {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          API_URL: JSON.stringify(process.env.API_URL)
+          API_URL: JSON.stringify(process.env.API_URL),
+          ENVIRONMENT: JSON.stringify(process.env.ENVIRONMENT)
         }
       }),
       new HtmlWebpackPlugin({
@@ -86,11 +92,6 @@ module.exports = env => {
       new MiniCssExtractPlugin({
         filename: devMode ? "[name].css" : "[name].[contenthash].css",
         chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css"
-      }),
-      new Dotenv({
-        path: fs.existsSync("./.env." + env.ENVIRONMENT)
-          ? "./.env." + env.ENVIRONMENT
-          : "./.env"
       })
     ],
     devServer: {

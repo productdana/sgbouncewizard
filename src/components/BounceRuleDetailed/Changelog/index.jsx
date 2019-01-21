@@ -12,6 +12,7 @@ import { CSVLink } from "react-csv";
 import moment from "moment";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
+import { WriteSelectors } from "../selectors";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
@@ -44,7 +45,7 @@ const Changelog = ({
   isChangelogEmpty,
   rulesToShow,
 }) => (
-  <div>
+  <div {...WriteSelectors.changelog}>
     <Row id="changelog-title">
       <Column width={1} offset={1}>
         <h2>Changelog</h2>

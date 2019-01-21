@@ -51,6 +51,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
 
 const CreateConfirmationModal = ({ handleModalClose, handleCreateConfirm }) => (
   <CenterModal
+    {...WriteSelectors.confirmModal}
     open
     renderBody={<ConfirmationBody />}
     renderHeader={<ConfirmationHeader />}
