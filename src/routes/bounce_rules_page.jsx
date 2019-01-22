@@ -273,6 +273,7 @@ export default class BounceRulesPage extends React.Component {
       this.setState({
         isCreateRuleConfirmationOpen: false,
         rules: [newRule, ...rules],
+        newRule: null,
       });
     }
   }

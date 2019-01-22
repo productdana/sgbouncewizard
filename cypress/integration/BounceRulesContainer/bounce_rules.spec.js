@@ -16,6 +16,7 @@ const testCreateRule = {
   description: "testDescription",
   enhanced_code: "492",
   regex: "testRegex",
+  comment: "init commit test",
 };
 
 describe("Bounce Rules Page", () => {

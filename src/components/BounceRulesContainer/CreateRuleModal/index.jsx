@@ -22,7 +22,7 @@ const ConfirmationBody = ({ newRule, handleRuleUpdate }) => {
     <div {...WriteSelectors.confirmModal}>
       <p>Please enter a commit message and confirm your changes.</p>
       <TextInput
-        {...WriteSelectors.commitInput}
+        {...WriteSelectors.commitMessage}
         onChange={handleRuleUpdate}
         value={comment}
         id="comment"
