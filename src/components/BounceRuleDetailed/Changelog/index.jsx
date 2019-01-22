@@ -88,8 +88,8 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
         </div>
         {moment.unix(createdAt).format("MM/DD/YYYY LTS")}
       </TableCell>
-      <TableCell>{userId}</TableCell>
-      <TableCell>{comment}</TableCell>
+      <TableCell>{userId || " "}</TableCell>
+      <TableCell>{comment || " "}</TableCell>
       {index === 0 && <TableCell>&nbsp;</TableCell>}
       {index !== 0 && (
         <ActionsCell>

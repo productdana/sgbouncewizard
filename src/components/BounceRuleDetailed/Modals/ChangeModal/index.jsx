@@ -103,7 +103,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
           <TableCell
             className={displayChange(isCurrentChange, differences, "comment")}
           >
-            {comment}
+            {comment || " "}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -113,7 +113,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
           <TableCell
             className={displayChange(isCurrentChange, differences, "user_id")}
           >
-            {userId}
+            {userId || " "}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -127,7 +127,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "created_at"
             )}
           >
-            {moment.unix(createdAt).format("MM/DD/YYYY LTS")}
+            {moment.unix(createdAt).format("MM/DD/YYYY LTS") || " "}
           </TableCell>
         </TableRow>
 
@@ -142,7 +142,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "bounce_action"
             )}
           >
-            {bounceAction}
+            {bounceAction || " "}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -156,7 +156,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "response_code"
             )}
           >
-            {responseCode}
+            {responseCode || " "}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -170,7 +170,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "enhanced_code"
             )}
           >
-            {enhancedCode}
+            {enhancedCode || " "}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -180,7 +180,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
           <TableCell
             className={displayChange(isCurrentChange, differences, "regex")}
           >
-            {regex}
+            {regex || " "}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -190,7 +190,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
           <TableCell
             className={displayChange(isCurrentChange, differences, "priority")}
           >
-            {priority}
+            {priority || " "}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -204,7 +204,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "description"
             )}
           >
-            {description}
+            {description || " "}
           </TableCell>
         </TableRow>
       </TableBody>
