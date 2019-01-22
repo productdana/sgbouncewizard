@@ -13,8 +13,6 @@ import moment from "moment";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 
-import { WriteSelectors } from "../selectors";
-
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
     .slice(0, rulesToShow)
@@ -46,7 +44,7 @@ const Changelog = ({
   isChangelogEmpty,
   rulesToShow,
 }) => (
-  <div {...WriteSelectors.changelog}>
+  <div>
     <Row id="changelog-title">
       <Column width={1} offset={1}>
         <h2>Changelog</h2>

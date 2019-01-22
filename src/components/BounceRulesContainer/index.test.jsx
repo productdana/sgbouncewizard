@@ -18,7 +18,7 @@ const {
 const testRules = [
   {
     id: 504,
-    response_code: "550",
+    response_code: 550,
     enhanced_code: "",
     regex: "no MX record for domain",
     priority: 0,
@@ -27,6 +27,16 @@ const testRules = [
     bounce_action: "no_action",
   },
 ];
+
+const newRule = {
+  id: 504,
+  response_code: 551,
+  enhanced_code: "",
+  regex: "no MX record for domain",
+  priority: 0,
+  description: "new rule",
+  bounce_action: "no_action",
+};
 
 const wrapper = shallow(
   <BounceRuleContainer
@@ -87,5 +97,13 @@ it("should render create rule modal", () => {
 
 it("should render create rule confirmation", () => {
   wrapper.setProps({ isCreateRuleConfirmationOpen: true });
-  expect(wrapper.find(confirmModal)).toHaveLength(1);
+  expect(wrapper.find(confirmModal).exists()).toBeTruthy();
+});
+
+it("should call listRules() on render", () => {
+  wrapper.setProps({
+    newRule,
+    isCreateRuleConfirmationOpen: true,
+  });
+  expect(wrapper.find(confirmModal).exists()).toBeTruthy();
 });
