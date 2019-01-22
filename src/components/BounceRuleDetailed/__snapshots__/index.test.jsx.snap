@@ -329,9 +329,11 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                 Invalid date
               </td>
               <td>
-                0
+                 
               </td>
-              <td />
+              <td>
+                 
+              </td>
               <td>
                  
               </td>
