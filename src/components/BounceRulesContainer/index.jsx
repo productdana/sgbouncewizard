@@ -34,7 +34,7 @@ const RuleListContainer = ({ rules, handleActionOpen }) => (
         <HeaderCell className="row-bounce-action">Bounce Action</HeaderCell>
         <HeaderCell className="row-response-code">Response Code</HeaderCell>
         <HeaderCell className="row-description">Description</HeaderCell>
-        <HeaderCell className="row-actions">Actions</HeaderCell>
+        <HeaderCell className="actions-cell row-action">Actions</HeaderCell>
       </TableRow>
     </TableHeader>
     <TableBody>
