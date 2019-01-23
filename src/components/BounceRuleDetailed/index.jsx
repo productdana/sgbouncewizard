@@ -95,7 +95,7 @@ const BounceRuleDetailed = ({
                 onClick={handleEditClicked}
                 id="isEditClicked"
                 onKeyDown={handleEditClicked}
-                data-test="edit-button"
+                {...WriteSelectors.editButton}
                 className="sg-button edit-button"
                 type="primary"
               >

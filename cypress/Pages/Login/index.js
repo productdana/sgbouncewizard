@@ -2,6 +2,10 @@ import Page from "../page";
 import { Selectors } from "../../../src/components/Login/selectors";
 
 class LoginPage extends Page {
+  get loginContainer() {
+    return cy.get(Selectors.loginContainer);
+  }
+
   get emailInput() {
     return cy.get(Selectors.emailInput);
   }

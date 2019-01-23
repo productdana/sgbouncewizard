@@ -15,6 +15,7 @@ import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import Badge from "@sendgrid/ui-components/badge";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
+import { WriteSelectors } from "../selectors";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
@@ -47,7 +48,7 @@ const Changelog = ({
   isChangelogEmpty,
   rulesToShow,
 }) => (
-  <div>
+  <div {...WriteSelectors.changelog}>
     <Row id="changelog-title">
       <Column width={1} offset={1}>
         <h2>Changelog</h2>

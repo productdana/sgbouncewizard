@@ -90,7 +90,7 @@ const LoginForm = ({
   isAuthenticating,
   updateField,
 }) => (
-  <div className="login-form-body">
+  <div {...WriteSelectors.loginContainer} className="login-form-body">
     <form onSubmit={handleLogin} id="login-form">
       <Row>
         <Column width={6} offset={4}>

@@ -118,6 +118,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
       <div>
         <div
           className="detail-container card "
+          data-test="details"
           id="isEditClicked"
           onClick={[MockFunction]}
           onKeyDown={[MockFunction]}
@@ -253,7 +254,9 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
     <div
       className="mako-grid__col-10 col-start-2"
     >
-      <div>
+      <div
+        data-test="changelog"
+      >
         <div
           className="mako-grid__row"
           id="changelog-title"
