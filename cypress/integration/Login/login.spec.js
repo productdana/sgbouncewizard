@@ -44,4 +44,9 @@ describe("Login Page", () => {
       LoginPage.invalidInputAlert.should("be.visible");
     });
   });
+
+  it("should redirect to login if not authorized", () => {
+    BounceRulesPage.open();
+    LoginPage.loginContainer.should("be.visible");
+  });
 });

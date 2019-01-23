@@ -118,6 +118,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
       <div>
         <div
           className="detail-container card "
+          data-test="details"
           id="isEditClicked"
           onClick={[MockFunction]}
           onKeyDown={[MockFunction]}
@@ -253,7 +254,9 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
     <div
       className="mako-grid__col-10 col-start-2"
     >
-      <div>
+      <div
+        data-test="changelog"
+      >
         <div
           className="mako-grid__row"
           id="changelog-title"
@@ -303,7 +306,11 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                 Commit Message
               </th>
               <th
+<<<<<<< HEAD
                 className="row-actions actions-align"
+=======
+                className="actions-cell"
+>>>>>>> master
                 onClick={[Function]}
               >
                 Actions
@@ -313,9 +320,23 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           <tbody>
             <tr>
               <td>
+                <div
+                  style={
+                    Object {
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <span
+                    className="badge currentBadge"
+                  >
+                    Current
+                  </span>
+                </div>
                 Invalid date
               </td>
               <td>
+<<<<<<< HEAD
                 N/A
               </td>
               <td>
@@ -333,6 +354,15 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                   role="button"
                   tabIndex={0}
                 />
+=======
+                 
+              </td>
+              <td>
+                 
+              </td>
+              <td>
+                 
+>>>>>>> master
               </td>
             </tr>
           </tbody>

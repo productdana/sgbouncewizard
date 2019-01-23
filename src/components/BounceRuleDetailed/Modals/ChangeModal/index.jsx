@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import {
@@ -10,30 +11,77 @@ import {
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 import { WriteSelectors } from "../../selectors";
+import "./index.scss";
 
-const ChangeModalBody = ({ currentRule, handleModalClose, selectedChange }) => (
+function getDifferences(currentRule, selectedChange) {
+  const differences = Object.keys(currentRule).filter(
+    k => currentRule[k] !== selectedChange[k]
+  );
+  return differences;
+}
+
+function displayChange(isCurrentChange, differences, keyToCheck) {
+  if (differences.includes(keyToCheck)) {
+    if (isCurrentChange) {
+      return "hasChangedCurrent";
+    }
+    return "hasChangedPrevious";
+  }
+  return "";
+}
+
+const ChangeModalBody = ({
+  changelog,
+  handleModalClose,
+  selectedChange,
+  differences,
+  handleRevertClicked,
+}) => (
   <div className="changelog-modal">
     <Row>
       <Column width={6} offset={1}>
         <h1>Previous</h1>
-        <ChangeTable currentRule={selectedChange} />
+        <ChangeTable
+          isCurrentChange={false}
+          currentRule={selectedChange}
+          differences={differences}
+        />
       </Column>
       <Column width={6} offset={7}>
         <h1>Current</h1>
-        <ChangeTable currentRule={currentRule} />
+        <div>
+          <ChangeTable
+            isCurrentChange
+            currentRule={changelog[0]}
+            differences={differences}
+          />
+        </div>
       </Column>
     </Row>
+
     <Row>
-      <Column className="changelog-modal-button" width={2} offset={11}>
-        <Button id="isChangeModalOpen" onClick={handleModalClose}>
+      <Column className="changelog-modal-button" width={3} offset={10}>
+        <Button
+          id="isChangeModalOpen"
+          className="sm-sg-button"
+          type="secondary"
+          onClick={handleModalClose}
+        >
           Close
+        </Button>
+        <Button
+          id="isChangeModalOpen"
+          className="sm-sg-button"
+          onClick={handleRevertClicked}
+        >
+          Revert
         </Button>
       </Column>
     </Row>
   </div>
 );
 
-const ChangeTable = ({ currentRule }) => {
+const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
   const {
     description,
     response_code: responseCode,
@@ -52,75 +100,141 @@ const ChangeTable = ({ currentRule }) => {
           <TableCell>
             <strong>Change Comment</strong>
           </TableCell>
-          <TableCell>{comment}</TableCell>
+          <TableCell
+            className={displayChange(isCurrentChange, differences, "comment")}
+          >
+            {comment || " "}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>User</strong>
           </TableCell>
-          <TableCell>{userId}</TableCell>
+          <TableCell
+            className={displayChange(isCurrentChange, differences, "user_id")}
+          >
+            {userId || " "}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Time Created</strong>
           </TableCell>
-          <TableCell>{createdAt}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "created_at"
+            )}
+          >
+            {moment.unix(createdAt).format("MM/DD/YYYY LTS") || " "}
+          </TableCell>
         </TableRow>
 
         <TableRow>
           <TableCell>
             <strong>Bounce Action</strong>
           </TableCell>
-          <TableCell>{bounceAction}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "bounce_action"
+            )}
+          >
+            {bounceAction || " "}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Response Code</strong>
           </TableCell>
-          <TableCell>{responseCode}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "response_code"
+            )}
+          >
+            {responseCode || " "}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Enhanced Code</strong>
           </TableCell>
-          <TableCell>{enhancedCode}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "enhanced_code"
+            )}
+          >
+            {enhancedCode || " "}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>RegEx</strong>
           </TableCell>
-          <TableCell>{regex}</TableCell>
+          <TableCell
+            className={displayChange(isCurrentChange, differences, "regex")}
+          >
+            {regex || " "}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Priority</strong>
           </TableCell>
-          <TableCell>{priority}</TableCell>
+          <TableCell
+            className={displayChange(isCurrentChange, differences, "priority")}
+          >
+            {priority || " "}
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Description</strong>
           </TableCell>
-          <TableCell>{description}</TableCell>
+          <TableCell
+            className={displayChange(
+              isCurrentChange,
+              differences,
+              "description"
+            )}
+          >
+            {description || " "}
+          </TableCell>
         </TableRow>
       </TableBody>
     </Table>
   );
 };
 
-const ChangeModal = ({ currentRule, handleModalClose, selectedChange }) => (
-  <CenterModal
-    {...WriteSelectors.changelogModal}
-    large
-    open
-    renderBody={(
-      <ChangeModalBody
-        handleModalClose={handleModalClose}
-        selectedChange={selectedChange}
-        currentRule={currentRule}
-      />
+const ChangeModal = ({
+  changelog,
+  handleModalClose,
+  selectedChange,
+  handleRevertClicked,
+}) => {
+  const differences = getDifferences(changelog[0], selectedChange);
+  return (
+    <CenterModal
+      {...WriteSelectors.changelogModal}
+      large
+      open
+      renderBody={(
+        <ChangeModalBody
+          changelog={changelog}
+          handleModalClose={handleModalClose}
+          selectedChange={selectedChange}
+          differences={differences}
+          handleRevertClicked={handleRevertClicked}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 export default ChangeModal;
