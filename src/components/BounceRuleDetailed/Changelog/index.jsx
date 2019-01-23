@@ -12,6 +12,7 @@ import { CSVLink } from "react-csv";
 import moment from "moment";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
+import "./index.scss";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
@@ -60,10 +61,12 @@ const Changelog = ({
       <Table>
         <TableHeader>
           <TableRow>
-            <HeaderCell>Date</HeaderCell>
-            <HeaderCell>User</HeaderCell>
-            <HeaderCell>Commit Message</HeaderCell>
-            <HeaderCell className="actions-align">Actions</HeaderCell>
+            <HeaderCell className="row-date">Date</HeaderCell>
+            <HeaderCell className="row-user">User</HeaderCell>
+            <HeaderCell className="row-commit">Commit Message</HeaderCell>
+            <HeaderCell className="row-actions actions-align">
+              Actions
+            </HeaderCell>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -79,9 +82,11 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
 
   return (
     <TableRow>
-      <TableCell>{moment.unix(createdAt).format("MM/DD/YYYY LTS")}</TableCell>
-      <TableCell>{userId}</TableCell>
-      <TableCell>{comment}</TableCell>
+      <TableCell>
+        {moment.unix(createdAt).format("MM/DD/YYYY LTS") || "N/A"}
+      </TableCell>
+      <TableCell>{userId || "N/A"}</TableCell>
+      <TableCell>{comment || "N/A"}</TableCell>
       <TableCell className="changelog-view-icon-cell">
         <i
           onClick={handleChangelogClicked}
