@@ -11,6 +11,7 @@ export default class BounceRuleDetailedPage extends React.Component {
 
     this.state = {
       currentRule: null,
+      updatedRule: null,
       changelog: [],
       isEditClicked: false,
       isChangeModalOpen: false,
@@ -32,9 +33,12 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.handleCancelConfirmation = this.handleCancelConfirmation.bind(this);
     this.handleSaveConfirmation = this.handleSaveConfirmation.bind(this);
     this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
+    this.handleRevertConfirm = this.handleRevertConfirm.bind(this);
+    this.onChangeRuleRevert = this.onChangeRuleRevert.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
+    this.handleRevertClicked = this.handleRevertClicked.bind(this);
   }
 
   async componentDidMount() {
@@ -57,14 +61,6 @@ export default class BounceRuleDetailedPage extends React.Component {
     }
   }
 
-  onChangeRule(e) {
-    const { id, value } = e.currentTarget;
-    const { updatedRule } = this.state;
-    this.setState({
-      updatedRule: { ...updatedRule, [id]: value },
-    });
-  }
-
   onChangeRuleInt(e) {
     const { updatedRule } = this.state;
     const { id, value } = e.currentTarget;
@@ -79,6 +75,21 @@ export default class BounceRuleDetailedPage extends React.Component {
     }
   }
 
+  onChangeRule(e) {
+    const { id, value } = e.currentTarget;
+    const { updatedRule } = this.state;
+    this.setState({
+      updatedRule: { ...updatedRule, [id]: value },
+    });
+  }
+
+  onChangeRuleRevert(e) {
+    const { value } = e.currentTarget;
+    this.setState({
+      newCommitMessage: value,
+    });
+  }
+
   logout() {
     const { history } = this.props;
     localStorage.clear();
@@ -89,15 +100,48 @@ export default class BounceRuleDetailedPage extends React.Component {
     const { id } = e.currentTarget;
     this.setState({
       [id]: false,
+      selectedChange: null,
+      newCommitMessage: "",
     });
   }
 
   handleChangelogClicked(e) {
     const { changelog } = this.state;
-    const changeIndex = e.currentTarget.getAttribute("index");
+    const { id } = e.currentTarget;
+    const changeIndex = parseInt(e.currentTarget.getAttribute("index"), 10);
     this.setState({
       selectedChange: changelog[changeIndex],
-      isChangeModalOpen: true,
+      [id]: true,
+      newCommitMessage: "",
+      selectedChangelogIndex: changeIndex,
+    });
+  }
+
+  handleRevertClicked() {
+    this.setState({
+      isChangeModalOpen: false,
+      isRevertConfirmOpen: true,
+    });
+  }
+
+  async handleRevertConfirm() {
+    const { selectedChange, newCommitMessage } = this.state;
+    selectedChange.comment = newCommitMessage;
+    await putRule(selectedChange.id, selectedChange);
+    getChangelog(selectedChange.id)
+      .then(res => {
+        const { data } = res;
+        this.setState({
+          changelog: data,
+        });
+      })
+      .catch(() => {
+        this.setState({ isNetworkError: true });
+      });
+    this.setState({
+      currentRule: selectedChange,
+      isRevertConfirmOpen: false,
+      newCommitMessage: "",
     });
   }
 
@@ -145,12 +189,11 @@ export default class BounceRuleDetailedPage extends React.Component {
         this.setState({
           isConfirmOpen: false,
           isEditClicked: false,
+          isUpdateError: false,
         });
       })
       .catch(() => {
-        this.setState({
-          isUpdateError: true,
-        });
+        this.setState({ isUpdateError: true });
       });
     getChangelog(id).then(res => {
       const { data } = res;
@@ -171,12 +214,12 @@ export default class BounceRuleDetailedPage extends React.Component {
   }
 
   updatePageIndex(e) {
-    const newIndex = parseInt(e.currentTarget.getAttribute("value"), 10);
+    const value = parseInt(e.currentTarget.getAttribute("value"), 10);
     this.setState(prevState => {
-      const isPageIndexUpdated = prevState.currentPageIndex !== newIndex;
+      const isPageIndexUpdated = prevState.currentPageIndex !== value;
       return {
         currentPageIndex: isPageIndexUpdated
-          ? newIndex
+          ? value
           : prevState.currentPageIndex,
       };
     });
@@ -224,6 +267,9 @@ export default class BounceRuleDetailedPage extends React.Component {
               handleNextClicked={this.handleNextClicked}
               onChangeRuleInt={this.onChangeRuleInt}
               updatePageIndex={this.updatePageIndex}
+              handleRevertClicked={this.handleRevertClicked}
+              onChangeRuleRevert={this.onChangeRuleRevert}
+              handleRevertConfirm={this.handleRevertConfirm}
               filteredChangelog={filteredChangelog}
               {...this.state}
             />
