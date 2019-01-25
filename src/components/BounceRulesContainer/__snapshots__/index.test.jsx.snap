@@ -399,7 +399,7 @@ exports[`should render correctly 1`] = `
                 Description
               </th>
               <th
-                className="row-actions"
+                className="actions-cell row-action"
                 onClick={[Function]}
               >
                 Actions
