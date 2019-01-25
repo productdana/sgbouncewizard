@@ -16,6 +16,16 @@ const testCreateRule = {
   description: "testDescription",
   enhanced_code: "492",
   regex: "testRegex",
+  comment: "init commit test",
+};
+
+const neverCreatedRule = {
+  priority: 3,
+  bounce_action: "Never Created",
+  response_code: 314,
+  description: "Never Created",
+  enhanced_code: "500",
+  regex: "neverCreated",
 };
 
 describe("Bounce Rules Page", () => {
@@ -38,6 +48,25 @@ describe("Bounce Rules Page", () => {
       BounceRulesPage.open();
       BounceRulesPage.createBounceRuleUI(testCreateRule);
       BounceRulesPage.testBounceRuleToCreate.should("be.visible");
+    });
+  });
+
+  it("should cancel creating a bounce rule before submitting", () => {
+    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
+      BounceRulesPage.open();
+      BounceRulesPage.createRuleButton.click();
+      BounceRulesPage.cancelCreateRuleButton.click();
+      BounceRulesPage.createRuleModal.should("not.be.visible");
+    });
+  });
+
+  it("should cancel creating a bounce rule after submitting", () => {
+    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
+      BounceRulesPage.open();
+      BounceRulesPage.createRuleButton.click();
+      BounceRulesPage.fillCreateRuleForm(neverCreatedRule);
+      BounceRulesPage.cancelCreateConfirmationSubmit.click();
+      BounceRulesPage.confirmModal.should("not.be.visible");
     });
   });
 

@@ -16,20 +16,32 @@ const ConfirmationHeader = () => (
   </div>
 );
 
-const ConfirmationBody = () => (
-  <div>
-    <p>Please review the bounce rule before submitting.</p>
-  </div>
-);
+const ConfirmationBody = ({ newRule, handleRuleUpdate }) => {
+  const { comment } = newRule;
+  return (
+    <div {...WriteSelectors.confirmModal}>
+      <p>Please enter a commit message and confirm your changes.</p>
+      <TextInput
+        {...WriteSelectors.commitMessage}
+        onChange={handleRuleUpdate}
+        value={comment}
+        id="comment"
+        type="text"
+        label="Commit Message"
+      />
+    </div>
+  );
+};
 
 const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
   <div>
     <Row>
       <Column width={1} offset={10}>
         <Button
+          {...WriteSelectors.cancelConfirmationSubmit}
           className="sg-button"
           onClick={handleModalClose}
-          id="isCreateRuleOpen"
+          id="isCreateRuleConfirmationOpen"
           type="secondary"
         >
           Close
@@ -49,16 +61,24 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
   </div>
 );
 
-const CreateConfirmationModal = ({ handleModalClose, handleCreateConfirm }) => (
+const CreateConfirmationModal = ({
+  newRule,
+  handleModalClose,
+  handleCreateConfirm,
+  handleRuleUpdate,
+}) => (
   <CenterModal
     {...WriteSelectors.confirmModal}
     open
-    renderBody={<ConfirmationBody />}
+    renderBody={
+      <ConfirmationBody newRule={newRule} handleRuleUpdate={handleRuleUpdate} />
+    }
     renderHeader={<ConfirmationHeader />}
     renderFooter={(
       <ConfirmationFooter
         handleModalClose={handleModalClose}
         handleCreateConfirm={handleCreateConfirm}
+        handleRuleUpdate={handleRuleUpdate}
       />
 )}
   />
@@ -175,11 +195,12 @@ const CreateRuleModal = ({
       <Row className="create-modal-button-row">
         <Column width={7} offset={7}>
           <Button
-            type="secondary"
+            {...WriteSelectors.cancelCreateRuleButton}
             className="sg-button sg-right"
             onClick={handleModalClose}
             onKeyDown={handleModalClose}
             id="isCreateRuleOpen"
+            type="secondary"
           >
             Cancel
           </Button>

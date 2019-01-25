@@ -14,6 +14,7 @@ import Header from "../Header";
 import Pagination from "../Pagination";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
+import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
 
 const BounceRuleDetailed = ({
   currentRule,
@@ -24,6 +25,7 @@ const BounceRuleDetailed = ({
   isChangeModalOpen,
   isConfirmOpen,
   isCancelConfirmOpen,
+  isRevertConfirmOpen,
   isUpdateError,
   rulesToShow,
   handleModalClose,
@@ -31,8 +33,12 @@ const BounceRuleDetailed = ({
   handleEditClicked,
   handleCancelSaveClicked,
   handleChangelogClicked,
+  handleRevertClicked,
   handleCancelConfirmation,
   handleSaveConfirmation,
+  handleRevertConfirm,
+  onChangeRuleRevert,
+  newCommitMessage,
   onChangeRuleInt,
   pagesToDisplay,
   currentPageIndex,
@@ -89,7 +95,7 @@ const BounceRuleDetailed = ({
                 onClick={handleEditClicked}
                 id="isEditClicked"
                 onKeyDown={handleEditClicked}
-                data-test="edit-button"
+                {...WriteSelectors.editButton}
                 className="sg-button edit-button"
                 type="primary"
               >
@@ -151,8 +157,20 @@ const BounceRuleDetailed = ({
         <ChangeModal
           {...WriteSelectors.changelogModal}
           currentRule={currentRule}
+          changelog={changelog}
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
+          handleRevertClicked={handleRevertClicked}
+        />
+      )}
+      {isRevertConfirmOpen && (
+        <RevertConfirmationModal
+          currentRule={currentRule}
+          selectedChange={selectedChange}
+          handleModalClose={handleModalClose}
+          handleRevertConfirm={handleRevertConfirm}
+          onChangeRuleRevert={onChangeRuleRevert}
+          newCommitMessage={newCommitMessage}
         />
       )}
       {isConfirmOpen && (

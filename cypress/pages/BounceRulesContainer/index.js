@@ -19,12 +19,20 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.createRuleButton);
   }
 
+  get cancelCreateRuleButton() {
+    return cy.get(Selectors.cancelCreateRuleButton);
+  }
+
   get ruleFilter() {
     return cy.get(Selectors.ruleFilter);
   }
 
   get ruleTable() {
     return cy.get(Selectors.ruleTable);
+  }
+
+  get cancelCreateConfirmationSubmit() {
+    return cy.get(Selectors.cancelConfirmationSubmit);
   }
 
   get deleteConfirmation() {
@@ -65,6 +73,10 @@ class BounceRulesPage extends Page {
 
   get regex() {
     return cy.get(Selectors.regex);
+  }
+
+  get commitMessage() {
+    return cy.get(Selectors.commitMessage);
   }
 
   get submitButton() {
@@ -129,6 +141,39 @@ class BounceRulesPage extends Page {
     });
   }
 
+  fillCreateRuleForm(bounceRule) {
+    const {
+      priority,
+      bounce_action: bounceAction,
+      response_code: responseCode,
+      description,
+      enhanced_code: enhancedCode,
+      regex,
+    } = bounceRule;
+
+    if (priority) {
+      this.priority.type(priority);
+    }
+    if (bounceAction) {
+      this.bounceAction.type(bounceAction);
+    }
+    if (responseCode) {
+      this.responseCode.type(responseCode);
+    }
+    if (description) {
+      this.description.type(description);
+    }
+    if (enhancedCode) {
+      this.enhancedCode.type(enhancedCode);
+    }
+    if (regex) {
+      this.regex.type(regex);
+    }
+
+    this.submitButton.click();
+    this.confirmModal.should("be.visible");
+  }
+
   createBounceRuleUI(bounceRule) {
     const {
       priority,
@@ -137,6 +182,7 @@ class BounceRulesPage extends Page {
       description,
       enhanced_code: enhancedCode,
       regex,
+      comment,
     } = bounceRule;
 
     this.createRuleButton.click();
@@ -162,6 +208,11 @@ class BounceRulesPage extends Page {
 
     this.submitButton.click();
     this.confirmModal.should("be.visible");
+
+    if (comment) {
+      this.commitMessage.clear().type(comment);
+    }
+
     return this.confirmationSubmit.click();
   }
 

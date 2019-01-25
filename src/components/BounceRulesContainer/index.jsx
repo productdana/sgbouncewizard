@@ -70,7 +70,6 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
           rule={id}
           icon="view"
         />
-        <Action title="Edit" icon="pencil" />
         <Action
           title="Delete"
           onClick={handleActionOpen}
@@ -232,8 +231,10 @@ const BounceRulesContainer = ({
       {isCreateRuleConfirmationOpen && (
         <CreateConfirmationModal
           {...WriteSelectors.confirmModal}
+          newRule={newRule}
           handleModalClose={handleModalClose}
           handleCreateConfirm={handleCreateConfirm}
+          handleRuleUpdate={handleRuleUpdate}
         />
       )}
       {isDeleteConfirmationOpen && (
