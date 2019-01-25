@@ -70,7 +70,6 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
           rule={id}
           icon="view"
         />
-        <Action title="Edit" icon="pencil" />
         <Action
           title="Delete"
           onClick={handleActionOpen}

@@ -14,6 +14,7 @@ const testHooks = {
   breadcrumb: "bounce-rules-breadcrumb",
   csvButton: "export-csv-button",
   createRuleButton: "create-rule-button",
+  cancelCreateRuleButton: "cancel-create-rule-button",
   bounceRule: "bounce-rule",
   ruleFilter: "rule-filter",
   ruleTable: "rule-table",
@@ -33,6 +34,7 @@ const testHooks = {
   confirmModal: "create-confirm-modal",
   confirmationSubmit: "create-confirm-submit",
   commitMessage: "commit-message",
+  cancelConfirmationSubmit: "cancel-confirm-submit",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:

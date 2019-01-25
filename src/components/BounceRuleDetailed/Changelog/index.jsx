@@ -8,10 +8,14 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import Card from "@sendgrid/ui-components/card";
+import Tooltip from "@sendgrid/ui-components/tooltip";
 import { CSVLink } from "react-csv";
 import moment from "moment";
+import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
+import Badge from "@sendgrid/ui-components/badge";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
+import { WriteSelectors } from "../selectors";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
@@ -44,7 +48,7 @@ const Changelog = ({
   isChangelogEmpty,
   rulesToShow,
 }) => (
-  <div>
+  <div {...WriteSelectors.changelog}>
     <Row id="changelog-title">
       <Column width={1} offset={1}>
         <h2>Changelog</h2>
@@ -63,7 +67,7 @@ const Changelog = ({
             <HeaderCell>Date</HeaderCell>
             <HeaderCell>User</HeaderCell>
             <HeaderCell>Commit Message</HeaderCell>
-            <HeaderCell className="actions-align">Actions</HeaderCell>
+            <HeaderCell className="actions-cell">Actions</HeaderCell>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -79,22 +83,57 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
 
   return (
     <TableRow>
-      <TableCell>{moment.unix(createdAt).format("MM/DD/YYYY LTS")}</TableCell>
-      <TableCell>{userId}</TableCell>
-      <TableCell>{comment}</TableCell>
-      <TableCell className="changelog-view-icon-cell">
-        <i
-          onClick={handleChangelogClicked}
-          id="changeClicked"
-          index={index}
-          onKeyDown={handleChangelogClicked}
-          className="sg-icon sg-icon-view changelog-view-icon"
-          role="button"
-          tabIndex={0}
-        />
+      <TableCell>
+        <div style={{ position: "relative" }}>
+          <CurrentTag index={index} />
+        </div>
+        {moment.unix(createdAt).format("MM/DD/YYYY LTS")}
       </TableCell>
+      <TableCell>{userId || " "}</TableCell>
+      <TableCell>{comment || " "}</TableCell>
+      {index === 0 && <TableCell>&nbsp;</TableCell>}
+      {index !== 0 && (
+        <ActionsCell>
+          <Tooltip content="Revert to this change.">
+            <Action
+              className="changelog-view-icon"
+              id="isRevertConfirmOpen"
+              onClick={handleChangelogClicked}
+              onKeyDown={handleChangelogClicked}
+              index={index}
+              icon="mc-return"
+              role="button"
+              tabIndex={0}
+            />
+          </Tooltip>
+          <Tooltip content="View previous change details.">
+            <Action
+              className="changelog-view-icon"
+              id="isChangeModalOpen"
+              onClick={handleChangelogClicked}
+              onKeyDown={handleChangelogClicked}
+              index={index}
+              view-index={index}
+              icon="view"
+              role="button"
+              tabIndex={0}
+            />
+          </Tooltip>
+        </ActionsCell>
+      )}
     </TableRow>
   );
+};
+
+const CurrentTag = ({ index }) => {
+  if (index === 0) {
+    return (
+      <Badge className="currentBadge" color="red" key="red">
+        Current
+      </Badge>
+    );
+  }
+  return null;
 };
 
 export default Changelog;

@@ -38,6 +38,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
     <Row>
       <Column width={1} offset={10}>
         <Button
+          {...WriteSelectors.cancelConfirmationSubmit}
           className="sg-button"
           onClick={handleModalClose}
           id="isCreateRuleConfirmationOpen"
@@ -67,6 +68,7 @@ const CreateConfirmationModal = ({
   handleRuleUpdate,
 }) => (
   <CenterModal
+    {...WriteSelectors.confirmModal}
     open
     renderBody={
       <ConfirmationBody newRule={newRule} handleRuleUpdate={handleRuleUpdate} />
@@ -193,11 +195,12 @@ const CreateRuleModal = ({
       <Row className="create-modal-button-row">
         <Column width={7} offset={7}>
           <Button
-            type="secondary"
+            {...WriteSelectors.cancelCreateRuleButton}
             className="sg-button sg-right"
             onClick={handleModalClose}
             onKeyDown={handleModalClose}
             id="isCreateRuleOpen"
+            type="secondary"
           >
             Cancel
           </Button>
