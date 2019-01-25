@@ -79,7 +79,7 @@ class BounceRuleDetailedPage extends Page {
   }
 
   get firstChangelog() {
-    return cy.get('[view-index="0"]');
+    return cy.get('[view-index="1"]');
   }
 
   open(ruleId) {
