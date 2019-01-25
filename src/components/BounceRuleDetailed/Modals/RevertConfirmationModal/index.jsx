@@ -17,8 +17,8 @@ const ConfirmRevertBody = ({
         <div>
           <h2>Are you sure you&apos;d like revert to this change?</h2>
           <p>
-              Doing so will effect how current email will be handled via this
-              bounce rule. This action will go into effect immediately.
+            Doing so will effect how current email will be handled via this
+            bounce rule. This action will go into effect immediately.
           </p>
         </div>
         <TextInput
@@ -38,7 +38,7 @@ const ConfirmRevertBody = ({
           id="isRevertConfirmOpen"
           type="secondary"
         >
-            Close
+          Close
         </Button>
       </Column>
       <Column width={1} offset={11}>
@@ -47,12 +47,12 @@ const ConfirmRevertBody = ({
           onClick={handleRevertConfirm}
           type="primary"
         >
-            Confirm
+          Confirm
         </Button>
       </Column>
     </Row>
   </div>
-  );
+);
 
 const RevertConfirmationModal = ({
   handleModalClose,
