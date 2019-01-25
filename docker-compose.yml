@@ -5,15 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        API_URL: "http://localhost:3000"
-    ports:
-      - "80:80"
+    command: npm run build
 
   cypress:
     build:
       context: .
       dockerfile: Dockerfile.cypress
-    depends_on:
-      - sgbouncewizard
-    network_mode: "host"
+    command: npm run cypress:run:locahost
