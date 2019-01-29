@@ -5,10 +5,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - API_URL=${API_URL}
     command: npm run build
 
   cypress:
     build:
       context: .
       dockerfile: Dockerfile.cypress
-    command: npm run cypress:run:locahost
+    environment:
+      - API_URL=${API_URL}
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    environment:
+      - API_URL=${API_URL}

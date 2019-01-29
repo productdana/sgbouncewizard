@@ -1,11 +1,16 @@
 # base image
 FROM cypress/browsers:chrome65-ff57
 
+ARG API_URL
+ENV API_URL=${API_URL}
+
 # set working directory
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
-COPY . ./usr/src/app
+COPY . ./
+RUN npm install
+
 
 # install cypress
 RUN npm install cypress
