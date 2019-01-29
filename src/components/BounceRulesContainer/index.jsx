@@ -4,6 +4,7 @@ import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
+import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
 import Loader from "@sendgrid/ui-components/loader";
 import {
   HeaderCell,
@@ -157,6 +158,14 @@ const BounceRulesContainer = ({
           >
             Create Rule
           </Button>
+        </Column>
+      </Row>
+      <Row>
+        <Column width={10} offset={2}>
+          <Tabs className="rules-tab">
+            <Tab> Bounce Rules</Tab>
+            <Tab> Activity Log</Tab>
+          </Tabs>
         </Column>
       </Row>
       <Row>
