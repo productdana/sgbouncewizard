@@ -16,11 +16,22 @@ const ConfirmationHeader = () => (
   </div>
 );
 
-const ConfirmationBody = () => (
-  <div>
-    <p>Please review the bounce rule before submitting.</p>
-  </div>
-);
+const ConfirmationBody = ({ newRule, handleRuleUpdate }) => {
+  const { comment } = newRule;
+  return (
+    <div {...WriteSelectors.confirmModal}>
+      <p>Please enter a commit message and confirm your changes.</p>
+      <TextInput
+        {...WriteSelectors.commitMessage}
+        onChange={handleRuleUpdate}
+        value={comment}
+        id="comment"
+        type="text"
+        label="Commit Message"
+      />
+    </div>
+  );
+};
 
 const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
   <div>
@@ -50,11 +61,18 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
   </div>
 );
 
-const CreateConfirmationModal = ({ handleModalClose, handleCreateConfirm }) => (
+const CreateConfirmationModal = ({
+  newRule,
+  handleModalClose,
+  handleCreateConfirm,
+  handleRuleUpdate,
+}) => (
   <CenterModal
     {...WriteSelectors.confirmModal}
     open
-    renderBody={<ConfirmationBody />}
+    renderBody={
+      <ConfirmationBody newRule={newRule} handleRuleUpdate={handleRuleUpdate} />
+    }
     renderHeader={<ConfirmationHeader />}
     renderFooter={(
       <ConfirmationFooter

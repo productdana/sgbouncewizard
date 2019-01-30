@@ -250,7 +250,6 @@ export default class BounceRulesPage extends React.Component {
 
   handleModalClose(e) {
     const { id } = e.currentTarget;
-    console.log(id);
     this.setState({
       [id]: false,
       isInvalidInput: false,
@@ -311,6 +310,7 @@ export default class BounceRulesPage extends React.Component {
   handleRuleUpdate(e) {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
+
     this.setState({
       newRule: { ...newRule, [id]: value },
     });
