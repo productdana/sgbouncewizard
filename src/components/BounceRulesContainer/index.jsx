@@ -3,17 +3,8 @@ import { CSVLink } from "react-csv";
 import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
-import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
 import Loader from "@sendgrid/ui-components/loader";
-import {
-  HeaderCell,
-  TableCell,
-  Table,
-  TableBody,
-  TableHeader,
-  TableRow,
-} from "@sendgrid/ui-components/table/table";
 import PropTypes from "prop-types";
 import Header from "../Header";
 import { Row } from "../Row";
@@ -25,65 +16,10 @@ import DeleteConfirmationModal, {
   DeleteConfirmationAlert,
 } from "./DeleteRuleModal";
 import CreateRuleModal, { CreateConfirmationModal } from "./CreateRuleModal";
+import RuleListContainer from "./RuleListContainer";
+import ActivityLogContainer from "./ActivityLogContainer";
 import { WriteSelectors } from "./selectors";
-
-const RuleListContainer = ({ rules, handleActionOpen }) => (
-  <Table>
-    <TableHeader>
-      <TableRow>
-        <HeaderCell>Id</HeaderCell>
-        <HeaderCell>Bounce Action</HeaderCell>
-        <HeaderCell>Response Code</HeaderCell>
-        <HeaderCell>Description</HeaderCell>
-        <HeaderCell className="actions-cell">Actions</HeaderCell>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      {rules.map(rule => (
-        <BounceRuleMin
-          handleActionOpen={handleActionOpen}
-          key={rule.id}
-          rule={rule}
-        />
-      ))}
-    </TableBody>
-  </Table>
-);
-
-const BounceRuleMin = ({ rule, handleActionOpen }) => {
-  const {
-    id,
-    bounce_action: bounceAction,
-    response_code: responseCode,
-    description,
-  } = rule;
-  return (
-    <TableRow data-cypress={bounceAction}>
-      <TableCell>{id}</TableCell>
-      <TableCell>{bounceAction}</TableCell>
-      <TableCell>{responseCode}</TableCell>
-      <TableCell>{description}</TableCell>
-      <ActionsCell>
-        <Action
-          title="View"
-          onClick={handleActionOpen}
-          id="isRedirectingToDetail"
-          rule={id}
-          icon="view"
-        />
-        <Action title="Edit" icon="pencil" />
-        <Action
-          title="Delete"
-          onClick={handleActionOpen}
-          rule={id}
-          data-rule={id}
-          id="isDeleteConfirmationOpen"
-          icon="trash"
-        />
-      </ActionsCell>
-    </TableRow>
-  );
-};
+import ActivityDetailsModal from "./ActivityDetailsModal";
 
 const BounceRulesContainer = ({
   rules,
@@ -94,6 +30,7 @@ const BounceRulesContainer = ({
   handleNextClicked,
   updatePageIndex,
   filteredRules,
+  filteredActivityLog,
   searchToken,
   selectedRule,
   currentPageIndex,
@@ -120,8 +57,21 @@ const BounceRulesContainer = ({
   handleActionOpen,
   isFetching,
   logout,
+  handleActivityTabClicked,
+  handleBounceTabClicked,
+  isBounceRulesTab,
+  isActivityLogTab,
+  activityLog,
+  updateActivityLogIndex,
+  handleActivityLogPrevClicked,
+  handleActivityLogNextClicked,
+  currentActivityPageIndex,
+  handleActivityClicked,
+  selectedActivity,
+  isActivityModalOpen,
 }) => {
   const isRulesEmpty = rules.length <= 0;
+  const isActivityEmpty = activityLog.length <= 0;
   return (
     <div {...WriteSelectors.page} className="container">
       <Header logout={logout} />
@@ -162,9 +112,9 @@ const BounceRulesContainer = ({
       </Row>
       <Row>
         <Column width={10} offset={2}>
-          <Tabs className="rules-tab">
-            <Tab> Bounce Rules</Tab>
-            <Tab> Activity Log</Tab>
+          <Tabs className="rules-tab" onChange={() => {}}>
+            <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
+            <Tab onClick={handleActivityTabClicked}>Activity Log</Tab>
           </Tabs>
         </Column>
       </Row>
@@ -194,7 +144,8 @@ const BounceRulesContainer = ({
             </div>
           )}
           {!isRulesEmpty &&
-            !isFetching && (
+            !isFetching &&
+            isBounceRulesTab && (
               <div {...WriteSelectors.ruleTable}>
                 <RuleListContainer
                   handleActionOpen={handleActionOpen}
@@ -204,16 +155,28 @@ const BounceRulesContainer = ({
               </div>
             )}
           {isRulesEmpty &&
-            !isFetching && (
+            !isFetching &&
+            isBounceRulesTab && (
               <div {...WriteSelectors.emptyRulesWarning}>
                 <EmptyRules />
+              </div>
+            )}
+          {isActivityLogTab &&
+            !isActivityEmpty && (
+              <div {...WriteSelectors.activityTable}>
+                <ActivityLogContainer
+                  activityLog={filteredActivityLog}
+                  handleActivityClicked={handleActivityClicked}
+                />
               </div>
             )}
         </Column>
       </Row>
       <Row>
         <Column width={4} offset={5}>
-          {!isRulesEmpty &&
+          {isBounceRulesTab &&
+            !isActivityLogTab &&
+            !isRulesEmpty &&
             !isFetching && (
               <Pagination
                 handlePrevClicked={handlePrevClicked}
@@ -222,6 +185,20 @@ const BounceRulesContainer = ({
                 rulesToShow={rulesToShow}
                 numRules={numRules}
                 updatePageIndex={updatePageIndex}
+                pagesToDisplay={pagesToDisplay}
+              />
+            )}
+          {isActivityLogTab &&
+            !isBounceRulesTab &&
+            !isActivityEmpty &&
+            !isFetching && (
+              <Pagination
+                handlePrevClicked={handleActivityLogPrevClicked}
+                handleNextClicked={handleActivityLogNextClicked}
+                currentPageIndex={currentActivityPageIndex}
+                rulesToShow={rulesToShow}
+                numRules={activityLog.length}
+                updatePageIndex={updateActivityLogIndex}
                 pagesToDisplay={pagesToDisplay}
               />
             )}
@@ -254,6 +231,12 @@ const BounceRulesContainer = ({
       )}
       {isDeleteAlertOpen && (
         <DeleteConfirmationAlert handleModalClose={handleModalClose} />
+      )}
+      {isActivityModalOpen && (
+        <ActivityDetailsModal
+          handleModalClose={handleModalClose}
+          selectedChange={selectedActivity}
+        />
       )}
     </div>
   );
@@ -332,6 +315,7 @@ BounceRulesContainer.propTypes = {
   handleModalClose: PropTypes.func,
   handleCreateOpen: PropTypes.func,
   handleActionOpen: PropTypes.func,
+  isFetching: PropTypes.bool,
 };
 
 BounceRulesContainer.defaultProps = {
@@ -366,7 +350,8 @@ BounceRulesContainer.defaultProps = {
   handleModalClose: () => {},
   handleCreateOpen: () => {},
   handleActionOpen: () => {},
+  isFetching: false,
 };
 
 export default BounceRulesContainer;
-export { RuleListContainer, BounceRuleMin };
+// export { RuleListContainer, BounceRuleMin };

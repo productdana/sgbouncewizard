@@ -47,7 +47,15 @@ export const getChangelog = async ruleId => {
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Error retrieving all changelogs");
+  throw new Error(`Error retrieving changelog ${ruleId}`);
+};
+
+export const getActivityLog = async () => {
+  const response = await axios.get(`${process.env.API_URL}/change_logs/`);
+  if (response.status === 200) {
+    return response;
+  }
+  throw new Error("Error retrieving activity log");
 };
 
 export const putRule = async (ruleId, data) => {

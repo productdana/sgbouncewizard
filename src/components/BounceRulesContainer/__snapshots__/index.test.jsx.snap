@@ -117,6 +117,32 @@ exports[`should render correctly 1`] = `
     <div
       className="mako-grid__col-10 col-start-2"
     >
+      <ul
+        className="tab-wrapper rules-tab"
+      >
+        <li
+          className="tab undefined is-active"
+          onClick={[Function]}
+        >
+          Bounce Rules
+           
+        </li>
+        <li
+          className="tab"
+          onClick={[Function]}
+        >
+          Activity Log
+           
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    className="mako-grid__row"
+  >
+    <div
+      className="mako-grid__col-10 col-start-2"
+    >
       <div
         data-test="rule-filter"
       >

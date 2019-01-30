@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginPage from "./routes/login_page";
 import BounceRulesContainer from "./routes/bounce_rules_page";
 import BounceRuleDetailedPage from "./routes/bounce_rules_detailed";
-import BounceRulesDeletedPage from "./routes/bounce_rules_deleted";
 import PageNotFound from "./components/PageNotFound";
 import "./index.scss";
 
@@ -18,7 +17,6 @@ const App = () => (
           path="/bounce_rules/:bounceRuleId"
           component={BounceRuleDetailedPage}
         />
-        <Route exact path="/deleted_rules" component={BounceRulesDeletedPage} />
         <Route path="*" exact component={PageNotFound} />
       </Switch>
     </div>

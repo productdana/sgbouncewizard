@@ -28,6 +28,22 @@ const testRules = [
   },
 ];
 
+const testActivity = [
+  {
+    id: 173,
+    response_code: 421,
+    enhanced_code: "",
+    regex: "",
+    priority: 0,
+    description: "RFC5321Servicenotavailable",
+    bounce_action: "retry",
+    user_id: 1,
+    created_at: 1,
+    comment: "Inital Setup",
+    operation: "New",
+  },
+];
+
 const newRule = {
   id: 504,
   response_code: 551,
@@ -38,29 +54,23 @@ const newRule = {
   bounce_action: "no_action",
 };
 
-const wrapper = shallow(
-  <BounceRuleContainer
-    rules={testRules}
-    filteredRules={testRules}
-    filterOptions={[]}
-    pageIndex={1}
-    numRules={1}
-    pageInterval={0}
-    pagesToDisplay={5}
-  />
-);
+const defaultProps = {
+  rules: testRules,
+  filteredRules: testRules,
+  filterOptions: [],
+  pageIndex: 1,
+  pagesToDisplay: 5,
+  activityLog: testActivity,
+  filteredActivityLog: testActivity,
+  isFetching: false,
+  isBounceRulesTab: true,
+};
+
+const wrapper = shallow(<BounceRuleContainer {...defaultProps} />);
 
 it("should render correctly", () => {
   const tree = renderer
-    .create(
-      <BounceRuleContainer
-        rules={testRules}
-        filteredRules={testRules}
-        filterOptions={[]}
-        pageIndex={2}
-        pagesToDisplay={5}
-      />
-    )
+    .create(<BounceRuleContainer {...defaultProps} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
