@@ -219,9 +219,9 @@ const BounceRulesContainer = ({
         <CreateConfirmationModal
           {...WriteSelectors.confirmModal}
           newRule={newRule}
-          handleRuleUpdate={handleRuleUpdate}
           handleModalClose={handleModalClose}
           handleCreateConfirm={handleCreateConfirm}
+          handleRuleUpdate={handleRuleUpdate}
         />
       )}
       {isDeleteConfirmationOpen && (

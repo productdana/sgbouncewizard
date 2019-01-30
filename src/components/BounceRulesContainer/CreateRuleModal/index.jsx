@@ -78,6 +78,7 @@ const CreateConfirmationModal = ({
       <ConfirmationFooter
         handleModalClose={handleModalClose}
         handleCreateConfirm={handleCreateConfirm}
+        handleRuleUpdate={handleRuleUpdate}
       />
 )}
   />

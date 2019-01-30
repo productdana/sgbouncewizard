@@ -75,6 +75,10 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.regex);
   }
 
+  get commitMessage() {
+    return cy.get(Selectors.commitMessage);
+  }
+
   get submitButton() {
     return cy.get(Selectors.submitButton);
   }
@@ -178,6 +182,7 @@ class BounceRulesPage extends Page {
       description,
       enhanced_code: enhancedCode,
       regex,
+      comment,
     } = bounceRule;
 
     this.createRuleButton.click();
@@ -203,6 +208,11 @@ class BounceRulesPage extends Page {
 
     this.submitButton.click();
     this.confirmModal.should("be.visible");
+
+    if (comment) {
+      this.commitMessage.clear().type(comment);
+    }
+
     return this.confirmationSubmit.click();
   }
 
