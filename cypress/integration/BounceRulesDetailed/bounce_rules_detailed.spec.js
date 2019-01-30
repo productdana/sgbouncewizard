@@ -26,16 +26,21 @@ describe("Bounce Rule Detailed", () => {
         }
         return cy.log("Failed to tear down test bounce rule!");
       })
-      .then(() => BounceRuleDetailedPage.createTestRuleAPI(testCreateRule))
-      .then(createdRuleId => {
-        if (createdRuleId) {
+      .then(() => {
+        cy.wait(1000);
+        return BounceRuleDetailedPage.createTestRuleAPI(testCreateRule);
+      })
+      .then(createdRule => {
+        if (createdRule) {
           cy.log(
-            `Successfully created test bounce rule with rule ID ${ruleId}!`
+            `Successfully created test bounce rule with rule ID ${
+              createdRule.id
+            }!`
           );
-          ruleId = createdRuleId;
+          ruleId = createdRule.id;
         } else {
           cy.log("Failed to create test bounce rule!");
-          ruleId = createdRuleId;
+          ruleId = createdRule.id;
         }
       });
   });

@@ -26,13 +26,11 @@ export const getRule = async ruleId => {
   throw new Error("Error retrieving rules");
 };
 
-export const deleteRule = async ruleId => {
+export const deleteRule = async ruleToDelete => {
+  const { id } = ruleToDelete;
   const response = await axios.delete(
-    `${process.env.API_URL}/bounce_rules/${ruleId}`,
-    {
-      params: { id: ruleId },
-      crossdomain: true,
-    }
+    `${process.env.API_URL}/bounce_rules/${id}`,
+    { data: ruleToDelete }
   );
   if (response.status === 200) {
     return response;

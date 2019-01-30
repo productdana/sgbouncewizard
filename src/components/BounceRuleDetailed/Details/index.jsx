@@ -20,6 +20,7 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
   } = currentRule;
   return (
     <div
+      {...WriteSelectors.details}
       onClick={handleEditClicked}
       id="isEditClicked"
       onKeyDown={handleEditClicked}
@@ -107,7 +108,10 @@ export const DetailsContainerEditable = ({
     priority,
   } = updatedRule;
   return (
-    <div className="detail-container detail-container-editable card ">
+    <div
+      className="detail-container detail-container-editable card "
+      {...WriteSelectors.detailsEditable}
+    >
       <div className="editable">
         <i className="sg-icon sg-icon-editor-design" />
       </div>

@@ -29,7 +29,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
         <Button
           className="sg-button"
           onClick={handleModalClose}
-          id="isCreateRuleOpen"
+          id="isCreateRuleConfirmationOpen"
           type="secondary"
         >
           Close
@@ -51,6 +51,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
 
 const CreateConfirmationModal = ({ handleModalClose, handleCreateConfirm }) => (
   <CenterModal
+    {...WriteSelectors.confirmModal}
     open
     renderBody={<ConfirmationBody />}
     renderHeader={<ConfirmationHeader />}

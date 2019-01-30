@@ -250,6 +250,7 @@ export default class BounceRulesPage extends React.Component {
 
   handleModalClose(e) {
     const { id } = e.currentTarget;
+    console.log(id);
     this.setState({
       [id]: false,
       isInvalidInput: false,
@@ -260,7 +261,7 @@ export default class BounceRulesPage extends React.Component {
 
   async handleDeleteConfirm() {
     const { rules, selectedRule } = this.state;
-    const { status } = await deleteRule(selectedRule.id);
+    const { status } = await deleteRule(selectedRule);
     if (status === 200) {
       this.setState({
         rules: rules.filter(rule => rule.id !== parseInt(selectedRule.id, 10)),
