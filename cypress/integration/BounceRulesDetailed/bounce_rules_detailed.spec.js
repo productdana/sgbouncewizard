@@ -26,10 +26,7 @@ describe("Bounce Rule Detailed", () => {
         }
         return cy.log("Failed to tear down test bounce rule!");
       })
-      .then(() => {
-        cy.wait(1000);
-        return BounceRuleDetailedPage.createTestRuleAPI(testCreateRule);
-      })
+      .then(() => BounceRuleDetailedPage.createTestRuleAPI(testCreateRule))
       .then(createdRule => {
         if (createdRule) {
           cy.log(
