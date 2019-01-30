@@ -28,6 +28,7 @@ exports[`Login should render correctly 1`] = `
         />
         <div
           className="login-form-body"
+          data-test="login-container"
         >
           <form
             id="login-form"

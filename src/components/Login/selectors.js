@@ -10,6 +10,7 @@ import {
 // - We would have to update all the test file strings in Jest/Enzyme and Cypress tests and React components.
 // - This pattern helps us maintain this in the long run and update as few places as possible for CSS selector changes
 const testHooks = {
+  loginContainer: "login-container",
   emailInput: "email-input",
   passwordInput: "password-input",
   loginButton: "login-button",

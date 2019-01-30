@@ -471,15 +471,6 @@ exports[`should render correctly 1`] = `
                     />
                   </span>
                   <span
-                    data-tooltip="Edit"
-                    data-tooltip-pos="up"
-                  >
-                    <i
-                      className="sg-icon sg-icon-pencil"
-                      style={null}
-                    />
-                  </span>
-                  <span
                     data-rule={504}
                     data-tooltip="Delete"
                     data-tooltip-pos="up"

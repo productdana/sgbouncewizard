@@ -120,12 +120,12 @@ export default class BounceRulesPage extends React.Component {
   }
 
   updatePageIndex(e) {
-    const newIndex = parseInt(e.currentTarget.getAttribute("value"), 10);
+    const value = parseInt(e.currentTarget.getAttribute("value"), 10);
     this.setState(prevState => {
-      const isPageIndexUpdated = prevState.currentPageIndex !== newIndex;
+      const isPageIndexUpdated = prevState.currentPageIndex !== value;
       return {
         currentPageIndex: isPageIndexUpdated
-          ? newIndex
+          ? value
           : prevState.currentPageIndex,
       };
     });

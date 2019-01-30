@@ -57,6 +57,11 @@
   width: 125px;
 }
 
+.sm-sg-button {
+  width: 100px;
+  margin: 10px;
+}
+
 .details-button-column {
   margin-top: 10px;
 }
@@ -89,12 +94,24 @@
     font-size: 15px;
     display: flex;
     align-items: center;
-    padding-left: 4rem;
     margin: 0;
+    grid-column: 12 / span 1;
   }
 
   h2 {
     margin-bottom: 5px;
+  }
+
+  .currentBadge {
+    position: absolute;
+    left: -55px;
+    margin-top: 3px;
+    background-color: #489be8;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
   }
 }
 
