@@ -8,12 +8,13 @@ ENV API_URL=${API_URL}
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
-COPY . ./
+COPY package*.json ./
 RUN npm install
-
 
 # install cypress
 RUN npm install cypress
+
+COPY . ./
 
 # confirm the cypress install
 RUN ./node_modules/.bin/cypress verify

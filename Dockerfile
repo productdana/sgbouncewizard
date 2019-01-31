@@ -5,8 +5,9 @@ WORKDIR /usr/src/app
 
 ARG API_URL
 ENV API_URL=${API_URL}
-
-COPY . ./
+RUN echo ${API_URL}
+COPY package*.json ./
 
 RUN npm install
 
+COPY . ./

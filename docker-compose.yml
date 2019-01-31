@@ -4,21 +4,10 @@ services:
   sgbouncewizard:
     build:
       context: .
-      dockerfile: Dockerfile
     environment:
       - API_URL=${API_URL}
     command: npm run build
-
-  cypress:
+  jest:
     build:
       context: .
-      dockerfile: Dockerfile.cypress
-    environment:
-      - API_URL=${API_URL}
-
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile.web
-    environment:
-      - API_URL=${API_URL}
+    command: npm run test
