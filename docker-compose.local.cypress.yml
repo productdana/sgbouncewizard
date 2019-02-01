@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile-web
     environment:
       - API_URL=${API_URL}
+    volumes:
+      - ./src:/usr/src/app/src
     ports:
       - "80:80"
   cypress:
