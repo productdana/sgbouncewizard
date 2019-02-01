@@ -1,0 +1,10 @@
+version: "3.6"
+
+services:
+  cypress:
+    build:
+      context: .
+      dockerfile: Dockerfile.cypress
+    environment:
+      - baseUrl=${baseUrl}
+    command: ./node_modules/.bin/cypress run --config baseUrl=${baseUrl}

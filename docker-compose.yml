@@ -1,11 +1,13 @@
 version: "3.6"
 
 services:
-  sgbouncewizard:
+  build:
     build:
       context: .
     environment:
       - API_URL=${API_URL}
+    volumes:
+      - ./dist:/dist
     command: npm run build
   jest:
     build:

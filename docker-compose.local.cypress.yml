@@ -1,0 +1,19 @@
+version: "3.6"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+    environment:
+      - API_URL=${API_URL}
+    ports:
+      - "80:80"
+  cypress:
+    build:
+      context: .
+      dockerfile: Dockerfile.cypress
+    volumes:
+      - /Users/kennymatsudo/Desktop/videofolder:/usr/src/app/cypress/videos
+    network_mode: "host"
+    command: ./node_modules/.bin/cypress run --config baseUrl=http://web

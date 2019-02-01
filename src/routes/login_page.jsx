@@ -106,6 +106,7 @@ export default class LoginPage extends React.Component {
       isInvalidInput,
       isNetworkError,
     } = this.state;
+    console.log(process.env.API_URL);
     const redirectLink = "/bounce_rules";
     return isAuthenticated ? (
       <Redirect to={redirectLink} />
