@@ -1,5 +1,9 @@
 /node_modules
+/ci/**/*
 /dist/**/*
 .env
 .env.mock
+.env.production
 .DS_Store
+/cypress/screenshots
+/cypress/videos

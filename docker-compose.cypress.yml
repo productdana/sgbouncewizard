@@ -1,0 +1,24 @@
+version: "3.2"
+
+services:
+  cypress:
+    # Replace username/repo:tag with your name and image details
+    # image: username/repo:tag i.e. username/repo:${VERSION}
+    build:
+      # cache_from: username/repo:latest
+      context: .
+      dockerfile: Dockerfile.cypress
+    # Outputs Cypress video and screenshot outputs in Docker container to your host ./ci/videos
+    # or ./ci/screenshots folders
+    volumes:
+      - ci/videos/:/usr/src/app/cypress/videos/
+      - ci/screenshots/:/usr/src/app/cypress/screenshots/
+    environment:
+      # VERSION would be a unique tag attached onto the Docker image other than latest
+      # We usually get a unique identifier from the CI provider and this would allow us to
+      # pull down the specific Docker image built from a specific CI run in case the latest tag
+      # got overriden by another newer build
+      # - VERSION
+      - TESTENV # i.e. staging, prod
+      - SPECS # i.e. cypress/integration/Login/*
+    command: "npm run cypress:run:${TESTENV:-staging} -- --spec '${SPECS:-cypress/integration/**/*}'"
