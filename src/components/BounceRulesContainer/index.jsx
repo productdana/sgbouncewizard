@@ -72,6 +72,15 @@ const BounceRulesContainer = ({
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const isActivityEmpty = activityLog.length <= 0;
+  const shouldShowActivityLogPagination =
+    isActivityLogTab && !isActivityEmpty && !isFetching;
+  const shouldShowBounceRulePagination =
+    isBounceRulesTab && !isRulesEmpty && !isFetching;
+  const shouldShowBounceRuleContainer =
+    !isRulesEmpty && !isFetching && isBounceRulesTab;
+  const shouldShowActivityLogContainer = isActivityLogTab && !isActivityEmpty;
+  const shouldShowBounceRuleEmpty =
+    isRulesEmpty && !isFetching && isBounceRulesTab;
   return (
     <div {...WriteSelectors.page} className="container">
       <Header logout={logout} />
@@ -143,65 +152,54 @@ const BounceRulesContainer = ({
               </Row>
             </div>
           )}
-          {!isRulesEmpty &&
-            !isFetching &&
-            isBounceRulesTab && (
-              <div {...WriteSelectors.ruleTable}>
-                <RuleListContainer
-                  handleActionOpen={handleActionOpen}
-                  selectedRule={selectedRule}
-                  rules={filteredRules}
-                />
-              </div>
-            )}
-          {isRulesEmpty &&
-            !isFetching &&
-            isBounceRulesTab && (
-              <div {...WriteSelectors.emptyRulesWarning}>
-                <EmptyRules />
-              </div>
-            )}
-          {isActivityLogTab &&
-            !isActivityEmpty && (
-              <div {...WriteSelectors.activityTable}>
-                <ActivityLogContainer
-                  activityLog={filteredActivityLog}
-                  handleActivityClicked={handleActivityClicked}
-                />
-              </div>
-            )}
+          {shouldShowBounceRuleContainer && (
+            <div {...WriteSelectors.ruleTable}>
+              <RuleListContainer
+                handleActionOpen={handleActionOpen}
+                selectedRule={selectedRule}
+                rules={filteredRules}
+              />
+            </div>
+          )}
+          {shouldShowBounceRuleEmpty && (
+            <div {...WriteSelectors.emptyRulesWarning}>
+              <EmptyRules />
+            </div>
+          )}
+          {shouldShowActivityLogContainer && (
+            <div {...WriteSelectors.activityTable}>
+              <ActivityLogContainer
+                activityLog={filteredActivityLog}
+                handleActivityClicked={handleActivityClicked}
+              />
+            </div>
+          )}
         </Column>
       </Row>
       <Row>
         <Column width={4} offset={5}>
-          {isBounceRulesTab &&
-            !isActivityLogTab &&
-            !isRulesEmpty &&
-            !isFetching && (
-              <Pagination
-                handlePrevClicked={handlePrevClicked}
-                handleNextClicked={handleNextClicked}
-                currentPageIndex={currentPageIndex}
-                rulesToShow={rulesToShow}
-                numRules={numRules}
-                updatePageIndex={updatePageIndex}
-                pagesToDisplay={pagesToDisplay}
-              />
-            )}
-          {isActivityLogTab &&
-            !isBounceRulesTab &&
-            !isActivityEmpty &&
-            !isFetching && (
-              <Pagination
-                handlePrevClicked={handleActivityLogPrevClicked}
-                handleNextClicked={handleActivityLogNextClicked}
-                currentPageIndex={currentActivityPageIndex}
-                rulesToShow={rulesToShow}
-                numRules={activityLog.length}
-                updatePageIndex={updateActivityLogIndex}
-                pagesToDisplay={pagesToDisplay}
-              />
-            )}
+          {shouldShowBounceRulePagination && (
+            <Pagination
+              handlePrevClicked={handlePrevClicked}
+              handleNextClicked={handleNextClicked}
+              currentPageIndex={currentPageIndex}
+              rulesToShow={rulesToShow}
+              numRules={numRules}
+              updatePageIndex={updatePageIndex}
+              pagesToDisplay={pagesToDisplay}
+            />
+          )}
+          {shouldShowActivityLogPagination && (
+            <Pagination
+              handlePrevClicked={handleActivityLogPrevClicked}
+              handleNextClicked={handleActivityLogNextClicked}
+              currentPageIndex={currentActivityPageIndex}
+              rulesToShow={rulesToShow}
+              numRules={activityLog.length}
+              updatePageIndex={updateActivityLogIndex}
+              pagesToDisplay={pagesToDisplay}
+            />
+          )}
         </Column>
       </Row>
       {isCreateRuleOpen && (
@@ -356,4 +354,3 @@ BounceRulesContainer.defaultProps = {
 };
 
 export default BounceRulesContainer;
-// export { RuleListContainer, BounceRuleMin };
