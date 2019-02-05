@@ -15,6 +15,7 @@ import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import Badge from "@sendgrid/ui-components/badge";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
+import "./index.scss";
 import { WriteSelectors } from "../selectors";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
@@ -64,10 +65,12 @@ const Changelog = ({
       <Table>
         <TableHeader>
           <TableRow>
-            <HeaderCell>Date</HeaderCell>
-            <HeaderCell>User</HeaderCell>
-            <HeaderCell>Commit Message</HeaderCell>
-            <HeaderCell className="actions-cell">Actions</HeaderCell>
+            <HeaderCell className="row-date">Date</HeaderCell>
+            <HeaderCell className="row-user">User</HeaderCell>
+            <HeaderCell className="row-commit">Commit Message</HeaderCell>
+            <HeaderCell className="row-actions actions-align">
+              Actions
+            </HeaderCell>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -87,10 +90,10 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
         <div style={{ position: "relative" }}>
           <CurrentTag index={index} />
         </div>
-        {moment.unix(createdAt).format("MM/DD/YYYY LTS")}
+        {moment.unix(createdAt).format("MM/DD/YYYY LTS") || "N/A"}
       </TableCell>
-      <TableCell>{userId || " "}</TableCell>
-      <TableCell>{comment || " "}</TableCell>
+      <TableCell>{userId || "N/A"}</TableCell>
+      <TableCell>{comment || "N/A"}</TableCell>
       {index === 0 && <TableCell>&nbsp;</TableCell>}
       {index !== 0 && (
         <ActionsCell>

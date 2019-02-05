@@ -288,25 +288,25 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           <thead>
             <tr>
               <th
-                className=""
+                className="row-date"
                 onClick={[Function]}
               >
                 Date
               </th>
               <th
-                className=""
+                className="row-user"
                 onClick={[Function]}
               >
                 User
               </th>
               <th
-                className=""
+                className="row-commit"
                 onClick={[Function]}
               >
                 Commit Message
               </th>
               <th
-                className="actions-cell"
+                className="row-actions actions-align"
                 onClick={[Function]}
               >
                 Actions
@@ -332,10 +332,10 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                 Invalid date
               </td>
               <td>
-                 
+                N/A
               </td>
               <td>
-                 
+                N/A
               </td>
               <td>
                  

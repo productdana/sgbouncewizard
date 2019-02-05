@@ -30,11 +30,11 @@ const RuleListContainer = ({ rules, handleActionOpen }) => (
   <Table>
     <TableHeader>
       <TableRow>
-        <HeaderCell>Id</HeaderCell>
-        <HeaderCell>Bounce Action</HeaderCell>
-        <HeaderCell>Response Code</HeaderCell>
-        <HeaderCell>Description</HeaderCell>
-        <HeaderCell className="actions-cell">Actions</HeaderCell>
+        <HeaderCell className="row-id">Id</HeaderCell>
+        <HeaderCell className="row-bounce-action">Bounce Action</HeaderCell>
+        <HeaderCell className="row-response-code">Response Code</HeaderCell>
+        <HeaderCell className="row-description">Description</HeaderCell>
+        <HeaderCell className="actions-cell row-action">Actions</HeaderCell>
       </TableRow>
     </TableHeader>
     <TableBody>
@@ -58,10 +58,10 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
   } = rule;
   return (
     <TableRow data-cypress={bounceAction}>
-      <TableCell>{id}</TableCell>
-      <TableCell>{bounceAction}</TableCell>
-      <TableCell>{responseCode}</TableCell>
-      <TableCell>{description}</TableCell>
+      <TableCell>{id || "N/A"}</TableCell>
+      <TableCell>{bounceAction || "N/A"}</TableCell>
+      <TableCell>{responseCode || "N/A"}</TableCell>
+      <TableCell>{description || "N/A"}</TableCell>
       <ActionsCell>
         <Action
           title="View"
