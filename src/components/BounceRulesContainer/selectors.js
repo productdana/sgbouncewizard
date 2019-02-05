@@ -33,6 +33,7 @@ const testHooks = {
   submitButton: "create-submit-button",
   confirmModal: "create-confirm-modal",
   confirmationSubmit: "create-confirm-submit",
+  commitMessage: "commit-message",
   cancelConfirmationSubmit: "cancel-confirm-submit",
 };
 

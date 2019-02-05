@@ -401,31 +401,31 @@ exports[`should render correctly 1`] = `
           <thead>
             <tr>
               <th
-                className=""
+                className="row-id"
                 onClick={[Function]}
               >
                 Id
               </th>
               <th
-                className=""
+                className="row-bounce-action"
                 onClick={[Function]}
               >
                 Bounce Action
               </th>
               <th
-                className=""
+                className="row-response-code"
                 onClick={[Function]}
               >
                 Response Code
               </th>
               <th
-                className=""
+                className="row-description"
                 onClick={[Function]}
               >
                 Description
               </th>
               <th
-                className="actions-cell"
+                className="actions-cell row-action"
                 onClick={[Function]}
               >
                 Actions
