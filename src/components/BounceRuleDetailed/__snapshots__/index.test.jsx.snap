@@ -329,7 +329,9 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                     Current
                   </span>
                 </div>
-                Invalid date
+                <td>
+                  Invalid date
+                </td>
               </td>
               <td>
                 N/A

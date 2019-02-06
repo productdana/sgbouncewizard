@@ -1,0 +1,28 @@
+table {
+  table-layout: fixed;
+
+  .row-id {
+    width: 5%;
+  }
+
+  .row-bounce-action {
+    width: 20%;
+  }
+
+  .row-response-code {
+    width: 15%;
+  }
+
+  .row-description {
+    width: 45%;
+  }
+
+  .row-actions {
+    width: 10%;
+  }
+}
+
+th.actions-cell {
+  padding-right: 0;
+  text-align: right;
+}

@@ -7,9 +7,15 @@ import {
   TableCell,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
+import moment from "moment";
 import { Column } from "../../Column";
 import { Row } from "../../Row";
 import "./index.scss";
+
+const shouldDisplay = info => info || "N/A";
+
+const displayUnixAsTime = unixTime =>
+  moment.unix(unixTime).format("MM/DD/YYYY LTS");
 
 const ActivityModalBody = ({ handleModalClose, selectedChange }) => (
   <div className="changelog-modal">
@@ -48,56 +54,58 @@ const DetailsTable = ({ selectedChange }) => {
           <TableCell className="row-key">
             <strong>Change Comment</strong>
           </TableCell>
-          <TableCell className="row-value">{comment || "N/A"}</TableCell>
+          <TableCell className="row-value">{shouldDisplay(comment)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>User</strong>
           </TableCell>
-          <TableCell>{userId || "N/A"}</TableCell>
+          <TableCell>{shouldDisplay(userId)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Time Created</strong>
           </TableCell>
-          <TableCell>{createdAt || "N/A"}</TableCell>
+          <TableCell>
+            <TableCell>{shouldDisplay(displayUnixAsTime(createdAt))}</TableCell>
+          </TableCell>
         </TableRow>
 
         <TableRow>
           <TableCell>
             <strong>Bounce Action</strong>
           </TableCell>
-          <TableCell>{bounceAction || "N/A"}</TableCell>
+          <TableCell>{shouldDisplay(bounceAction)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Response Code</strong>
           </TableCell>
-          <TableCell>{responseCode || "N/A"}</TableCell>
+          <TableCell>{shouldDisplay(responseCode)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Enhanced Code</strong>
           </TableCell>
-          <TableCell>{enhancedCode || "N/A"}</TableCell>
+          <TableCell>{shouldDisplay(enhancedCode)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>RegEx</strong>
           </TableCell>
-          <TableCell>{regex || "N/A"}</TableCell>
+          <TableCell>{shouldDisplay(regex)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Priority</strong>
           </TableCell>
-          <TableCell>{priority || "N/A"}</TableCell>
+          <TableCell>{shouldDisplay(priority)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <strong>Description</strong>
           </TableCell>
-          <TableCell>{description || "N/A"}</TableCell>
+          <TableCell>{shouldDisplay(description)}</TableCell>
         </TableRow>
       </TableBody>
     </Table>

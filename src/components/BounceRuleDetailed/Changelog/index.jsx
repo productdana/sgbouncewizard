@@ -18,6 +18,11 @@ import { Column } from "../../Column";
 import "./index.scss";
 import { WriteSelectors } from "../selectors";
 
+const shouldDisplay = info => info || "N/A";
+
+const displayUnixAsTime = unixTime =>
+  moment.unix(unixTime).format("MM/DD/YYYY LTS");
+
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
     .slice(0, rulesToShow)
@@ -90,10 +95,10 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
         <div style={{ position: "relative" }}>
           <CurrentTag index={index} />
         </div>
-        {moment.unix(createdAt).format("MM/DD/YYYY LTS") || "N/A"}
+        <TableCell>{shouldDisplay(displayUnixAsTime(createdAt))}</TableCell>
       </TableCell>
-      <TableCell>{userId || "N/A"}</TableCell>
-      <TableCell>{comment || "N/A"}</TableCell>
+      <TableCell>{shouldDisplay(userId)}</TableCell>
+      <TableCell>{shouldDisplay(comment)}</TableCell>
       {index === 0 && <TableCell>&nbsp;</TableCell>}
       {index !== 0 && (
         <ActionsCell>

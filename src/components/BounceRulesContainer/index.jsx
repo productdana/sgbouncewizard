@@ -79,8 +79,7 @@ const BounceRulesContainer = ({
   const shouldShowBounceRuleContainer =
     !isRulesEmpty && !isFetching && isBounceRulesTab;
   const shouldShowActivityLogContainer = isActivityLogTab && !isActivityEmpty;
-  const shouldShowBounceRuleEmpty =
-    isRulesEmpty && !isFetching && isBounceRulesTab;
+  const shouldShowEmpty = (isActivityEmpty || isRulesEmpty) && !isFetching;
   return (
     <div {...WriteSelectors.page} className="container">
       <Header logout={logout} />
@@ -161,7 +160,7 @@ const BounceRulesContainer = ({
               />
             </div>
           )}
-          {shouldShowBounceRuleEmpty && (
+          {shouldShowEmpty && (
             <div {...WriteSelectors.emptyRulesWarning}>
               <EmptyRules />
             </div>

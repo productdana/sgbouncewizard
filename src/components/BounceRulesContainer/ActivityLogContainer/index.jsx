@@ -10,6 +10,11 @@ import {
 import moment from "moment";
 import "./index.scss";
 
+const shouldDisplay = info => info || "N/A";
+
+const displayUnixAsTime = unixTime =>
+  moment.unix(unixTime).format("MM/DD/YYYY LTS");
+
 const ActivityLogContainer = ({ activityLog, handleActivityClicked }) => (
   <Table>
     <TableHeader>
@@ -44,14 +49,12 @@ const BounceRuleMin = ({ log, index, handleActivityClicked }) => {
   } = log;
   return (
     <TableRow>
-      <TableCell>
-        {moment.unix(createdAt).format("MM/DD/YYYY LTS") || "N/A"}
-      </TableCell>
-      <TableCell>{userId || "N/A"}</TableCell>
+      <TableCell>{shouldDisplay(displayUnixAsTime(createdAt))}</TableCell>
+      <TableCell>{shouldDisplay(userId)}</TableCell>
       <TableCell className={operation.toLowerCase()}>
-        {operation || "N/A"}
+        {shouldDisplay(operation)}
       </TableCell>
-      <TableCell>{comment || "N/A"}</TableCell>
+      <TableCell>{shouldDisplay(comment)}</TableCell>
       <TableCell className="changelog-view-icon-cell">
         <i
           onClick={handleActivityClicked}

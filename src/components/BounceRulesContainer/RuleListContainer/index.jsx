@@ -8,16 +8,19 @@ import {
   TableHeader,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
+import "./index.scss";
+
+const shouldDisplay = info => info || "N/A";
 
 const RuleListContainer = ({ rules, handleActionOpen }) => (
   <Table>
     <TableHeader>
       <TableRow>
-        <HeaderCell>Id</HeaderCell>
-        <HeaderCell>Bounce Action</HeaderCell>
-        <HeaderCell>Response Code</HeaderCell>
-        <HeaderCell>Description</HeaderCell>
-        <HeaderCell className="actions-cell">Actions</HeaderCell>
+        <HeaderCell className="row-id">Id</HeaderCell>
+        <HeaderCell className="row-bounce-action">Bounce Action</HeaderCell>
+        <HeaderCell className="row-response-code">Response Code</HeaderCell>
+        <HeaderCell className="row-description">Description</HeaderCell>
+        <HeaderCell className="actions-cell row-action">Actions</HeaderCell>
       </TableRow>
     </TableHeader>
     <TableBody>
@@ -41,10 +44,10 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
   } = rule;
   return (
     <TableRow data-cypress={bounceAction}>
-      <TableCell>{id}</TableCell>
-      <TableCell>{bounceAction}</TableCell>
-      <TableCell>{responseCode}</TableCell>
-      <TableCell>{description}</TableCell>
+      <TableCell>{shouldDisplay(id)}</TableCell>
+      <TableCell>{shouldDisplay(bounceAction)}</TableCell>
+      <TableCell>{shouldDisplay(responseCode)}</TableCell>
+      <TableCell>{shouldDisplay(description)}</TableCell>
       <ActionsCell>
         <Action
           title="View"
@@ -53,7 +56,6 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
           rule={id}
           icon="view"
         />
-        <Action title="Edit" icon="pencil" />
         <Action
           title="Delete"
           onClick={handleActionOpen}
