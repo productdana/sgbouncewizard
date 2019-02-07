@@ -26,13 +26,11 @@ export const getRule = async ruleId => {
   throw new Error("Error retrieving rules");
 };
 
-export const deleteRule = async ruleId => {
+export const deleteRule = async ruleToDelete => {
+  const { id } = ruleToDelete;
   const response = await axios.delete(
-    `${process.env.API_URL}/bounce_rules/${ruleId}`,
-    {
-      params: { id: ruleId },
-      crossdomain: true,
-    }
+    `${process.env.API_URL}/bounce_rules/${id}`,
+    { data: ruleToDelete }
   );
   if (response.status === 200) {
     return response;
@@ -47,7 +45,15 @@ export const getChangelog = async ruleId => {
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Error retrieving all changelogs");
+  throw new Error(`Error retrieving changelog ${ruleId}`);
+};
+
+export const getActivityLog = async () => {
+  const response = await axios.get(`${process.env.API_URL}/change_logs/`);
+  if (response.status === 200) {
+    return response;
+  }
+  throw new Error("Error retrieving activity log");
 };
 
 export const putRule = async (ruleId, data) => {

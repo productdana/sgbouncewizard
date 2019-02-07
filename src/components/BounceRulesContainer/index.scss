@@ -1,3 +1,9 @@
+.container {
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
 table {
   table-layout: fixed;
 
@@ -33,6 +39,11 @@ th.actions-cell {
 
 .csv-button {
   left: 20px;
+}
+
+.rules-tab {
+  height: 90%;
+  margin-bottom: 1rem;
 }
 
 .create-rule-button,
