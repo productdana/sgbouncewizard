@@ -25,11 +25,16 @@ module.exports = on => {
         .post(`${environmentAPI[taskData.env]}bounce_rules/`, taskData.data, {
           headers: { "Content-Type": "application/json" },
         })
-        .then(res => res.data.id)
-        .catch(() => false),
+        .then(res => res.data)
+        .catch(e => e),
     deleteRule: taskData =>
       axios
-        .delete(`${environmentAPI[taskData.env]}bounce_rules/${taskData.id}`)
+        .delete(
+          `${environmentAPI[taskData.env]}bounce_rules/${taskData.data.id}`,
+          {
+            data: taskData.data,
+          }
+        )
         .then(() => true)
         .catch(() => false),
     getRules: taskData =>

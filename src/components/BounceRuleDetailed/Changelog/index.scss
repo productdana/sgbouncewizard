@@ -1,0 +1,19 @@
+table {
+  table-layout: fixed;
+
+  .row-date {
+    width: 25%;
+  }
+
+  .row-user {
+    width: 15%;
+  }
+
+  .row-commit {
+    width: 40%;
+  }
+
+  .row-actions {
+    width: 20%;
+  }
+}

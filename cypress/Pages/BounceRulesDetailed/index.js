@@ -140,7 +140,7 @@ class BounceRuleDetailedPage extends Page {
         if (isMatchingBounceRule) {
           return cy.task("deleteRule", {
             env: Cypress.env("testEnv"),
-            id: isMatchingBounceRule.id,
+            data: isMatchingBounceRule,
           });
         }
         return true;

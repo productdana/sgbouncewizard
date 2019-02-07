@@ -195,7 +195,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                   </td>
                   <td>
                      
-                    
+                    N/A
                      
                   </td>
                 </tr>
@@ -225,7 +225,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                   </td>
                   <td>
                      
-                    0
+                    N/A
                      
                   </td>
                 </tr>
@@ -288,25 +288,25 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           <thead>
             <tr>
               <th
-                className=""
+                className="row-date"
                 onClick={[Function]}
               >
                 Date
               </th>
               <th
-                className=""
+                className="row-user"
                 onClick={[Function]}
               >
                 User
               </th>
               <th
-                className=""
+                className="row-commit"
                 onClick={[Function]}
               >
                 Commit Message
               </th>
               <th
-                className="actions-cell"
+                className="row-actions actions-align"
                 onClick={[Function]}
               >
                 Actions
@@ -329,13 +329,15 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                     Current
                   </span>
                 </div>
-                Invalid date
+                <td>
+                  Invalid date
+                </td>
               </td>
               <td>
-                 
+                N/A
               </td>
               <td>
-                 
+                N/A
               </td>
               <td>
                  

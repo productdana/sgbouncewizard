@@ -10,12 +10,13 @@ import {
 import Card from "@sendgrid/ui-components/card";
 import Tooltip from "@sendgrid/ui-components/tooltip";
 import { CSVLink } from "react-csv";
-import moment from "moment";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import Badge from "@sendgrid/ui-components/badge";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
+import "./index.scss";
 import { WriteSelectors } from "../selectors";
+import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
@@ -64,10 +65,12 @@ const Changelog = ({
       <Table>
         <TableHeader>
           <TableRow>
-            <HeaderCell>Date</HeaderCell>
-            <HeaderCell>User</HeaderCell>
-            <HeaderCell>Commit Message</HeaderCell>
-            <HeaderCell className="actions-cell">Actions</HeaderCell>
+            <HeaderCell className="row-date">Date</HeaderCell>
+            <HeaderCell className="row-user">User</HeaderCell>
+            <HeaderCell className="row-commit">Commit Message</HeaderCell>
+            <HeaderCell className="row-actions actions-align">
+              Actions
+            </HeaderCell>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -87,10 +90,10 @@ const Changes = ({ change, handleChangelogClicked, index }) => {
         <div style={{ position: "relative" }}>
           <CurrentTag index={index} />
         </div>
-        {moment.unix(createdAt).format("MM/DD/YYYY LTS")}
+        <TableCell>{shouldDisplay(displayUnixAsTime(createdAt))}</TableCell>
       </TableCell>
-      <TableCell>{userId || " "}</TableCell>
-      <TableCell>{comment || " "}</TableCell>
+      <TableCell>{shouldDisplay(userId)}</TableCell>
+      <TableCell>{shouldDisplay(comment)}</TableCell>
       {index === 0 && <TableCell>&nbsp;</TableCell>}
       {index !== 0 && (
         <ActionsCell>

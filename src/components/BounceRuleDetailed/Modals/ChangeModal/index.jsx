@@ -13,6 +13,11 @@ import { Row } from "../../../Row";
 import { WriteSelectors } from "../../selectors";
 import "./index.scss";
 
+const shouldDisplay = info => info || "N/A";
+
+const displayUnixAsTime = unixTime =>
+  moment.unix(unixTime).format("MM/DD/YYYY LTS");
+
 function getDifferences(currentRule, selectedChange) {
   const differences = Object.keys(currentRule).filter(
     k => currentRule[k] !== selectedChange[k]
@@ -103,7 +108,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
           <TableCell
             className={displayChange(isCurrentChange, differences, "comment")}
           >
-            {comment || " "}
+            {shouldDisplay(comment)}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -113,7 +118,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
           <TableCell
             className={displayChange(isCurrentChange, differences, "user_id")}
           >
-            {userId || " "}
+            {shouldDisplay(userId)}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -127,7 +132,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "created_at"
             )}
           >
-            {moment.unix(createdAt).format("MM/DD/YYYY LTS") || " "}
+            {shouldDisplay(displayUnixAsTime(createdAt))}
           </TableCell>
         </TableRow>
 
@@ -142,7 +147,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "bounce_action"
             )}
           >
-            {bounceAction || " "}
+            {shouldDisplay(bounceAction)}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -156,7 +161,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "response_code"
             )}
           >
-            {responseCode || " "}
+            {shouldDisplay(responseCode)}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -170,7 +175,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "enhanced_code"
             )}
           >
-            {enhancedCode || " "}
+            {shouldDisplay(enhancedCode)}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -180,7 +185,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
           <TableCell
             className={displayChange(isCurrentChange, differences, "regex")}
           >
-            {regex || " "}
+            {shouldDisplay(regex)}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -190,7 +195,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
           <TableCell
             className={displayChange(isCurrentChange, differences, "priority")}
           >
-            {priority || " "}
+            {shouldDisplay(priority)}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -204,7 +209,7 @@ const ChangeTable = ({ currentRule, differences, isCurrentChange }) => {
               "description"
             )}
           >
-            {description || " "}
+            {shouldDisplay(description)}
           </TableCell>
         </TableRow>
       </TableBody>

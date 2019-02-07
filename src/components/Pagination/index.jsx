@@ -59,7 +59,6 @@ const Pagination = ({
   );
   const shouldDisplayPrev = currentPageIndex === 1;
   const shouldDisplayNext = currentPageIndex === totalPages;
-
   return (
     <div className="pagination pagination-container">
       <a
