@@ -9,8 +9,7 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import "./index.scss";
-
-const shouldDisplay = info => info || "N/A";
+import { shouldDisplay } from "../../../utils/utils";
 
 const RuleListContainer = ({ rules, handleActionOpen }) => (
   <Table>

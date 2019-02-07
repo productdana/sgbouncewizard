@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import { WriteSelectors } from "../selectors";
+import { shouldDisplay } from "../../../utils/utils";
 
 const DetailsContainer = ({ currentRule, handleEditClicked }) => {
   const {
@@ -38,7 +39,7 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
               <TableCell className="description-cell">
                 <strong>Description</strong>
               </TableCell>
-              <TableCell> {description} </TableCell>
+              <TableCell> {shouldDisplay(description)} </TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -50,19 +51,19 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
               <TableCell>
                 <strong>Bounce ID</strong>
               </TableCell>
-              <TableCell> {id} </TableCell>
+              <TableCell> {shouldDisplay(id)} </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <strong>Response Code</strong>
               </TableCell>
-              <TableCell> {responseCode} </TableCell>
+              <TableCell> {shouldDisplay(responseCode)} </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <strong>Enhanced Code</strong>
               </TableCell>
-              <TableCell> {enhancedCode} </TableCell>
+              <TableCell> {shouldDisplay(enhancedCode)} </TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -72,19 +73,19 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
               <TableCell>
                 <strong>Regex</strong>
               </TableCell>
-              <TableCell> {regex} </TableCell>
+              <TableCell> {shouldDisplay(regex)} </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <strong>Priority</strong>
               </TableCell>
-              <TableCell> {priority} </TableCell>
+              <TableCell> {shouldDisplay(priority)} </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <strong>Bounce Action</strong>
               </TableCell>
-              <TableCell> {bounceAction} </TableCell>
+              <TableCell> {shouldDisplay(bounceAction)} </TableCell>
             </TableRow>
           </TableBody>
         </Table>

@@ -7,15 +7,10 @@ import {
   TableCell,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
-import moment from "moment";
 import { Column } from "../../Column";
 import { Row } from "../../Row";
 import "./index.scss";
-
-const shouldDisplay = info => info || "N/A";
-
-const displayUnixAsTime = unixTime =>
-  moment.unix(unixTime).format("MM/DD/YYYY LTS");
+import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
 
 const ActivityModalBody = ({ handleModalClose, selectedChange }) => (
   <div className="changelog-modal">

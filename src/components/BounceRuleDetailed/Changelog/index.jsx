@@ -10,18 +10,13 @@ import {
 import Card from "@sendgrid/ui-components/card";
 import Tooltip from "@sendgrid/ui-components/tooltip";
 import { CSVLink } from "react-csv";
-import moment from "moment";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import Badge from "@sendgrid/ui-components/badge";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 import "./index.scss";
 import { WriteSelectors } from "../selectors";
-
-const shouldDisplay = info => info || "N/A";
-
-const displayUnixAsTime = unixTime =>
-  moment.unix(unixTime).format("MM/DD/YYYY LTS");
+import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog
