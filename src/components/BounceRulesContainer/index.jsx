@@ -93,11 +93,6 @@ const BounceRulesContainer = ({
         </Column>
       </Row>
       <Row>
-        {/*
-        <Column width={2} offset={2}>
-          <h1>Bounce Rules</h1>
-        </Column>
-         */}
         <Column className=" csv-button-col" width={4} offset={8}>
           <CSVLink
             {...WriteSelectors.csvButton}
