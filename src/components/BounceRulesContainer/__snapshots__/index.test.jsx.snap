@@ -77,13 +77,6 @@ exports[`should render correctly 1`] = `
     className="mako-grid__row"
   >
     <div
-      className="mako-grid__col-2 col-start-2"
-    >
-      <h1>
-        Bounce Rules
-      </h1>
-    </div>
-    <div
       className="mako-grid__col-4 col-start-8  csv-button-col"
     >
       <a
