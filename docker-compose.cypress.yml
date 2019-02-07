@@ -11,8 +11,8 @@ services:
     # Outputs Cypress video and screenshot outputs in Docker container to your host ./ci/videos
     # or ./ci/screenshots folders
     volumes:
-      - ci/videos/:/usr/src/app/cypress/videos/
-      - ci/screenshots/:/usr/src/app/cypress/screenshots/
+      - ./ci/videos/:/usr/src/app/cypress/videos/
+      - ./ci/screenshots/:/usr/src/app/cypress/screenshots/
     environment:
       # VERSION would be a unique tag attached onto the Docker image other than latest
       # We usually get a unique identifier from the CI provider and this would allow us to

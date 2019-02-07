@@ -17,7 +17,7 @@ services:
     volumes:
       # Allows other containers or CICD steps to access built assets in volumes
       # Outputs Webpack assets in Docker container's dist folder into your host ./ci/dist folder
-      - ci/dist:/usr/src/app/dist
+      - ./ci/dist:/usr/src/app/dist
     environment:
       - API_URL
     command: npm run build

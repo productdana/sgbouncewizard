@@ -1,5 +1,5 @@
 import LoginPage from "../../Pages/Login";
-import BounceRulesPage from "../../pages/BounceRulesContainer";
+import BounceRulesPage from "../../Pages/BounceRulesContainer";
 
 describe("Login Page", () => {
   beforeEach(() => {
