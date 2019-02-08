@@ -1,9 +1,10 @@
-language: node_js
-node_js:
-  - "11.0"
+language: ruby
+
 
 jobs:
   include:
-    - stage: "Tests"
+    - stage: "Test"
       name: "Unit Tests"
-      script: npm run test
+      script: docker-compose up jest
+      name: "Integration Test"
+      script: docker-compose -f docker-compose.cypress.yml up
