@@ -23,6 +23,8 @@ export default class BounceRuleDetailedPage extends React.Component {
       pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
+      socketConnection: null,
+      editText: "Edit",
     };
     this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -39,10 +41,21 @@ export default class BounceRuleDetailedPage extends React.Component {
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
     this.handleRevertClicked = this.handleRevertClicked.bind(this);
+    this.determineEdit = this.determineEdit.bind(this);
   }
 
   async componentDidMount() {
     const { match } = this.props;
+    const ws = new WebSocket("ws://localhost:3000/ws");
+    ws.onopen = () => {
+      ws.send(`check ${match.params.bounceRuleId}`);
+      ws.onmessage = msg => {
+        this.setState({
+          editText: msg.data === "FREE" ? "Edit" : "Being edited",
+          socketConnection: ws,
+        });
+      };
+    };
     getChangelog(match.params.bounceRuleId)
       .then(res => {
         const { data } = res;
@@ -54,6 +67,7 @@ export default class BounceRuleDetailedPage extends React.Component {
         this.setState({ isNetworkError: true });
       });
     const { data, status } = await getRule(match.params.bounceRuleId);
+
     if (status === 200) {
       this.setState({
         currentRule: data,
@@ -147,16 +161,22 @@ export default class BounceRuleDetailedPage extends React.Component {
 
   handleEditClicked(e) {
     const { id } = e.currentTarget;
-    const { currentRule } = this.state;
-    this.setState({
-      [id]: true,
-      updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
-    });
+    const { currentRule, socketConnection } = this.state;
+
+    socketConnection.send(`edit ${currentRule.id}`);
+    socketConnection.onmessage = msg => {
+      this.setState({
+        [id]: msg.data !== "INUSE",
+        updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
+        editText: msg.data === "INUSE" ? "Being edited" : "Edit",
+      });
+    };
   }
 
   handleCancelSaveClicked(e) {
     const { id } = e.currentTarget;
-    const { currentRule, updatedRule } = this.state;
+    const { currentRule, updatedRule, socketConnection } = this.state;
+    socketConnection.send(`release ${currentRule.id}`);
     if (
       !_.isEqual(
         updatedRule,
@@ -237,6 +257,15 @@ export default class BounceRuleDetailedPage extends React.Component {
     }));
   }
 
+  determineEdit() {
+    const { currentRule, socketConnection } = this.state;
+
+    socketConnection.send(`edit ${currentRule.id}`);
+    socketConnection.onmessage = msg => {
+      this.setState({ socketStatus: msg.data });
+    };
+  }
+
   render() {
     const { currentRule, changelog } = this.state;
     const filteredChangelog = this.paginate(changelog);
@@ -258,6 +287,7 @@ export default class BounceRuleDetailedPage extends React.Component {
               handleModalClose={this.handleModalClose}
               handleButtonClicked={this.handleButtonClicked}
               onChangeRule={this.onChangeRule}
+              concurrentEdit={this.concurrentEdit}
               handleEditClicked={this.handleEditClicked}
               handleCancelSaveClicked={this.handleCancelSaveClicked}
               handleChangelogClicked={this.handleChangelogClicked}

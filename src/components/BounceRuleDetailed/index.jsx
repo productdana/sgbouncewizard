@@ -47,9 +47,11 @@ const BounceRuleDetailed = ({
   updatePageIndex,
   filteredChangelog,
   logout,
+  editText,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
+
   return (
     <div className="detailed-page-container">
       <Header logout={logout} />
@@ -99,7 +101,7 @@ const BounceRuleDetailed = ({
                 className="sg-button edit-button"
                 type="primary"
               >
-                Edit Rule
+                {editText}
               </Button>
             </span>
           </Column>
@@ -248,6 +250,7 @@ BounceRuleDetailed.propTypes = {
   handleChangelogClicked: PropTypes.func,
   handleCancelConfirmation: PropTypes.func,
   handleSaveConfirmation: PropTypes.func,
+  editText: PropTypes.string,
 };
 
 BounceRuleDetailed.defaultProps = {
@@ -270,6 +273,7 @@ BounceRuleDetailed.defaultProps = {
   handleChangelogClicked: () => {},
   handleCancelConfirmation: () => {},
   handleSaveConfirmation: () => {},
+  editText: "Edit",
 };
 
 export default BounceRuleDetailed;
