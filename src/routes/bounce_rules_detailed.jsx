@@ -51,7 +51,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       ws.send(`check ${match.params.bounceRuleId}`);
       ws.onmessage = msg => {
         this.setState({
-          editText: msg.data === "FREE" ? "Edit" : "Being edited",
+          editText: msg.data === "FREE" ? "Edit Rule" : "Being edited",
           socketConnection: ws,
         });
       };
@@ -168,7 +168,7 @@ export default class BounceRuleDetailedPage extends React.Component {
       this.setState({
         [id]: msg.data !== "INUSE",
         updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
-        editText: msg.data === "INUSE" ? "Being edited" : "Edit",
+        editText: msg.data === "INUSE" ? "Being edited" : "Edit Rule",
       });
     };
   }
