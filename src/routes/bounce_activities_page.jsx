@@ -1,9 +1,9 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import ActivityLogContainer from "../components/BounceRulesActivity";
+import BounceActivityContainer from "../components/BounceActivityContainer";
 import { getActivityLog } from "../utils/ruleCalls";
 
-export default class BounceRuleActivityLogPage extends React.Component {
+export default class BounceActivityPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -204,7 +204,7 @@ export default class BounceRuleActivityLogPage extends React.Component {
           />
         )}
         {isAuthenticated && (
-          <ActivityLogContainer
+          <BounceActivityContainer
             logout={this.logout}
             updateSearchToken={this.updateSearchToken}
             updateSearchCategory={this.updateSearchCategory}

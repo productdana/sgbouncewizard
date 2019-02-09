@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginPage from "./routes/login_page";
-import BounceRulesContainer from "./routes/bounce_rules_page";
-import BounceRuleDetailedPage from "./routes/bounce_rules_detailed";
-import BounceRuleActivityLogPage from "./routes/bounce_rules_activity";
+import BounceRulesPage from "./routes/bounce_rules_page";
+import BounceDetailsPage from "./routes/bounce_details_page";
+import BounceActivityPage from "./routes/bounce_activities_page";
 import PageNotFound from "./components/PageNotFound";
 import "./index.scss";
 
@@ -13,15 +13,11 @@ const App = () => (
     <div style={{ height: "100%" }}>
       <Switch>
         <Route exact path="/" component={LoginPage} />
-        <Route exact path="/bounce_rules" component={BounceRulesContainer} />
-        <Route
-          exact
-          path="/activity_log"
-          component={BounceRuleActivityLogPage}
-        />
+        <Route exact path="/bounce_rules" component={BounceRulesPage} />
+        <Route exact path="/activity_log" component={BounceActivityPage} />
         <Route
           path="/bounce_rules/:bounceRuleId"
-          component={BounceRuleDetailedPage}
+          component={BounceDetailsPage}
         />
         <Route path="*" exact component={PageNotFound} />
       </Switch>
