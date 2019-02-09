@@ -111,7 +111,7 @@ exports[`should render correctly 1`] = `
       className="mako-grid__col-10 col-start-2"
     >
       <ul
-        className="tab-wrapper rules-tab"
+        className="tab-wrapper page-tab"
       >
         <li
           className="tab undefined is-active"
@@ -148,16 +148,14 @@ exports[`should render correctly 1`] = `
             <p
               className="filter-title"
             >
-              Search emails by
-               
+              Search bounce rules by 
               <a
                 className="filter-option-toggle"
                 href="#"
               >
                 all
               </a>
-               
-              of the following:
+               of the following:
             </p>
             <div
               className="btn-list"
