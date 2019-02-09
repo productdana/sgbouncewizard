@@ -17,9 +17,7 @@ exports[`should render correctly 1`] = `
         src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
         style={
           Object {
-            "bottom": "-50%",
-            "maxWidth": "200px",
-            "position": "relative",
+            "maxWidth": "150px",
           }
         }
       />
