@@ -3,7 +3,7 @@ import Button from "@sendgrid/ui-components/button";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
-import "../../index.scss";
+import "./index.scss";
 import { WriteSelectors } from "../../selectors";
 
 const DeleteAlertBody = () => (

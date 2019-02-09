@@ -51,7 +51,7 @@ const BounceRuleDetailed = ({
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
   return (
-    <div className="detailed-page-container">
+    <div>
       <Header logout={logout} />
       <Row>
         <Column width={6} offset={2}>

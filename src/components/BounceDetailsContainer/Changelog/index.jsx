@@ -62,7 +62,7 @@ const Changelog = ({
     </Row>
     {isChangelogEmpty && <EmptyChangelog />}
     {!isChangelogEmpty && (
-      <Table>
+      <Table className="changelog-table">
         <TableHeader>
           <TableRow>
             <HeaderCell className="row-date">Date</HeaderCell>

@@ -7,7 +7,7 @@ import { Button } from "@sendgrid/ui-components/button";
 import Alert from "@sendgrid/ui-components/alert";
 import { Row } from "../../../Row";
 import { Column } from "../../../Column";
-import "../../index.scss";
+import "./index.scss";
 import { WriteSelectors } from "../../selectors";
 
 const ConfirmationHeader = () => (

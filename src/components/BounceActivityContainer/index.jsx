@@ -76,7 +76,7 @@ const BounceRulesContainer = ({
         </Row>
         <Row>
           <Column width={10} offset={2}>
-            <Tabs className="rules-tab" onChange={() => {}}>
+            <Tabs className="page-tab" onChange={() => {}}>
               <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
               <Tab onClick={handleActivityTabClicked} active>
                 Activity Log

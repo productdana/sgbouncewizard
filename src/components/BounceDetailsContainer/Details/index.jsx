@@ -6,8 +6,9 @@ import {
   TableCell,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
-import { WriteSelectors } from "../selectors";
 import { shouldDisplay } from "../../../utils/utils";
+import "./index.scss";
+import { WriteSelectors } from "../selectors";
 
 const DetailsContainer = ({ currentRule, handleEditClicked }) => {
   const {
