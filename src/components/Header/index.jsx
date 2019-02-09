@@ -11,7 +11,7 @@ const Header = ({ logout }) => (
           className="sg-logo"
           data-test="sg-logo"
           alt="sendgrid-logo"
-          style={{ maxWidth: "200px", position: "relative", bottom: "-50%" }}
+          style={{ maxWidth: "150px" }}
           src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
         />
       </Column>

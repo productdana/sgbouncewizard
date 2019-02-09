@@ -2,6 +2,7 @@ import React from "react";
 import { CSVLink } from "react-csv";
 import "./index.scss";
 import { Button } from "@sendgrid/ui-components/button";
+import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
 import Loader from "@sendgrid/ui-components/loader";
 import PropTypes from "prop-types";
@@ -83,7 +84,13 @@ const BounceRulesContainer = ({
     <div {...WriteSelectors.page} className="container">
       <Header logout={logout} />
       <Row>
-        <Column width={6} offset={2} />
+        <Column width={6} offset={2}>
+          <Breadcrumb>
+            <a {...WriteSelectors.breadcrumb} href="/bounce_rules">
+              Bounce Rules
+            </a>
+          </Breadcrumb>
+        </Column>
       </Row>
       <Row>
         <Column className=" csv-button-col" width={4} offset={8}>
