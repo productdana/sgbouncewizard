@@ -62,7 +62,8 @@ Cypress mimics user actions in a browser to perform tests such as successfully l
 
 This opens up a Cypress application containing various tests categorized by pages. Clicking on any of the \*.spec.js files will begin the test.
 
-##Using Docker
+## Using Docker
+
 Docker can be used to build and run tests. Use the following commands:
 
 #### Unit Test & Build
