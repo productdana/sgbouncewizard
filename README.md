@@ -52,12 +52,23 @@ In order to update snapshots:
 
 Cypress mimics user actions in a browser to perform tests such as successfully logging in, creating bounce rules, and deleting bounce rules.
 
-#### Using Json-Server
+#### Using Json-Server as the Backend
 
 - `$ npm run cypress`:`open`:`mock`
 
-#### Using Docker Container
+#### Using GO Docker Container as the Backend
 
 - `$ npm run cypress`:`open`
 
 This opens up a Cypress application containing various tests categorized by pages. Clicking on any of the \*.spec.js files will begin the test.
+
+##Using Docker
+Docker can be used to build and run tests. Use the following commands:
+
+#### Unit Test & Build
+
+- `$ docker-compose up`
+
+#### Cypress Test
+
+- `$ docker-compose up -f docker-compose.cypress.yml up`
