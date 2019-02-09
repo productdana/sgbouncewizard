@@ -21,7 +21,9 @@ exports[`should render correctly 1`] = `
           src="https://uiux.s3.amazonaws.com/toggleable-logos/header-logo.svg"
           style={
             Object {
-              "maxWidth": "150px",
+              "bottom": "-50%",
+              "maxWidth": "200px",
+              "position": "relative",
             }
           }
         />
@@ -57,21 +59,7 @@ exports[`should render correctly 1`] = `
   >
     <div
       className="mako-grid__col-6 col-start-2"
-    >
-      <ol
-        className="breadcrumb"
-      >
-        <li>
-          <a
-            data-test="bounce-rules-breadcrumb"
-            href="/bounce_rules"
-          >
-            Bounce Rules
-          </a>
-        </li>
-        <li />
-      </ol>
-    </div>
+    />
   </div>
   <div
     className="mako-grid__row"
