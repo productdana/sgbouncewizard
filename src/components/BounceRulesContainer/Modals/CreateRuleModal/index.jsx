@@ -198,7 +198,6 @@ const CreateRuleModal = ({
             {...WriteSelectors.cancelCreateRuleButton}
             className="sg-button sg-right"
             onClick={handleModalClose}
-            onKeyDown={handleModalClose}
             id="isCreateRuleOpen"
             type="secondary"
           >

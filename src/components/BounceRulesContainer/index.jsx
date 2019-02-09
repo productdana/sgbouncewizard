@@ -61,6 +61,7 @@ const BounceRulesContainer = ({
   handleBounceTabClicked,
   isBounceRulesTab,
   isActivityLogTab,
+  handleDeleteCommit,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const shouldShowBounceRulePagination =
@@ -194,6 +195,8 @@ const BounceRulesContainer = ({
             idToDelete={idToDelete}
             handleModalClose={handleModalClose}
             handleDeleteConfirm={handleDeleteConfirm}
+            handleDeleteCommit={handleDeleteCommit}
+            selectedRule={selectedRule}
           />
         )}
         {isDeleteAlertOpen && (

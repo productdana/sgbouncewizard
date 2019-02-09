@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "@sendgrid/ui-components/button";
+import { TextInput } from "@sendgrid/ui-components/text-input";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
@@ -33,7 +34,12 @@ const DeleteConfirmationAlert = ({ handleModalClose }) => (
   />
 );
 
-const ConfirmModalBody = ({ handleModalClose, handleDeleteConfirm }) => (
+const ConfirmModalBody = ({
+  selectedRule,
+  handleModalClose,
+  handleDeleteConfirm,
+  handleDeleteCommit,
+}) => (
   <div>
     <Row>
       <Column>
@@ -43,6 +49,15 @@ const ConfirmModalBody = ({ handleModalClose, handleDeleteConfirm }) => (
             Doing so will effect how current email will be handled via this
             bounce rule. This action will go into effect immediately.
           </p>
+          <p>Please enter a commit message and confirm your changes.</p>
+          <TextInput
+            {...WriteSelectors.commitMessage}
+            onChange={handleDeleteCommit}
+            value={selectedRule.comment}
+            id="comment"
+            type="text"
+            label="Commit Message"
+          />
         </div>
       </Column>
     </Row>
@@ -72,9 +87,11 @@ const ConfirmModalBody = ({ handleModalClose, handleDeleteConfirm }) => (
 );
 
 const DeleteConfirmationModal = ({
+  selectedRule,
   handleModalClose,
   handleDeleteConfirm,
   idToDelete,
+  handleDeleteCommit,
 }) => (
   <CenterModal
     {...WriteSelectors.deleteConfirmation}
@@ -82,9 +99,11 @@ const DeleteConfirmationModal = ({
     className="delete-confirm-modal"
     renderBody={(
       <ConfirmModalBody
+        selectedRule={selectedRule}
         handleModalClose={handleModalClose}
         handleDeleteConfirm={handleDeleteConfirm}
         idToDelete={idToDelete}
+        handleDeleteCommit={handleDeleteCommit}
       />
 )}
   />

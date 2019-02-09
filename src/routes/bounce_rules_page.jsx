@@ -46,6 +46,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
     this.handleActivityTabClicked = this.handleActivityTabClicked.bind(this);
     this.handleBounceTabClicked = this.handleBounceTabClicked.bind(this);
+    this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
   }
 
   async componentDidMount() {
@@ -201,7 +202,11 @@ export default class BounceRulesPage extends React.Component {
 
   async handleDeleteConfirm() {
     const { rules, selectedRule } = this.state;
-    const { status } = await deleteRule(selectedRule);
+    const ruleToDelete = {
+      ...selectedRule,
+      user_id: parseInt(localStorage.getItem("user_id"), 10),
+    };
+    const { status } = await deleteRule(ruleToDelete);
     if (status === 200) {
       this.setState({
         rules: rules.filter(rule => rule.id !== parseInt(selectedRule.id, 10)),
@@ -269,6 +274,14 @@ export default class BounceRulesPage extends React.Component {
         newRule: { ...newRule, [id]: parseInt(value, 10) },
       });
     }
+  }
+
+  handleDeleteCommit(e) {
+    const { value, id } = e.currentTarget;
+    const { selectedRule } = this.state;
+    this.setState({
+      selectedRule: { ...selectedRule, [id]: value },
+    });
   }
 
   async handleCreateConfirm() {
@@ -344,6 +357,7 @@ export default class BounceRulesPage extends React.Component {
             handleTabClicked={this.handleTabClicked}
             handleActivityTabClicked={this.handleActivityTabClicked}
             handleBounceTabClicked={this.handleBounceTabClicked}
+            handleDeleteCommit={this.handleDeleteCommit}
             {...this.state}
           />
         )}
