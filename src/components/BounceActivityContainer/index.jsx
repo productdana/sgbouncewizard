@@ -125,19 +125,17 @@ const BounceRulesContainer = ({
           </Column>
         </Row>
         <Row>
-          <Column width={4} offset={5}>
-            {shouldShowActivityLogPagination && (
-              <Pagination
-                handlePrevClicked={handlePrevClicked}
-                handleNextClicked={handleNextClicked}
-                currentPageIndex={currentActivityPageIndex}
-                rulesToShow={rulesToShow}
-                numRules={activityLog.length}
-                updatePageIndex={updatePageIndex}
-                pagesToDisplay={pagesToDisplay}
-              />
-            )}
-          </Column>
+          {shouldShowActivityLogPagination && (
+            <Pagination
+              handlePrevClicked={handlePrevClicked}
+              handleNextClicked={handleNextClicked}
+              currentPageIndex={currentActivityPageIndex}
+              rulesToShow={rulesToShow}
+              numRules={activityLog.length}
+              updatePageIndex={updatePageIndex}
+              pagesToDisplay={pagesToDisplay}
+            />
+          )}
         </Row>
         {isActivityModalOpen && (
           <ActivityDetailsModal

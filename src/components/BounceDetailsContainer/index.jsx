@@ -140,17 +140,15 @@ const BounceRuleDetailed = ({
       </Row>
       {!isChangelogEmpty && (
         <Row>
-          <Column width={4} offset={5}>
-            <Pagination
-              handlePrevClicked={handlePrevClicked}
-              handleNextClicked={handleNextClicked}
-              pagesToDisplay={pagesToDisplay}
-              currentPageIndex={currentPageIndex}
-              rulesToShow={rulesToShow}
-              numRules={changelog.length}
-              updatePageIndex={updatePageIndex}
-            />
-          </Column>
+          <Pagination
+            handlePrevClicked={handlePrevClicked}
+            handleNextClicked={handleNextClicked}
+            pagesToDisplay={pagesToDisplay}
+            currentPageIndex={currentPageIndex}
+            rulesToShow={rulesToShow}
+            numRules={changelog.length}
+            updatePageIndex={updatePageIndex}
+          />
         </Row>
       )}
       {isChangeModalOpen && (

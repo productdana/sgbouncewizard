@@ -1,5 +1,6 @@
 import React from "react";
 import cn from "classnames";
+import { Column } from "../Column";
 import "./index.scss";
 
 function lastPageToDisplay(currentPageIndex, pagesToDisplay, totalPages) {
@@ -60,80 +61,82 @@ const Pagination = ({
   const shouldDisplayPrev = currentPageIndex === 1;
   const shouldDisplayNext = currentPageIndex === totalPages;
   return (
-    <div className="pagination pagination-container">
-      <a
-        className={`btn btn-secondary btn-small pagination-prev ${
-          shouldDisplayPrev ? "is-disabled" : ""
-        }`}
-        onClick={handlePrevClicked}
-        onKeyDown={handlePrevClicked}
-        role="button"
-        tabIndex="0"
-      >
-        Prev
-      </a>
-      {shouldDisplayFirstPage && (
-        <span>
-          <a
-            className="pagination-link"
-            onClick={updatePageIndex}
-            onKeyDown={updatePageIndex}
-            value={1}
-            role="button"
-            tabIndex="0"
-          >
-            {1}
-          </a>
-          <a className="pagination-ellipses">&hellip;</a>
-        </span>
-      )}
-      <div className="pagination-links">
-        {Array(endPage - startPage + 1)
-          .fill()
-          .map((_, i) => startPage + i)
-          .map(number => (
-            <a
-              key={number}
-              className={cn("pagination-link", {
-                "is-active": number === currentPageIndex,
-              })}
-              onClick={updatePageIndex}
-              onKeyDown={updatePageIndex}
-              value={number}
-              role="button"
-              tabIndex="0"
-            >
-              {number}
-            </a>
-          ))}
-        {shouldDisplayLastPage && (
+    <Column width={10} offset={2}>
+      <div className="pagination pagination-container">
+        <a
+          className={`btn btn-secondary btn-small pagination-prev ${
+            shouldDisplayPrev ? "is-disabled" : ""
+          }`}
+          onClick={handlePrevClicked}
+          onKeyDown={handlePrevClicked}
+          role="button"
+          tabIndex="0"
+        >
+          Prev
+        </a>
+        {shouldDisplayFirstPage && (
           <span>
-            <a className="pagination-ellipses">&hellip;</a>
             <a
               className="pagination-link"
               onClick={updatePageIndex}
               onKeyDown={updatePageIndex}
-              value={totalPages}
+              value={1}
               role="button"
               tabIndex="0"
             >
-              {totalPages}
+              {1}
             </a>
+            <a className="pagination-ellipses">&hellip;</a>
           </span>
         )}
+        <div className="pagination-links">
+          {Array(endPage - startPage + 1)
+            .fill()
+            .map((_, i) => startPage + i)
+            .map(number => (
+              <a
+                key={number}
+                className={cn("pagination-link", {
+                  "is-active": number === currentPageIndex,
+                })}
+                onClick={updatePageIndex}
+                onKeyDown={updatePageIndex}
+                value={number}
+                role="button"
+                tabIndex="0"
+              >
+                {number}
+              </a>
+            ))}
+          {shouldDisplayLastPage && (
+            <span>
+              <a className="pagination-ellipses">&hellip;</a>
+              <a
+                className="pagination-link"
+                onClick={updatePageIndex}
+                onKeyDown={updatePageIndex}
+                value={totalPages}
+                role="button"
+                tabIndex="0"
+              >
+                {totalPages}
+              </a>
+            </span>
+          )}
+        </div>
+        <a
+          className={`btn btn-secondary btn-small pagination-next ${
+            shouldDisplayNext ? "is-disabled" : ""
+          }`}
+          onClick={handleNextClicked}
+          onKeyDown={handleNextClicked}
+          role="button"
+          tabIndex="0"
+        >
+          Next
+        </a>
       </div>
-      <a
-        className={`btn btn-secondary btn-small pagination-next ${
-          shouldDisplayNext ? "is-disabled" : ""
-        }`}
-        onClick={handleNextClicked}
-        onKeyDown={handleNextClicked}
-        role="button"
-        tabIndex="0"
-      >
-        Next
-      </a>
-    </div>
+    </Column>
   );
 };
 

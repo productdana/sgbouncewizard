@@ -156,19 +156,17 @@ const BounceRulesContainer = ({
           </Column>
         </Row>
         <Row>
-          <Column width={4} offset={5}>
-            {shouldShowBounceRulePagination && (
-              <Pagination
-                handlePrevClicked={handlePrevClicked}
-                handleNextClicked={handleNextClicked}
-                currentPageIndex={currentPageIndex}
-                rulesToShow={rulesToShow}
-                numRules={numRules}
-                updatePageIndex={updatePageIndex}
-                pagesToDisplay={pagesToDisplay}
-              />
-            )}
-          </Column>
+          {shouldShowBounceRulePagination && (
+            <Pagination
+              handlePrevClicked={handlePrevClicked}
+              handleNextClicked={handleNextClicked}
+              currentPageIndex={currentPageIndex}
+              rulesToShow={rulesToShow}
+              numRules={numRules}
+              updatePageIndex={updatePageIndex}
+              pagesToDisplay={pagesToDisplay}
+            />
+          )}
         </Row>
         {isCreateRuleOpen && (
           <CreateRuleModal
