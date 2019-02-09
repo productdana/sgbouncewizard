@@ -9,7 +9,7 @@ import { Redirect } from "react-router";
 import Header from "../Header";
 import { Row } from "../Row";
 import { Column } from "../Column";
-import RuleFilter from "./RuleFilter";
+import ActivityFilter from "./ActivityFilter";
 import Pagination from "../Pagination";
 import EmptyRules from "./EmptyRules";
 import ActivityLogContainer from "./ActivityLogContainer";
@@ -87,7 +87,7 @@ const BounceRulesContainer = ({
         <Row>
           <Column width={10} offset={2}>
             <div {...WriteSelectors.ruleFilter}>
-              <RuleFilter
+              <ActivityFilter
                 searchToken={searchToken}
                 updateSearchToken={updateSearchToken}
                 updateSearchCategory={updateSearchCategory}

@@ -15,8 +15,10 @@ import Pagination from "../Pagination";
 import EmptyRules from "./EmptyRules";
 import DeleteConfirmationModal, {
   DeleteConfirmationAlert,
-} from "./DeleteRuleModal";
-import CreateRuleModal, { CreateConfirmationModal } from "./CreateRuleModal";
+} from "./Modals/DeleteRuleModal";
+import CreateRuleModal, {
+  CreateConfirmationModal,
+} from "./Modals/CreateRuleModal";
 import RuleListContainer from "./RuleListContainer";
 import { WriteSelectors } from "./selectors";
 

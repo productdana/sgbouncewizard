@@ -5,10 +5,10 @@ import { CenterModal } from "@sendgrid/ui-components/center-modal";
 import { Button } from "@sendgrid/ui-components/button";
 import Alert from "@sendgrid/ui-components/alert";
 import PropTypes from "prop-types";
-import { Row } from "../../Row";
-import { Column } from "../../Column";
-import "./index.scss";
-import { WriteSelectors } from "../selectors";
+import { Row } from "../../../Row";
+import { Column } from "../../../Column";
+import "../../index.scss";
+import { WriteSelectors } from "../../selectors";
 
 const ConfirmationHeader = () => (
   <div>

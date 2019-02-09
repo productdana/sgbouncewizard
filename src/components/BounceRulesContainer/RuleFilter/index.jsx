@@ -17,11 +17,11 @@ const RuleFilter = ({
   <div className="filter-wrap">
     <div className="filter-header">
       <p className="filter-title">
-        Search emails by{" "}
+        {"Search bounce rules by "}
         <a className="filter-option-toggle" href="#">
           all
-        </a>{" "}
-        of the following:
+        </a>
+        {" of the following:"}
       </p>
       <div className="btn-list">
         <button type="button" className="btn btn-small btn-secondary">

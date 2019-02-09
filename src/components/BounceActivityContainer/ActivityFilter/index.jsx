@@ -5,7 +5,7 @@ import { Select } from "@sendgrid/ui-components/select";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 
-const RuleFilter = ({
+const ActivityFilter = ({
   searchToken,
   updateSearchToken,
   updateSearchCategory,
@@ -17,11 +17,11 @@ const RuleFilter = ({
   <div className="filter-wrap">
     <div className="filter-header">
       <p className="filter-title">
-        Search emails by{" "}
+        {"Search activity by "}
         <a className="filter-option-toggle" href="#">
           all
-        </a>{" "}
-        of the following:
+        </a>
+        {" of the following:"}
       </p>
       <div className="btn-list">
         <button type="button" className="btn btn-small btn-secondary">
@@ -82,4 +82,4 @@ const RuleFilter = ({
     </div>
   </div>
 );
-export default RuleFilter;
+export default ActivityFilter;
