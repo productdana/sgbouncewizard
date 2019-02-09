@@ -1,9 +1,9 @@
 import React from "react";
-import "./index.scss";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Select } from "@sendgrid/ui-components/select";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
+import "./index.scss";
 
 const RuleFilter = ({
   searchToken,

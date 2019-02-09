@@ -1,10 +1,8 @@
 language: ruby
 
-
 jobs:
   include:
-    - stage: "Test"
-      name: "Unit Tests"
+    - stage: "Unit Test"
       script: docker-compose up jest
-      name: "Integration Test"
+    - stage: "End To End Test"
       script: docker-compose -f docker-compose.cypress.yml up

@@ -1,7 +1,6 @@
 import React from "react";
 import _ from "underscore";
 import { Redirect } from "react-router-dom";
-
 import BounceDetailsContainer from "../components/BounceDetailsContainer";
 import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
 

@@ -1,17 +1,17 @@
 import React from "react";
 import { CSVLink } from "react-csv";
-import "./index.scss";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
 import Loader from "@sendgrid/ui-components/loader";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router";
 import Header from "../Header";
 import { Row } from "../Row";
 import { Column } from "../Column";
-import RuleFilter from "./RuleFilter";
 import Pagination from "../Pagination";
+import RuleListContainer from "./RuleListContainer";
+import RuleFilter from "./RuleFilter";
 import EmptyRules from "./EmptyRules";
 import DeleteConfirmationModal, {
   DeleteConfirmationAlert,
@@ -19,7 +19,7 @@ import DeleteConfirmationModal, {
 import CreateRuleModal, {
   CreateConfirmationModal,
 } from "./Modals/CreateRuleModal";
-import RuleListContainer from "./RuleListContainer";
+import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
 const BounceRulesContainer = ({

@@ -1,10 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { CenterModal } from "@sendgrid/ui-components/center-modal";
 import { Button } from "@sendgrid/ui-components/button";
 import Alert from "@sendgrid/ui-components/alert";
-import PropTypes from "prop-types";
 import { Row } from "../../../Row";
 import { Column } from "../../../Column";
 import "../../index.scss";

@@ -7,10 +7,10 @@ import {
   TableCell,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
-import { Column } from "../../Column";
-import { Row } from "../../Row";
-import "./index.scss";
-import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
+import { shouldDisplay, displayUnixAsTime } from "../../../../utils/utils";
+import { Column } from "../../../Column";
+import { Row } from "../../../Row";
+import "../../index.scss";
 
 const ActivityModalBody = ({ handleModalClose, selectedChange }) => (
   <div className="changelog-modal">

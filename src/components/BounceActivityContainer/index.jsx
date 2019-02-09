@@ -1,20 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router";
 import { CSVLink } from "react-csv";
-import "./index.scss";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
 import Loader from "@sendgrid/ui-components/loader";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router";
 import Header from "../Header";
 import { Row } from "../Row";
 import { Column } from "../Column";
-import ActivityFilter from "./ActivityFilter";
 import Pagination from "../Pagination";
+import ActivityFilter from "./ActivityFilter";
 import EmptyRules from "./EmptyRules";
 import ActivityLogContainer from "./ActivityLogContainer";
+import ActivityDetailsModal from "./Modals/ActivityDetailsModal";
+import "./index.scss";
 import { WriteSelectors } from "./selectors";
-import ActivityDetailsModal from "./ActivityDetailsModal";
 
 const BounceRulesContainer = ({
   updateSearchToken,

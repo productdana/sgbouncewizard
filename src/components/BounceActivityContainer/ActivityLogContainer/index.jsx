@@ -7,8 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
-import "./index.scss";
 import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
+import "./index.scss";
 
 const ActivityLogContainer = ({ activityLog, handleActivityClicked }) => (
   <Table>

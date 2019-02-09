@@ -1,4 +1,5 @@
 import React from "react";
+import { CSVLink } from "react-csv";
 import {
   HeaderCell,
   Table,
@@ -9,14 +10,13 @@ import {
 } from "@sendgrid/ui-components/table/table";
 import Card from "@sendgrid/ui-components/card";
 import Tooltip from "@sendgrid/ui-components/tooltip";
-import { CSVLink } from "react-csv";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import Badge from "@sendgrid/ui-components/badge";
+import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 import "./index.scss";
 import { WriteSelectors } from "../selectors";
-import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
   return changelog

@@ -3,18 +3,18 @@ import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import Button from "@sendgrid/ui-components/button";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Row } from "../Row";
+import { Column } from "../Column";
+import Header from "../Header";
+import Pagination from "../Pagination";
 import DetailsContainer, { DetailsContainerEditable } from "./Details";
 import Changelog from "./Changelog";
 import ChangeModal from "./Modals/ChangeModal";
 import ConfirmationModal from "./Modals/ConfirmationModal";
 import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
-import { Row } from "../Row";
-import { Column } from "../Column";
-import Header from "../Header";
-import Pagination from "../Pagination";
+import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
-import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
 
 const BounceRuleDetailed = ({
   currentRule,
