@@ -486,7 +486,7 @@ exports[`should render correctly 1`] = `
     className="mako-grid__row"
   >
     <div
-      className="mako-grid__col-4 col-start-5"
+      className="mako-grid__col-10 col-start-2"
     >
       <div
         className="pagination pagination-container"
