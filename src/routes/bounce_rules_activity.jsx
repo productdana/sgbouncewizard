@@ -30,14 +30,10 @@ export default class BounceRuleActivityLogPage extends React.Component {
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleActivityTabClicked = this.handleActivityTabClicked.bind(this);
     this.handleBounceTabClicked = this.handleBounceTabClicked.bind(this);
-    this.updateActivityLogIndex = this.updateActivityLogIndex.bind(this);
+    this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handleActivityClicked = this.handleActivityClicked.bind(this);
-    this.handleActivityLogPrevClicked = this.handleActivityLogPrevClicked.bind(
-      this
-    );
-    this.handleActivityLogNextClicked = this.handleActivityLogNextClicked.bind(
-      this
-    );
+    this.handlePrevClicked = this.handlePrevClicked.bind(this);
+    this.handleNextClicked = this.handleNextClicked.bind(this);
   }
 
   async componentDidMount() {
@@ -86,7 +82,7 @@ export default class BounceRuleActivityLogPage extends React.Component {
     );
   }
 
-  paginateActivityLog(activityLog) {
+  paginate(activityLog) {
     const { currentActivityPageIndex, rulesToShow } = this.state;
     const ruleStartIndex = (currentActivityPageIndex - 1) * rulesToShow;
     const ruleEndIndex =
@@ -95,7 +91,7 @@ export default class BounceRuleActivityLogPage extends React.Component {
     return activityLog.slice(ruleStartIndex, ruleEndIndex);
   }
 
-  updateActivityLogIndex(e) {
+  updatePageIndex(e) {
     const newIndex = parseInt(e.currentTarget.getAttribute("value"), 10);
     this.setState(prevState => {
       const isPageIndexUpdated =
@@ -108,13 +104,13 @@ export default class BounceRuleActivityLogPage extends React.Component {
     });
   }
 
-  handleActivityLogPrevClicked() {
+  handlePrevClicked() {
     this.setState(prevState => ({
       currentActivityPageIndex: prevState.currentActivityPageIndex - 1,
     }));
   }
 
-  handleActivityLogNextClicked() {
+  handleNextClicked() {
     this.setState(prevState => ({
       currentActivityPageIndex: prevState.currentActivityPageIndex + 1,
     }));
@@ -195,9 +191,7 @@ export default class BounceRuleActivityLogPage extends React.Component {
 
   render() {
     const { activityLog } = this.state;
-    const filteredActivityLog = this.filterRules(
-      this.paginateActivityLog(activityLog)
-    );
+    const filteredActivityLog = this.filterRules(this.paginate(activityLog));
     const isAuthenticated = localStorage.getItem("isAuth");
     return (
       <React.Fragment>
@@ -221,9 +215,9 @@ export default class BounceRuleActivityLogPage extends React.Component {
             handleTabClicked={this.handleTabClicked}
             handleActivityTabClicked={this.handleActivityTabClicked}
             handleBounceTabClicked={this.handleBounceTabClicked}
-            updateActivityLogIndex={this.updateActivityLogIndex}
-            handleActivityLogPrevClicked={this.handleActivityLogPrevClicked}
-            handleActivityLogNextClicked={this.handleActivityLogNextClicked}
+            updatePageIndex={this.updatePageIndex}
+            handlePrevClicked={this.handlePrevClicked}
+            handleNextClicked={this.handleNextClicked}
             handleActivityClicked={this.handleActivityClicked}
             {...this.state}
           />

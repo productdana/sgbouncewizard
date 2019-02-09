@@ -35,9 +35,9 @@ const BounceRulesContainer = ({
   isBounceRulesTab,
   isActivityLogTab,
   activityLog,
-  updateActivityLogIndex,
-  handleActivityLogPrevClicked,
-  handleActivityLogNextClicked,
+  updatePageIndex,
+  handlePrevClicked,
+  handleNextClicked,
   currentActivityPageIndex,
   handleActivityClicked,
   selectedActivity,
@@ -128,12 +128,12 @@ const BounceRulesContainer = ({
           <Column width={4} offset={5}>
             {shouldShowActivityLogPagination && (
               <Pagination
-                handlePrevClicked={handleActivityLogPrevClicked}
-                handleNextClicked={handleActivityLogNextClicked}
+                handlePrevClicked={handlePrevClicked}
+                handleNextClicked={handleNextClicked}
                 currentPageIndex={currentActivityPageIndex}
                 rulesToShow={rulesToShow}
                 numRules={activityLog.length}
-                updatePageIndex={updateActivityLogIndex}
+                updatePageIndex={updatePageIndex}
                 pagesToDisplay={pagesToDisplay}
               />
             )}
