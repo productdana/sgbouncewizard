@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Bounce Rule Detailed should render correctly 1`] = `
-<div
-  className="detailed-page-container"
->
+<div>
   <div
     className="header-container"
   >
@@ -283,7 +281,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           </div>
         </div>
         <table
-          className="table-wrap"
+          className="table-wrap changelog-table"
         >
           <thead>
             <tr>
