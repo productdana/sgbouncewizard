@@ -94,14 +94,18 @@ const BounceRuleDetailed = ({
           <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
-                onClick={handleEditClicked}
+                onClick={editText === "FREE" ? handleEditClicked : () => {}}
                 id="isEditClicked"
                 onKeyDown={handleEditClicked}
                 {...WriteSelectors.editButton}
-                className="sg-button edit-button"
+                className={`sg-button edit-button ${
+                  editText !== "FREE" ? "inuse" : ""
+                }`}
                 type="primary"
               >
-                {editText}
+                {editText === "FREE" || editText === "ALREADY"
+                  ? "Edit Rule"
+                  : "In Use"}
               </Button>
             </span>
           </Column>
@@ -273,7 +277,7 @@ BounceRuleDetailed.defaultProps = {
   handleChangelogClicked: () => {},
   handleCancelConfirmation: () => {},
   handleSaveConfirmation: () => {},
-  editText: "Edit",
+  editText: "Edit Rule",
 };
 
 export default BounceRuleDetailed;

@@ -49,13 +49,24 @@ export default class BounceRuleDetailedPage extends React.Component {
     const ws = new WebSocket("ws://localhost:3000/ws");
     ws.onopen = () => {
       ws.send(`check ${match.params.bounceRuleId}`);
-      ws.onmessage = msg => {
-        this.setState({
-          editText: msg.data === "FREE" ? "Edit Rule" : "Being edited",
-          socketConnection: ws,
-        });
-      };
     };
+
+    ws.onmessage = msg => {
+      if (msg.data !== "WELCOME TO THE SERVER") {
+        this.setState({
+          editText: msg.data,
+        });
+      }
+    };
+
+    ws.onclose = () => {
+      ws.send(`release ${match.params.bounceRuleId}`);
+    };
+
+    window.addEventListener("beforeunload", () => {
+      ws.send(`release ${match.params.bounceRuleId}`);
+    });
+
     getChangelog(match.params.bounceRuleId)
       .then(res => {
         const { data } = res;
@@ -71,8 +82,18 @@ export default class BounceRuleDetailedPage extends React.Component {
     if (status === 200) {
       this.setState({
         currentRule: data,
+        socketConnection: ws,
+      });
+    } else {
+      this.setState({
+        socketConnection: ws,
       });
     }
+  }
+
+  componentWillUnmount() {
+    const { currentRule, socketConnection } = this.state;
+    socketConnection.send(`release ${currentRule.id}`);
   }
 
   onChangeRuleInt(e) {
@@ -162,21 +183,18 @@ export default class BounceRuleDetailedPage extends React.Component {
   handleEditClicked(e) {
     const { id } = e.currentTarget;
     const { currentRule, socketConnection } = this.state;
-
     socketConnection.send(`edit ${currentRule.id}`);
-    socketConnection.onmessage = msg => {
-      this.setState({
-        [id]: msg.data !== "INUSE",
-        updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
-        editText: msg.data === "INUSE" ? "Being edited" : "Edit Rule",
-      });
-    };
+    this.setState({
+      [id]: true,
+      updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
+    });
   }
 
   handleCancelSaveClicked(e) {
     const { id } = e.currentTarget;
     const { currentRule, updatedRule, socketConnection } = this.state;
     socketConnection.send(`release ${currentRule.id}`);
+    socketConnection.send(`check ${currentRule.id}`);
     if (
       !_.isEqual(
         updatedRule,
