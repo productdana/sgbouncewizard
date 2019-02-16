@@ -73,14 +73,6 @@ const RuleFilter = ({
             >
               {filterOption.searchCategory} - {filterOption.searchToken}
             </Button>
-            // <button
-            //   type="button"
-            //   className="btn btn-small btn-secodary"
-            //   onClick={removeFilter}
-            //   key={filterOption.searchCategory + filterOption.searchToken}
-            // >
-            //   {filterOption.searchCategory} - {filterOption.searchToken}
-            // </button>
           ))}
         </div>
       </Row>
