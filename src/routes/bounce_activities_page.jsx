@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import BounceActivityContainer from "../components/BounceActivityContainer";
+import BounceRulesActivity from "../components/BounceActivityContainer";
 import { getActivityLog } from "../utils/ruleCalls";
 
 export default class BounceActivityPage extends React.Component {
@@ -204,7 +204,7 @@ export default class BounceActivityPage extends React.Component {
           />
         )}
         {isAuthenticated && (
-          <BounceActivityContainer
+          <BounceRulesActivity
             logout={this.logout}
             updateSearchToken={this.updateSearchToken}
             updateSearchCategory={this.updateSearchCategory}

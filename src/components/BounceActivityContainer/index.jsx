@@ -17,7 +17,7 @@ import ActivityDetailsModal from "./Modals/ActivityDetailsModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
-const BounceRulesContainer = ({
+const BounceRulesActivity = ({
   updateSearchToken,
   updateSearchCategory,
   removeFilter,
@@ -147,7 +147,7 @@ const BounceRulesContainer = ({
   );
 };
 
-BounceRulesContainer.propTypes = {
+BounceRulesActivity.propTypes = {
   updateSearchToken: PropTypes.func,
   updateSearchCategory: PropTypes.func,
   removeFilter: PropTypes.func,
@@ -172,7 +172,7 @@ BounceRulesContainer.propTypes = {
   numRules: PropTypes.number,
 };
 
-BounceRulesContainer.defaultProps = {
+BounceRulesActivity.defaultProps = {
   updateSearchToken: () => {},
   updateSearchCategory: () => {},
   removeFilter: () => {},
@@ -192,4 +192,4 @@ BounceRulesContainer.defaultProps = {
   isFetching: false,
 };
 
-export default BounceRulesContainer;
+export default BounceRulesActivity;
