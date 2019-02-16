@@ -19,7 +19,7 @@ export default class BounceRulesPage extends React.Component {
       rulesToShow: 10,
       pagesToDisplay: 5,
       filterOptions: [],
-      invalidFilter: false,
+      isValidFilter: true,
       isFetching: true,
       isDeleteConfirmationOpen: false,
       isDeleteAlertOpen: false,
@@ -139,13 +139,13 @@ export default class BounceRulesPage extends React.Component {
     const { searchCategory, searchToken } = this.state;
     if (!searchCategory || !searchToken) {
       this.setState({
-        invalidFilter: true,
+        isValidFilter: false,
       });
       return;
     }
     if (!this.isDuplicate(searchCategory, searchToken)) {
       this.setState(prevState => ({
-        invalidFilter: false,
+        isValidFilter: true,
         filterOptions: [
           ...prevState.filterOptions,
           { searchCategory, searchToken },
@@ -154,7 +154,7 @@ export default class BounceRulesPage extends React.Component {
       }));
     } else {
       this.setState({
-        invalidFilter: true,
+        isValidFilter: false,
       });
     }
   }

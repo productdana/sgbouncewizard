@@ -2,6 +2,7 @@ import React from "react";
 import { CSVLink } from "react-csv";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
@@ -39,7 +40,7 @@ const BounceRulesContainer = ({
   numRules,
   filterOptions,
   addFilter,
-  invalidFilter,
+  isValidFilter,
   isCreateRuleOpen,
   handleRuleUpdate,
   handleRuleUpdateInt,
@@ -77,14 +78,12 @@ const BounceRulesContainer = ({
         <Row>
           <Column width={6} offset={2}>
             <Breadcrumb>
-              <a {...WriteSelectors.breadcrumb} href="/bounce_rules">
-                Bounce Rules
-              </a>
+              <Link to="/bounce_rules"> Bounce Rules</Link>
             </Breadcrumb>
           </Column>
         </Row>
         <Row>
-          <Column className=" csv-button-col" width={4} offset={8}>
+          <Column className="csv-button-col" width={4} offset={8}>
             <CSVLink
               {...WriteSelectors.csvButton}
               filename="bounce_rules.csv"
@@ -124,7 +123,7 @@ const BounceRulesContainer = ({
                 filterOptions={filterOptions}
                 addFilter={addFilter}
                 removeFilter={removeFilter}
-                invalidFilter={invalidFilter}
+                isValidFilter={isValidFilter}
               />
             </div>
           </Column>
@@ -255,7 +254,7 @@ BounceRulesContainer.propTypes = {
     })
   ),
   addFilter: PropTypes.func,
-  invalidFilter: PropTypes.bool,
+  isValidFilter: PropTypes.bool,
   isCreateRuleOpen: PropTypes.bool,
   handleRuleUpdate: PropTypes.func,
   handleCreateSubmit: PropTypes.func,
@@ -298,7 +297,7 @@ BounceRulesContainer.defaultProps = {
   numRules: 0,
   filterOptions: () => {},
   addFilter: () => {},
-  invalidFilter: false,
+  isValidFilter: false,
   isCreateRuleOpen: false,
   handleRuleUpdate: () => {},
   handleCreateSubmit: () => {},

@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Select } from "@sendgrid/ui-components/select";
 import { Row } from "../../Row";
@@ -12,7 +13,7 @@ const ActivityFilter = ({
   filterOptions,
   addFilter,
   removeFilter,
-  invalidFilter,
+  isValidFilter,
 }) => (
   <div className="filter-wrap">
     <div className="filter-header">
@@ -24,16 +25,16 @@ const ActivityFilter = ({
         {" of the following:"}
       </p>
       <div className="btn-list">
-        <button type="button" className="btn btn-small btn-secondary">
+        <Button type="secondary" small>
           Clear Search
-        </button>
+        </Button>
       </div>
     </div>
     <div className="filter-list">
       <Row>
         <Column width={3} offset={1}>
-          <div style={{ paddingTop: "15px" }} />
           <Select
+            className="select-filter"
             onChange={updateSearchCategory}
             name="primary-filter"
             defaultValue={{ label: "Bounce Action", value: "Bounce Action" }}
@@ -51,8 +52,8 @@ const ActivityFilter = ({
             label="Description"
             onChange={updateSearchToken}
             value={searchToken}
-            isValid={!invalidFilter}
-            info={invalidFilter && "Please enter a valid filter description."}
+            isValid={isValidFilter}
+            info={!isValidFilter && "Please enter a valid filter description."}
           />
         </Column>
         <i className="filter-row-remove sg-icon sg-icon-x" />
@@ -60,19 +61,15 @@ const ActivityFilter = ({
 
       <Row>
         <div className="row btn-list filter-actions-container">
-          <button
-            type="button"
-            onClick={addFilter}
-            className="btn btn-small btn-secondary"
-          >
+          <Button type="secondary" small onClick={addFilter}>
             Add a Filter
-          </button>
+          </Button>
           {filterOptions.map(filterOption => (
             <button
               type="button"
               className="btn btn-small btn-secodary"
               onClick={removeFilter}
-              key={JSON.stringify(filterOption)}
+              key={filterOption.searchCategory + filterOption.searchToken}
             >
               {filterOption.searchCategory} - {filterOption.searchToken}
             </button>

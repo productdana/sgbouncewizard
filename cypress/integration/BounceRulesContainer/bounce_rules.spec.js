@@ -36,7 +36,6 @@ describe("Bounce Rules Page", () => {
   it("should pass healthchecks", () => {
     BounceRulesPage.open();
     BounceRulesPage.page.should("be.visible");
-    BounceRulesPage.breadcrumb.should("be.visible");
     BounceRulesPage.csvButton.should("be.visible");
     BounceRulesPage.createRuleButton.should("be.visible");
     BounceRulesPage.ruleFilter.should("be.visible");

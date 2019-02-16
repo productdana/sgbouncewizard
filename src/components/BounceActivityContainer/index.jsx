@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import { CSVLink } from "react-csv";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
@@ -26,7 +27,7 @@ const BounceRulesContainer = ({
   pagesToDisplay,
   filterOptions,
   addFilter,
-  invalidFilter,
+  isValidFilter,
   handleModalClose,
   isFetching,
   logout,
@@ -43,7 +44,7 @@ const BounceRulesContainer = ({
   selectedActivity,
   isActivityModalOpen,
 }) => {
-  const isActivityEmpty = activityLog.length <= 0;
+  const isActivityEmpty = activityLog.length === 0;
   const shouldShowActivityLogPagination =
     isActivityLogTab && !isActivityEmpty && !isFetching;
   const shouldShowActivityLogContainer = isActivityLogTab && !isActivityEmpty;
@@ -56,14 +57,12 @@ const BounceRulesContainer = ({
         <Row>
           <Column width={6} offset={2}>
             <Breadcrumb>
-              <a {...WriteSelectors.breadcrumb} href="/activity_log">
-                Activity Log
-              </a>
+              <Link to="/activity_log"> Activity Log</Link>
             </Breadcrumb>
           </Column>
         </Row>
         <Row>
-          <Column className=" csv-button-col" width={4} offset={8}>
+          <Column className="csv-button-col" width={4} offset={8}>
             <CSVLink
               {...WriteSelectors.csvButton}
               filename="activity_log.csv"
@@ -94,7 +93,7 @@ const BounceRulesContainer = ({
                 filterOptions={filterOptions}
                 addFilter={addFilter}
                 removeFilter={removeFilter}
-                invalidFilter={invalidFilter}
+                isValidFilter={isValidFilter}
               />
             </div>
           </Column>
@@ -166,7 +165,7 @@ BounceRulesContainer.propTypes = {
     })
   ),
   addFilter: PropTypes.func,
-  invalidFilter: PropTypes.bool,
+  isValidFilter: PropTypes.bool,
   isCreateRuleOpen: PropTypes.bool,
   handleModalClose: PropTypes.func,
   isFetching: PropTypes.bool,
@@ -187,7 +186,7 @@ BounceRulesContainer.defaultProps = {
   numRules: 0,
   filterOptions: () => {},
   addFilter: () => {},
-  invalidFilter: false,
+  isValidFilter: false,
   isCreateRuleOpen: false,
   handleModalClose: () => {},
   isFetching: false,
