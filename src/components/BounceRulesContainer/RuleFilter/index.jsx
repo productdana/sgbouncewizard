@@ -61,18 +61,26 @@ const RuleFilter = ({
 
       <Row>
         <div className="row btn-list filter-actions-container">
-          <Button type="secondary" small onClick={addFilter}>
+          <Button type="primary" small onClick={addFilter}>
             Add a Filter
           </Button>
           {filterOptions.map(filterOption => (
-            <button
-              type="button"
-              className="btn btn-small btn-secodary"
+            <Button
+              type="secondary"
+              small
               onClick={removeFilter}
               key={filterOption.searchCategory + filterOption.searchToken}
             >
               {filterOption.searchCategory} - {filterOption.searchToken}
-            </button>
+            </Button>
+            // <button
+            //   type="button"
+            //   className="btn btn-small btn-secodary"
+            //   onClick={removeFilter}
+            //   key={filterOption.searchCategory + filterOption.searchToken}
+            // >
+            //   {filterOption.searchCategory} - {filterOption.searchToken}
+            // </button>
           ))}
         </div>
       </Row>

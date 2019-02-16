@@ -365,7 +365,7 @@ exports[`should render correctly 1`] = `
                 className="row btn-list filter-actions-container"
               >
                 <button
-                  className="btn btn-secondary btn-small"
+                  className="btn btn-primary btn-small"
                   disabled={false}
                   onClick={[Function]}
                   type="button"
