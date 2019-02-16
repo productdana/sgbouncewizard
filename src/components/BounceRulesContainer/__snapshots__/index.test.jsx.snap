@@ -494,7 +494,7 @@ exports[`should render correctly 1`] = `
         className="pagination pagination-container"
       >
         <a
-          className="btn btn-secondary btn-small pagination-prev is-disabled"
+          className="btn btn-secondary btn-small pagination-prev is-invisible"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="button"

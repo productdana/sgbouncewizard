@@ -356,7 +356,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
         className="pagination pagination-container"
       >
         <a
-          className="btn btn-secondary btn-small pagination-prev is-disabled"
+          className="btn btn-secondary btn-small pagination-prev is-invisible"
           role="button"
           tabIndex="0"
         >
@@ -377,7 +377,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           </a>
         </div>
         <a
-          className="btn btn-secondary btn-small pagination-next is-disabled"
+          className="btn btn-secondary btn-small pagination-next is-invisible"
           role="button"
           tabIndex="0"
         >
