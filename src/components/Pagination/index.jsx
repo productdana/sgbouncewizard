@@ -65,7 +65,7 @@ const Pagination = ({
       <div className="pagination pagination-container">
         <a
           className={`btn btn-secondary btn-small pagination-prev ${
-            shouldDisplayPrev ? "is-disabled" : ""
+            shouldDisplayPrev ? "is-invisible" : ""
           }`}
           onClick={handlePrevClicked}
           onKeyDown={handlePrevClicked}
@@ -126,7 +126,7 @@ const Pagination = ({
         </div>
         <a
           className={`btn btn-secondary btn-small pagination-next ${
-            shouldDisplayNext ? "is-disabled" : ""
+            shouldDisplayNext ? "is-invisible" : ""
           }`}
           onClick={handleNextClicked}
           onKeyDown={handleNextClicked}
