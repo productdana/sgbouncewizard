@@ -52,7 +52,6 @@ storiesOf("Bounce Activity Page", module)
       activityLog={[log1, log2, log3]}
       filteredActivityLog={[log1, log2, log3]}
       filterOptions={[]}
-      isValidFilter
       isActivityLogTab
     />
   ))
@@ -61,7 +60,6 @@ storiesOf("Bounce Activity Page", module)
       activityLog={[]}
       filteredActivityLog={[]}
       filterOptions={[]}
-      isValidFilter
       isActivityLogTab
     />
   ))
@@ -70,7 +68,6 @@ storiesOf("Bounce Activity Page", module)
       activityLog={[log1, log2, log3]}
       filteredActivityLog={[log1, log2, log3]}
       filterOptions={[]}
-      isValidFilter
       isActivityLogTab
       isActivityModalOpen
       selectedActivity={log1}

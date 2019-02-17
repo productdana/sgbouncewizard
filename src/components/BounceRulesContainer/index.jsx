@@ -297,7 +297,6 @@ BounceRulesContainer.defaultProps = {
   numRules: 0,
   filterOptions: () => {},
   addFilter: () => {},
-  isValidFilter: false,
   isCreateRuleOpen: false,
   handleRuleUpdate: () => {},
   handleCreateSubmit: () => {},
@@ -313,6 +312,7 @@ BounceRulesContainer.defaultProps = {
   handleCreateOpen: () => {},
   handleActionOpen: () => {},
   isFetching: false,
+  isValidFilter: true,
 };
 
 export default BounceRulesContainer;

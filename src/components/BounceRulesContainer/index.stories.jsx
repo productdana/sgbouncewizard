@@ -44,8 +44,10 @@ storiesOf("Bounce Rule Page", module)
   .addDecorator(StoryRouter())
   .add("Default", () => (
     <BounceRulesContainer
+      rules={[sampleRule1, sampleRule2]}
       filteredRules={[sampleRule1, sampleRule2]}
       filterOptions={[]}
+      isBounceRulesTab
     />
   ))
   .add("Empty Rules", () => (

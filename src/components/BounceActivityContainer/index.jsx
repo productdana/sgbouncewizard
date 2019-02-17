@@ -186,10 +186,10 @@ BounceRulesActivity.defaultProps = {
   numRules: 0,
   filterOptions: () => {},
   addFilter: () => {},
-  isValidFilter: false,
   isCreateRuleOpen: false,
   handleModalClose: () => {},
   isFetching: false,
+  isValidFilter: true,
 };
 
 export default BounceRulesActivity;
