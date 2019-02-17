@@ -49,14 +49,30 @@ storiesOf("Bounce Activity Page", module)
   .addDecorator(StoryRouter())
   .add("Default", () => (
     <BounceRulesActivity
-      rulesToShow={5}
-      numRules={1}
-      currentPageIndex={1}
-      pagesToDisplay={5}
       activityLog={[log1, log2, log3]}
       filteredActivityLog={[log1, log2, log3]}
       filterOptions={[]}
       isValidFilter
       isActivityLogTab
+    />
+  ))
+  .add("Empty", () => (
+    <BounceRulesActivity
+      activityLog={[]}
+      filteredActivityLog={[]}
+      filterOptions={[]}
+      isValidFilter
+      isActivityLogTab
+    />
+  ))
+  .add("View Details", () => (
+    <BounceRulesActivity
+      activityLog={[log1, log2, log3]}
+      filteredActivityLog={[log1, log2, log3]}
+      filterOptions={[]}
+      isValidFilter
+      isActivityLogTab
+      isActivityModalOpen
+      selectedActivity={log1}
     />
   ));
