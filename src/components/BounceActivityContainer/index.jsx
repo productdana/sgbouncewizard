@@ -39,7 +39,7 @@ const BounceRulesActivity = ({
   updatePageIndex,
   handlePrevClicked,
   handleNextClicked,
-  currentActivityPageIndex,
+  currentPageIndex,
   handleActivityClicked,
   selectedActivity,
   isActivityModalOpen,
@@ -128,7 +128,7 @@ const BounceRulesActivity = ({
             <Pagination
               handlePrevClicked={handlePrevClicked}
               handleNextClicked={handleNextClicked}
-              currentPageIndex={currentActivityPageIndex}
+              currentPageIndex={currentPageIndex}
               rulesToShow={rulesToShow}
               numRules={activityLog.length}
               updatePageIndex={updatePageIndex}

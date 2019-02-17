@@ -15,7 +15,7 @@ export default class BounceActivityPage extends React.Component {
       isRedirectingToDetail: false,
       selectedActivity: {},
       activityLog: [],
-      currentActivityPageIndex: 1,
+      currentPageIndex: 1,
       rulesToShow: 10,
       pagesToDisplay: 5,
       filterOptions: [],
@@ -83,36 +83,35 @@ export default class BounceActivityPage extends React.Component {
   }
 
   paginate(activityLog) {
-    const { currentActivityPageIndex, rulesToShow } = this.state;
-    const ruleStartIndex = (currentActivityPageIndex - 1) * rulesToShow;
+    const { currentPageIndex, rulesToShow } = this.state;
+    const ruleStartIndex = (currentPageIndex - 1) * rulesToShow;
     const ruleEndIndex =
-      (currentActivityPageIndex - 1 * currentActivityPageIndex + rulesToShow) *
-      currentActivityPageIndex;
+      (currentPageIndex - 1 * currentPageIndex + rulesToShow) *
+      currentPageIndex;
     return activityLog.slice(ruleStartIndex, ruleEndIndex);
   }
 
   updatePageIndex(e) {
     const newIndex = parseInt(e.currentTarget.getAttribute("value"), 10);
     this.setState(prevState => {
-      const isPageIndexUpdated =
-        prevState.currentActivityPageIndex !== newIndex;
+      const isPageIndexUpdated = prevState.currentPageIndex !== newIndex;
       return {
-        currentActivityPageIndex: isPageIndexUpdated
+        currentPageIndex: isPageIndexUpdated
           ? newIndex
-          : prevState.currentActivityPageIndex,
+          : prevState.currentPageIndex,
       };
     });
   }
 
   handlePrevClicked() {
     this.setState(prevState => ({
-      currentActivityPageIndex: prevState.currentActivityPageIndex - 1,
+      currentPageIndex: prevState.currentPageIndex - 1,
     }));
   }
 
   handleNextClicked() {
     this.setState(prevState => ({
-      currentActivityPageIndex: prevState.currentActivityPageIndex + 1,
+      currentPageIndex: prevState.currentPageIndex + 1,
     }));
   }
 

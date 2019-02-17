@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import RuleFilter from "./index";
 
-storiesOf("Rule Filter", module)
+storiesOf("Activity Filter", module)
   .add("Empty Default", () => <RuleFilter filterOptions={[]} />)
   .add("Some Inputs", () => (
     <RuleFilter searchToken="no bounce" filterOptions={[]} />
