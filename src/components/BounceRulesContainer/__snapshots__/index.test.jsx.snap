@@ -324,7 +324,7 @@ exports[`should render correctly 1`] = `
                 className="mako-grid__col-9 col-start-4"
               >
                 <div
-                  className="input-text-wrap is-error"
+                  className="input-text-wrap"
                   style={
                     Object {
                       "width": "100%",
@@ -337,7 +337,7 @@ exports[`should render correctly 1`] = `
                     Description
                   </label>
                   <input
-                    aria-describedby="undefined-info"
+                    aria-describedby={false}
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
@@ -345,12 +345,6 @@ exports[`should render correctly 1`] = `
                     type="text"
                     value=""
                   />
-                  <span
-                    className="input-info undefined danger"
-                    id="undefined-info"
-                  >
-                    Please enter a valid filter description.
-                  </span>
                   
                 </div>
               </div>
