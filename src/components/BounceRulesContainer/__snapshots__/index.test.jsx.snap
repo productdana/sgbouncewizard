@@ -2,7 +2,6 @@
 
 exports[`should render correctly 1`] = `
 <div
-  className="container"
   data-test="bounce-rules-page"
 >
   <div
@@ -383,7 +382,7 @@ exports[`should render correctly 1`] = `
         data-test="rule-table"
       >
         <table
-          className="table-wrap"
+          className="table-wrap rule-table"
         >
           <thead>
             <tr>
