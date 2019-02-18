@@ -73,7 +73,7 @@ const BounceRulesContainer = ({
   return (
     <React.Fragment>
       {isActivityLogTab && <Redirect push to="/activity_log" />}
-      <div {...WriteSelectors.page} className="container">
+      <div {...WriteSelectors.page}>
         <Header logout={logout} />
         <Row>
           <Column width={6} offset={2}>

@@ -41,7 +41,7 @@ const RuleFilter = ({
             options={[
               { label: "Bounce Action", value: "Bounce Action" },
               { label: "Enhanced Code", value: "Enhanced Code" },
-              { label: "Description", value: "description" },
+              { label: "Description", value: "Description" },
             ]}
           />
         </Column>
@@ -69,6 +69,8 @@ const RuleFilter = ({
               type="secondary"
               small
               onClick={removeFilter}
+              category={filterOption.searchCategory}
+              token={filterOption.searchToken}
               key={filterOption.searchCategory + filterOption.searchToken}
             >
               {filterOption.searchCategory} - {filterOption.searchToken}

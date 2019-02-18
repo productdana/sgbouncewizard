@@ -11,7 +11,7 @@ import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
 import "./index.scss";
 
 const ActivityLogContainer = ({ activityLog, handleActivityClicked }) => (
-  <Table>
+  <Table className="activity-table">
     <TableHeader>
       <TableRow>
         <HeaderCell className="row-date">Date</HeaderCell>

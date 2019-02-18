@@ -82,8 +82,8 @@ export default class BounceRulesPage extends React.Component {
     const { searchToken } = this.state;
     return rules.filter(
       rule =>
-        rule.bounce_action.toLowerCase().includes(searchToken) ||
-        rule.description.toLowerCase().includes(searchToken)
+        rule.bounce_action.toLowerCase().includes(searchToken.toLowerCase()) ||
+        rule.description.toLowerCase().includes(searchToken.toLowerCase())
     );
   }
 
@@ -121,18 +121,13 @@ export default class BounceRulesPage extends React.Component {
   }
 
   isDuplicate(searchCategory, searchToken) {
-    let found = false;
     const { filterOptions } = this.state;
-    filterOptions.filter(filter => {
-      if (
-        filter.searchCategory === searchCategory &&
-        filter.searchToken === searchToken
-      ) {
-        found = true;
-      }
-      return false;
-    });
-    return found;
+    const isDuplicate = filterOptions.some(
+      filterOption =>
+        filterOption.searchCategory === searchCategory &&
+        filterOption.searchToken === searchToken
+    );
+    return isDuplicate;
   }
 
   addFilter() {
@@ -143,7 +138,11 @@ export default class BounceRulesPage extends React.Component {
       });
       return;
     }
-    if (!this.isDuplicate(searchCategory, searchToken)) {
+    if (this.isDuplicate(searchCategory, searchToken)) {
+      this.setState({
+        isValidFilter: false,
+      });
+    } else {
       this.setState(prevState => ({
         isValidFilter: true,
         filterOptions: [
@@ -152,20 +151,22 @@ export default class BounceRulesPage extends React.Component {
         ],
         searchToken: "",
       }));
-    } else {
-      this.setState({
-        isValidFilter: false,
-      });
     }
   }
 
-  removeFilter(filter) {
+  removeFilter(e) {
+    const token = e.currentTarget.getAttribute("token");
+    const category = e.currentTarget.getAttribute("category");
     const { filterOptions } = this.state;
-    const newFilter = [...filterOptions];
-    const index = newFilter.indexOf(filter);
-    newFilter.splice(index, 1);
+    const newFilterOptions = filterOptions.filter(
+      filterOption =>
+        (filterOption.searchCategory !== category &&
+          filterOption.searchToken !== token) ||
+        (filterOption.searchCategory === category &&
+          filterOption.searchToken !== token)
+    );
     this.setState({
-      filterOptions: [...newFilter],
+      filterOptions: newFilterOptions,
     });
   }
 

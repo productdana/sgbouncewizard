@@ -17,7 +17,7 @@ import ActivityDetailsModal from "./Modals/ActivityDetailsModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
-const BounceRulesActivity = ({
+const BounceActivityContainer = ({
   updateSearchToken,
   updateSearchCategory,
   removeFilter,
@@ -52,7 +52,7 @@ const BounceRulesActivity = ({
   return (
     <React.Fragment>
       {isBounceRulesTab && <Redirect push to="/bounce_rules" />}
-      <div {...WriteSelectors.page} className="container">
+      <div {...WriteSelectors.page}>
         <Header logout={logout} />
         <Row>
           <Column width={6} offset={2}>
@@ -147,7 +147,7 @@ const BounceRulesActivity = ({
   );
 };
 
-BounceRulesActivity.propTypes = {
+BounceActivityContainer.propTypes = {
   updateSearchToken: PropTypes.func,
   updateSearchCategory: PropTypes.func,
   removeFilter: PropTypes.func,
@@ -172,7 +172,7 @@ BounceRulesActivity.propTypes = {
   numRules: PropTypes.number,
 };
 
-BounceRulesActivity.defaultProps = {
+BounceActivityContainer.defaultProps = {
   updateSearchToken: () => {},
   updateSearchCategory: () => {},
   removeFilter: () => {},
@@ -192,4 +192,4 @@ BounceRulesActivity.defaultProps = {
   isValidFilter: true,
 };
 
-export default BounceRulesActivity;
+export default BounceActivityContainer;

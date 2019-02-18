@@ -12,7 +12,7 @@ import { shouldDisplay } from "../../../utils/utils";
 import "./index.scss";
 
 const RuleListContainer = ({ rules, handleActionOpen }) => (
-  <Table>
+  <Table className="rule-table">
     <TableHeader>
       <TableRow>
         <HeaderCell className="row-id">Id</HeaderCell>

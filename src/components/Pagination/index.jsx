@@ -35,6 +35,36 @@ function calcShouldDisplayLastPage(
   return false;
 }
 
+function showPaginationLinks(
+  startPage,
+  endPage,
+  currentPageIndex,
+  updatePageIndex
+) {
+  const numberOfPages = endPage - startPage + 1;
+
+  return Array(numberOfPages)
+    .fill()
+    .map((_, i) => {
+      const currentPaginationNum = startPage + i;
+      return (
+        <a
+          key={currentPaginationNum}
+          className={cn("pagination-link", {
+            "is-active": currentPaginationNum === currentPageIndex,
+          })}
+          onClick={updatePageIndex}
+          onKeyDown={updatePageIndex}
+          value={currentPaginationNum}
+          role="button"
+          tabIndex="0"
+        >
+          {currentPaginationNum}
+        </a>
+      );
+    });
+}
+
 const Pagination = ({
   handlePrevClicked,
   handleNextClicked,
@@ -90,14 +120,20 @@ const Pagination = ({
           </span>
         )}
         <div className="pagination-links">
-          {Array(endPage - startPage + 1)
+          {showPaginationLinks(
+            startPage,
+            endPage,
+            currentPageIndex,
+            updatePageIndex
+          )}
+          {/* {Array(endPage - startPage + 1)
             .fill()
             .map((_, i) => startPage + i)
             .map(number => (
               <a
                 key={number}
                 className={cn("pagination-link", {
-                  "is-active": number === currentPageIndex,
+                  "is-active": number === currentPageIndex
                 })}
                 onClick={updatePageIndex}
                 onKeyDown={updatePageIndex}
@@ -107,7 +143,7 @@ const Pagination = ({
               >
                 {number}
               </a>
-            ))}
+            ))} */}
           {shouldDisplayLastPage && (
             <span>
               <a className="pagination-ellipses">&hellip;</a>

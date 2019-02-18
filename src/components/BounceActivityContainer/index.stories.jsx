@@ -4,7 +4,7 @@ import StoryRouter from "storybook-react-router";
 import BounceRulesActivity from "./index";
 
 const log1 = {
-  bounce_action: "cypressDeleteTest",
+  bounce_action: "log1",
   comment: "",
   created_at: 1550348178,
   description: "testDescription",
@@ -18,7 +18,7 @@ const log1 = {
 };
 
 const log2 = {
-  bounce_action: "cypressTestTest",
+  bounce_action: "log2",
   comment: "",
   created_at: 1550453178,
   description: "testDescription",
@@ -32,12 +32,12 @@ const log2 = {
 };
 
 const log3 = {
-  bounce_action: "cypressTestTest",
+  bounce_action: "log3",
   comment: "",
   created_at: 1550453278,
   description: "testDescription",
   enhanced_code: "492",
-  id: 671,
+  id: 672,
   operation: "Update",
   priority: 1,
   regex: "testRegex",
