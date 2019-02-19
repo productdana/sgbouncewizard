@@ -3,18 +3,18 @@ import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import Button from "@sendgrid/ui-components/button";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Row } from "../Row";
+import { Column } from "../Column";
+import Header from "../Header";
+import Pagination from "../Pagination";
 import DetailsContainer, { DetailsContainerEditable } from "./Details";
 import Changelog from "./Changelog";
 import ChangeModal from "./Modals/ChangeModal";
 import ConfirmationModal from "./Modals/ConfirmationModal";
 import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
-import { Row } from "../Row";
-import { Column } from "../Column";
-import Header from "../Header";
-import Pagination from "../Pagination";
+import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
-import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
 
 const BounceRuleDetailed = ({
   currentRule,
@@ -51,7 +51,7 @@ const BounceRuleDetailed = ({
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
   return (
-    <div className="detailed-page-container">
+    <div>
       <Header logout={logout} />
       <Row>
         <Column width={6} offset={2}>
@@ -140,17 +140,15 @@ const BounceRuleDetailed = ({
       </Row>
       {!isChangelogEmpty && (
         <Row>
-          <Column width={4} offset={5}>
-            <Pagination
-              handlePrevClicked={handlePrevClicked}
-              handleNextClicked={handleNextClicked}
-              pagesToDisplay={pagesToDisplay}
-              currentPageIndex={currentPageIndex}
-              rulesToShow={rulesToShow}
-              numRules={changelog.length}
-              updatePageIndex={updatePageIndex}
-            />
-          </Column>
+          <Pagination
+            handlePrevClicked={handlePrevClicked}
+            handleNextClicked={handleNextClicked}
+            pagesToDisplay={pagesToDisplay}
+            currentPageIndex={currentPageIndex}
+            rulesToShow={rulesToShow}
+            numRules={changelog.length}
+            updatePageIndex={updatePageIndex}
+          />
         </Row>
       )}
       {isChangeModalOpen && (

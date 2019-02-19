@@ -153,7 +153,7 @@ storiesOf("Bounce Rule Detailed Page", module)
           currentRule={currentRule}
           updatedRule={updatedRule}
           selectedChange={sampleChangelog}
-          changelog={[]}
+          changelog={[sampleChangelog]}
           filteredChangelog={[]}
           isChangeModalOpen
         />
@@ -192,6 +192,7 @@ storiesOf("Modals", module)
       render={({ currentRule, updatedRule }) => (
         <ChangeModal
           currentRule={currentRule}
+          changelog={[sampleChangelog]}
           selectedChange={updatedRule}
           handleModalClose={action("Modal")}
         />

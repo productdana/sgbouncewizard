@@ -1,0 +1,93 @@
+.changelog-table {
+  table-layout: fixed;
+
+  td {
+    padding: 10px;
+  }
+
+  .row-date {
+    width: 25%;
+  }
+
+  .row-user {
+    width: 15%;
+  }
+
+  .row-commit {
+    width: 40%;
+  }
+
+  .row-actions {
+    width: 20%;
+  }
+}
+
+.changelog-container {
+  margin-top: 2vh;
+
+  th.actions-align {
+    padding-right: 0;
+    text-align: right;
+  }
+
+  .changelog-csv {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    grid-column: 12 / span 1;
+  }
+
+  h2 {
+    margin-bottom: 5px;
+  }
+
+  .currentBadge {
+    position: absolute;
+    left: -55px;
+    margin-top: 12px;
+    background-color: #489be8;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+}
+
+.changelog-view-icon-cell {
+  text-align: right;
+}
+
+.changelog-view-icon {
+  color: #7f90a0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.changelog-modal {
+  padding: 2vh;
+
+  .table-wrap td,
+  .table-wrap th {
+    padding: 0.8rem;
+  }
+
+  h1 {
+    margin-bottom: 0px;
+  }
+  .change-table {
+    > td {
+      padding: 10rem;
+    }
+  }
+
+  .changelog-modal-button {
+    text-align: right;
+  }
+}
+
+.uneditable {
+  padding: 10px;
+}

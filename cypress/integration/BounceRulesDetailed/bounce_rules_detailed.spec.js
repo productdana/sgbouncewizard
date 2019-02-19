@@ -22,6 +22,7 @@ describe("Bounce Rule Detailed", () => {
     BounceRuleDetailedPage.teardownBounceRule(testCreateRule)
       .then(isTearDownSuccess => {
         if (isTearDownSuccess) {
+          cy.wait(1000);
           return cy.log("Successfully tore down the bounce rule!");
         }
         return cy.log("Failed to tear down test bounce rule!");
