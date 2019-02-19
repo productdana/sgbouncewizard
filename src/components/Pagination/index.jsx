@@ -126,24 +126,6 @@ const Pagination = ({
             currentPageIndex,
             updatePageIndex
           )}
-          {/* {Array(endPage - startPage + 1)
-            .fill()
-            .map((_, i) => startPage + i)
-            .map(number => (
-              <a
-                key={number}
-                className={cn("pagination-link", {
-                  "is-active": number === currentPageIndex
-                })}
-                onClick={updatePageIndex}
-                onKeyDown={updatePageIndex}
-                value={number}
-                role="button"
-                tabIndex="0"
-              >
-                {number}
-              </a>
-            ))} */}
           {shouldDisplayLastPage && (
             <span>
               <a className="pagination-ellipses">&hellip;</a>
