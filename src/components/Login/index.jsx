@@ -1,11 +1,11 @@
 import React from "react";
-import { TextInput } from "@sendgrid/ui-components/text-input";
 import PropTypes from "prop-types";
+import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Button } from "@sendgrid/ui-components/button";
 import { Row } from "../Row";
 import { Column } from "../Column";
-import { WriteSelectors } from "./selectors";
 import "./index.scss";
+import { WriteSelectors } from "./selectors";
 
 const InvalidCredentialsAlert = ({ handleAlertClose }) => (
   <div

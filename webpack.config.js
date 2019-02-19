@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const Dotenv = require("dotenv-webpack");
@@ -9,15 +10,15 @@ const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = env => ({
   entry: {
-    index: "./src/index.jsx",
+    index: "./src/index.jsx"
   },
   output: {
     path: path.join(__dirname, "dist"),
     filename: "bundle.js",
-    publicPath: "/",
+    publicPath: "/"
   },
   resolve: {
-    extensions: [".js", ".jsx", ".css", ".ts", ".tsx"],
+    extensions: [".js", ".jsx", ".css", ".ts", ".tsx"]
   },
   module: {
     rules: [
@@ -25,8 +26,8 @@ module.exports = env => ({
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
-        },
+          loader: "babel-loader"
+        }
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -38,13 +39,13 @@ module.exports = env => ({
           // Interprets imports/requires and resolves them for .css files
           "css-loader",
           // First converts .scss/.sass files into .css files
-          "sass-loader",
-        ],
+          "sass-loader"
+        ]
       },
       {
         test: /\.tsx?$/,
         loader: "ts-loader",
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /\.module.scss$/,
@@ -56,8 +57,8 @@ module.exports = env => ({
               sourceMap: true,
               importLoaders: 1,
               modules: true,
-              localIdentName: "[name]__[local]___[hash:base64:5]",
-            },
+              localIdentName: "[name]__[local]___[hash:base64:5]"
+            }
           },
           {
             loader: "sass-loader",
@@ -65,36 +66,39 @@ module.exports = env => ({
               sourceMap: true,
               modules: true,
               importLoaders: 1,
-              localIdentName: "[name]__[local]___[hash:base64:5]",
-            },
-          },
-        ],
-      },
-    ],
+              localIdentName: "[name]__[local]___[hash:base64:5]"
+            }
+          }
+        ]
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: "./src/index.html"
     }),
     new MiniCssExtractPlugin({
       filename: devMode ? "[name].css" : "[name].[contenthash].css",
-      chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css",
+      chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css"
     }),
     new Dotenv({
       path: fs.existsSync(`./.env.${env.ENVIRONMENT}`)
         ? `./.env.${env.ENVIRONMENT}`
-        : "./.env",
+        : "./.env"
     }),
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         API_URL: JSON.stringify(process.env.API_URL),
-        ENVIRONMENT: JSON.stringify(process.env.ENVIRONMENT),
-      },
+        ENVIRONMENT: JSON.stringify(process.env.ENVIRONMENT)
+      }
     }),
+    new CopyWebpackPlugin([{ from: "_redirects" }], {
+      debug: "info"
+    })
   ],
   devServer: {
     port: 8080,
-    historyApiFallback: true,
-  },
+    historyApiFallback: true
+  }
 });

@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Bounce Rule Detailed should render correctly 1`] = `
-<div
-  className="detailed-page-container"
->
+<div>
   <div
     className="header-container"
   >
@@ -283,7 +281,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           </div>
         </div>
         <table
-          className="table-wrap"
+          className="table-wrap changelog-table"
         >
           <thead>
             <tr>
@@ -352,13 +350,13 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
     className="mako-grid__row"
   >
     <div
-      className="mako-grid__col-4 col-start-5"
+      className="mako-grid__col-10 col-start-2"
     >
       <div
         className="pagination pagination-container"
       >
         <a
-          className="btn btn-secondary btn-small pagination-prev is-disabled"
+          className="btn btn-secondary btn-small pagination-prev is-invisible"
           role="button"
           tabIndex="0"
         >
@@ -379,7 +377,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           </a>
         </div>
         <a
-          className="btn btn-secondary btn-small pagination-next is-disabled"
+          className="btn btn-secondary btn-small pagination-next is-invisible"
           role="button"
           tabIndex="0"
         >

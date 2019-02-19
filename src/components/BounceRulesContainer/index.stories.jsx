@@ -1,8 +1,14 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import BounceRulesContainer, { RuleListContainer } from "./index";
-import CreateRuleModal, { CreateConfirmationModal } from "./CreateRuleModal";
-import DeleteRuleModal, { DeleteConfirmationAlert } from "./DeleteRuleModal";
+import StoryRouter from "storybook-react-router";
+import BounceRulesContainer from "./index";
+import RuleListContainer from "./RuleListContainer";
+import CreateRuleModal, {
+  CreateConfirmationModal,
+} from "./Modals/CreateRuleModal";
+import DeleteRuleModal, {
+  DeleteConfirmationAlert,
+} from "./Modals/DeleteRuleModal";
 
 const emptyRule = {
   id: "",
@@ -35,10 +41,13 @@ const sampleRule2 = {
 };
 
 storiesOf("Bounce Rule Page", module)
+  .addDecorator(StoryRouter())
   .add("Default", () => (
     <BounceRulesContainer
+      rules={[sampleRule1, sampleRule2]}
       filteredRules={[sampleRule1, sampleRule2]}
       filterOptions={[]}
+      isBounceRulesTab
     />
   ))
   .add("Empty Rules", () => (

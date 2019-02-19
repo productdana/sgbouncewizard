@@ -1,4 +1,4 @@
-table {
+.rule-table {
   table-layout: fixed;
 
   .row-id {
@@ -20,9 +20,4 @@ table {
   .row-actions {
     width: 10%;
   }
-}
-
-th.actions-cell {
-  padding-right: 0;
-  text-align: right;
 }

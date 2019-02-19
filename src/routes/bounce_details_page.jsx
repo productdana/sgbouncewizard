@@ -1,11 +1,10 @@
 import React from "react";
 import _ from "underscore";
 import { Redirect } from "react-router-dom";
-
-import BounceRuleDetailed from "../components/BounceRuleDetailed";
+import BounceDetailsContainer from "../components/BounceDetailsContainer";
 import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
 
-export default class BounceRuleDetailedPage extends React.Component {
+export default class BounceDetailsPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -253,7 +252,7 @@ export default class BounceRuleDetailedPage extends React.Component {
         )}
         {isAuthenticated &&
           currentRule && (
-            <BounceRuleDetailed
+            <BounceDetailsContainer
               logout={this.logout}
               handleModalClose={this.handleModalClose}
               handleButtonClicked={this.handleButtonClicked}

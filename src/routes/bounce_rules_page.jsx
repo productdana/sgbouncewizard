@@ -1,12 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import BounceRulesContainer from "../components/BounceRulesContainer";
-import {
-  listRules,
-  deleteRule,
-  postRule,
-  getActivityLog,
-} from "../utils/ruleCalls";
+import { listRules, deleteRule, postRule } from "../utils/ruleCalls";
 
 export default class BounceRulesPage extends React.Component {
   constructor(props) {
@@ -19,21 +14,17 @@ export default class BounceRulesPage extends React.Component {
       searchToken: "",
       isRedirectingToDetail: false,
       selectedRule: {},
-      selectedActivity: {},
       rules: [],
-      activityLog: [],
       currentPageIndex: 1,
-      currentActivityPageIndex: 1,
       rulesToShow: 10,
       pagesToDisplay: 5,
       filterOptions: [],
-      invalidFilter: false,
+      isValidFilter: true,
       isFetching: true,
       isDeleteConfirmationOpen: false,
       isDeleteAlertOpen: false,
       isCreateRuleOpen: false,
       isCreateRuleConfirmationOpen: false,
-      isActivityModalOpen: false,
       newRule: {},
       isInvalidInput: false,
     };
@@ -55,14 +46,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
     this.handleActivityTabClicked = this.handleActivityTabClicked.bind(this);
     this.handleBounceTabClicked = this.handleBounceTabClicked.bind(this);
-    this.updateActivityLogIndex = this.updateActivityLogIndex.bind(this);
-    this.handleActivityClicked = this.handleActivityClicked.bind(this);
-    this.handleActivityLogPrevClicked = this.handleActivityLogPrevClicked.bind(
-      this
-    );
-    this.handleActivityLogNextClicked = this.handleActivityLogNextClicked.bind(
-      this
-    );
+    this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
   }
 
   async componentDidMount() {
@@ -72,13 +56,6 @@ export default class BounceRulesPage extends React.Component {
         isFetching: false,
         rules: data.reverse(),
         numRules: data.length,
-      });
-    }
-    const { data: activities } = await getActivityLog();
-    if (activities) {
-      this.setState({
-        isFetching: false,
-        activityLog: activities.reverse(),
       });
     }
   }
@@ -105,8 +82,8 @@ export default class BounceRulesPage extends React.Component {
     const { searchToken } = this.state;
     return rules.filter(
       rule =>
-        rule.bounce_action.toLowerCase().includes(searchToken) ||
-        rule.description.toLowerCase().includes(searchToken)
+        rule.bounce_action.toLowerCase().includes(searchToken.toLowerCase()) ||
+        rule.description.toLowerCase().includes(searchToken.toLowerCase())
     );
   }
 
@@ -143,86 +120,53 @@ export default class BounceRulesPage extends React.Component {
     }));
   }
 
-  paginateActivityLog(activityLog) {
-    const { currentActivityPageIndex, rulesToShow } = this.state;
-    const ruleStartIndex = (currentActivityPageIndex - 1) * rulesToShow;
-    const ruleEndIndex =
-      (currentActivityPageIndex - 1 * currentActivityPageIndex + rulesToShow) *
-      currentActivityPageIndex;
-    return activityLog.slice(ruleStartIndex, ruleEndIndex);
-  }
-
-  updateActivityLogIndex(e) {
-    const newIndex = parseInt(e.currentTarget.getAttribute("value"), 10);
-    this.setState(prevState => {
-      const isPageIndexUpdated =
-        prevState.currentActivityPageIndex !== newIndex;
-      return {
-        currentActivityPageIndex: isPageIndexUpdated
-          ? newIndex
-          : prevState.currentActivityPageIndex,
-      };
-    });
-  }
-
-  handleActivityLogPrevClicked() {
-    this.setState(prevState => ({
-      currentActivityPageIndex: prevState.currentActivityPageIndex - 1,
-    }));
-  }
-
-  handleActivityLogNextClicked() {
-    this.setState(prevState => ({
-      currentActivityPageIndex: prevState.currentActivityPageIndex + 1,
-    }));
-  }
-
   isDuplicate(searchCategory, searchToken) {
-    let found = false;
     const { filterOptions } = this.state;
-    filterOptions.filter(filter => {
-      if (
-        filter.searchCategory === searchCategory &&
-        filter.searchToken === searchToken
-      ) {
-        found = true;
-      }
-      return false;
-    });
-    return found;
+    const isDuplicate = filterOptions.some(
+      filterOption =>
+        filterOption.searchCategory === searchCategory &&
+        filterOption.searchToken === searchToken
+    );
+    return isDuplicate;
   }
 
   addFilter() {
     const { searchCategory, searchToken } = this.state;
     if (!searchCategory || !searchToken) {
       this.setState({
-        invalidFilter: true,
+        isValidFilter: false,
       });
       return;
     }
-    if (!this.isDuplicate(searchCategory, searchToken)) {
+    if (this.isDuplicate(searchCategory, searchToken)) {
+      this.setState({
+        isValidFilter: false,
+      });
+    } else {
       this.setState(prevState => ({
-        invalidFilter: false,
+        isValidFilter: true,
         filterOptions: [
           ...prevState.filterOptions,
           { searchCategory, searchToken },
         ],
         searchToken: "",
       }));
-    } else {
-      this.setState({
-        invalidFilter: true,
-      });
     }
   }
 
-  removeFilter(filter) {
+  removeFilter(e) {
+    const token = e.currentTarget.getAttribute("token");
+    const category = e.currentTarget.getAttribute("category");
     const { filterOptions } = this.state;
-    const newFilter = [...filterOptions];
-    const index = newFilter.indexOf(filter);
-    newFilter.splice(index, 1);
+    const newFilterOptions = filterOptions.filter(
+      filterOption =>
+        (filterOption.searchCategory !== category &&
+          filterOption.searchToken !== token) ||
+        (filterOption.searchCategory === category &&
+          filterOption.searchToken !== token)
+    );
     this.setState({
-      filterOptions: [...newFilter],
+      filterOptions: newFilterOptions,
     });
   }
 
@@ -253,14 +197,17 @@ export default class BounceRulesPage extends React.Component {
     this.setState({
       [id]: false,
       isInvalidInput: false,
-      selectedActivity: {},
       selectedRule: {},
     });
   }
 
   async handleDeleteConfirm() {
     const { rules, selectedRule } = this.state;
-    const { status } = await deleteRule(selectedRule);
+    const ruleToDelete = {
+      ...selectedRule,
+      user_id: parseInt(localStorage.getItem("user_id"), 10),
+    };
+    const { status } = await deleteRule(ruleToDelete);
     if (status === 200) {
       this.setState({
         rules: rules.filter(rule => rule.id !== parseInt(selectedRule.id, 10)),
@@ -330,6 +277,14 @@ export default class BounceRulesPage extends React.Component {
     }
   }
 
+  handleDeleteCommit(e) {
+    const { value, id } = e.currentTarget;
+    const { selectedRule } = this.state;
+    this.setState({
+      selectedRule: { ...selectedRule, [id]: value },
+    });
+  }
+
   async handleCreateConfirm() {
     const { rules } = this.state;
     const { newRule } = this.state;
@@ -358,27 +313,9 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
-  handleActivityClicked(e) {
-    const { activityLog } = this.state;
-    const { id } = e.currentTarget;
-    const ruleId = parseInt(e.currentTarget.getAttribute("rule-id"), 10);
-    this.setState({
-      [id]: true,
-      selectedActivity: activityLog.find(activity => activity.id === ruleId),
-    });
-  }
-
   render() {
-    const {
-      isRedirectingToDetail,
-      rules,
-      selectedRule,
-      activityLog,
-    } = this.state;
+    const { isRedirectingToDetail, rules, selectedRule } = this.state;
     const filteredRules = this.filterRules(this.paginate(rules));
-    const filteredActivityLog = this.filterRules(
-      this.paginateActivityLog(activityLog)
-    );
     const isAuthenticated = localStorage.getItem("isAuth");
     return (
       <React.Fragment>
@@ -410,7 +347,6 @@ export default class BounceRulesPage extends React.Component {
             addFilter={this.addFilter}
             removeFilter={this.removeFilter}
             filteredRules={filteredRules}
-            filteredActivityLog={filteredActivityLog}
             handleRuleUpdate={this.handleRuleUpdate}
             handleRuleUpdateInt={this.handleRuleUpdateInt}
             handleCreateSubmit={this.handleCreateSubmit}
@@ -422,10 +358,7 @@ export default class BounceRulesPage extends React.Component {
             handleTabClicked={this.handleTabClicked}
             handleActivityTabClicked={this.handleActivityTabClicked}
             handleBounceTabClicked={this.handleBounceTabClicked}
-            updateActivityLogIndex={this.updateActivityLogIndex}
-            handleActivityLogPrevClicked={this.handleActivityLogPrevClicked}
-            handleActivityLogNextClicked={this.handleActivityLogNextClicked}
-            handleActivityClicked={this.handleActivityClicked}
+            handleDeleteCommit={this.handleDeleteCommit}
             {...this.state}
           />
         )}
