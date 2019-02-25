@@ -49,6 +49,7 @@ const ConfirmModalBody = ({
           <h2>Are you sure you&apos;d like to delete this rule?</h2>
           {isCommitEmpty && (
             <Alert
+              {...WriteSelectors.emptyCommitAlert}
               dismissable={false}
               type="danger"
               onClick={handleModalClose}

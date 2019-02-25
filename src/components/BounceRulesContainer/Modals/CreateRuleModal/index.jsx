@@ -14,7 +14,12 @@ const ConfirmationHeader = ({ isCommitEmpty }) => (
   <div>
     <h2>Are you sure you&apos;d like to create this rule?</h2>
     {isCommitEmpty && (
-      <Alert dismissable={false} type="danger" id="isInvalidInput">
+      <Alert
+        {...WriteSelectors.emptyCommitAlert}
+        dismissable={false}
+        type="danger"
+        id="isInvalidInput"
+      >
         Commit message must not be empty.
       </Alert>
     )}

@@ -1,12 +1,23 @@
 import BounceRulesPage from "../../Pages/BounceRulesContainer";
 
+const commitMessage = "a test commit message";
+
 const testDeleteRule = {
   priority: 1,
   bounce_action: "cypressDeleteTest",
   response_code: 528,
   description: "testDescription",
   enhanced_code: "492",
-  regex: "testRegex",
+  regex: "testRegex1",
+};
+
+const testDeleteRuleFailed = {
+  priority: 1,
+  bounce_action: "cypressDeleteTestFailed",
+  response_code: 592,
+  description: "testFailed",
+  enhanced_code: "492",
+  regex: "testRegex3",
 };
 
 const testCreateRule = {
@@ -15,17 +26,8 @@ const testCreateRule = {
   response_code: 918,
   description: "testDescription",
   enhanced_code: "492",
-  regex: "testRegex",
+  regex: "testRegex2",
   comment: "init commit test",
-};
-
-const neverCreatedRule = {
-  priority: 3,
-  bounce_action: "Never Created",
-  response_code: 314,
-  description: "Never Created",
-  enhanced_code: "500",
-  regex: "neverCreated",
 };
 
 describe("Bounce Rules Page", () => {
@@ -59,21 +61,28 @@ describe("Bounce Rules Page", () => {
     });
   });
 
-  it("should cancel creating a bounce rule after submitting", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
-      BounceRulesPage.open();
-      BounceRulesPage.createRuleButton.click();
-      BounceRulesPage.fillCreateRuleForm(neverCreatedRule);
-      BounceRulesPage.cancelCreateConfirmationSubmit.click();
-      BounceRulesPage.confirmModal.should("not.be.visible");
+  it("should delete a bounce rule", () => {
+    BounceRulesPage.deleteBounceRuleAPI(testDeleteRule).then(() => {
+      BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(() => {
+        BounceRulesPage.open();
+        BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
+        BounceRulesPage.fillCommitUI(commitMessage);
+        BounceRulesPage.deleteConfirmationConfirm.click();
+        BounceRulesPage.testBounceRuleToDelete.should("not.be.visible");
+      });
     });
   });
 
-  it("should delete a bounce rule", () => {
-    BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(() => {
-      BounceRulesPage.open();
-      BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
-      BounceRulesPage.testBounceRuleToDelete.should("not.be.visible");
-    });
+  it("should show alert if commit is empty", () => {
+    BounceRulesPage.deleteBounceRuleAPI(testDeleteRuleFailed)
+      .wait(1000)
+      .then(() => {
+        BounceRulesPage.createBounceRuleAPI(testDeleteRuleFailed).then(() => {
+          BounceRulesPage.open();
+          BounceRulesPage.deleteBounceRuleUI(testDeleteRuleFailed);
+          BounceRulesPage.deleteConfirmationConfirm.click();
+          BounceRulesPage.emptyCommitAlert.should("visible");
+        });
+      });
   });
 });

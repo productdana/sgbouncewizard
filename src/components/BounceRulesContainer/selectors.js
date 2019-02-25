@@ -35,6 +35,7 @@ const testHooks = {
   confirmationSubmit: "create-confirm-submit",
   commitMessage: "commit-message",
   cancelConfirmationSubmit: "cancel-confirm-submit",
+  emptyCommitAlert: "empty-commit-alert",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:

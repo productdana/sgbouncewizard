@@ -95,6 +95,10 @@ class BounceRulesPage extends Page {
     return cy.get('[data-cypress="cypressDeleteTest"]');
   }
 
+  get emptyCommitAlert() {
+    return cy.get(Selectors.emptyCommitAlert);
+  }
+
   get testBounceRuleToCreate() {
     return cy.get('[data-cypress="cypressCreateTest"]');
   }
@@ -113,7 +117,7 @@ class BounceRulesPage extends Page {
       .then(res => {
         if (res) {
           const isMatchingBounceRule = res.find(bounceRule =>
-            _.isEqual(testRule, _.omit(bounceRule, "id"))
+            _.isEqual(testRule, _.omit(bounceRule, ["id", "created_at"]))
           );
           if (isMatchingBounceRule) {
             return cy.task("deleteRule", {
@@ -225,11 +229,14 @@ class BounceRulesPage extends Page {
         )
       );
       if (ruleToDelete) {
-        this.createdRuleButton(ruleToDelete.id).click();
-        return this.deleteConfirmationConfirm.click();
+        return this.createdRuleButton(ruleToDelete.id).click();
       }
       return false;
     });
+  }
+
+  fillCommitUI(comment) {
+    this.commitMessage.clear().type(comment);
   }
 }
 
