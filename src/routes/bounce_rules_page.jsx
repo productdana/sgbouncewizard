@@ -63,6 +63,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleActivityLogNextClicked = this.handleActivityLogNextClicked.bind(
       this
     );
+    this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
   }
 
   async componentDidMount() {
@@ -310,9 +311,16 @@ export default class BounceRulesPage extends React.Component {
   handleRuleUpdate(e) {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
-
     this.setState({
       newRule: { ...newRule, [id]: value },
+    });
+  }
+
+  handleDropdownSelect(e) {
+    const { value } = e;
+    const { newRule } = this.state;
+    this.setState({
+      newRule: { ...newRule, bounce_action: value },
     });
   }
 
@@ -426,6 +434,7 @@ export default class BounceRulesPage extends React.Component {
             handleActivityLogPrevClicked={this.handleActivityLogPrevClicked}
             handleActivityLogNextClicked={this.handleActivityLogNextClicked}
             handleActivityClicked={this.handleActivityClicked}
+            handleDropdownSelect={this.handleDropdownSelect}
             {...this.state}
           />
         )}

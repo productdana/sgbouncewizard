@@ -2,7 +2,7 @@ import BounceRulesPage from "../../Pages/BounceRulesContainer";
 
 const testDeleteRule = {
   priority: 1,
-  bounce_action: "cypressDeleteTest",
+  bounce_action: "no_action",
   response_code: 528,
   description: "testDescription",
   enhanced_code: "492",
@@ -11,7 +11,7 @@ const testDeleteRule = {
 
 const testCreateRule = {
   priority: 2,
-  bounce_action: "cypressCreateTest",
+  bounce_action: "no_action",
   response_code: 918,
   description: "testDescription",
   enhanced_code: "492",
@@ -21,7 +21,7 @@ const testCreateRule = {
 
 const neverCreatedRule = {
   priority: 3,
-  bounce_action: "Never Created",
+  bounce_action: "no_action",
   response_code: 314,
   description: "Never Created",
   enhanced_code: "500",

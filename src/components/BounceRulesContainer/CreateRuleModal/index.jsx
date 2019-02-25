@@ -2,6 +2,7 @@ import React from "react";
 import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { CenterModal } from "@sendgrid/ui-components/center-modal";
+import { Select } from "@sendgrid/ui-components/select";
 import { Button } from "@sendgrid/ui-components/button";
 import Alert from "@sendgrid/ui-components/alert";
 import PropTypes from "prop-types";
@@ -87,6 +88,7 @@ const CreateConfirmationModal = ({
 const CreateRuleModal = ({
   handleRuleUpdate,
   handleCreateSubmit,
+  handleDropdownSelect,
   newRule,
   isInvalidInput,
   handleModalClose,
@@ -134,14 +136,21 @@ const CreateRuleModal = ({
                 </label>
                 <label htmlFor="bounce_action">
                   Bounce Action
-                  <TextInput
-                    onChange={handleRuleUpdate}
-                    {...WriteSelectors.bounceAction}
-                    value={bounceAction}
-                    type="text"
-                    id="bounce_action"
-                    isRequired
-                  />
+                  <div {...WriteSelectors.bounceAction}>
+                    <Select
+                      isRequired
+                      value={{ label: bounceAction, value: bounceAction }}
+                      options={[
+                        { label: "no_action", value: "no_action" },
+                        { label: "retry", value: "retry" },
+                        { label: "supress", value: "supress" },
+                        { label: "retry", value: "retry" },
+                        { label: "blocked", value: "blocked" },
+                      ]}
+                      onChange={handleDropdownSelect}
+                      id="bounce_action"
+                    />
+                  </div>
                 </label>
                 <label htmlFor="response_code">
                   Response Code

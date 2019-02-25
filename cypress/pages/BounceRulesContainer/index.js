@@ -155,7 +155,7 @@ class BounceRulesPage extends Page {
       this.priority.type(priority);
     }
     if (bounceAction) {
-      this.bounceAction.type(bounceAction);
+      this.bounceAction.select(bounceAction);
     }
     if (responseCode) {
       this.responseCode.type(responseCode);

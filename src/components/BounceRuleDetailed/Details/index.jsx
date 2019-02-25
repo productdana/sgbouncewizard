@@ -6,6 +6,7 @@ import {
   TableCell,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
+import { Select } from "@sendgrid/ui-components/select";
 import { WriteSelectors } from "../selectors";
 import { shouldDisplay } from "../../../utils/utils";
 
@@ -98,6 +99,7 @@ export const DetailsContainerEditable = ({
   onChangeRule,
   onChangeRuleInt,
   updatedRule,
+  handleDropdownSelect,
 }) => {
   const {
     description,
@@ -214,13 +216,21 @@ export const DetailsContainerEditable = ({
                 <strong>Bounce Action</strong>
               </TableCell>
               <TableCell>
-                <TextInput
-                  {...WriteSelectors.bounceAction}
-                  onChange={onChangeRule}
-                  id="bounce_action"
-                  value={bounceAction}
-                  type="text"
-                />
+                <div className="bounce-action-select">
+                  <Select
+                    isRequired
+                    value={{ label: bounceAction, value: bounceAction }}
+                    options={[
+                      { label: "no_action", value: "no_action" },
+                      { label: "retry", value: "retry" },
+                      { label: "supress", value: "supress" },
+                      { label: "retry", value: "retry" },
+                      { label: "blocked", value: "blocked" },
+                    ]}
+                    onChange={handleDropdownSelect}
+                    id="bounce_action"
+                  />
+                </div>
               </TableCell>
             </TableRow>
           </TableBody>

@@ -69,6 +69,7 @@ const BounceRulesContainer = ({
   handleActivityClicked,
   selectedActivity,
   isActivityModalOpen,
+  handleDropdownSelect,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const isActivityEmpty = activityLog.length <= 0;
@@ -207,6 +208,7 @@ const BounceRulesContainer = ({
           handleRuleUpdate={handleRuleUpdate}
           handleRuleUpdateInt={handleRuleUpdateInt}
           handleCreateSubmit={handleCreateSubmit}
+          handleDropdownSelect={handleDropdownSelect}
         />
       )}
       {isCreateRuleConfirmationOpen && (
