@@ -2,6 +2,7 @@ import React from "react";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
+import Alert from "@sendgrid/ui-components/alert";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 import { WriteSelectors } from "../../selectors";
@@ -30,6 +31,7 @@ const ConfirmModalBody = ({
   handleSaveConfirmation,
   onChangeRule,
   isUpdateError,
+  isCommitEmpty,
 }) => {
   const { comment } = updatedRule;
   return (
@@ -40,6 +42,16 @@ const ConfirmModalBody = ({
             <h2>Please enter a commit message and confirm your changes.</h2>
             {isUpdateError && (
               <UpdateAlertError handleModalClose={handleModalClose} />
+            )}
+            {isCommitEmpty && (
+              <Alert
+                dismissable={false}
+                type="danger"
+                onClick={handleModalClose}
+                id="isInvalidInput"
+              >
+                Commit message must not be empty.
+              </Alert>
             )}
             <p>
               Doing so will affect how current email will be handled via this
@@ -88,12 +100,14 @@ const ConfirmationModal = ({
   handleSaveConfirmation,
   onChangeRule,
   isUpdateError,
+  isCommitEmpty,
 }) => (
   <CenterModal
     {...WriteSelectors.saveConfirmationModal}
     open
     renderBody={(
       <ConfirmModalBody
+        isCommitEmpty={isCommitEmpty}
         updatedRule={updatedRule}
         handleModalClose={handleModalClose}
         handleSaveConfirmation={handleSaveConfirmation}

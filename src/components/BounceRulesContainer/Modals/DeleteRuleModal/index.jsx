@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import CenterModal from "@sendgrid/ui-components/center-modal";
+import Alert from "@sendgrid/ui-components/alert";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 import "./index.scss";
@@ -39,12 +40,23 @@ const ConfirmModalBody = ({
   handleModalClose,
   handleDeleteConfirm,
   handleDeleteCommit,
+  isCommitEmpty,
 }) => (
   <div>
     <Row>
       <Column>
         <div>
           <h2>Are you sure you&apos;d like to delete this rule?</h2>
+          {isCommitEmpty && (
+            <Alert
+              dismissable={false}
+              type="danger"
+              onClick={handleModalClose}
+              id="isInvalidInput"
+            >
+              Commit message must not be empty.
+            </Alert>
+          )}
           <p>
             Doing so will effect how current email will be handled via this
             bounce rule. This action will go into effect immediately.
@@ -57,6 +69,7 @@ const ConfirmModalBody = ({
             id="comment"
             type="text"
             label="Commit Message"
+            isRequired
           />
         </div>
       </Column>
@@ -92,6 +105,7 @@ const DeleteConfirmationModal = ({
   handleDeleteConfirm,
   idToDelete,
   handleDeleteCommit,
+  isCommitEmpty,
 }) => (
   <CenterModal
     {...WriteSelectors.deleteConfirmation}
@@ -100,6 +114,7 @@ const DeleteConfirmationModal = ({
     renderBody={(
       <ConfirmModalBody
         selectedRule={selectedRule}
+        isCommitEmpty={isCommitEmpty}
         handleModalClose={handleModalClose}
         handleDeleteConfirm={handleDeleteConfirm}
         idToDelete={idToDelete}

@@ -10,20 +10,25 @@ import { Column } from "../../../Column";
 import "./index.scss";
 import { WriteSelectors } from "../../selectors";
 
-const ConfirmationHeader = () => (
+const ConfirmationHeader = ({ isCommitEmpty }) => (
   <div>
     <h2>Are you sure you&apos;d like to create this rule?</h2>
+    {isCommitEmpty && (
+      <Alert dismissable={false} type="danger" id="isInvalidInput">
+        Commit message must not be empty.
+      </Alert>
+    )}
   </div>
 );
 
-const ConfirmationBody = ({ newRule, handleRuleUpdate }) => {
+const ConfirmationBody = ({ newRule, handleCreateCommit }) => {
   const { comment } = newRule;
   return (
     <div {...WriteSelectors.confirmModal}>
       <p>Please enter a commit message and confirm your changes.</p>
       <TextInput
         {...WriteSelectors.commitMessage}
-        onChange={handleRuleUpdate}
+        onChange={handleCreateCommit}
         value={comment}
         id="comment"
         type="text"
@@ -66,14 +71,20 @@ const CreateConfirmationModal = ({
   handleModalClose,
   handleCreateConfirm,
   handleRuleUpdate,
+  isCommitEmpty,
+  handleCreateCommit,
 }) => (
   <CenterModal
     {...WriteSelectors.confirmModal}
     open
-    renderBody={
-      <ConfirmationBody newRule={newRule} handleRuleUpdate={handleRuleUpdate} />
-    }
-    renderHeader={<ConfirmationHeader />}
+    renderBody={(
+      <ConfirmationBody
+        newRule={newRule}
+        handleRuleUpdate={handleRuleUpdate}
+        handleCreateCommit={handleCreateCommit}
+      />
+)}
+    renderHeader={<ConfirmationHeader isCommitEmpty={isCommitEmpty} />}
     renderFooter={(
       <ConfirmationFooter
         handleModalClose={handleModalClose}

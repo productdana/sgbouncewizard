@@ -27,6 +27,7 @@ export default class BounceRulesPage extends React.Component {
       isCreateRuleConfirmationOpen: false,
       newRule: {},
       isInvalidInput: false,
+      isCommitEmpty: false,
     };
     this.logout = this.logout.bind(this);
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -47,6 +48,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleActivityTabClicked = this.handleActivityTabClicked.bind(this);
     this.handleBounceTabClicked = this.handleBounceTabClicked.bind(this);
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
+    this.handleCreateCommit = this.handleCreateCommit.bind(this);
   }
 
   async componentDidMount() {
@@ -198,6 +200,7 @@ export default class BounceRulesPage extends React.Component {
       [id]: false,
       isInvalidInput: false,
       selectedRule: {},
+      isCommitEmpty: false,
     });
   }
 
@@ -207,17 +210,26 @@ export default class BounceRulesPage extends React.Component {
       ...selectedRule,
       user_id: parseInt(localStorage.getItem("user_id"), 10),
     };
-    const { status } = await deleteRule(ruleToDelete);
-    if (status === 200) {
+    if (!selectedRule.comment) {
       this.setState({
-        rules: rules.filter(rule => rule.id !== parseInt(selectedRule.id, 10)),
-        isDeleteConfirmationOpen: false,
-        selectedRule: null,
+        isCommitEmpty: true,
       });
     } else {
-      this.setState({
-        isDeleteAlertOpen: true,
-      });
+      const { status } = await deleteRule(ruleToDelete);
+      if (status === 200) {
+        this.setState({
+          rules: rules.filter(
+            rule => rule.id !== parseInt(selectedRule.id, 10)
+          ),
+          isDeleteConfirmationOpen: false,
+          selectedRule: null,
+          isCommitEmpty: false,
+        });
+      } else {
+        this.setState({
+          isDeleteAlertOpen: true,
+        });
+      }
     }
   }
 
@@ -280,22 +292,39 @@ export default class BounceRulesPage extends React.Component {
   handleDeleteCommit(e) {
     const { value, id } = e.currentTarget;
     const { selectedRule } = this.state;
+
     this.setState({
       selectedRule: { ...selectedRule, [id]: value },
+    });
+  }
+
+  handleCreateCommit(e) {
+    const { value, id } = e.currentTarget;
+    const { newRule } = this.state;
+
+    this.setState({
+      newRule: { ...newRule, [id]: value },
     });
   }
 
   async handleCreateConfirm() {
     const { rules } = this.state;
     const { newRule } = this.state;
-    const { data, status } = await postRule(newRule);
-    newRule.id = data.id;
-    if (status === 200 || status === 201) {
+    if (!newRule.comment) {
       this.setState({
-        isCreateRuleConfirmationOpen: false,
-        rules: [newRule, ...rules],
-        newRule: null,
+        isCommitEmpty: true,
       });
+    } else {
+      const { data, status } = await postRule(newRule);
+      newRule.id = data.id;
+      if (status === 200 || status === 201) {
+        this.setState({
+          isCreateRuleConfirmationOpen: false,
+          rules: [newRule, ...rules],
+          newRule: null,
+          isCommitEmpty: false,
+        });
+      }
     }
   }
 
@@ -359,6 +388,7 @@ export default class BounceRulesPage extends React.Component {
             handleActivityTabClicked={this.handleActivityTabClicked}
             handleBounceTabClicked={this.handleBounceTabClicked}
             handleDeleteCommit={this.handleDeleteCommit}
+            handleCreateCommit={this.handleCreateCommit}
             {...this.state}
           />
         )}

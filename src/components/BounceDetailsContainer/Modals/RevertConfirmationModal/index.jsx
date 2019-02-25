@@ -1,4 +1,5 @@
 import React from "react";
+import Alert from "@sendgrid/ui-components/alert";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
@@ -10,12 +11,23 @@ const ConfirmRevertBody = ({
   handleRevertConfirm,
   onChangeRuleRevert,
   newCommitMessage,
+  isCommitEmpty,
 }) => (
   <div>
     <Row>
       <Column>
         <div>
           <h2>Are you sure you&apos;d like revert to this change?</h2>
+          {isCommitEmpty && (
+            <Alert
+              dismissable={false}
+              type="danger"
+              onClick={handleModalClose}
+              id="isInvalidInput"
+            >
+              Commit message must not be empty.
+            </Alert>
+          )}
           <p>
             Doing so will effect how current email will be handled via this
             bounce rule. This action will go into effect immediately.
@@ -60,6 +72,7 @@ const RevertConfirmationModal = ({
   selectedChange,
   onChangeRuleRevert,
   newCommitMessage,
+  isCommitEmpty,
 }) => (
   <CenterModal
     open
@@ -70,6 +83,7 @@ const RevertConfirmationModal = ({
         onChangeRuleRevert={onChangeRuleRevert}
         selectedChange={selectedChange}
         newCommitMessage={newCommitMessage}
+        isCommitEmpty={isCommitEmpty}
       />
 )}
   />
