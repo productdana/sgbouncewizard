@@ -22,8 +22,6 @@ export default class BounceDetailsPage extends React.Component {
       pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
-      socketConnection: null,
-      editText: "Edit",
     };
     this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -40,30 +38,34 @@ export default class BounceDetailsPage extends React.Component {
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
     this.handleRevertClicked = this.handleRevertClicked.bind(this);
-    this.determineEdit = this.determineEdit.bind(this);
   }
 
   async componentDidMount() {
     const { match } = this.props;
-    const ws = new WebSocket("ws://localhost:3000/ws");
+    const ws = new WebSocket(`ws://${process.env.SOCKET_URL}/ws`);
+
     ws.onopen = () => {
-      ws.send(`check ${match.params.bounceRuleId}`);
+      ws.send(`check:${match.params.bounceRuleId}`);
     };
 
     ws.onmessage = msg => {
-      if (msg.data !== "WELCOME TO THE SERVER") {
-        this.setState({
-          editText: msg.data,
-        });
-      }
+      this.setState({
+        editText: msg.data,
+      });
     };
 
     ws.onclose = () => {
-      ws.send(`release ${match.params.bounceRuleId}`);
+      const { editText } = this.state;
+      if (editText === "EDIT" || editText === "ALREADY") {
+        ws.send(`release:${match.params.bounceRuleId}`);
+      }
     };
 
     window.addEventListener("beforeunload", () => {
-      ws.send(`release ${match.params.bounceRuleId}`);
+      const { editText } = this.state;
+      if (editText === "EDIT" || editText === "ALREADY") {
+        ws.send(`release:${match.params.bounceRuleId}`);
+      }
     });
 
     getChangelog(match.params.bounceRuleId)
@@ -77,7 +79,6 @@ export default class BounceDetailsPage extends React.Component {
         this.setState({ isNetworkError: true });
       });
     const { data, status } = await getRule(match.params.bounceRuleId);
-
     if (status === 200) {
       this.setState({
         currentRule: data,
@@ -92,7 +93,7 @@ export default class BounceDetailsPage extends React.Component {
 
   componentWillUnmount() {
     const { currentRule, socketConnection } = this.state;
-    socketConnection.send(`release ${currentRule.id}`);
+    socketConnection.send(`release:${currentRule.id}`);
   }
 
   onChangeRuleInt(e) {
@@ -182,7 +183,7 @@ export default class BounceDetailsPage extends React.Component {
   handleEditClicked(e) {
     const { id } = e.currentTarget;
     const { currentRule, socketConnection } = this.state;
-    socketConnection.send(`edit ${currentRule.id}`);
+    socketConnection.send(`edit:${currentRule.id}`);
     this.setState({
       [id]: true,
       updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
@@ -191,9 +192,9 @@ export default class BounceDetailsPage extends React.Component {
 
   handleCancelSaveClicked(e) {
     const { id } = e.currentTarget;
-    const { currentRule, updatedRule, socketConnection } = this.state;
-    socketConnection.send(`release ${currentRule.id}`);
-    socketConnection.send(`check ${currentRule.id}`);
+    const { currentRule, socketConnection, updatedRule } = this.state;
+    socketConnection.send(`release:${currentRule.id}`);
+    socketConnection.send(`check:${currentRule.id}`);
     if (
       !_.isEqual(
         updatedRule,
@@ -247,7 +248,7 @@ export default class BounceDetailsPage extends React.Component {
     const ruleEndIndex =
       (currentPageIndex - 1 * currentPageIndex + rulesToShow) *
       currentPageIndex;
-    return changelog.slice(ruleStartIndex, ruleEndIndex);
+    return changelog ? changelog.slice(ruleStartIndex, ruleEndIndex) : [];
   }
 
   updatePageIndex(e) {
@@ -274,15 +275,6 @@ export default class BounceDetailsPage extends React.Component {
     }));
   }
 
-  determineEdit() {
-    const { currentRule, socketConnection } = this.state;
-
-    socketConnection.send(`edit ${currentRule.id}`);
-    socketConnection.onmessage = msg => {
-      this.setState({ socketStatus: msg.data });
-    };
-  }
-
   render() {
     const { currentRule, changelog } = this.state;
     const filteredChangelog = this.paginate(changelog);
@@ -304,7 +296,6 @@ export default class BounceDetailsPage extends React.Component {
               handleModalClose={this.handleModalClose}
               handleButtonClicked={this.handleButtonClicked}
               onChangeRule={this.onChangeRule}
-              concurrentEdit={this.concurrentEdit}
               handleEditClicked={this.handleEditClicked}
               handleCancelSaveClicked={this.handleCancelSaveClicked}
               handleChangelogClicked={this.handleChangelogClicked}

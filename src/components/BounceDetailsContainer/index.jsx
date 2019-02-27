@@ -94,14 +94,23 @@ const BounceRuleDetailed = ({
           <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
-                onClick={editText === "FREE" ? handleEditClicked : () => {}}
+                onClick={
+                  editText === "FREE" || editText === "ALREADY"
+                    ? handleEditClicked
+                    : () => {}
+                }
                 id="isEditClicked"
-                onKeyDown={handleEditClicked}
+                onKeyDown={
+                  editText === "FREE" || editText === "ALREADY"
+                    ? handleEditClicked
+                    : () => {}
+                }
                 {...WriteSelectors.editButton}
                 className={`sg-button edit-button ${
                   editText !== "FREE" ? "inuse" : ""
                 }`}
                 type="primary"
+                icon={editText !== "FREE" ? "locked" : ""}
               >
                 {editText === "FREE" || editText === "ALREADY"
                   ? "Edit Rule"
