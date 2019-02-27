@@ -1,5 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import { BrowserRouter as Router } from "react-router-dom";
 import { shallow } from "enzyme";
 import BounceRuleContainer from ".";
 import Pagination from "../Pagination";
@@ -70,7 +71,11 @@ const wrapper = shallow(<BounceRuleContainer {...defaultProps} />);
 
 it("should render correctly", () => {
   const tree = renderer
-    .create(<BounceRuleContainer {...defaultProps} />)
+    .create(
+      <Router>
+        <BounceRuleContainer {...defaultProps} />
+      </Router>
+    )
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -6,7 +6,7 @@ import { Row } from "../../Row";
 import { Column } from "../../Column";
 import "./index.scss";
 
-const RuleFilter = ({
+const ActivityFilter = ({
   searchToken,
   updateSearchToken,
   updateSearchCategory,
@@ -18,7 +18,7 @@ const RuleFilter = ({
   <div className="filter-wrap">
     <div className="filter-header">
       <p className="filter-title">
-        {"Search bounce rules by "}
+        {"Search activity by "}
         <a className="filter-option-toggle" href="#">
           all
         </a>
@@ -81,4 +81,4 @@ const RuleFilter = ({
     </div>
   </div>
 );
-export default RuleFilter;
+export default ActivityFilter;

@@ -12,6 +12,8 @@ const axios = require("axios");
 const environmentAPI = {
   mock: "http://localhost:3004/",
   localhost: "http://localhost:3000/",
+  staging: "http://13.57.36.224:3000/",
+  prod: "http://13.57.36.224:3000/",
 };
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)

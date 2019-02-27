@@ -1,0 +1,20 @@
+FROM cypress/browsers:chrome67
+
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json into the working directory
+COPY package*.json ./
+
+# Installs all dependencies based on package-lock.json for CI, which
+# may be a faster clean installation with stricter checking
+RUN npm ci
+
+# Copy the Cypress code over to the Docker image, excluding those in the .dockerignore
+COPY cypress ./cypress
+COPY cypress.json ./
+
+COPY ./ ./
+
+# Verify Cypress installation worked
+RUN ./node_modules/.bin/cypress verify
+

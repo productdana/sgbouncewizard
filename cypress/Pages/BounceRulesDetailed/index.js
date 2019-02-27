@@ -1,5 +1,5 @@
 import Page from "../page";
-import { Selectors } from "../../../src/components/BounceRuleDetailed/selectors";
+import { Selectors } from "../../../src/components/BounceDetailsContainer/selectors";
 
 class BounceRuleDetailedPage extends Page {
   get details() {
