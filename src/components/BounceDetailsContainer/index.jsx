@@ -106,11 +106,10 @@ const BounceRuleDetailed = ({
                     : () => {}
                 }
                 {...WriteSelectors.editButton}
-                className={`sg-button edit-button ${
-                  editText !== "FREE" ? "inuse" : ""
-                }`}
+                className="sg-button edit-button"
                 type="primary"
                 icon={editText !== "FREE" ? "locked" : ""}
+                disabled={editText !== "FREE"}
               >
                 {editText === "FREE" || editText === "ALREADY"
                   ? "Edit Rule"
