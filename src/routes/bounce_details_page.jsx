@@ -92,8 +92,10 @@ export default class BounceDetailsPage extends React.Component {
   }
 
   componentWillUnmount() {
-    const { currentRule, socketConnection } = this.state;
-    socketConnection.send(`release:${currentRule.id}`);
+    const { currentRule, editText, socketConnection } = this.state;
+    if (editText === "EDIT" || editText === "ALREADY") {
+      socketConnection.send(`release:${currentRule.Id}`);
+    }
   }
 
   onChangeRuleInt(e) {
