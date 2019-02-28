@@ -6,7 +6,7 @@ const testDeleteRule = {
   response_code: 528,
   description: "testDescription",
   enhanced_code: "492",
-  regex: "testRegex",
+  regex: "testDelete",
 };
 
 const testCreateRule = {
@@ -15,7 +15,7 @@ const testCreateRule = {
   response_code: 918,
   description: "testDescription",
   enhanced_code: "492",
-  regex: "testRegex",
+  regex: "testCreate",
   comment: "init commit test",
 };
 

@@ -92,11 +92,11 @@ class BounceRulesPage extends Page {
   }
 
   get testBounceRuleToDelete() {
-    return cy.get('[data-cypress="cypressDeleteTest"]');
+    return cy.get('[data-cypress="testDelete"]');
   }
 
   get testBounceRuleToCreate() {
-    return cy.get('[data-cypress="cypressCreateTest"]');
+    return cy.get('[data-cypress="testCreate"]');
   }
 
   open() {
