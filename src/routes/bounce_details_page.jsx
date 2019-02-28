@@ -90,6 +90,14 @@ export default class BounceDetailsPage extends React.Component {
     });
   }
 
+  handleDropdownSelect(e) {
+    const { value } = e;
+    const { updatedRule } = this.state;
+    this.setState({
+      updatedRule: { ...updatedRule, bounce_action: value },
+    });
+  }
+
   logout() {
     const { history } = this.props;
     localStorage.clear();
@@ -235,14 +243,6 @@ export default class BounceDetailsPage extends React.Component {
     this.setState(prevState => ({
       currentPageIndex: prevState.currentPageIndex + 1,
     }));
-  }
-
-  handleDropdownSelect(e) {
-    const { value } = e;
-    const { newRule } = this.state;
-    this.setState({
-      newRule: { ...newRule, bounce_action: value },
-    });
   }
 
   render() {
