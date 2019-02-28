@@ -292,7 +292,6 @@ export default class BounceRulesPage extends React.Component {
   handleDeleteCommit(e) {
     const { value, id } = e.currentTarget;
     const { selectedRule } = this.state;
-
     this.setState({
       selectedRule: { ...selectedRule, [id]: value },
     });
