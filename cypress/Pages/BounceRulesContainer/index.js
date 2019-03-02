@@ -121,13 +121,12 @@ class BounceRulesPage extends Page {
               data: isMatchingBounceRule,
             });
           }
-          return true;
+          return false;
         }
         return false;
       })
       .then(result => {
         if (result) {
-          cy.log(result);
           return cy.log("Delete Successful");
         }
         return cy.log("Delete Unsuccessful");
