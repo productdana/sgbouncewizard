@@ -43,7 +43,7 @@ const BounceRuleMin = ({ log, index, handleActivityClicked }) => {
     comment,
   } = log;
   return (
-    <TableRow data-id={id}>
+    <TableRow data-id={id} data-time={createdAt}>
       <TableCell>{shouldDisplay(displayUnixAsTime(createdAt))}</TableCell>
       <TableCell>{shouldDisplay(userId)}</TableCell>
       <TableCell className={operation.toLowerCase()}>

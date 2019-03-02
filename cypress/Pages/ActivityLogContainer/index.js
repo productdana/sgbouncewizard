@@ -23,7 +23,7 @@ class ActivityLogPage extends Page {
     return cy.get(Selectors.activityTable);
   }
 
-  createdBounceRule(testRule) {
+  bounceActivity(testRule) {
     return cy
       .task("getActivities", { env: Cypress.env("testEnv") })
       .then(res => {
@@ -38,7 +38,7 @@ class ActivityLogPage extends Page {
           ])
         );
         if (ruleToFind) {
-          return cy.get(`[data-id="${res[ruleToFind].id}"]`);
+          return cy.get(`[data-time="${res[ruleToFind].created_at}"]`);
         }
         return false;
       });
