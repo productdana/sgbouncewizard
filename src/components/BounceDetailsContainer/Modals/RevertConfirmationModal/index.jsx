@@ -1,5 +1,4 @@
 import React from "react";
-import Alert from "@sendgrid/ui-components/alert";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
@@ -18,16 +17,6 @@ const ConfirmRevertBody = ({
       <Column>
         <div>
           <h2>Are you sure you&apos;d like revert to this change?</h2>
-          {isCommitEmpty && (
-            <Alert
-              dismissable={false}
-              type="danger"
-              onClick={handleModalClose}
-              id="isInvalidInput"
-            >
-              Commit message must not be empty.
-            </Alert>
-          )}
           <p>
             Doing so will effect how current email will be handled via this
             bounce rule. This action will go into effect immediately.
@@ -36,6 +25,9 @@ const ConfirmRevertBody = ({
         <TextInput
           onChange={onChangeRuleRevert}
           value={newCommitMessage}
+          isRequired
+          isValid={!isCommitEmpty}
+          info={isCommitEmpty && "Commit message must not be empty"}
           id="comment"
           type="text"
           label="Commit Message"
@@ -57,6 +49,7 @@ const ConfirmRevertBody = ({
         <Button
           className="sg-button"
           onClick={handleRevertConfirm}
+          disabled={isCommitEmpty}
           type="primary"
         >
           Confirm
@@ -72,21 +65,24 @@ const RevertConfirmationModal = ({
   selectedChange,
   onChangeRuleRevert,
   newCommitMessage,
-  isCommitEmpty,
-}) => (
-  <CenterModal
-    open
-    renderBody={(
-      <ConfirmRevertBody
-        handleModalClose={handleModalClose}
-        handleRevertConfirm={handleRevertConfirm}
-        onChangeRuleRevert={onChangeRuleRevert}
-        selectedChange={selectedChange}
-        newCommitMessage={newCommitMessage}
-        isCommitEmpty={isCommitEmpty}
-      />
+}) => {
+  const isCommitEmpty =
+    newCommitMessage === undefined || newCommitMessage.length <= 0;
+  return (
+    <CenterModal
+      open
+      renderBody={(
+        <ConfirmRevertBody
+          handleModalClose={handleModalClose}
+          handleRevertConfirm={handleRevertConfirm}
+          onChangeRuleRevert={onChangeRuleRevert}
+          selectedChange={selectedChange}
+          newCommitMessage={newCommitMessage}
+          isCommitEmpty={isCommitEmpty}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 export default RevertConfirmationModal;

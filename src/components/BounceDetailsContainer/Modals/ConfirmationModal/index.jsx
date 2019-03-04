@@ -2,7 +2,6 @@ import React from "react";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
-import Alert from "@sendgrid/ui-components/alert";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 import { WriteSelectors } from "../../selectors";
@@ -43,16 +42,6 @@ const ConfirmModalBody = ({
             {isUpdateError && (
               <UpdateAlertError handleModalClose={handleModalClose} />
             )}
-            {isCommitEmpty && (
-              <Alert
-                dismissable={false}
-                type="danger"
-                onClick={handleModalClose}
-                id="isInvalidInput"
-              >
-                Commit message must not be empty.
-              </Alert>
-            )}
             <p>
               Doing so will affect how current email will be handled via this
               bounce rule. This action will go into effect immediately.
@@ -61,6 +50,9 @@ const ConfirmModalBody = ({
               {...WriteSelectors.commitInput}
               onChange={onChangeRule}
               value={comment}
+              isRequired
+              isValid={!isCommitEmpty}
+              info={isCommitEmpty && "Commit message must not be empty"}
               id="comment"
               type="text"
               label="Commit Message"
@@ -84,6 +76,7 @@ const ConfirmModalBody = ({
             {...WriteSelectors.confirmSubmit}
             className="sg-button"
             onClick={handleSaveConfirmation}
+            disabled={isCommitEmpty}
             type="primary"
           >
             Confirm
@@ -100,22 +93,25 @@ const ConfirmationModal = ({
   handleSaveConfirmation,
   onChangeRule,
   isUpdateError,
-  isCommitEmpty,
-}) => (
-  <CenterModal
-    {...WriteSelectors.saveConfirmationModal}
-    open
-    renderBody={(
-      <ConfirmModalBody
-        isCommitEmpty={isCommitEmpty}
-        updatedRule={updatedRule}
-        handleModalClose={handleModalClose}
-        handleSaveConfirmation={handleSaveConfirmation}
-        onChangeRule={onChangeRule}
-        isUpdateError={isUpdateError}
-      />
+}) => {
+  const { comment } = updatedRule;
+  const isCommitEmpty = comment === undefined || comment.length <= 0;
+  return (
+    <CenterModal
+      {...WriteSelectors.saveConfirmationModal}
+      open
+      renderBody={(
+        <ConfirmModalBody
+          isCommitEmpty={isCommitEmpty}
+          updatedRule={updatedRule}
+          handleModalClose={handleModalClose}
+          handleSaveConfirmation={handleSaveConfirmation}
+          onChangeRule={onChangeRule}
+          isUpdateError={isUpdateError}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 export default ConfirmationModal;

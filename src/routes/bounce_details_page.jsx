@@ -101,7 +101,6 @@ export default class BounceDetailsPage extends React.Component {
       [id]: false,
       selectedChange: null,
       newCommitMessage: "",
-      isCommitEmpty: false,
     });
   }
 
@@ -127,29 +126,23 @@ export default class BounceDetailsPage extends React.Component {
   async handleRevertConfirm() {
     const { selectedChange, newCommitMessage } = this.state;
     selectedChange.comment = newCommitMessage;
-    if (!newCommitMessage) {
-      this.setState({
-        isCommitEmpty: true,
-      });
-    } else {
-      await putRule(selectedChange.id, selectedChange);
-      getChangelog(selectedChange.id)
-        .then(res => {
-          const { data } = res;
-          this.setState({
-            changelog: data,
-          });
-        })
-        .catch(() => {
-          this.setState({ isNetworkError: true });
+
+    await putRule(selectedChange.id, selectedChange);
+    getChangelog(selectedChange.id)
+      .then(res => {
+        const { data } = res;
+        this.setState({
+          changelog: data,
         });
-      this.setState({
-        currentRule: selectedChange,
-        isRevertConfirmOpen: false,
-        newCommitMessage: "",
-        isCommitEmpty: false,
+      })
+      .catch(() => {
+        this.setState({ isNetworkError: true });
       });
-    }
+    this.setState({
+      currentRule: selectedChange,
+      isRevertConfirmOpen: false,
+      newCommitMessage: "",
+    });
   }
 
   handleEditClicked(e) {
@@ -191,31 +184,24 @@ export default class BounceDetailsPage extends React.Component {
     const { updatedRule } = this.state;
     updatedRule.user_id = parseInt(localStorage.getItem("user_id"), 10);
     const { id } = updatedRule;
-    if (!updatedRule.comment) {
-      this.setState({
-        isCommitEmpty: true,
-      });
-    } else {
-      await putRule(id, updatedRule)
-        .then(() => {
-          this.setState({
-            isConfirmOpen: false,
-            isEditClicked: false,
-            isUpdateError: false,
-          });
-        })
-        .catch(() => {
-          this.setState({ isUpdateError: true });
-        });
-      getChangelog(id).then(res => {
-        const { data } = res;
+    await putRule(id, updatedRule)
+      .then(() => {
         this.setState({
-          currentRule: updatedRule,
-          changelog: data,
-          isCommitEmpty: false,
+          isConfirmOpen: false,
+          isEditClicked: false,
+          isUpdateError: false,
         });
+      })
+      .catch(() => {
+        this.setState({ isUpdateError: true });
       });
-    }
+    getChangelog(id).then(res => {
+      const { data } = res;
+      this.setState({
+        currentRule: updatedRule,
+        changelog: data,
+      });
+    });
   }
 
   paginate(changelog) {

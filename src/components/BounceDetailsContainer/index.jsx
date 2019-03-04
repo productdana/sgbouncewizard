@@ -47,7 +47,6 @@ const BounceRuleDetailed = ({
   updatePageIndex,
   filteredChangelog,
   logout,
-  isCommitEmpty,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
@@ -170,7 +169,6 @@ const BounceRuleDetailed = ({
           handleRevertConfirm={handleRevertConfirm}
           onChangeRuleRevert={onChangeRuleRevert}
           newCommitMessage={newCommitMessage}
-          isCommitEmpty={isCommitEmpty}
         />
       )}
       {isConfirmOpen && (
@@ -181,7 +179,6 @@ const BounceRuleDetailed = ({
           onChangeRule={onChangeRule}
           handleSaveConfirmation={handleSaveConfirmation}
           isUpdateError={isUpdateError}
-          isCommitEmpty={isCommitEmpty}
         />
       )}
       {isCancelConfirmOpen && (

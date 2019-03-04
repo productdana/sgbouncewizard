@@ -2,7 +2,6 @@ import React from "react";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import CenterModal from "@sendgrid/ui-components/center-modal";
-import Alert from "@sendgrid/ui-components/alert";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 import "./index.scss";
@@ -47,17 +46,6 @@ const ConfirmModalBody = ({
       <Column>
         <div>
           <h2>Are you sure you&apos;d like to delete this rule?</h2>
-          {isCommitEmpty && (
-            <Alert
-              {...WriteSelectors.emptyCommitAlert}
-              dismissable={false}
-              type="danger"
-              onClick={handleModalClose}
-              id="isInvalidInput"
-            >
-              Commit message must not be empty.
-            </Alert>
-          )}
           <p>
             Doing so will effect how current email will be handled via this
             bounce rule. This action will go into effect immediately.
@@ -67,10 +55,12 @@ const ConfirmModalBody = ({
             {...WriteSelectors.commitMessage}
             onChange={handleDeleteCommit}
             value={selectedRule.comment}
+            isRequired
+            isValid={!isCommitEmpty}
+            info={isCommitEmpty && "Commit message must not be empty"}
             id="comment"
             type="text"
             label="Commit Message"
-            isRequired
           />
         </div>
       </Column>
@@ -91,6 +81,7 @@ const ConfirmModalBody = ({
           {...WriteSelectors.deleteConfirmationConfirm}
           className="sg-button"
           onClick={handleDeleteConfirm}
+          disabled={isCommitEmpty}
           type="primary"
         >
           Confirm
@@ -106,24 +97,27 @@ const DeleteConfirmationModal = ({
   handleDeleteConfirm,
   idToDelete,
   handleDeleteCommit,
-  isCommitEmpty,
-}) => (
-  <CenterModal
-    {...WriteSelectors.deleteConfirmation}
-    open
-    className="delete-confirm-modal"
-    renderBody={(
-      <ConfirmModalBody
-        selectedRule={selectedRule}
-        isCommitEmpty={isCommitEmpty}
-        handleModalClose={handleModalClose}
-        handleDeleteConfirm={handleDeleteConfirm}
-        idToDelete={idToDelete}
-        handleDeleteCommit={handleDeleteCommit}
-      />
+}) => {
+  const { comment } = selectedRule;
+  const isCommitEmpty = comment === undefined || comment.length <= 0;
+  return (
+    <CenterModal
+      {...WriteSelectors.deleteConfirmation}
+      open
+      className="delete-confirm-modal"
+      renderBody={(
+        <ConfirmModalBody
+          selectedRule={selectedRule}
+          isCommitEmpty={isCommitEmpty}
+          handleModalClose={handleModalClose}
+          handleDeleteConfirm={handleDeleteConfirm}
+          idToDelete={idToDelete}
+          handleDeleteCommit={handleDeleteCommit}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 export { DeleteConfirmationAlert };
 export default DeleteConfirmationModal;

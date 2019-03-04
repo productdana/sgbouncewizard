@@ -209,23 +209,17 @@ export default class BounceRulesPage extends React.Component {
       ...selectedRule,
       user_id: parseInt(localStorage.getItem("user_id"), 10),
     };
-    if (!selectedRule.comment) {
-      this.setState({});
+    const { status } = await deleteRule(ruleToDelete);
+    if (status === 200) {
+      this.setState({
+        rules: rules.filter(rule => rule.id !== parseInt(selectedRule.id, 10)),
+        isDeleteConfirmationOpen: false,
+        selectedRule: null,
+      });
     } else {
-      const { status } = await deleteRule(ruleToDelete);
-      if (status === 200) {
-        this.setState({
-          rules: rules.filter(
-            rule => rule.id !== parseInt(selectedRule.id, 10)
-          ),
-          isDeleteConfirmationOpen: false,
-          selectedRule: null,
-        });
-      } else {
-        this.setState({
-          isDeleteAlertOpen: true,
-        });
-      }
+      this.setState({
+        isDeleteAlertOpen: true,
+      });
     }
   }
 
