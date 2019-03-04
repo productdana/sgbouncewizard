@@ -85,7 +85,7 @@ const BounceActivityContainer = ({
         </Row>
         <Row>
           <Column width={10} offset={2}>
-            <div {...WriteSelectors.ruleFilter}>
+            <div {...WriteSelectors.activityFilter}>
               <ActivityFilter
                 searchToken={searchToken}
                 updateSearchToken={updateSearchToken}

@@ -91,20 +91,43 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.confirmationSubmit);
   }
 
-  get testBounceRuleToDelete() {
-    return cy.get('[data-cypress="testDelete"]');
-  }
-
-  get testBounceRuleToCreate() {
-    return cy.get('[data-cypress="testCreate"]');
-  }
-
   open() {
     super.open("/bounce_rules");
   }
 
-  createdRuleButton(id) {
-    return cy.get(`[data-rule="${id}"]`);
+  createdBounceRule(testRule) {
+    return cy
+      .task("getRules", { env: Cypress.env("testEnv") })
+      .then(
+        res =>
+          res[
+            _.findLastIndex(
+              res,
+              _.omit(testRule, ["id", "created_at", "user_id", "comment"])
+            )
+          ]
+      )
+      .then(rule => {
+        if (rule) {
+          return cy.get(`[data-id="${rule.id}"]`);
+        }
+        return false;
+      });
+  }
+
+  deleteBounceRuleUI(testRule) {
+    return cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
+      const ruleToFind = _.findLastIndex(
+        res,
+        _.omit(testRule, ["id", "created_at", "user_id", "comment"])
+      );
+      if (ruleToFind) {
+        cy.get(`[data-delete="${res[ruleToFind].id}"]`).click();
+        this.commitMessage.clear().type("Deleted This Rule For Testing");
+        return this.deleteConfirmationConfirm.click();
+      }
+      return false;
+    });
   }
 
   deleteBounceRuleAPI(testRule) {
@@ -127,7 +150,6 @@ class BounceRulesPage extends Page {
       })
       .then(result => {
         if (result) {
-          cy.log(result);
           return cy.log("Delete Successful");
         }
         return cy.log("Delete Unsuccessful");
@@ -224,22 +246,6 @@ class BounceRulesPage extends Page {
     }
 
     return this.confirmationSubmit.click();
-  }
-
-  deleteBounceRuleUI(testRule) {
-    cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
-      const ruleToDelete = res.find(bounceRule =>
-        _.isEqual(
-          testRule,
-          _.omit(bounceRule, ["id", "created_at", "user_id", "comment"])
-        )
-      );
-      if (ruleToDelete) {
-        this.createdRuleButton(ruleToDelete.id).click();
-        return this.deleteConfirmationConfirm.click();
-      }
-      return false;
-    });
   }
 }
 
