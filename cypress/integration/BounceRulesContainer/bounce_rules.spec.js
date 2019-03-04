@@ -4,29 +4,21 @@ const commitMessage = "a test commit message";
 
 const testDeleteRule = {
   priority: 1,
-  bounce_action: "cypressDeleteTest",
+  bounce_action: "no_action",
   response_code: 528,
   description: "testDescription",
   enhanced_code: "492",
-  regex: "testRegex1",
-};
-
-const testDeleteRuleFailed = {
-  priority: 1,
-  bounce_action: "cypressDeleteTestFailed",
-  response_code: 592,
-  description: "testFailed",
-  enhanced_code: "492",
-  regex: "testRegex3",
+  regex: "testDelete",
+  user_id: 0,
 };
 
 const testCreateRule = {
   priority: 2,
-  bounce_action: "cypressCreateTest",
+  bounce_action: "no_action",
   response_code: 918,
   description: "testDescription",
   enhanced_code: "492",
-  regex: "testRegex2",
+  regex: "testCreate",
   comment: "init commit test",
 };
 
@@ -74,14 +66,13 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should show alert if commit is empty", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testDeleteRuleFailed)
+    BounceRulesPage.deleteBounceRuleAPI(testDeleteRule)
       .wait(1000)
       .then(() => {
-        BounceRulesPage.createBounceRuleAPI(testDeleteRuleFailed).then(() => {
+        BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(() => {
           BounceRulesPage.open();
-          BounceRulesPage.deleteBounceRuleUI(testDeleteRuleFailed);
-          BounceRulesPage.deleteConfirmationConfirm.click();
-          BounceRulesPage.emptyCommitAlert.should("visible");
+          BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
+          BounceRulesPage.deleteConfirmationConfirm.should("be.disabled");
         });
       });
   });

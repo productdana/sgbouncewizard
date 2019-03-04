@@ -2,7 +2,7 @@ import BounceRuleDetailedPage from "../../Pages/BounceRulesDetailed";
 
 const testCreateRule = {
   priority: 2,
-  bounce_action: "[Cypress Detailed Test - Ignore]",
+  bounce_action: "no_action",
   response_code: 281,
   description: "cypressDetailedTest",
   enhanced_code: "384",

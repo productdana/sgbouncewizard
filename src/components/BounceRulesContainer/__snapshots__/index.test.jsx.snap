@@ -420,7 +420,7 @@ exports[`should render correctly 1`] = `
           </thead>
           <tbody>
             <tr
-              data-cypress="no_action"
+              data-cypress="no MX record for domain"
             >
               <td>
                 504
