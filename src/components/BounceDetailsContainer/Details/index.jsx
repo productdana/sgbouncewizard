@@ -224,7 +224,7 @@ export const DetailsContainerEditable = ({
                     options={[
                       { label: "no_action", value: "no_action" },
                       { label: "retry", value: "retry" },
-                      { label: "supress", value: "supress" },
+                      { label: "suppress", value: "suppress" },
                       { label: "retry", value: "retry" },
                       { label: "blocked", value: "blocked" },
                     ]}
