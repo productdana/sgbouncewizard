@@ -27,7 +27,7 @@ const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitEmpty }) => {
         value={comment}
         isRequired
         isValid={!isCommitEmpty}
-        info={isCommitEmpty && "Commit message must not be empty"}
+        info={isCommitEmpty && "This field is required."}
         id="comment"
         type="text"
         label="Commit Message"
