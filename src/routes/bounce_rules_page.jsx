@@ -47,6 +47,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleActivityTabClicked = this.handleActivityTabClicked.bind(this);
     this.handleBounceTabClicked = this.handleBounceTabClicked.bind(this);
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
+    this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
   }
 
   async componentDidMount() {
@@ -314,6 +315,14 @@ export default class BounceRulesPage extends React.Component {
     });
   }
 
+  handleDropdownSelect(e) {
+    const { value } = e;
+    const { newRule } = this.state;
+    this.setState({
+      newRule: { ...newRule, bounce_action: value },
+    });
+  }
+
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
     const filteredRules = this.filterRules(this.paginate(rules));
@@ -360,6 +369,7 @@ export default class BounceRulesPage extends React.Component {
             handleActivityTabClicked={this.handleActivityTabClicked}
             handleBounceTabClicked={this.handleBounceTabClicked}
             handleDeleteCommit={this.handleDeleteCommit}
+            handleDropdownSelect={this.handleDropdownSelect}
             {...this.state}
           />
         )}

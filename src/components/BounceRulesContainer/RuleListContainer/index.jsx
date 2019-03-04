@@ -40,9 +40,10 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
     bounce_action: bounceAction,
     response_code: responseCode,
     description,
+    regex,
   } = rule;
   return (
-    <TableRow data-cypress={bounceAction}>
+    <TableRow data-cypress={regex}>
       <TableCell>{shouldDisplay(id)}</TableCell>
       <TableCell>{shouldDisplay(bounceAction)}</TableCell>
       <TableCell>{shouldDisplay(responseCode)}</TableCell>

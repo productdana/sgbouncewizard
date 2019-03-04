@@ -56,7 +56,7 @@ class BounceRulesPage extends Page {
   }
 
   get bounceAction() {
-    return cy.get(Selectors.bounceAction);
+    return cy.get(Selectors.bounceAction).find("input[type=text]");
   }
 
   get responseCode() {
@@ -92,11 +92,11 @@ class BounceRulesPage extends Page {
   }
 
   get testBounceRuleToDelete() {
-    return cy.get('[data-cypress="cypressDeleteTest"]');
+    return cy.get('[data-cypress="testDelete"]');
   }
 
   get testBounceRuleToCreate() {
-    return cy.get('[data-cypress="cypressCreateTest"]');
+    return cy.get('[data-cypress="testCreate"]');
   }
 
   open() {
@@ -141,6 +141,14 @@ class BounceRulesPage extends Page {
     });
   }
 
+  selectOption(option) {
+    this.getBounceActionSelectOption(option).click();
+  }
+
+  getBounceActionSelectOption(option) {
+    return cy.get(Selectors.bounceAction).contains("[role='option']", option);
+  }
+
   fillCreateRuleForm(bounceRule) {
     const {
       priority,
@@ -155,7 +163,8 @@ class BounceRulesPage extends Page {
       this.priority.type(priority);
     }
     if (bounceAction) {
-      this.bounceAction.type(bounceAction);
+      this.bounceAction.type(bounceAction, { force: true });
+      this.selectOption(bounceAction);
     }
     if (responseCode) {
       this.responseCode.type(responseCode);
@@ -191,7 +200,8 @@ class BounceRulesPage extends Page {
       this.priority.type(priority);
     }
     if (bounceAction) {
-      this.bounceAction.type(bounceAction);
+      this.bounceAction.type(bounceAction, { force: true });
+      this.selectOption(bounceAction);
     }
     if (responseCode) {
       this.responseCode.type(responseCode);
