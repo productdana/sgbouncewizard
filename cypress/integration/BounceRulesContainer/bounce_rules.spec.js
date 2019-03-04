@@ -65,7 +65,7 @@ describe("Bounce Rules Page", () => {
     });
   });
 
-  it("should show alert if commit is empty", () => {
+  it("should be disabled if commit is empty", () => {
     BounceRulesPage.deleteBounceRuleAPI(testDeleteRule)
       .wait(1000)
       .then(() => {

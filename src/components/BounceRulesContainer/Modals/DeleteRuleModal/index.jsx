@@ -40,6 +40,7 @@ const ConfirmModalBody = ({
   handleDeleteConfirm,
   handleDeleteCommit,
   isCommitEmpty,
+  isCommitDisabled,
 }) => (
   <div>
     <Row>
@@ -81,7 +82,7 @@ const ConfirmModalBody = ({
           {...WriteSelectors.deleteConfirmationConfirm}
           className="sg-button"
           onClick={handleDeleteConfirm}
-          disabled={isCommitEmpty}
+          disabled={isCommitDisabled}
           type="primary"
         >
           Confirm
@@ -97,27 +98,26 @@ const DeleteConfirmationModal = ({
   handleDeleteConfirm,
   idToDelete,
   handleDeleteCommit,
-}) => {
-  const { comment } = selectedRule;
-  const isCommitEmpty = comment === undefined || comment.length <= 0;
-  return (
-    <CenterModal
-      {...WriteSelectors.deleteConfirmation}
-      open
-      className="delete-confirm-modal"
-      renderBody={(
-        <ConfirmModalBody
-          selectedRule={selectedRule}
-          isCommitEmpty={isCommitEmpty}
-          handleModalClose={handleModalClose}
-          handleDeleteConfirm={handleDeleteConfirm}
-          idToDelete={idToDelete}
-          handleDeleteCommit={handleDeleteCommit}
-        />
+  isCommitEmpty,
+  isCommitDisabled,
+}) => (
+  <CenterModal
+    {...WriteSelectors.deleteConfirmation}
+    open
+    className="delete-confirm-modal"
+    renderBody={(
+      <ConfirmModalBody
+        selectedRule={selectedRule}
+        isCommitEmpty={isCommitEmpty}
+        isCommitDisabled={isCommitDisabled}
+        handleModalClose={handleModalClose}
+        handleDeleteConfirm={handleDeleteConfirm}
+        idToDelete={idToDelete}
+        handleDeleteCommit={handleDeleteCommit}
+      />
 )}
-    />
+  />
   );
-};
 
 export { DeleteConfirmationAlert };
 export default DeleteConfirmationModal;

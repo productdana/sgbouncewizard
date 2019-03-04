@@ -40,7 +40,7 @@ const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitEmpty }) => {
 const ConfirmationFooter = ({
   handleModalClose,
   handleCreateConfirm,
-  isCommitEmpty,
+  isCommitDisabled,
 }) => (
   <div>
     <Row>
@@ -60,7 +60,7 @@ const ConfirmationFooter = ({
           className="sg-button"
           {...WriteSelectors.confirmationSubmit}
           onClick={handleCreateConfirm}
-          disabled={isCommitEmpty}
+          disabled={isCommitDisabled}
           type="primary"
         >
           Confirm
@@ -76,33 +76,31 @@ const CreateConfirmationModal = ({
   handleCreateConfirm,
   handleRuleUpdate,
   handleCreateCommit,
-}) => {
-  const { comment } = newRule;
-  const isCommitEmpty = comment === undefined || comment.length <= 0;
-  return (
-    <CenterModal
-      {...WriteSelectors.confirmModal}
-      open
-      renderBody={(
-        <ConfirmationBody
-          isCommitEmpty={isCommitEmpty}
-          newRule={newRule}
-          handleRuleUpdate={handleRuleUpdate}
-          handleCreateCommit={handleCreateCommit}
-        />
+  isCommitEmpty,
+  isCommitDisabled,
+}) => (
+  <CenterModal
+    {...WriteSelectors.confirmModal}
+    open
+    renderBody={(
+      <ConfirmationBody
+        isCommitEmpty={isCommitEmpty}
+        newRule={newRule}
+        handleRuleUpdate={handleRuleUpdate}
+        handleCreateCommit={handleCreateCommit}
+      />
 )}
-      renderHeader={<ConfirmationHeader />}
-      renderFooter={(
-        <ConfirmationFooter
-          isCommitEmpty={isCommitEmpty}
-          handleModalClose={handleModalClose}
-          handleCreateConfirm={handleCreateConfirm}
-          handleRuleUpdate={handleRuleUpdate}
-        />
+    renderHeader={<ConfirmationHeader />}
+    renderFooter={(
+      <ConfirmationFooter
+        isCommitDisabled={isCommitDisabled}
+        handleModalClose={handleModalClose}
+        handleCreateConfirm={handleCreateConfirm}
+        handleRuleUpdate={handleRuleUpdate}
+      />
 )}
-    />
+  />
   );
-};
 
 const CreateRuleModal = ({
   handleRuleUpdate,

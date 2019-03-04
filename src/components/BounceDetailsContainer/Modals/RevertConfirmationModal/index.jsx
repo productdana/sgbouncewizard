@@ -11,6 +11,7 @@ const ConfirmRevertBody = ({
   onChangeRuleRevert,
   newCommitMessage,
   isCommitEmpty,
+  isCommitDisabled,
 }) => (
   <div>
     <Row>
@@ -49,7 +50,7 @@ const ConfirmRevertBody = ({
         <Button
           className="sg-button"
           onClick={handleRevertConfirm}
-          disabled={isCommitEmpty}
+          disabled={isCommitDisabled}
           type="primary"
         >
           Confirm
@@ -65,24 +66,23 @@ const RevertConfirmationModal = ({
   selectedChange,
   onChangeRuleRevert,
   newCommitMessage,
-}) => {
-  const isCommitEmpty =
-    newCommitMessage === undefined || newCommitMessage.length <= 0;
-  return (
-    <CenterModal
-      open
-      renderBody={(
-        <ConfirmRevertBody
-          handleModalClose={handleModalClose}
-          handleRevertConfirm={handleRevertConfirm}
-          onChangeRuleRevert={onChangeRuleRevert}
-          selectedChange={selectedChange}
-          newCommitMessage={newCommitMessage}
-          isCommitEmpty={isCommitEmpty}
-        />
+  isCommitEmpty,
+  isCommitDisabled,
+}) => (
+  <CenterModal
+    open
+    renderBody={(
+      <ConfirmRevertBody
+        handleModalClose={handleModalClose}
+        handleRevertConfirm={handleRevertConfirm}
+        onChangeRuleRevert={onChangeRuleRevert}
+        selectedChange={selectedChange}
+        newCommitMessage={newCommitMessage}
+        isCommitEmpty={isCommitEmpty}
+        isCommitDisabled={isCommitDisabled}
+      />
 )}
-    />
+  />
   );
-};
 
 export default RevertConfirmationModal;

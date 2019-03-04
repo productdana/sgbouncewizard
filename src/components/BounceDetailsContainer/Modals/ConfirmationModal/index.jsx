@@ -28,9 +28,10 @@ const ConfirmModalBody = ({
   updatedRule,
   handleModalClose,
   handleSaveConfirmation,
-  onChangeRule,
   isUpdateError,
   isCommitEmpty,
+  isCommitDisabled,
+  onEditRuleCommit,
 }) => {
   const { comment } = updatedRule;
   return (
@@ -48,7 +49,7 @@ const ConfirmModalBody = ({
             </p>
             <TextInput
               {...WriteSelectors.commitInput}
-              onChange={onChangeRule}
+              onChange={onEditRuleCommit}
               value={comment}
               isRequired
               isValid={!isCommitEmpty}
@@ -76,7 +77,7 @@ const ConfirmModalBody = ({
             {...WriteSelectors.confirmSubmit}
             className="sg-button"
             onClick={handleSaveConfirmation}
-            disabled={isCommitEmpty}
+            disabled={isCommitDisabled}
             type="primary"
           >
             Confirm
@@ -91,27 +92,26 @@ const ConfirmationModal = ({
   updatedRule,
   handleModalClose,
   handleSaveConfirmation,
-  onChangeRule,
   isUpdateError,
-}) => {
-  const { comment } = updatedRule;
-  const isCommitEmpty = comment === undefined || comment.length <= 0;
-  return (
-    <CenterModal
-      {...WriteSelectors.saveConfirmationModal}
-      open
-      renderBody={(
-        <ConfirmModalBody
-          isCommitEmpty={isCommitEmpty}
-          updatedRule={updatedRule}
-          handleModalClose={handleModalClose}
-          handleSaveConfirmation={handleSaveConfirmation}
-          onChangeRule={onChangeRule}
-          isUpdateError={isUpdateError}
-        />
+  isCommitEmpty,
+  isCommitDisabled,
+  onEditRuleCommit,
+}) => (
+  <CenterModal
+    {...WriteSelectors.saveConfirmationModal}
+    open
+    renderBody={(
+      <ConfirmModalBody
+        onEditRuleCommit={onEditRuleCommit}
+        isCommitEmpty={isCommitEmpty}
+        isCommitDisabled={isCommitDisabled}
+        updatedRule={updatedRule}
+        handleModalClose={handleModalClose}
+        handleSaveConfirmation={handleSaveConfirmation}
+        isUpdateError={isUpdateError}
+      />
 )}
-    />
+  />
   );
-};
 
 export default ConfirmationModal;

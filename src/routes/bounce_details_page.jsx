@@ -22,6 +22,8 @@ export default class BounceDetailsPage extends React.Component {
       pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
+      isCommitEmpty: false,
+      isCommitDisabled: true,
     };
     this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -39,6 +41,7 @@ export default class BounceDetailsPage extends React.Component {
     this.handleNextClicked = this.handleNextClicked.bind(this);
     this.handleRevertClicked = this.handleRevertClicked.bind(this);
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
+    this.onEditRuleCommit = this.onEditRuleCommit.bind(this);
   }
 
   async componentDidMount() {
@@ -83,8 +86,38 @@ export default class BounceDetailsPage extends React.Component {
     });
   }
 
+  onEditRuleCommit(e) {
+    const { updatedRule } = this.state;
+    const { id, value } = e.currentTarget;
+    if (value.length === 0) {
+      this.setState({
+        isCommitEmpty: true,
+        isCommitDisabled: true,
+      });
+    } else {
+      this.setState({
+        isCommitEmpty: false,
+        isCommitDisabled: false,
+      });
+    }
+    this.setState({
+      updatedRule: { ...updatedRule, [id]: value },
+    });
+  }
+
   onChangeRuleRevert(e) {
     const { value } = e.currentTarget;
+    if (value.length === 0) {
+      this.setState({
+        isCommitEmpty: true,
+        isCommitDisabled: true,
+      });
+    } else {
+      this.setState({
+        isCommitEmpty: false,
+        isCommitDisabled: false,
+      });
+    }
     this.setState({
       newCommitMessage: value,
     });
@@ -110,6 +143,8 @@ export default class BounceDetailsPage extends React.Component {
       [id]: false,
       selectedChange: null,
       newCommitMessage: "",
+      isCommitEmpty: false,
+      isCommitDisabled: true,
     });
   }
 
@@ -281,6 +316,7 @@ export default class BounceDetailsPage extends React.Component {
               handleRevertConfirm={this.handleRevertConfirm}
               filteredChangelog={filteredChangelog}
               handleDropdownSelect={this.handleDropdownSelect}
+              onEditRuleCommit={this.onEditRuleCommit}
               {...this.state}
             />
           )}

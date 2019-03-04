@@ -125,7 +125,7 @@ class BounceRulesPage extends Page {
               data: isMatchingBounceRule,
             });
           }
-          return false;
+          return true;
         }
         return false;
       })
