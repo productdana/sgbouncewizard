@@ -199,6 +199,7 @@ export default class BounceRulesPage extends React.Component {
       [id]: false,
       isInvalidInput: false,
       selectedRule: {},
+      newRule: null,
     });
   }
 
