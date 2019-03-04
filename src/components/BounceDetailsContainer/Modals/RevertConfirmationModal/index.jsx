@@ -6,10 +6,10 @@ import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 
 const ConfirmRevertBody = ({
-  handleModalClose,
+  selectedChange,
+  handleRevertModalClose,
   handleRevertConfirm,
-  onChangeRuleRevert,
-  newCommitMessage,
+  onChangeRevert,
 }) => (
   <div>
     <Row>
@@ -22,8 +22,8 @@ const ConfirmRevertBody = ({
           </p>
         </div>
         <TextInput
-          onChange={onChangeRuleRevert}
-          value={newCommitMessage}
+          onChange={onChangeRevert}
+          value={selectedChange.comment}
           id="comment"
           type="text"
           label="Commit Message"
@@ -34,7 +34,7 @@ const ConfirmRevertBody = ({
       <Column width={1} offset={10}>
         <Button
           className="sg-button"
-          onClick={handleModalClose}
+          onClick={handleRevertModalClose}
           id="isRevertConfirmOpen"
           type="secondary"
         >
@@ -55,21 +55,19 @@ const ConfirmRevertBody = ({
 );
 
 const RevertConfirmationModal = ({
-  handleModalClose,
   handleRevertConfirm,
   selectedChange,
-  onChangeRuleRevert,
-  newCommitMessage,
+  onChangeRevert,
+  handleRevertModalClose,
 }) => (
   <CenterModal
     open
     renderBody={(
       <ConfirmRevertBody
-        handleModalClose={handleModalClose}
+        handleRevertModalClose={handleRevertModalClose}
         handleRevertConfirm={handleRevertConfirm}
-        onChangeRuleRevert={onChangeRuleRevert}
         selectedChange={selectedChange}
-        newCommitMessage={newCommitMessage}
+        onChangeRevert={onChangeRevert}
       />
 )}
   />

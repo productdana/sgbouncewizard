@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
+import Alert from "@sendgrid/ui-components/alert";
 import Loader from "@sendgrid/ui-components/loader";
 import Header from "../Header";
 import { Row } from "../Row";
@@ -63,6 +64,7 @@ const BounceRulesContainer = ({
   isBounceRulesTab,
   isActivityLogTab,
   handleDeleteCommit,
+  isNetworkError,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const shouldShowBounceRulePagination =
@@ -74,6 +76,18 @@ const BounceRulesContainer = ({
     <React.Fragment>
       {isActivityLogTab && <Redirect push to="/activity_log" />}
       <div {...WriteSelectors.page}>
+        {isNetworkError && (
+          <Alert
+            type="danger"
+            dismissable={false}
+            onClick={handleModalClose}
+            id="isInvalidInput"
+          >
+            A network error is detected. Please
+            <a href="/bounce_rules"> refresh </a>
+            or try again later.
+          </Alert>
+        )}
         <Header logout={logout} />
         <Row>
           <Column width={6} offset={2}>

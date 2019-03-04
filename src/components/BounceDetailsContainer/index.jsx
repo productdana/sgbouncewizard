@@ -3,6 +3,7 @@ import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import Button from "@sendgrid/ui-components/button";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import Alert from "@sendgrid/ui-components/alert";
 import { Row } from "../Row";
 import { Column } from "../Column";
 import Header from "../Header";
@@ -37,8 +38,6 @@ const BounceRuleDetailed = ({
   handleCancelConfirmation,
   handleSaveConfirmation,
   handleRevertConfirm,
-  onChangeRuleRevert,
-  newCommitMessage,
   onChangeRuleInt,
   pagesToDisplay,
   currentPageIndex,
@@ -47,11 +46,26 @@ const BounceRuleDetailed = ({
   updatePageIndex,
   filteredChangelog,
   logout,
+  isNetworkError,
+  onChangeRevert,
+  handleRevertModalClose,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
   return (
     <div>
+      {isNetworkError && (
+        <Alert
+          type="danger"
+          dismissable={false}
+          onClick={handleModalClose}
+          id="isInvalidInput"
+        >
+          A network error is detected. Please
+          <a href={`/bounce_rules/${id}`}> refresh </a>
+          or try again later.
+        </Alert>
+      )}
       <Header logout={logout} />
       <Row>
         <Column width={6} offset={2}>
@@ -65,7 +79,7 @@ const BounceRuleDetailed = ({
         <Column width={6} offset={2}>
           <h1>Bounce Rule {id}</h1>
         </Column>
-        {isEditClicked ? (
+        {isEditClicked && (
           <Column className="csv-button-col" width={4} offset={8}>
             <Button
               onClick={handleCancelSaveClicked}
@@ -88,7 +102,8 @@ const BounceRuleDetailed = ({
               Save
             </Button>
           </Column>
-        ) : (
+        )}
+        {!isEditClicked && (
           <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
@@ -167,8 +182,8 @@ const BounceRuleDetailed = ({
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
           handleRevertConfirm={handleRevertConfirm}
-          onChangeRuleRevert={onChangeRuleRevert}
-          newCommitMessage={newCommitMessage}
+          handleRevertModalClose={handleRevertModalClose}
+          onChangeRevert={onChangeRevert}
         />
       )}
       {isConfirmOpen && (
@@ -179,6 +194,7 @@ const BounceRuleDetailed = ({
           onChangeRule={onChangeRule}
           handleSaveConfirmation={handleSaveConfirmation}
           isUpdateError={isUpdateError}
+          isNetworkError={isNetworkError}
         />
       )}
       {isCancelConfirmOpen && (

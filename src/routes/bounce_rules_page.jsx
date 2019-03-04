@@ -27,6 +27,7 @@ export default class BounceRulesPage extends React.Component {
       isCreateRuleConfirmationOpen: false,
       newRule: {},
       isInvalidInput: false,
+      isNetworkError: false,
     };
     this.logout = this.logout.bind(this);
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -50,12 +51,18 @@ export default class BounceRulesPage extends React.Component {
   }
 
   async componentDidMount() {
-    const { data, status } = await listRules();
-    if (status === 200) {
+    try {
+      const { data, status } = await listRules();
+      if (status === 200) {
+        this.setState({
+          isFetching: false,
+          rules: data.reverse(),
+          numRules: data.length,
+        });
+      }
+    } catch (err) {
       this.setState({
-        isFetching: false,
-        rules: data.reverse(),
-        numRules: data.length,
+        isNetworkError: true,
       });
     }
   }
