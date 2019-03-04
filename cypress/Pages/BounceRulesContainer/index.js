@@ -56,7 +56,7 @@ class BounceRulesPage extends Page {
   }
 
   get bounceAction() {
-    return cy.get(Selectors.bounceAction);
+    return cy.get(Selectors.bounceAction).find("input[type=text]");
   }
 
   get responseCode() {
@@ -96,16 +96,23 @@ class BounceRulesPage extends Page {
   }
 
   createdBounceRule(testRule) {
-    return cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
-      const ruleToFind = _.findLastIndex(
-        res,
-        _.omit(testRule, ["id", "created_at", "user_id", "comment"])
-      );
-      if (ruleToFind) {
-        return cy.get(`[data-id="${res[ruleToFind].id}"]`);
-      }
-      return false;
-    });
+    return cy
+      .task("getRules", { env: Cypress.env("testEnv") })
+      .then(
+        res =>
+          res[
+            _.findLastIndex(
+              res,
+              _.omit(testRule, ["id", "created_at", "user_id", "comment"])
+            )
+          ]
+      )
+      .then(rule => {
+        if (rule) {
+          return cy.get(`[data-id="${rule.id}"]`);
+        }
+        return false;
+      });
   }
 
   deleteBounceRuleUI(testRule) {
@@ -156,6 +163,14 @@ class BounceRulesPage extends Page {
     });
   }
 
+  selectOption(option) {
+    this.getBounceActionSelectOption(option).click();
+  }
+
+  getBounceActionSelectOption(option) {
+    return cy.get(Selectors.bounceAction).contains("[role='option']", option);
+  }
+
   fillCreateRuleForm(bounceRule) {
     const {
       priority,
@@ -170,7 +185,8 @@ class BounceRulesPage extends Page {
       this.priority.type(priority);
     }
     if (bounceAction) {
-      this.bounceAction.type(bounceAction);
+      this.bounceAction.type(bounceAction, { force: true });
+      this.selectOption(bounceAction);
     }
     if (responseCode) {
       this.responseCode.type(responseCode);
@@ -206,7 +222,8 @@ class BounceRulesPage extends Page {
       this.priority.type(priority);
     }
     if (bounceAction) {
-      this.bounceAction.type(bounceAction);
+      this.bounceAction.type(bounceAction, { force: true });
+      this.selectOption(bounceAction);
     }
     if (responseCode) {
       this.responseCode.type(responseCode);
