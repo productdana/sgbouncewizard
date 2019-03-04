@@ -27,7 +27,6 @@ export default class BounceRulesPage extends React.Component {
       isCreateRuleConfirmationOpen: false,
       newRule: {},
       isInvalidInput: false,
-      isCommitEmpty: false,
     };
     this.logout = this.logout.bind(this);
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -200,7 +199,6 @@ export default class BounceRulesPage extends React.Component {
       [id]: false,
       isInvalidInput: false,
       selectedRule: {},
-      isCommitEmpty: false,
     });
   }
 
@@ -211,9 +209,7 @@ export default class BounceRulesPage extends React.Component {
       user_id: parseInt(localStorage.getItem("user_id"), 10),
     };
     if (!selectedRule.comment) {
-      this.setState({
-        isCommitEmpty: true,
-      });
+      this.setState({});
     } else {
       const { status } = await deleteRule(ruleToDelete);
       if (status === 200) {
@@ -223,7 +219,6 @@ export default class BounceRulesPage extends React.Component {
           ),
           isDeleteConfirmationOpen: false,
           selectedRule: null,
-          isCommitEmpty: false,
         });
       } else {
         this.setState({
@@ -269,7 +264,6 @@ export default class BounceRulesPage extends React.Component {
   handleRuleUpdate(e) {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
-
     this.setState({
       newRule: { ...newRule, [id]: value },
     });
@@ -309,21 +303,15 @@ export default class BounceRulesPage extends React.Component {
   async handleCreateConfirm() {
     const { rules } = this.state;
     const { newRule } = this.state;
-    if (!newRule.comment) {
+
+    const { data, status } = await postRule(newRule);
+    newRule.id = data.id;
+    if (status === 200 || status === 201) {
       this.setState({
-        isCommitEmpty: true,
+        isCreateRuleConfirmationOpen: false,
+        rules: [newRule, ...rules],
+        newRule: null,
       });
-    } else {
-      const { data, status } = await postRule(newRule);
-      newRule.id = data.id;
-      if (status === 200 || status === 201) {
-        this.setState({
-          isCreateRuleConfirmationOpen: false,
-          rules: [newRule, ...rules],
-          newRule: null,
-          isCommitEmpty: false,
-        });
-      }
     }
   }
 

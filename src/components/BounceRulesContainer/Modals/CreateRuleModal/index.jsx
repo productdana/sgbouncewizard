@@ -20,21 +20,14 @@ const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitEmpty }) => {
   const { comment } = newRule;
   return (
     <div {...WriteSelectors.confirmModal}>
-      {isCommitEmpty && (
-        <Alert
-          {...WriteSelectors.emptyCommitAlert}
-          dismissable={false}
-          type="danger"
-          id="isInvalidInput"
-        >
-          Commit message must not be empty.
-        </Alert>
-      )}
       <p>Please enter a commit message and confirm your changes.</p>
       <TextInput
         {...WriteSelectors.commitMessage}
         onChange={handleCreateCommit}
         value={comment}
+        isRequired
+        isValid={!isCommitEmpty}
+        info={isCommitEmpty && "Commit message must not be empty"}
         id="comment"
         type="text"
         label="Commit Message"
@@ -43,7 +36,11 @@ const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitEmpty }) => {
   );
 };
 
-const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
+const ConfirmationFooter = ({
+  handleModalClose,
+  handleCreateConfirm,
+  isCommitEmpty,
+}) => (
   <div>
     <Row>
       <Column width={1} offset={10}>
@@ -62,6 +59,7 @@ const ConfirmationFooter = ({ handleModalClose, handleCreateConfirm }) => (
           className="sg-button"
           {...WriteSelectors.confirmationSubmit}
           onClick={handleCreateConfirm}
+          disabled={isCommitEmpty}
           type="primary"
         >
           Confirm
@@ -76,30 +74,34 @@ const CreateConfirmationModal = ({
   handleModalClose,
   handleCreateConfirm,
   handleRuleUpdate,
-  isCommitEmpty,
   handleCreateCommit,
-}) => (
-  <CenterModal
-    {...WriteSelectors.confirmModal}
-    open
-    renderBody={(
-      <ConfirmationBody
-        isCommitEmpty={isCommitEmpty}
-        newRule={newRule}
-        handleRuleUpdate={handleRuleUpdate}
-        handleCreateCommit={handleCreateCommit}
-      />
+}) => {
+  const { comment } = newRule;
+  const isCommitEmpty = comment === undefined || comment.length <= 0;
+  return (
+    <CenterModal
+      {...WriteSelectors.confirmModal}
+      open
+      renderBody={(
+        <ConfirmationBody
+          isCommitEmpty={isCommitEmpty}
+          newRule={newRule}
+          handleRuleUpdate={handleRuleUpdate}
+          handleCreateCommit={handleCreateCommit}
+        />
 )}
-    renderHeader={<ConfirmationHeader />}
-    renderFooter={(
-      <ConfirmationFooter
-        handleModalClose={handleModalClose}
-        handleCreateConfirm={handleCreateConfirm}
-        handleRuleUpdate={handleRuleUpdate}
-      />
+      renderHeader={<ConfirmationHeader />}
+      renderFooter={(
+        <ConfirmationFooter
+          isCommitEmpty={isCommitEmpty}
+          handleModalClose={handleModalClose}
+          handleCreateConfirm={handleCreateConfirm}
+          handleRuleUpdate={handleRuleUpdate}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 const CreateRuleModal = ({
   handleRuleUpdate,
