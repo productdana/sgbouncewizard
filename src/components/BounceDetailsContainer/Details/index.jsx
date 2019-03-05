@@ -69,6 +69,8 @@ const DetailsContainer = ({ currentRule, handleEditClicked }) => {
             </TableRow>
           </TableBody>
         </Table>
+      </div>
+      <div className="detail-info">
         <Table>
           <TableBody>
             <TableRow>
@@ -182,6 +184,8 @@ export const DetailsContainerEditable = ({
             </TableRow>
           </TableBody>
         </Table>
+      </div>
+      <div className="detail-info">
         <Table>
           <TableBody>
             <TableRow>

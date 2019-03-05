@@ -199,6 +199,10 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div
+            className="detail-info"
+          >
             <table
               className="table-wrap"
             >
