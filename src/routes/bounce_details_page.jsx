@@ -45,7 +45,6 @@ export default class BounceDetailsPage extends React.Component {
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
     this.onEditRuleCommit = this.onEditRuleCommit.bind(this);
     this.onRevertCommit = this.onRevertCommit.bind(this);
-    this.validateCommit = this.validateCommit.bind(this);
   }
 
   async componentDidMount() {
@@ -93,7 +92,7 @@ export default class BounceDetailsPage extends React.Component {
   onEditRuleCommit(e) {
     const { updatedRule } = this.state;
     const { id, value } = e.currentTarget;
-    const isCommitValid = this.validateCommit(value);
+    const isCommitValid = BounceDetailsPage.validateCommit(value);
     this.setState({
       updatedRule: { ...updatedRule, [id]: value },
       isCommitValid,
@@ -102,7 +101,7 @@ export default class BounceDetailsPage extends React.Component {
 
   onRevertCommit(e) {
     const { value } = e.currentTarget;
-    const isCommitValid = this.validateCommit(value);
+    const isCommitValid = BounceDetailsPage.validateCommit(value);
     this.setState({
       newCommitMessage: value,
       isCommitValid,

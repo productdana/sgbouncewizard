@@ -54,7 +54,6 @@ export default class BounceRulesPage extends React.Component {
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
     this.handleCreateCommit = this.handleCreateCommit.bind(this);
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
-    this.validateCommit = this.validateCommit.bind(this);
   }
 
   async componentDidMount() {
@@ -288,7 +287,7 @@ export default class BounceRulesPage extends React.Component {
   handleDeleteCommit(e) {
     const { value, id } = e.currentTarget;
     const { selectedRule } = this.state;
-    const isCommitValid = this.validateCommit(value);
+    const isCommitValid = BounceRulesPage.validateCommit(value);
     this.setState({
       selectedRule: { ...selectedRule, [id]: value },
       isCommitValid,
@@ -298,7 +297,7 @@ export default class BounceRulesPage extends React.Component {
   handleCreateCommit(e) {
     const { value, id } = e.currentTarget;
     const { newRule } = this.state;
-    const isCommitValid = this.validateCommit(value);
+    const isCommitValid = BounceRulesPage.validateCommit(value);
     this.setState({
       newRule: { ...newRule, [id]: value },
       isCommitValid,
