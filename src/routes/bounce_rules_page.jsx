@@ -48,6 +48,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleActivityTabClicked = this.handleActivityTabClicked.bind(this);
     this.handleBounceTabClicked = this.handleBounceTabClicked.bind(this);
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
+    this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
   }
 
   async componentDidMount() {
@@ -205,6 +206,7 @@ export default class BounceRulesPage extends React.Component {
       [id]: false,
       isInvalidInput: false,
       selectedRule: {},
+      newRule: null,
     });
   }
 
@@ -214,16 +216,24 @@ export default class BounceRulesPage extends React.Component {
       ...selectedRule,
       user_id: parseInt(localStorage.getItem("user_id"), 10),
     };
-    const { status } = await deleteRule(ruleToDelete);
-    if (status === 200) {
+    try {
+      const { status } = await deleteRule(ruleToDelete);
+      if (status === 200) {
+        this.setState({
+          rules: rules.filter(
+            rule => rule.id !== parseInt(selectedRule.id, 10)
+          ),
+          isDeleteConfirmationOpen: false,
+          selectedRule: null,
+        });
+      } else {
+        this.setState({
+          isDeleteAlertOpen: true,
+        });
+      }
+    } catch (error) {
       this.setState({
-        rules: rules.filter(rule => rule.id !== parseInt(selectedRule.id, 10)),
-        isDeleteConfirmationOpen: false,
-        selectedRule: null,
-      });
-    } else {
-      this.setState({
-        isDeleteAlertOpen: true,
+        isNetworkError: true,
       });
     }
   }
@@ -295,13 +305,19 @@ export default class BounceRulesPage extends React.Component {
   async handleCreateConfirm() {
     const { rules } = this.state;
     const { newRule } = this.state;
-    const { data, status } = await postRule(newRule);
-    newRule.id = data.id;
-    if (status === 200 || status === 201) {
+    try {
+      const { data, status } = await postRule(newRule);
+      newRule.id = data.id;
+      if (status === 200 || status === 201) {
+        this.setState({
+          isCreateRuleConfirmationOpen: false,
+          rules: [newRule, ...rules],
+          newRule: null,
+        });
+      }
+    } catch (error) {
       this.setState({
-        isCreateRuleConfirmationOpen: false,
-        rules: [newRule, ...rules],
-        newRule: null,
+        isNetworkError: true,
       });
     }
   }
@@ -317,6 +333,14 @@ export default class BounceRulesPage extends React.Component {
     this.setState({
       isActivityLogTab: true,
       isBounceRulesTab: false,
+    });
+  }
+
+  handleDropdownSelect(e) {
+    const { value } = e;
+    const { newRule } = this.state;
+    this.setState({
+      newRule: { ...newRule, bounce_action: value },
     });
   }
 
@@ -366,6 +390,7 @@ export default class BounceRulesPage extends React.Component {
             handleActivityTabClicked={this.handleActivityTabClicked}
             handleBounceTabClicked={this.handleBounceTabClicked}
             handleDeleteCommit={this.handleDeleteCommit}
+            handleDropdownSelect={this.handleDropdownSelect}
             {...this.state}
           />
         )}

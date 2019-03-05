@@ -49,6 +49,7 @@ const BounceRuleDetailed = ({
   isNetworkError,
   onChangeRevert,
   handleRevertModalClose,
+  handleDropdownSelect,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
@@ -130,6 +131,7 @@ const BounceRuleDetailed = ({
                 onChangeRule={onChangeRule}
                 onChangeRuleInt={onChangeRuleInt}
                 updatedRule={updatedRule}
+                handleDropdownSelect={handleDropdownSelect}
               />
             )}
             {!isEditClicked && (

@@ -65,6 +65,7 @@ const BounceRulesContainer = ({
   isActivityLogTab,
   handleDeleteCommit,
   isNetworkError,
+  handleDropdownSelect,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const shouldShowBounceRulePagination =
@@ -190,6 +191,7 @@ const BounceRulesContainer = ({
             handleRuleUpdate={handleRuleUpdate}
             handleRuleUpdateInt={handleRuleUpdateInt}
             handleCreateSubmit={handleCreateSubmit}
+            handleDropdownSelect={handleDropdownSelect}
           />
         )}
         {isCreateRuleConfirmationOpen && (

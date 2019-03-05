@@ -39,6 +39,7 @@ export default class BounceDetailsPage extends React.Component {
     this.handleNextClicked = this.handleNextClicked.bind(this);
     this.handleRevertClicked = this.handleRevertClicked.bind(this);
     this.onChangeRevert = this.onChangeRevert.bind(this);
+    this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
   }
 
   async componentDidMount() {
@@ -95,6 +96,14 @@ export default class BounceDetailsPage extends React.Component {
     const { selectedChange } = this.state;
     this.setState({
       selectedChange: { ...selectedChange, [id]: value },
+    });
+  }
+
+  handleDropdownSelect(e) {
+    const { value } = e;
+    const { updatedRule } = this.state;
+    this.setState({
+      updatedRule: { ...updatedRule, bounce_action: value },
     });
   }
 
@@ -303,6 +312,7 @@ export default class BounceDetailsPage extends React.Component {
               handleRevertConfirm={this.handleRevertConfirm}
               onChangeRevert={this.onChangeRevert}
               filteredChangelog={filteredChangelog}
+              handleDropdownSelect={this.handleDropdownSelect}
               {...this.state}
             />
           )}
