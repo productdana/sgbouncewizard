@@ -1,3 +1,4 @@
+import _ from "underscore";
 import Page from "../page";
 import { Selectors } from "../../../src/components/BounceDetailsContainer/selectors";
 
@@ -83,7 +84,7 @@ class BounceRuleDetailedPage extends Page {
   }
 
   open(ruleId) {
-    super.open(`/bounce_rules/${ruleId}`);
+    return super.open(`/bounce_rules/${ruleId}`);
   }
 
   createTestRuleAPI(testRule) {
@@ -103,6 +104,9 @@ class BounceRuleDetailedPage extends Page {
       updatedRegex,
       updatedCommit,
     } = bounceRuleChange;
+
+    cy.server();
+    cy.route("PUT", "/bounce_rules/*").as("editBounceRule");
 
     this.editButton.click();
     if (updatedDescription) {
@@ -128,22 +132,24 @@ class BounceRuleDetailedPage extends Page {
       this.commitInput.clear().type(updatedCommit);
     }
 
-    return this.confirmSubmit.click();
+    this.confirmSubmit.click();
+    return cy.wait("@editBounceRule", { timeout: 10000 });
   }
 
   teardownBounceRule(rule) {
     return cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
       if (res) {
-        const isMatchingBounceRule = res.find(
-          bounceRule => rule.bounce_action === bounceRule.bounce_action
+        const ruleIndex = _.findLastIndex(
+          res,
+          _.omit(rule, ["id", "created_at", "operation", "user_id", "comment"])
         );
-        if (isMatchingBounceRule) {
+        if (ruleIndex !== -1) {
           return cy.task("deleteRule", {
             env: Cypress.env("testEnv"),
-            data: isMatchingBounceRule,
+            data: res[ruleIndex],
           });
         }
-        return true;
+        return false;
       }
       return false;
     });

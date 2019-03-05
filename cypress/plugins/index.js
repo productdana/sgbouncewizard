@@ -44,5 +44,10 @@ module.exports = on => {
         .get(`${environmentAPI[taskData.env]}bounce_rules/`)
         .then(res => res.data)
         .catch(() => false),
+    getActivities: taskData =>
+      axios
+        .get(`${environmentAPI[taskData.env]}change_logs/`)
+        .then(res => res.data)
+        .catch(() => false),
   });
 };

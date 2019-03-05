@@ -420,7 +420,7 @@ exports[`should render correctly 1`] = `
           </thead>
           <tbody>
             <tr
-              data-cypress="no MX record for domain"
+              data-id={504}
             >
               <td>
                 504
@@ -457,7 +457,7 @@ exports[`should render correctly 1`] = `
                     />
                   </span>
                   <span
-                    data-rule={504}
+                    data-delete={504}
                     data-tooltip="Delete"
                     data-tooltip-pos="up"
                     id="isDeleteConfirmationOpen"

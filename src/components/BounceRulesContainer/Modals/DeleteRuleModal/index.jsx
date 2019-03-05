@@ -117,7 +117,7 @@ const DeleteConfirmationModal = ({
       />
 )}
   />
-  );
+);
 
 export { DeleteConfirmationAlert };
 export default DeleteConfirmationModal;

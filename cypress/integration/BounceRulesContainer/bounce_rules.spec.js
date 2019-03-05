@@ -1,25 +1,22 @@
 import BounceRulesPage from "../../Pages/BounceRulesContainer";
 
-const commitMessage = "a test commit message";
-
 const testDeleteRule = {
   priority: 1,
   bounce_action: "no_action",
   response_code: 528,
-  description: "testDescription",
+  description: "bounce_rules_description_delete",
   enhanced_code: "492",
-  regex: "testDelete",
-  user_id: 0,
+  regex: "bounce_rules_regex_delete",
 };
 
 const testCreateRule = {
   priority: 2,
   bounce_action: "no_action",
   response_code: 918,
-  description: "testDescription",
+  description: "bounce_rules_description_create",
   enhanced_code: "492",
-  regex: "testCreate",
-  comment: "init commit test",
+  regex: "bounce_rules_regex_create",
+  comment: "bounce_rules_comment_create",
 };
 
 describe("Bounce Rules Page", () => {
@@ -37,11 +34,12 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should create a bounce rule", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
-      BounceRulesPage.open();
-      BounceRulesPage.createBounceRuleUI(testCreateRule);
-      BounceRulesPage.testBounceRuleToCreate.should("be.visible");
-    });
+    BounceRulesPage.deleteBounceRuleAPI(testCreateRule)
+      .then(() => BounceRulesPage.open())
+      .then(() => BounceRulesPage.createBounceRuleUI(testCreateRule))
+      .then(() =>
+        BounceRulesPage.createdBounceRule(testCreateRule).should("be.visible")
+      );
   });
 
   it("should cancel creating a bounce rule before submitting", () => {
@@ -53,27 +51,25 @@ describe("Bounce Rules Page", () => {
     });
   });
 
-  it("should delete a bounce rule", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testDeleteRule).then(() => {
-      BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(() => {
-        BounceRulesPage.open();
-        BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
-        BounceRulesPage.fillCommitUI(commitMessage);
-        BounceRulesPage.deleteConfirmationConfirm.click();
-        BounceRulesPage.testBounceRuleToDelete.should("not.be.visible");
-      });
+  it("should cancel creating a bounce rule after submitting", () => {
+    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
+      BounceRulesPage.open();
+      BounceRulesPage.createRuleButton.click();
+      BounceRulesPage.fillCreateRuleForm(testCreateRule);
+      BounceRulesPage.cancelCreateConfirmationSubmit.click();
+      BounceRulesPage.confirmModal.should("not.be.visible");
     });
   });
 
-  it("should be disabled if commit is empty", () => {
+  it("should delete a bounce rule", () => {
     BounceRulesPage.deleteBounceRuleAPI(testDeleteRule)
-      .wait(1000)
-      .then(() => {
-        BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(() => {
-          BounceRulesPage.open();
-          BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
-          BounceRulesPage.deleteConfirmationConfirm.should("be.disabled");
-        });
-      });
+      .then(() => BounceRulesPage.createBounceRuleAPI(testDeleteRule))
+      .then(() => BounceRulesPage.open())
+      .then(() => BounceRulesPage.deleteBounceRuleUI(testDeleteRule))
+      .then(() =>
+        BounceRulesPage.createdBounceRule(testDeleteRule).should(
+          "not.be.visible"
+        )
+      );
   });
 });

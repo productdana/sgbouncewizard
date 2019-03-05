@@ -40,10 +40,9 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
     bounce_action: bounceAction,
     response_code: responseCode,
     description,
-    regex,
   } = rule;
   return (
-    <TableRow data-cypress={regex}>
+    <TableRow data-id={id}>
       <TableCell>{shouldDisplay(id)}</TableCell>
       <TableCell>{shouldDisplay(bounceAction)}</TableCell>
       <TableCell>{shouldDisplay(responseCode)}</TableCell>
@@ -60,7 +59,7 @@ const BounceRuleMin = ({ rule, handleActionOpen }) => {
           title="Delete"
           onClick={handleActionOpen}
           rule={id}
-          data-rule={id}
+          data-delete={id}
           id="isDeleteConfirmationOpen"
           icon="trash"
         />
