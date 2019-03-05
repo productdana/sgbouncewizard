@@ -4,6 +4,10 @@ import BounceRulesContainer from "../components/BounceRulesContainer";
 import { listRules, deleteRule, postRule } from "../utils/ruleCalls";
 
 export default class BounceRulesPage extends React.Component {
+  static validateCommit(commit) {
+    return commit.length !== 0;
+  }
+
   constructor(props) {
     super(props);
 
@@ -27,8 +31,7 @@ export default class BounceRulesPage extends React.Component {
       isCreateRuleConfirmationOpen: false,
       newRule: {},
       isInvalidInput: false,
-      isCommitEmpty: false,
-      isCommitDisabled: true,
+      isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -51,6 +54,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
     this.handleCreateCommit = this.handleCreateCommit.bind(this);
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
+    this.validateCommit = this.validateCommit.bind(this);
   }
 
   async componentDidMount() {
@@ -201,7 +205,6 @@ export default class BounceRulesPage extends React.Component {
     this.setState({
       [id]: false,
       isInvalidInput: false,
-      isCommitDisabled: true,
       selectedRule: {},
       newRule: null,
     });
@@ -285,38 +288,20 @@ export default class BounceRulesPage extends React.Component {
   handleDeleteCommit(e) {
     const { value, id } = e.currentTarget;
     const { selectedRule } = this.state;
-    if (value.length === 0) {
-      this.setState({
-        isCommitEmpty: true,
-        isCommitDisabled: true,
-      });
-    } else {
-      this.setState({
-        isCommitEmpty: false,
-        isCommitDisabled: false,
-      });
-    }
+    const isCommitValid = this.validateCommit(value);
     this.setState({
       selectedRule: { ...selectedRule, [id]: value },
+      isCommitValid,
     });
   }
 
   handleCreateCommit(e) {
     const { value, id } = e.currentTarget;
     const { newRule } = this.state;
-    if (value.length === 0) {
-      this.setState({
-        isCommitEmpty: true,
-        isCommitDisabled: true,
-      });
-    } else {
-      this.setState({
-        isCommitEmpty: false,
-        isCommitDisabled: false,
-      });
-    }
+    const isCommitValid = this.validateCommit(value);
     this.setState({
       newRule: { ...newRule, [id]: value },
+      isCommitValid,
     });
   }
 

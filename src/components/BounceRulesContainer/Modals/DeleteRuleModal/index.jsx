@@ -7,6 +7,9 @@ import { Row } from "../../../Row";
 import "./index.scss";
 import { WriteSelectors } from "../../selectors";
 
+const isSubmitDisabled = (isCommitValid, comment) =>
+  !isCommitValid || comment === undefined || comment === "";
+
 const DeleteAlertBody = () => (
   <div>
     <Row>
@@ -39,58 +42,60 @@ const ConfirmModalBody = ({
   handleModalClose,
   handleDeleteConfirm,
   handleDeleteCommit,
-  isCommitEmpty,
-  isCommitDisabled,
-}) => (
-  <div>
-    <Row>
-      <Column>
-        <div>
-          <h2>Are you sure you&apos;d like to delete this rule?</h2>
-          <p>
-            Doing so will effect how current email will be handled via this
-            bounce rule. This action will go into effect immediately.
-          </p>
-          <p>Please enter a commit message and confirm your changes.</p>
-          <TextInput
-            {...WriteSelectors.commitMessage}
-            onChange={handleDeleteCommit}
-            value={selectedRule.comment}
-            isRequired
-            isValid={!isCommitEmpty}
-            info={isCommitEmpty && "This field is required."}
-            id="comment"
-            type="text"
-            label="Commit Message"
-          />
-        </div>
-      </Column>
-    </Row>
-    <Row>
-      <Column width={1} offset={10}>
-        <Button
-          className="sg-button"
-          onClick={handleModalClose}
-          id="isDeleteConfirmationOpen"
-          type="secondary"
-        >
-          Close
-        </Button>
-      </Column>
-      <Column width={1} offset={11}>
-        <Button
-          {...WriteSelectors.deleteConfirmationConfirm}
-          className="sg-button"
-          onClick={handleDeleteConfirm}
-          disabled={isCommitDisabled}
-          type="primary"
-        >
-          Confirm
-        </Button>
-      </Column>
-    </Row>
-  </div>
-);
+  isCommitValid,
+}) => {
+  const { comment } = selectedRule;
+  return (
+    <div>
+      <Row>
+        <Column>
+          <div>
+            <h2>Are you sure you&apos;d like to delete this rule?</h2>
+            <p>
+              Doing so will effect how current email will be handled via this
+              bounce rule. This action will go into effect immediately.
+            </p>
+            <p>Please enter a commit message and confirm your changes.</p>
+            <TextInput
+              {...WriteSelectors.commitMessage}
+              onChange={handleDeleteCommit}
+              value={comment}
+              isRequired
+              isValid={isCommitValid}
+              info={!isCommitValid && "This field is required."}
+              id="comment"
+              type="text"
+              label="Commit Message"
+            />
+          </div>
+        </Column>
+      </Row>
+      <Row>
+        <Column width={1} offset={10}>
+          <Button
+            className="sg-button"
+            onClick={handleModalClose}
+            id="isDeleteConfirmationOpen"
+            type="secondary"
+          >
+            Close
+          </Button>
+        </Column>
+        <Column width={1} offset={11}>
+          <Button
+            {...WriteSelectors.deleteConfirmationConfirm}
+            className="sg-button"
+            onClick={handleDeleteConfirm}
+            disabled={isSubmitDisabled(isCommitValid, comment)}
+            type="primary"
+          >
+            Confirm
+          </Button>
+        </Column>
+      </Row>
+    </div>
+  );
+};
 
 const DeleteConfirmationModal = ({
   selectedRule,
@@ -98,8 +103,7 @@ const DeleteConfirmationModal = ({
   handleDeleteConfirm,
   idToDelete,
   handleDeleteCommit,
-  isCommitEmpty,
-  isCommitDisabled,
+  isCommitValid,
 }) => (
   <CenterModal
     {...WriteSelectors.deleteConfirmation}
@@ -108,8 +112,7 @@ const DeleteConfirmationModal = ({
     renderBody={(
       <ConfirmModalBody
         selectedRule={selectedRule}
-        isCommitEmpty={isCommitEmpty}
-        isCommitDisabled={isCommitDisabled}
+        isCommitValid={isCommitValid}
         handleModalClose={handleModalClose}
         handleDeleteConfirm={handleDeleteConfirm}
         idToDelete={idToDelete}

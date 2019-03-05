@@ -5,6 +5,10 @@ import BounceDetailsContainer from "../components/BounceDetailsContainer";
 import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
 
 export default class BounceDetailsPage extends React.Component {
+  static validateCommit(commit) {
+    return commit.length !== 0;
+  }
+
   constructor(props) {
     super(props);
 
@@ -22,8 +26,7 @@ export default class BounceDetailsPage extends React.Component {
       pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
-      isCommitEmpty: false,
-      isCommitDisabled: true,
+      isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -35,13 +38,14 @@ export default class BounceDetailsPage extends React.Component {
     this.handleSaveConfirmation = this.handleSaveConfirmation.bind(this);
     this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
     this.handleRevertConfirm = this.handleRevertConfirm.bind(this);
-    this.onChangeRuleRevert = this.onChangeRuleRevert.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
     this.handleRevertClicked = this.handleRevertClicked.bind(this);
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
     this.onEditRuleCommit = this.onEditRuleCommit.bind(this);
+    this.onRevertCommit = this.onRevertCommit.bind(this);
+    this.validateCommit = this.validateCommit.bind(this);
   }
 
   async componentDidMount() {
@@ -89,37 +93,19 @@ export default class BounceDetailsPage extends React.Component {
   onEditRuleCommit(e) {
     const { updatedRule } = this.state;
     const { id, value } = e.currentTarget;
-    if (value.length === 0) {
-      this.setState({
-        isCommitEmpty: true,
-        isCommitDisabled: true,
-      });
-    } else {
-      this.setState({
-        isCommitEmpty: false,
-        isCommitDisabled: false,
-      });
-    }
+    const isCommitValid = this.validateCommit(value);
     this.setState({
       updatedRule: { ...updatedRule, [id]: value },
+      isCommitValid,
     });
   }
 
-  onChangeRuleRevert(e) {
+  onRevertCommit(e) {
     const { value } = e.currentTarget;
-    if (value.length === 0) {
-      this.setState({
-        isCommitEmpty: true,
-        isCommitDisabled: true,
-      });
-    } else {
-      this.setState({
-        isCommitEmpty: false,
-        isCommitDisabled: false,
-      });
-    }
+    const isCommitValid = this.validateCommit(value);
     this.setState({
       newCommitMessage: value,
+      isCommitValid,
     });
   }
 
@@ -143,8 +129,6 @@ export default class BounceDetailsPage extends React.Component {
       [id]: false,
       selectedChange: null,
       newCommitMessage: "",
-      isCommitEmpty: false,
-      isCommitDisabled: true,
     });
   }
 
@@ -312,7 +296,7 @@ export default class BounceDetailsPage extends React.Component {
               onChangeRuleInt={this.onChangeRuleInt}
               updatePageIndex={this.updatePageIndex}
               handleRevertClicked={this.handleRevertClicked}
-              onChangeRuleRevert={this.onChangeRuleRevert}
+              onRevertCommit={this.onRevertCommit}
               handleRevertConfirm={this.handleRevertConfirm}
               filteredChangelog={filteredChangelog}
               handleDropdownSelect={this.handleDropdownSelect}

@@ -5,13 +5,15 @@ import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 
+const isSubmitDisabled = (isCommitValid, comment) =>
+  !isCommitValid || comment === undefined || comment === "";
+
 const ConfirmRevertBody = ({
   handleModalClose,
   handleRevertConfirm,
-  onChangeRuleRevert,
+  onRevertCommit,
   newCommitMessage,
-  isCommitEmpty,
-  isCommitDisabled,
+  isCommitValid,
 }) => (
   <div>
     <Row>
@@ -24,11 +26,11 @@ const ConfirmRevertBody = ({
           </p>
         </div>
         <TextInput
-          onChange={onChangeRuleRevert}
+          onChange={onRevertCommit}
           value={newCommitMessage}
           isRequired
-          isValid={!isCommitEmpty}
-          info={isCommitEmpty && "This field is required."}
+          isValid={isCommitValid}
+          info={!isCommitValid && "This field is required."}
           id="comment"
           type="text"
           label="Commit Message"
@@ -50,7 +52,7 @@ const ConfirmRevertBody = ({
         <Button
           className="sg-button"
           onClick={handleRevertConfirm}
-          disabled={isCommitDisabled}
+          disabled={isSubmitDisabled(isCommitValid, newCommitMessage)}
           type="primary"
         >
           Confirm
@@ -64,10 +66,9 @@ const RevertConfirmationModal = ({
   handleModalClose,
   handleRevertConfirm,
   selectedChange,
-  onChangeRuleRevert,
+  onRevertCommit,
   newCommitMessage,
-  isCommitEmpty,
-  isCommitDisabled,
+  isCommitValid,
 }) => (
   <CenterModal
     open
@@ -75,14 +76,13 @@ const RevertConfirmationModal = ({
       <ConfirmRevertBody
         handleModalClose={handleModalClose}
         handleRevertConfirm={handleRevertConfirm}
-        onChangeRuleRevert={onChangeRuleRevert}
+        onRevertCommit={onRevertCommit}
         selectedChange={selectedChange}
         newCommitMessage={newCommitMessage}
-        isCommitEmpty={isCommitEmpty}
-        isCommitDisabled={isCommitDisabled}
+        isCommitValid={isCommitValid}
       />
 )}
   />
-  );
+);
 
 export default RevertConfirmationModal;

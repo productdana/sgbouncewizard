@@ -65,8 +65,7 @@ const BounceRulesContainer = ({
   handleDeleteCommit,
   handleCreateCommit,
   handleDropdownSelect,
-  isCommitEmpty,
-  isCommitDisabled,
+  isCommitValid,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const shouldShowBounceRulePagination =
@@ -187,8 +186,7 @@ const BounceRulesContainer = ({
           <CreateConfirmationModal
             {...WriteSelectors.confirmModal}
             newRule={newRule}
-            isCommitEmpty={isCommitEmpty}
-            isCommitDisabled={isCommitDisabled}
+            isCommitValid={isCommitValid}
             handleModalClose={handleModalClose}
             handleCreateConfirm={handleCreateConfirm}
             handleRuleUpdate={handleRuleUpdate}
@@ -202,8 +200,7 @@ const BounceRulesContainer = ({
             handleDeleteConfirm={handleDeleteConfirm}
             handleDeleteCommit={handleDeleteCommit}
             selectedRule={selectedRule}
-            isCommitEmpty={isCommitEmpty}
-            isCommitDisabled={isCommitDisabled}
+            isCommitValid={isCommitValid}
           />
         )}
         {isDeleteAlertOpen && (

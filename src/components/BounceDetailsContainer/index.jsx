@@ -37,7 +37,7 @@ const BounceRuleDetailed = ({
   handleCancelConfirmation,
   handleSaveConfirmation,
   handleRevertConfirm,
-  onChangeRuleRevert,
+  onRevertCommit,
   newCommitMessage,
   onChangeRuleInt,
   pagesToDisplay,
@@ -48,8 +48,7 @@ const BounceRuleDetailed = ({
   filteredChangelog,
   logout,
   handleDropdownSelect,
-  isCommitEmpty,
-  isCommitDisabled,
+  isCommitValid,
   onEditRuleCommit,
 }) => {
   const { id } = currentRule;
@@ -168,21 +167,19 @@ const BounceRuleDetailed = ({
       )}
       {isRevertConfirmOpen && (
         <RevertConfirmationModal
-          isCommitEmpty={isCommitEmpty}
-          isCommitDisabled={isCommitDisabled}
+          isCommitValid={isCommitValid}
           currentRule={currentRule}
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
           handleRevertConfirm={handleRevertConfirm}
-          onChangeRuleRevert={onChangeRuleRevert}
+          onRevertCommit={onRevertCommit}
           newCommitMessage={newCommitMessage}
         />
       )}
       {isConfirmOpen && (
         <ConfirmationModal
           {...WriteSelectors.saveConfirmationModal}
-          isCommitEmpty={isCommitEmpty}
-          isCommitDisabled={isCommitDisabled}
+          isCommitValid={isCommitValid}
           onEditRuleCommit={onEditRuleCommit}
           updatedRule={updatedRule}
           handleModalClose={handleModalClose}

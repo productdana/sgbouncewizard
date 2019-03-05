@@ -11,13 +11,16 @@ import { Column } from "../../../Column";
 import "./index.scss";
 import { WriteSelectors } from "../../selectors";
 
+const isSubmitDisabled = (isCommitValid, comment) =>
+  !isCommitValid || comment === undefined || comment === "";
+
 const ConfirmationHeader = () => (
   <div>
     <h2>Are you sure you&apos;d like to create this rule?</h2>
   </div>
 );
 
-const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitEmpty }) => {
+const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitValid }) => {
   const { comment } = newRule;
   return (
     <div {...WriteSelectors.confirmModal}>
@@ -27,8 +30,8 @@ const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitEmpty }) => {
         onChange={handleCreateCommit}
         value={comment}
         isRequired
-        isValid={!isCommitEmpty}
-        info={isCommitEmpty && "This field is required."}
+        isValid={isCommitValid}
+        info={!isCommitValid && "This field is required."}
         id="comment"
         type="text"
         label="Commit Message"
@@ -40,7 +43,8 @@ const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitEmpty }) => {
 const ConfirmationFooter = ({
   handleModalClose,
   handleCreateConfirm,
-  isCommitDisabled,
+  isCommitValid,
+  comment,
 }) => (
   <div>
     <Row>
@@ -60,7 +64,7 @@ const ConfirmationFooter = ({
           className="sg-button"
           {...WriteSelectors.confirmationSubmit}
           onClick={handleCreateConfirm}
-          disabled={isCommitDisabled}
+          disabled={isSubmitDisabled(isCommitValid, comment)}
           type="primary"
         >
           Confirm
@@ -76,31 +80,34 @@ const CreateConfirmationModal = ({
   handleCreateConfirm,
   handleRuleUpdate,
   handleCreateCommit,
-  isCommitEmpty,
-  isCommitDisabled,
-}) => (
-  <CenterModal
-    {...WriteSelectors.confirmModal}
-    open
-    renderBody={(
-      <ConfirmationBody
-        isCommitEmpty={isCommitEmpty}
-        newRule={newRule}
-        handleRuleUpdate={handleRuleUpdate}
-        handleCreateCommit={handleCreateCommit}
-      />
+  isCommitValid,
+}) => {
+  const { comment } = newRule;
+  return (
+    <CenterModal
+      {...WriteSelectors.confirmModal}
+      open
+      renderBody={(
+        <ConfirmationBody
+          isCommitValid={isCommitValid}
+          newRule={newRule}
+          handleRuleUpdate={handleRuleUpdate}
+          handleCreateCommit={handleCreateCommit}
+        />
 )}
-    renderHeader={<ConfirmationHeader />}
-    renderFooter={(
-      <ConfirmationFooter
-        isCommitDisabled={isCommitDisabled}
-        handleModalClose={handleModalClose}
-        handleCreateConfirm={handleCreateConfirm}
-        handleRuleUpdate={handleRuleUpdate}
-      />
+      renderHeader={<ConfirmationHeader />}
+      renderFooter={(
+        <ConfirmationFooter
+          comment={comment}
+          isCommitValid={isCommitValid}
+          handleModalClose={handleModalClose}
+          handleCreateConfirm={handleCreateConfirm}
+          handleRuleUpdate={handleRuleUpdate}
+        />
 )}
-  />
+    />
   );
+};
 
 const CreateRuleModal = ({
   handleRuleUpdate,
