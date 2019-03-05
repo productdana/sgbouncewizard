@@ -6,6 +6,9 @@ import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 import { WriteSelectors } from "../../selectors";
 
+const isSubmitDisabled = (isCommitValid, comment) =>
+  !isCommitValid || comment === undefined || comment === "";
+
 const UpdateAlertError = ({ handleModalClose }) => (
   <div {...WriteSelectors.networkErrorAlert} className="alert alert-danger">
     <p>
@@ -28,8 +31,9 @@ const ConfirmModalBody = ({
   updatedRule,
   handleModalClose,
   handleSaveConfirmation,
-  onChangeRule,
   isUpdateError,
+  isCommitValid,
+  onEditRuleCommit,
 }) => {
   const { comment } = updatedRule;
   return (
@@ -47,8 +51,11 @@ const ConfirmModalBody = ({
             </p>
             <TextInput
               {...WriteSelectors.commitInput}
-              onChange={onChangeRule}
+              onChange={onEditRuleCommit}
               value={comment}
+              isRequired
+              isValid={isCommitValid}
+              info={!isCommitValid && "This field is required."}
               id="comment"
               type="text"
               label="Commit Message"
@@ -72,6 +79,7 @@ const ConfirmModalBody = ({
             {...WriteSelectors.confirmSubmit}
             className="sg-button"
             onClick={handleSaveConfirmation}
+            disabled={isSubmitDisabled(isCommitValid, comment)}
             type="primary"
           >
             Confirm
@@ -86,18 +94,20 @@ const ConfirmationModal = ({
   updatedRule,
   handleModalClose,
   handleSaveConfirmation,
-  onChangeRule,
   isUpdateError,
+  isCommitValid,
+  onEditRuleCommit,
 }) => (
   <CenterModal
     {...WriteSelectors.saveConfirmationModal}
     open
     renderBody={(
       <ConfirmModalBody
+        onEditRuleCommit={onEditRuleCommit}
+        isCommitValid={isCommitValid}
         updatedRule={updatedRule}
         handleModalClose={handleModalClose}
         handleSaveConfirmation={handleSaveConfirmation}
-        onChangeRule={onChangeRule}
         isUpdateError={isUpdateError}
       />
 )}

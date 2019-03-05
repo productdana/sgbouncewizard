@@ -29,30 +29,27 @@ let ruleId;
 
 describe("Bounce Rule Detailed", () => {
   before(() => {
-    BounceRuleDetailedPage.teardownBounceRule(newRule).then(() => {
-      BounceRuleDetailedPage.teardownBounceRule(testCreateRule)
-        .then(isTearDownSuccess => {
-          if (isTearDownSuccess) {
-            cy.wait(1000);
-            return cy.log("Successfully tore down the bounce rule!");
-          }
-          return cy.log("Failed to tear down test bounce rule!");
-        })
-        .then(() => BounceRuleDetailedPage.createTestRuleAPI(testCreateRule))
-        .then(createdRule => {
-          if (createdRule) {
-            cy.log(
-              `Successfully created test bounce rule with rule ID ${
-                createdRule.id
-              }!`
-            );
-            ruleId = createdRule.id;
-          } else {
-            cy.log("Failed to create test bounce rule!");
-            ruleId = createdRule.id;
-          }
-        });
-    });
+    BounceRuleDetailedPage.teardownBounceRule(newRule)
+      .then(() => BounceRuleDetailedPage.teardownBounceRule(testCreateRule))
+      .then(isTearDownSuccess => {
+        if (isTearDownSuccess) {
+          cy.wait(2000);
+          return cy.log("Successfully tore down the bounce rule!");
+        }
+        return cy.log("Failed to tear down test bounce rule!");
+      })
+      .then(() => BounceRuleDetailedPage.createTestRuleAPI(testCreateRule))
+      .then(createdRule => {
+        if (createdRule) {
+          cy.log(
+            `Succesfully created test bounce rule with ID ${createdRule.id}`
+          );
+          ruleId = createdRule.id;
+        } else {
+          cy.log("Failed to create test bounce rule!");
+          ruleId = createdRule.id;
+        }
+      });
   });
 
   beforeEach(() => {

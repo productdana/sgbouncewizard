@@ -84,7 +84,7 @@ class BounceRuleDetailedPage extends Page {
   }
 
   open(ruleId) {
-    super.open(`/bounce_rules/${ruleId}`);
+    return super.open(`/bounce_rules/${ruleId}`);
   }
 
   createTestRuleAPI(testRule) {
@@ -104,6 +104,9 @@ class BounceRuleDetailedPage extends Page {
       updatedRegex,
       updatedCommit,
     } = bounceRuleChange;
+
+    cy.server();
+    cy.route("PUT", "/bounce_rules/*").as("editBounceRule");
 
     this.editButton.click();
     if (updatedDescription) {
@@ -129,7 +132,8 @@ class BounceRuleDetailedPage extends Page {
       this.commitInput.clear().type(updatedCommit);
     }
 
-    return this.confirmSubmit.click();
+    this.confirmSubmit.click();
+    return cy.wait("@editBounceRule", { timeout: 10000 });
   }
 
   teardownBounceRule(rule) {

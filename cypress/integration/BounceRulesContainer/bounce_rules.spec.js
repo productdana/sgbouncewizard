@@ -34,11 +34,12 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should create a bounce rule", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
-      BounceRulesPage.open();
-      BounceRulesPage.createBounceRuleUI(testCreateRule);
-      BounceRulesPage.createdBounceRule(testCreateRule).should("be.visible");
-    });
+    BounceRulesPage.deleteBounceRuleAPI(testCreateRule)
+      .then(() => BounceRulesPage.open())
+      .then(() => BounceRulesPage.createBounceRuleUI(testCreateRule))
+      .then(() =>
+        BounceRulesPage.createdBounceRule(testCreateRule).should("be.visible")
+      );
   });
 
   it("should cancel creating a bounce rule before submitting", () => {
@@ -61,14 +62,14 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should delete a bounce rule", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testDeleteRule).then(() => {
-      BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(() => {
-        BounceRulesPage.open();
-        BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
+    BounceRulesPage.deleteBounceRuleAPI(testDeleteRule)
+      .then(() => BounceRulesPage.createBounceRuleAPI(testDeleteRule))
+      .then(() => BounceRulesPage.open())
+      .then(() => BounceRulesPage.deleteBounceRuleUI(testDeleteRule))
+      .then(() =>
         BounceRulesPage.createdBounceRule(testDeleteRule).should(
           "not.be.visible"
-        );
-      });
-    });
+        )
+      );
   });
 });

@@ -45,7 +45,7 @@ class ActivityLogPage extends Page {
   }
 
   open() {
-    super.open("/activity_log");
+    return super.open("/activity_log");
   }
 }
 
