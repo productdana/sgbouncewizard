@@ -85,16 +85,6 @@ const BounceActivityContainer = ({
         </Row>
         <Row>
           <Column width={10} offset={2}>
-            <Tabs className="page-tab" onChange={() => {}}>
-              <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
-              <Tab onClick={handleActivityTabClicked} active>
-                Activity Log
-              </Tab>
-            </Tabs>
-          </Column>
-        </Row>
-        <Row>
-          <Column width={10} offset={2}>
             <div {...WriteSelectors.activityFilter}>
               <ActivityFilter
                 searchToken={searchToken}
