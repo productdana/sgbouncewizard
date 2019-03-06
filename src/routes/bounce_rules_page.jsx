@@ -4,6 +4,10 @@ import BounceRulesContainer from "../components/BounceRulesContainer";
 import { listRules, deleteRule, postRule } from "../utils/ruleCalls";
 
 export default class BounceRulesPage extends React.Component {
+  static validateCommit(commit) {
+    return commit.length !== 0;
+  }
+
   constructor(props) {
     super(props);
 
@@ -28,6 +32,7 @@ export default class BounceRulesPage extends React.Component {
       newRule: {},
       isInvalidInput: false,
       isNetworkError: false,
+      isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -48,6 +53,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleActivityTabClicked = this.handleActivityTabClicked.bind(this);
     this.handleBounceTabClicked = this.handleBounceTabClicked.bind(this);
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
+    this.handleCreateCommit = this.handleCreateCommit.bind(this);
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
   }
 
@@ -207,6 +213,7 @@ export default class BounceRulesPage extends React.Component {
       isInvalidInput: false,
       selectedRule: {},
       newRule: null,
+      isCommitValid: true,
     });
   }
 
@@ -274,7 +281,6 @@ export default class BounceRulesPage extends React.Component {
   handleRuleUpdate(e) {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
-
     this.setState({
       newRule: { ...newRule, [id]: value },
     });
@@ -297,8 +303,20 @@ export default class BounceRulesPage extends React.Component {
   handleDeleteCommit(e) {
     const { value, id } = e.currentTarget;
     const { selectedRule } = this.state;
+    const isCommitValid = BounceRulesPage.validateCommit(value);
     this.setState({
       selectedRule: { ...selectedRule, [id]: value },
+      isCommitValid,
+    });
+  }
+
+  handleCreateCommit(e) {
+    const { value, id } = e.currentTarget;
+    const { newRule } = this.state;
+    const isCommitValid = BounceRulesPage.validateCommit(value);
+    this.setState({
+      newRule: { ...newRule, [id]: value },
+      isCommitValid,
     });
   }
 
@@ -390,6 +408,7 @@ export default class BounceRulesPage extends React.Component {
             handleActivityTabClicked={this.handleActivityTabClicked}
             handleBounceTabClicked={this.handleBounceTabClicked}
             handleDeleteCommit={this.handleDeleteCommit}
+            handleCreateCommit={this.handleCreateCommit}
             handleDropdownSelect={this.handleDropdownSelect}
             {...this.state}
           />

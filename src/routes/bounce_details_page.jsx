@@ -5,6 +5,10 @@ import BounceDetailsContainer from "../components/BounceDetailsContainer";
 import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
 
 export default class BounceDetailsPage extends React.Component {
+  static validateCommit(commit) {
+    return commit.length !== 0;
+  }
+
   constructor(props) {
     super(props);
 
@@ -22,6 +26,7 @@ export default class BounceDetailsPage extends React.Component {
       pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
+      isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -94,8 +99,10 @@ export default class BounceDetailsPage extends React.Component {
   onChangeRevert(e) {
     const { id, value } = e.currentTarget;
     const { selectedChange } = this.state;
+    const isCommitValid = BounceDetailsPage.validateCommit(value);
     this.setState({
       selectedChange: { ...selectedChange, [id]: value },
+      isCommitValid,
     });
   }
 
@@ -118,6 +125,7 @@ export default class BounceDetailsPage extends React.Component {
     this.setState({
       [id]: false,
       selectedChange: null,
+      isCommitValid: true,
     });
   }
 
@@ -130,6 +138,7 @@ export default class BounceDetailsPage extends React.Component {
     this.setState({
       [id]: false,
       selectedChange: oldSelectedChange,
+      isCommitValid: true,
     });
   }
 

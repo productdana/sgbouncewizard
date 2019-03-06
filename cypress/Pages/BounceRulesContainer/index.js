@@ -92,21 +92,23 @@ class BounceRulesPage extends Page {
   }
 
   open() {
-    super.open("/bounce_rules");
+    return super.open("/bounce_rules");
   }
 
   createdBounceRule(testRule) {
     return cy
       .task("getRules", { env: Cypress.env("testEnv") })
-      .then(
-        res =>
-          res[
-            _.findLastIndex(
-              res,
-              _.omit(testRule, ["id", "created_at", "user_id", "comment"])
+      .then(res => {
+        if (res) {
+          return res.find(bounceRule =>
+            _.isEqual(
+              _.omit(testRule, "comment"),
+              _.omit(bounceRule, ["id", "created_at"])
             )
-          ]
-      )
+          );
+        }
+        return false;
+      })
       .then(rule => {
         if (rule) {
           return cy.get(`[data-id="${rule.id}"]`);
@@ -122,9 +124,13 @@ class BounceRulesPage extends Page {
         _.omit(testRule, ["id", "created_at", "user_id", "comment"])
       );
       if (ruleToFind) {
+        cy.server();
+        cy.route("DELETE", "/bounce_rules/*").as("deleteBounceRule");
+
         cy.get(`[data-delete="${res[ruleToFind].id}"]`).click();
         this.commitMessage.clear().type("Deleted This Rule For Testing");
-        return this.deleteConfirmationConfirm.click();
+        this.deleteConfirmationConfirm.click();
+        return cy.wait("@deleteBounceRule", { timeout: 10000 });
       }
       return false;
     });
@@ -136,15 +142,19 @@ class BounceRulesPage extends Page {
       .then(res => {
         if (res) {
           const isMatchingBounceRule = res.find(bounceRule =>
-            _.isEqual(testRule, _.omit(bounceRule, "id"))
+            _.isEqual(
+              _.omit(testRule, "comment"),
+              _.omit(bounceRule, ["id", "created_at"])
+            )
           );
+
           if (isMatchingBounceRule) {
             return cy.task("deleteRule", {
               env: Cypress.env("testEnv"),
               data: isMatchingBounceRule,
             });
           }
-          return true;
+          return false;
         }
         return false;
       })
@@ -216,6 +226,9 @@ class BounceRulesPage extends Page {
       comment,
     } = bounceRule;
 
+    cy.server();
+    cy.route("POST", "/bounce_rules").as("addBounceRule");
+
     this.createRuleButton.click();
 
     if (priority) {
@@ -245,7 +258,9 @@ class BounceRulesPage extends Page {
       this.commitMessage.clear().type(comment);
     }
 
-    return this.confirmationSubmit.click();
+    this.confirmationSubmit.click();
+
+    return cy.wait("@addBounceRule", { timeout: 10000 });
   }
 }
 

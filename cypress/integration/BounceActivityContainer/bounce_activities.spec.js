@@ -8,6 +8,7 @@ const testCreateRule = {
   description: "test_from_bounce_activities_test",
   enhanced_code: "001",
   regex: "regex_from_bounce_activities_test",
+  comment: "commit_from_bounce_activities_test_create",
 };
 
 const testDeleteRule = {
@@ -17,6 +18,7 @@ const testDeleteRule = {
   description: "test_from_bounce_activities_test_delete",
   enhanced_code: "002",
   regex: "regex_from_bounce_activities_test_delete",
+  comment: "commit_from_bounce_activities_test_delete",
 };
 
 describe("Bounce Activity Page", () => {
@@ -33,21 +35,23 @@ describe("Bounce Activity Page", () => {
   });
 
   it("should display new actvity after it was created", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
-      BounceRulesPage.createBounceRuleUI(testCreateRule);
-      BounceActivityPage.open();
-      BounceActivityPage.bounceActivity(testCreateRule).should("be.visible");
-    });
+    BounceRulesPage.deleteBounceRuleAPI(testCreateRule)
+      .then(() => BounceRulesPage.createBounceRuleUI(testCreateRule))
+      .then(() => BounceActivityPage.open())
+      .then(() =>
+        BounceActivityPage.bounceActivity(testCreateRule).should("be.visible")
+      );
   });
 
   it("should display new actvity after it was deleted", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testDeleteRule).then(() => {
-      BounceRulesPage.createBounceRuleUI(testDeleteRule);
-      BounceRulesPage.createdBounceRule(testDeleteRule).then(() => {
-        BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
-        BounceActivityPage.open();
-        BounceActivityPage.bounceActivity(testDeleteRule).should("be.visible");
-      });
-    });
+    BounceRulesPage.deleteBounceRuleAPI(testDeleteRule)
+      .then(() => BounceRulesPage.createBounceRuleAPI(testDeleteRule))
+      .then(() => BounceRulesPage.open())
+      .then(() => BounceRulesPage.createdBounceRule(testDeleteRule))
+      .then(() => BounceRulesPage.deleteBounceRuleUI(testDeleteRule))
+      .then(() => BounceActivityPage.open())
+      .then(() =>
+        BounceActivityPage.bounceActivity(testDeleteRule).should("be.visible")
+      );
   });
 });

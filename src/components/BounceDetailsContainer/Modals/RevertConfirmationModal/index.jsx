@@ -5,11 +5,15 @@ import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 
+const isSubmitDisabled = (isCommitValid, comment) =>
+  !isCommitValid || comment === undefined || comment === "";
+
 const ConfirmRevertBody = ({
-  selectedChange,
+  comment,
   handleRevertModalClose,
   handleRevertConfirm,
   onChangeRevert,
+  isCommitValid,
 }) => (
   <div>
     <Row>
@@ -23,7 +27,10 @@ const ConfirmRevertBody = ({
         </div>
         <TextInput
           onChange={onChangeRevert}
-          value={selectedChange.comment}
+          value={comment}
+          isRequired
+          isValid={isCommitValid}
+          info={!isCommitValid && "This field is required."}
           id="comment"
           type="text"
           label="Commit Message"
@@ -45,6 +52,7 @@ const ConfirmRevertBody = ({
         <Button
           className="sg-button"
           onClick={handleRevertConfirm}
+          disabled={isSubmitDisabled(isCommitValid, comment)}
           type="primary"
         >
           Confirm
@@ -59,18 +67,24 @@ const RevertConfirmationModal = ({
   selectedChange,
   onChangeRevert,
   handleRevertModalClose,
-}) => (
-  <CenterModal
-    open
-    renderBody={(
-      <ConfirmRevertBody
-        handleRevertModalClose={handleRevertModalClose}
-        handleRevertConfirm={handleRevertConfirm}
-        selectedChange={selectedChange}
-        onChangeRevert={onChangeRevert}
-      />
+  isCommitValid,
+}) => {
+  const { comment } = selectedChange;
+  return (
+    <CenterModal
+      open
+      renderBody={(
+        <ConfirmRevertBody
+          comment={comment}
+          handleRevertModalClose={handleRevertModalClose}
+          handleRevertConfirm={handleRevertConfirm}
+          selectedChange={selectedChange}
+          onChangeRevert={onChangeRevert}
+          isCommitValid={isCommitValid}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 export default RevertConfirmationModal;

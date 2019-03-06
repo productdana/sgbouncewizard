@@ -38,6 +38,7 @@ const BounceRuleDetailed = ({
   handleCancelConfirmation,
   handleSaveConfirmation,
   handleRevertConfirm,
+  onChangeRevert,
   onChangeRuleInt,
   pagesToDisplay,
   currentPageIndex,
@@ -47,9 +48,9 @@ const BounceRuleDetailed = ({
   filteredChangelog,
   logout,
   isNetworkError,
-  onChangeRevert,
   handleRevertModalClose,
   handleDropdownSelect,
+  isCommitValid,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
@@ -180,6 +181,7 @@ const BounceRuleDetailed = ({
       )}
       {isRevertConfirmOpen && (
         <RevertConfirmationModal
+          isCommitValid={isCommitValid}
           currentRule={currentRule}
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
@@ -191,9 +193,10 @@ const BounceRuleDetailed = ({
       {isConfirmOpen && (
         <ConfirmationModal
           {...WriteSelectors.saveConfirmationModal}
+          isCommitValid={isCommitValid}
+          onChangeRule={onChangeRule}
           updatedRule={updatedRule}
           handleModalClose={handleModalClose}
-          onChangeRule={onChangeRule}
           handleSaveConfirmation={handleSaveConfirmation}
           isUpdateError={isUpdateError}
           isNetworkError={isNetworkError}
