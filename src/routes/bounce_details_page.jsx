@@ -3,12 +3,9 @@ import _ from "underscore";
 import { Redirect } from "react-router-dom";
 import BounceDetailsContainer from "../components/BounceDetailsContainer";
 import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
+import { validateCommit } from "../utils/utils";
 
 export default class BounceDetailsPage extends React.Component {
-  static validateCommit(commit) {
-    return commit.length !== 0;
-  }
-
   constructor(props) {
     super(props);
 
@@ -77,15 +74,9 @@ export default class BounceDetailsPage extends React.Component {
   onChangeRuleInt(e) {
     const { updatedRule } = this.state;
     const { id, value } = e.currentTarget;
-    if (!value) {
-      this.setState({
-        updatedRule: { ...updatedRule, [id]: value },
-      });
-    } else {
-      this.setState({
-        updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
-      });
-    }
+    this.setState({
+      updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
+    });
   }
 
   onChangeRule(e) {
@@ -99,7 +90,7 @@ export default class BounceDetailsPage extends React.Component {
   onChangeRevert(e) {
     const { id, value } = e.currentTarget;
     const { selectedChange } = this.state;
-    const isCommitValid = BounceDetailsPage.validateCommit(value);
+    const isCommitValid = validateCommit(value);
     this.setState({
       selectedChange: { ...selectedChange, [id]: value },
       isCommitValid,

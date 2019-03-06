@@ -2,12 +2,9 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import BounceRulesContainer from "../components/BounceRulesContainer";
 import { listRules, deleteRule, postRule } from "../utils/ruleCalls";
+import { validateCommit } from "../utils/utils";
 
 export default class BounceRulesPage extends React.Component {
-  static validateCommit(commit) {
-    return commit.length !== 0;
-  }
-
   constructor(props) {
     super(props);
 
@@ -289,21 +286,15 @@ export default class BounceRulesPage extends React.Component {
   handleRuleUpdateInt(e) {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
-    if (!value) {
-      this.setState({
-        newRule: { ...newRule, [id]: value },
-      });
-    } else {
-      this.setState({
-        newRule: { ...newRule, [id]: parseInt(value, 10) },
-      });
-    }
+    this.setState({
+      newRule: { ...newRule, [id]: parseInt(value, 10) },
+    });
   }
 
   handleDeleteCommit(e) {
     const { value, id } = e.currentTarget;
     const { selectedRule } = this.state;
-    const isCommitValid = BounceRulesPage.validateCommit(value);
+    const isCommitValid = validateCommit(value);
     this.setState({
       selectedRule: { ...selectedRule, [id]: value },
       isCommitValid,
@@ -313,7 +304,7 @@ export default class BounceRulesPage extends React.Component {
   handleCreateCommit(e) {
     const { value, id } = e.currentTarget;
     const { newRule } = this.state;
-    const isCommitValid = BounceRulesPage.validateCommit(value);
+    const isCommitValid = validateCommit(value);
     this.setState({
       newRule: { ...newRule, [id]: value },
       isCommitValid,
