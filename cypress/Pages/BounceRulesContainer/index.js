@@ -56,7 +56,7 @@ class BounceRulesPage extends Page {
   }
 
   get bounceAction() {
-    return cy.get(Selectors.bounceAction);
+    return cy.get(Selectors.bounceAction).find("input[type=text]");
   }
 
   get responseCode() {
@@ -91,20 +91,49 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.confirmationSubmit);
   }
 
-  get testBounceRuleToDelete() {
-    return cy.get('[data-cypress="cypressDeleteTest"]');
-  }
-
-  get testBounceRuleToCreate() {
-    return cy.get('[data-cypress="cypressCreateTest"]');
-  }
-
   open() {
-    super.open("/bounce_rules");
+    return super.open("/bounce_rules");
   }
 
-  createdRuleButton(id) {
-    return cy.get(`[data-rule="${id}"]`);
+  createdBounceRule(testRule) {
+    return cy
+      .task("getRules", { env: Cypress.env("testEnv") })
+      .then(res => {
+        if (res) {
+          return res.find(bounceRule =>
+            _.isEqual(
+              _.omit(testRule, "comment"),
+              _.omit(bounceRule, ["id", "created_at"])
+            )
+          );
+        }
+        return false;
+      })
+      .then(rule => {
+        if (rule) {
+          return cy.get(`[data-id="${rule.id}"]`);
+        }
+        return false;
+      });
+  }
+
+  deleteBounceRuleUI(testRule) {
+    return cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
+      const ruleToFind = _.findLastIndex(
+        res,
+        _.omit(testRule, ["id", "created_at", "user_id", "comment"])
+      );
+      if (ruleToFind) {
+        cy.server();
+        cy.route("DELETE", "/bounce_rules/*").as("deleteBounceRule");
+
+        cy.get(`[data-delete="${res[ruleToFind].id}"]`).click();
+        this.commitMessage.clear().type("Deleted This Rule For Testing");
+        this.deleteConfirmationConfirm.click();
+        return cy.wait("@deleteBounceRule", { timeout: 10000 });
+      }
+      return false;
+    });
   }
 
   deleteBounceRuleAPI(testRule) {
@@ -113,21 +142,24 @@ class BounceRulesPage extends Page {
       .then(res => {
         if (res) {
           const isMatchingBounceRule = res.find(bounceRule =>
-            _.isEqual(testRule, _.omit(bounceRule, "id"))
+            _.isEqual(
+              _.omit(testRule, "comment"),
+              _.omit(bounceRule, ["id", "created_at"])
+            )
           );
+
           if (isMatchingBounceRule) {
             return cy.task("deleteRule", {
               env: Cypress.env("testEnv"),
               data: isMatchingBounceRule,
             });
           }
-          return true;
+          return false;
         }
         return false;
       })
       .then(result => {
         if (result) {
-          cy.log(result);
           return cy.log("Delete Successful");
         }
         return cy.log("Delete Unsuccessful");
@@ -139,6 +171,14 @@ class BounceRulesPage extends Page {
       env: Cypress.env("testEnv"),
       data: testRule,
     });
+  }
+
+  selectOption(option) {
+    this.getBounceActionSelectOption(option).click();
+  }
+
+  getBounceActionSelectOption(option) {
+    return cy.get(Selectors.bounceAction).contains("[role='option']", option);
   }
 
   fillCreateRuleForm(bounceRule) {
@@ -155,7 +195,8 @@ class BounceRulesPage extends Page {
       this.priority.type(priority);
     }
     if (bounceAction) {
-      this.bounceAction.type(bounceAction);
+      this.bounceAction.type(bounceAction, { force: true });
+      this.selectOption(bounceAction);
     }
     if (responseCode) {
       this.responseCode.type(responseCode);
@@ -185,13 +226,17 @@ class BounceRulesPage extends Page {
       comment,
     } = bounceRule;
 
+    cy.server();
+    cy.route("POST", "/bounce_rules").as("addBounceRule");
+
     this.createRuleButton.click();
 
     if (priority) {
       this.priority.type(priority);
     }
     if (bounceAction) {
-      this.bounceAction.type(bounceAction);
+      this.bounceAction.type(bounceAction, { force: true });
+      this.selectOption(bounceAction);
     }
     if (responseCode) {
       this.responseCode.type(responseCode);
@@ -213,23 +258,9 @@ class BounceRulesPage extends Page {
       this.commitMessage.clear().type(comment);
     }
 
-    return this.confirmationSubmit.click();
-  }
+    this.confirmationSubmit.click();
 
-  deleteBounceRuleUI(testRule) {
-    cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
-      const ruleToDelete = res.find(bounceRule =>
-        _.isEqual(
-          testRule,
-          _.omit(bounceRule, ["id", "created_at", "user_id", "comment"])
-        )
-      );
-      if (ruleToDelete) {
-        this.createdRuleButton(ruleToDelete.id).click();
-        return this.deleteConfirmationConfirm.click();
-      }
-      return false;
-    });
+    return cy.wait("@addBounceRule", { timeout: 10000 });
   }
 }
 

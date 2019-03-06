@@ -2,27 +2,38 @@ import BounceRuleDetailedPage from "../../Pages/BounceRulesDetailed";
 
 const testCreateRule = {
   priority: 2,
-  bounce_action: "[Cypress Detailed Test - Ignore]",
+  bounce_action: "no_action",
   response_code: 281,
-  description: "cypressDetailedTest",
+  description: "bounce_rules_detailed_description_create",
   enhanced_code: "384",
-  regex: "kjfgsdlfg",
+  regex: "bounce_rules_detailed_regex_create",
 };
+
 const updatedRule = {
-  updatedDescription: "[Cypress Detailed Test - Updating Description]",
+  updatedDescription: "bounce_rules_detailed_description_updated",
   updatedResponseCode: 1,
   updatedEnhancedCode: "10.2.5",
   updatedCommit: "[Cypress Detailed Test - Updating Commit]",
+};
+
+const newRule = {
+  priority: 2,
+  bounce_action: "no_action",
+  response_code: 1,
+  description: "bounce_rules_detailed_description_updated",
+  enhanced_code: "10.2.5",
+  regex: "bounce_rules_detailed_regex_create",
 };
 
 let ruleId;
 
 describe("Bounce Rule Detailed", () => {
   before(() => {
-    BounceRuleDetailedPage.teardownBounceRule(testCreateRule)
+    BounceRuleDetailedPage.teardownBounceRule(newRule)
+      .then(() => BounceRuleDetailedPage.teardownBounceRule(testCreateRule))
       .then(isTearDownSuccess => {
         if (isTearDownSuccess) {
-          cy.wait(1000);
+          cy.wait(2000);
           return cy.log("Successfully tore down the bounce rule!");
         }
         return cy.log("Failed to tear down test bounce rule!");
@@ -31,9 +42,7 @@ describe("Bounce Rule Detailed", () => {
       .then(createdRule => {
         if (createdRule) {
           cy.log(
-            `Successfully created test bounce rule with rule ID ${
-              createdRule.id
-            }!`
+            `Succesfully created test bounce rule with ID ${createdRule.id}`
           );
           ruleId = createdRule.id;
         } else {

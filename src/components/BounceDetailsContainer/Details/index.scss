@@ -1,16 +1,25 @@
 .detail-container {
-  display: inline-block;
   justify-content: center;
   align-items: center;
   padding: 5px;
   background: #f4f6f7;
+
+  .description-info {
+    width: 100%;
+  }
+
+  .detail-info {
+    display: inline-block;
+    width: 50%;
+  }
 
   .table-fixed {
     table-layout: fixed;
   }
 
   td {
-    padding: 15px 10px;
+    padding: 10px;
+    height: 75px;
 
     &.description-cell {
       width: 25%;
@@ -54,17 +63,5 @@
     .input-text-wrap {
       margin-bottom: 0;
     }
-  }
-
-  .description-info {
-    width: 100%;
-    .table-wrap {
-      margin-bottom: 0;
-    }
-  }
-
-  .detail-info {
-    display: flex;
-    width: 100%;
   }
 }
