@@ -57,16 +57,18 @@ const BounceRuleDetailed = ({
   return (
     <div>
       {isNetworkError && (
-        <Alert
-          type="danger"
-          dismissable={false}
-          onClick={handleModalClose}
-          id="isInvalidInput"
-        >
-          A network error is detected. Please
-          <a href={`/bounce_rules/${id}`}> refresh </a>
-          or try again later.
-        </Alert>
+        <div className="network-alert">
+          <Alert
+            type="danger"
+            dismissable={false}
+            onClick={handleModalClose}
+            id="isInvalidInput"
+          >
+            A network error is detected. Please
+            <a href={`/bounce_rules/${id}`}> refresh </a>
+            or try again later.
+          </Alert>
+        </div>
       )}
       <Header logout={logout} />
       <Row>

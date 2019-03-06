@@ -1,5 +1,8 @@
-.alert-fixed {
+.network-alert {
   position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .csv-button-col {
