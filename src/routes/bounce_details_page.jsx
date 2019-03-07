@@ -22,11 +22,15 @@ export default class BounceDetailsPage extends React.Component {
       pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
+      userCanEditRule: false,
     };
     this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleEditClicked = this.handleEditClicked.bind(this);
+    this.handleConcurrentEditClicked = this.handleConcurrentEditClicked.bind(
+      this
+    );
     this.handleCancelSaveClicked = this.handleCancelSaveClicked.bind(this);
     this.handleChangelogClicked = this.handleChangelogClicked.bind(this);
     this.handleCancelConfirmation = this.handleCancelConfirmation.bind(this);
@@ -43,27 +47,30 @@ export default class BounceDetailsPage extends React.Component {
   async componentDidMount() {
     const { match } = this.props;
     const ws = new WebSocket(`ws://${process.env.SOCKET_URL}/ws`);
+    const WS_RULE_EDIT = "EDIT";
+    const WS_RULE_FREE = "FREE";
 
     ws.onopen = () => {
       ws.send(`check:${match.params.bounceRuleId}`);
     };
 
     ws.onmessage = msg => {
+      console.log(msg.data);
       this.setState({
-        editText: msg.data,
+        userCanEditRule: msg.data === WS_RULE_EDIT || msg.data === WS_RULE_FREE,
       });
     };
 
     ws.onclose = () => {
-      const { editText } = this.state;
-      if (editText === "EDIT" || editText === "ALREADY") {
+      const { userCanEditRule } = this.state;
+      if (userCanEditRule) {
         ws.send(`release:${match.params.bounceRuleId}`);
       }
     };
 
     window.addEventListener("beforeunload", () => {
-      const { editText } = this.state;
-      if (editText === "EDIT" || editText === "ALREADY") {
+      const { userCanEditRule } = this.state;
+      if (userCanEditRule) {
         ws.send(`release:${match.params.bounceRuleId}`);
       }
     });
@@ -92,9 +99,10 @@ export default class BounceDetailsPage extends React.Component {
   }
 
   componentWillUnmount() {
-    const { currentRule, editText, socketConnection } = this.state;
-    if (editText === "EDIT" || editText === "ALREADY") {
-      socketConnection.send(`release:${currentRule.Id}`);
+    const { match } = this.props;
+    const { userCanEditRule, socketConnection } = this.state;
+    if (userCanEditRule) {
+      socketConnection.send(`release:${match.params.bounceRuleId}`);
     }
   }
 
@@ -190,6 +198,14 @@ export default class BounceDetailsPage extends React.Component {
       [id]: true,
       updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
     });
+  }
+
+  handleConcurrentEditClicked(e) {
+    const { userCanEditRule } = this.state;
+    console.log(userCanEditRule);
+    if (userCanEditRule) {
+      this.handleEditClicked(e);
+    }
   }
 
   handleCancelSaveClicked(e) {
@@ -299,6 +315,7 @@ export default class BounceDetailsPage extends React.Component {
               handleButtonClicked={this.handleButtonClicked}
               onChangeRule={this.onChangeRule}
               handleEditClicked={this.handleEditClicked}
+              handleConcurrentEditClicked={this.handleConcurrentEditClicked}
               handleCancelSaveClicked={this.handleCancelSaveClicked}
               handleChangelogClicked={this.handleChangelogClicked}
               handleCancelConfirmation={this.handleCancelConfirmation}

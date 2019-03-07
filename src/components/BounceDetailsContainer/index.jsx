@@ -31,6 +31,7 @@ const BounceRuleDetailed = ({
   handleModalClose,
   onChangeRule,
   handleEditClicked,
+  handleConcurrentEditClicked,
   handleCancelSaveClicked,
   handleChangelogClicked,
   handleRevertClicked,
@@ -47,7 +48,7 @@ const BounceRuleDetailed = ({
   updatePageIndex,
   filteredChangelog,
   logout,
-  editText,
+  userCanEditRule,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
@@ -94,26 +95,16 @@ const BounceRuleDetailed = ({
           <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
-                onClick={
-                  editText === "FREE" || editText === "ALREADY"
-                    ? handleEditClicked
-                    : () => {}
-                }
+                onClick={handleConcurrentEditClicked}
                 id="isEditClicked"
-                onKeyDown={
-                  editText === "FREE" || editText === "ALREADY"
-                    ? handleEditClicked
-                    : () => {}
-                }
+                onKeyDown={handleConcurrentEditClicked}
                 {...WriteSelectors.editButton}
                 className="sg-button edit-button"
                 type="primary"
-                icon={editText !== "FREE" ? "locked" : ""}
-                disabled={editText !== "FREE"}
+                icon={!userCanEditRule ? "locked" : ""}
+                disabled={!userCanEditRule}
               >
-                {editText === "FREE" || editText === "ALREADY"
-                  ? "Edit Rule"
-                  : "In Use"}
+                {userCanEditRule ? "Edit Rule" : "In Use"}
               </Button>
             </span>
           </Column>
@@ -256,11 +247,12 @@ BounceRuleDetailed.propTypes = {
   pagesToDisplay: PropTypes.number,
   currentPageIndex: PropTypes.number,
   handleEditClicked: PropTypes.func,
+  handleConcurrentEditClicked: PropTypes.func,
   handleCancelSaveClicked: PropTypes.func,
   handleChangelogClicked: PropTypes.func,
   handleCancelConfirmation: PropTypes.func,
   handleSaveConfirmation: PropTypes.func,
-  editText: PropTypes.string,
+  userCanEditRule: PropTypes.bool,
 };
 
 BounceRuleDetailed.defaultProps = {
@@ -279,11 +271,12 @@ BounceRuleDetailed.defaultProps = {
   pagesToDisplay: 1,
   currentPageIndex: 1,
   handleEditClicked: () => {},
+  handleConcurrentEditClicked: () => {},
   handleCancelSaveClicked: () => {},
   handleChangelogClicked: () => {},
   handleCancelConfirmation: () => {},
   handleSaveConfirmation: () => {},
-  editText: "Edit Rule",
+  userCanEditRule: false,
 };
 
 export default BounceRuleDetailed;

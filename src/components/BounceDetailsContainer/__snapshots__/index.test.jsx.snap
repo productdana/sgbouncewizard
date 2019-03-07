@@ -94,9 +94,9 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
     >
       <span>
         <button
-          className="btn btn-primary sg-button edit-button inuse has-icon"
+          className="btn btn-primary sg-button edit-button has-icon is-disabled"
           data-test="edit-button"
-          disabled={false}
+          disabled={true}
           id="isEditClicked"
           onClick={[Function]}
           onKeyDown={[Function]}
