@@ -3,7 +3,6 @@ import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import Button from "@sendgrid/ui-components/button";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Alert from "@sendgrid/ui-components/alert";
 import { Row } from "../Row";
 import { Column } from "../Column";
 import Header from "../Header";
@@ -14,6 +13,7 @@ import ChangeModal from "./Modals/ChangeModal";
 import ConfirmationModal from "./Modals/ConfirmationModal";
 import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
 import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
+import NetworkAlert from "../Alerts/NetworkAlert";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
@@ -57,18 +57,10 @@ const BounceRuleDetailed = ({
   return (
     <div>
       {isNetworkError && (
-        <div className="network-alert">
-          <Alert
-            type="danger"
-            dismissable={false}
-            onClick={handleModalClose}
-            id="isInvalidInput"
-          >
-            A network error is detected. Please
-            <a href={`/bounce_rules/${id}`}> refresh </a>
-            or try again later.
-          </Alert>
-        </div>
+        <NetworkAlert
+          reloadLink={`/bounce_rules/${id}`}
+          handleModalClose={handleModalClose}
+        />
       )}
       <Header logout={logout} />
       <Row>

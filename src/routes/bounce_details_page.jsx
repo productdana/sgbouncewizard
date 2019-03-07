@@ -176,6 +176,7 @@ export default class BounceDetailsPage extends React.Component {
     } catch (error) {
       this.setState({
         isNetworkError: true,
+        isFetching: false,
       });
     }
   }

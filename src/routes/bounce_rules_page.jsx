@@ -67,6 +67,7 @@ export default class BounceRulesPage extends React.Component {
     } catch (err) {
       this.setState({
         isNetworkError: true,
+        isFetching: false,
       });
     }
   }
