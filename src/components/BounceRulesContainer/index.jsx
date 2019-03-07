@@ -94,6 +94,14 @@ const BounceRulesContainer = ({
           </Column>
         </Row>
         <Row>
+          <Column width={10} offset={2}>
+            <Tabs className="page-tab" onChange={() => {}}>
+              <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
+              <Tab onClick={handleActivityTabClicked}>Activity Log</Tab>
+            </Tabs>
+          </Column>
+        </Row>
+        <Row>
           <Column className="csv-button-col" width={4} offset={8}>
             <CSVLink
               {...WriteSelectors.csvButton}
@@ -114,14 +122,6 @@ const BounceRulesContainer = ({
             >
               Create Rule
             </Button>
-          </Column>
-        </Row>
-        <Row>
-          <Column width={10} offset={2}>
-            <Tabs className="page-tab" onChange={() => {}}>
-              <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
-              <Tab onClick={handleActivityTabClicked}>Activity Log</Tab>
-            </Tabs>
           </Column>
         </Row>
         <Row>
