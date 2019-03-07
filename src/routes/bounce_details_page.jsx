@@ -55,7 +55,6 @@ export default class BounceDetailsPage extends React.Component {
     };
 
     ws.onmessage = msg => {
-      console.log(msg.data);
       this.setState({
         userCanEditRule: msg.data === WS_RULE_EDIT || msg.data === WS_RULE_FREE,
       });
@@ -104,6 +103,12 @@ export default class BounceDetailsPage extends React.Component {
     if (userCanEditRule) {
       socketConnection.send(`release:${match.params.bounceRuleId}`);
     }
+
+    window.removeEventListener("beforeunload", () => {
+      if (userCanEditRule) {
+        socketConnection.send(`release:${match.params.bounceRuleId}`);
+      }
+    });
   }
 
   onChangeRuleInt(e) {
@@ -202,7 +207,7 @@ export default class BounceDetailsPage extends React.Component {
 
   handleConcurrentEditClicked(e) {
     const { userCanEditRule } = this.state;
-    console.log(userCanEditRule);
+
     if (userCanEditRule) {
       this.handleEditClicked(e);
     }
