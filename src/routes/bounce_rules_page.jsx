@@ -54,6 +54,7 @@ export default class BounceRulesPage extends React.Component {
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
     this.handleCreateCommit = this.handleCreateCommit.bind(this);
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
+    this.handleInvalidAlertClose = this.handleInvalidAlertClose.bind(this);
   }
 
   async componentDidMount() {
@@ -206,6 +207,12 @@ export default class BounceRulesPage extends React.Component {
       isInvalidInput: false,
       selectedRule: {},
       newRule: null,
+    });
+  }
+
+  handleInvalidAlertClose() {
+    this.setState({
+      isInvalidInput: false,
     });
   }
 
@@ -389,6 +396,7 @@ export default class BounceRulesPage extends React.Component {
             handleDeleteCommit={this.handleDeleteCommit}
             handleCreateCommit={this.handleCreateCommit}
             handleDropdownSelect={this.handleDropdownSelect}
+            handleInvalidAlertClose={this.handleInvalidAlertClose}
             {...this.state}
           />
         )}

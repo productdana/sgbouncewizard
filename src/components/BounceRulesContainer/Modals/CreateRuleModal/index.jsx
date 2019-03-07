@@ -117,6 +117,7 @@ const CreateRuleModal = ({
   isInvalidInput,
   handleModalClose,
   handleRuleUpdateInt,
+  handleInvalidAlertClose,
 }) => {
   const {
     priority,
@@ -125,7 +126,7 @@ const CreateRuleModal = ({
     description,
     enhanced_code: enhancedCode,
     regex,
-  } = newRule;
+  } = { ...newRule };
   return (
     <SideModal
       {...WriteSelectors.createRuleModal}
@@ -136,7 +137,7 @@ const CreateRuleModal = ({
         <Column>
           <h1 className="h2.is-size-h1">Create a Bounce Rule</h1>
           {isInvalidInput && (
-            <Alert type="danger" onClick={handleModalClose} id="isInvalidInput">
+            <Alert type="danger" onClick={handleInvalidAlertClose}>
               One or more fields contain invalid characters.
             </Alert>
           )}
@@ -256,7 +257,7 @@ CreateRuleModal.propTypes = {
   handleCreateSubmit: PropTypes.func,
   isInvalidInput: PropTypes.bool,
   handleModalClose: PropTypes.func,
-  handleAlertClose: PropTypes.func,
+  handleInvalidAlertClose: PropTypes.func,
 };
 
 CreateRuleModal.defaultProps = {
@@ -264,7 +265,7 @@ CreateRuleModal.defaultProps = {
   handleCreateSubmit: () => {},
   isInvalidInput: false,
   handleModalClose: () => {},
-  handleAlertClose: () => {},
+  handleInvalidAlertClose: () => {},
 };
 
 export { CreateConfirmationModal };
