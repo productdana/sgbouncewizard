@@ -53,28 +53,41 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should render a create a bounce rule", () => {
-    expect(BounceRulesPage().find(createRuleButton)).toHaveLength(1);
+    expect(
+      BounceRulesPage()
+        .find(createRuleButton)
+        .exists()
+    ).toBeTruthy();
   });
 
   it("should render a export to csv button", () => {
-    expect(BounceRulesPage().find(csvButton)).toHaveLength(1);
+    expect(
+      BounceRulesPage()
+        .find(csvButton)
+        .exists()
+    ).toBeTruthy();
   });
 
-  it("should render a filter component", () => {
+  it("should render filter component", () => {
     expect(BounceRulesPage().find(ruleFilter)).toHaveLength(1);
   });
 
-  it("should render a rule table component", () => {
+  it("should render rule table component", () => {
     expect(BounceRulesPage().find(ruleTable)).toHaveLength(1);
+  });
+
+  it("should render warning when no rules available", () => {
+    BounceRulesPage().setProps({ filteredRules: [], rules: [] });
+    expect(BounceRulesPage().find(emptyRulesWarning)).toHaveLength(1);
   });
 
   it("should render paginiation", () => {
     expect(BounceRulesPage().find(pagination)).toHaveLength(1);
   });
 
-  it("should render warning when no rules available", () => {
+  it("should not render paginiation when no rules", () => {
     BounceRulesPage().setProps({ filteredRules: [], rules: [] });
-    expect(BounceRulesPage().find(emptyRulesWarning)).toHaveLength(1);
+    expect(BounceRulesPage().find(pagination)).toHaveLength(0);
   });
 
   it("should render create rule modal", () => {
@@ -83,22 +96,12 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should render delete rule modal", () => {
-    BounceRulesPage().setProps({
-      isDeleteConfirmationOpen: true,
-    });
-    expect(
-      BounceRulesPage()
-        .find(deleteConfirmation)
-        .exists()
-    ).toBeTruthy();
+    BounceRulesPage().setProps({ isDeleteConfirmationOpen: true });
+    expect(BounceRulesPage().find(deleteConfirmation)).toHaveLength(1);
   });
 
   it("should render create rule confirmation", () => {
     BounceRulesPage().setProps({ isCreateRuleConfirmationOpen: true });
-    expect(
-      BounceRulesPage()
-        .find(confirmModal)
-        .exists()
-    ).toBeTruthy();
+    expect(BounceRulesPage().find(confirmModal)).toHaveLength(1);
   });
 });

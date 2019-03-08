@@ -28,6 +28,7 @@ const testHooks = {
   cancelConfirmationModal: "cancel-confirmation-modal",
   commitInput: "commit-input",
   confirmSubmit: "confirm-submit",
+  pagination: "pagination",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:

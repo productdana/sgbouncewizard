@@ -1,4 +1,22 @@
-const mockChangelog = [
+export const mockChangelog = [
+  [
+    {
+      id: 503,
+      response_code: 450,
+      enhanced_code: "4.7.0",
+      regex: "Youremailingisbeingverified",
+      priority: 0,
+      description: "finishdeferralsecmailfiltering",
+      bounce_action: "retry",
+      user_id: 1,
+      created_at: 280,
+      comment: "Inital Setup",
+      operation: "Create",
+    },
+  ],
+];
+
+const mockActivityLog = [
   {
     id: 173,
     response_code: 421,
@@ -153,4 +171,4 @@ export const mockBounceRules = [
   },
 ];
 
-export default mockChangelog;
+export default mockActivityLog;

@@ -145,6 +145,7 @@ const BounceRuleDetailed = ({
       {!isChangelogEmpty && (
         <Row>
           <Pagination
+            {...WriteSelectors.pagination}
             handlePrevClicked={handlePrevClicked}
             handleNextClicked={handleNextClicked}
             pagesToDisplay={pagesToDisplay}

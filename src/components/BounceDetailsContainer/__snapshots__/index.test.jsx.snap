@@ -275,8 +275,8 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           >
             <a
               download="changelog.csv"
-              href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\"
-\\"504\\",\\"551\\",\\"\\",\\"no MX record for domain\\",\\"0\\",\\"new rule\\",\\"no_action\\""
+              href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\",\\"user_id\\",\\"created_at\\",\\"comment\\",\\"operation\\"
+\\"173\\",\\"421\\",\\"\\",\\"\\",\\"0\\",\\"RFC5321Servicenotavailable\\",\\"retry\\",\\"1\\",\\"1\\",\\"Inital Setup\\",\\"Create\\""
               onClick={[Function]}
               target="_blank"
             >
@@ -332,14 +332,14 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                   </span>
                 </div>
                 <td>
-                  Invalid date
+                  12/31/1969 4:00:01 PM
                 </td>
               </td>
               <td>
-                N/A
+                1
               </td>
               <td>
-                N/A
+                Inital Setup
               </td>
               <td>
                  
