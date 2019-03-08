@@ -52,7 +52,11 @@ describe("Bounce Rules Page", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  describe("When the user visits the bounce rule page", () => {
+  describe("When a user visits the bounce rule page", () => {
+    it("should render a page tab", () => {
+      expect(BounceRulesPage().find(".page-tab")).toHaveLength(1);
+    });
+
     it("should render a create a bounce rule", () => {
       expect(
         BounceRulesPage()

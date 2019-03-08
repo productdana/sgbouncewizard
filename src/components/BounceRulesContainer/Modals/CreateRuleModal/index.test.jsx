@@ -1,6 +1,6 @@
 import React from "react";
-import { shallow } from "enzyme";
-import CreateRuleModal from ".";
+import { shallow, mount } from "enzyme";
+import CreateRuleModal, { CreateConfirmationModal } from ".";
 import { Selectors } from "../../selectors";
 
 describe("Create Rule Modal", () => {
@@ -37,7 +37,7 @@ describe("Create Rule Modal", () => {
     mountedCreateRuleModal = undefined;
   });
 
-  describe("When the user opens the Create Rule Modal", () => {
+  describe("When a user opens the Create Rule Modal", () => {
     it("should render a priority field", () => {
       expect(CreateRuleModalComponent().find(priority)).toHaveLength(1);
     });
@@ -66,10 +66,67 @@ describe("Create Rule Modal", () => {
     });
   });
 
-  describe("When the user attempts to create a rule", () => {
+  describe("When a user attempts to create a rule", () => {
     it("should alert if field is left empty", () => {
       CreateRuleModalComponent().setProps({ isInvalidInput: true });
       expect(CreateRuleModalComponent().find(invalidInput)).toHaveLength(1);
+    });
+  });
+});
+
+describe("Create Rule Confirmation", () => {
+  let props;
+  let mountedConfirmationModal;
+  const { confirmationSubmit, commitMessage } = Selectors;
+  const ConfirmationComponent = () => {
+    if (!mountedConfirmationModal) {
+      mountedConfirmationModal = mount(<CreateConfirmationModal {...props} />);
+    }
+    return mountedConfirmationModal;
+  };
+
+  beforeEach(() => {
+    props = {
+      handleRuleUpdate: () => {},
+      handleCreateSubmit: () => {},
+      handleDropdownSelect: () => {},
+      newRule: {},
+      isInvalidInput: false,
+      handleModalClose: () => {},
+      handleRuleUpdateInt: () => {},
+    };
+    mountedConfirmationModal = undefined;
+  });
+
+  describe("When a user is presented with a confirmation modal", () => {
+    it("should render a commit field", () => {
+      expect(
+        ConfirmationComponent()
+          .find(commitMessage)
+          .exists()
+      ).toBeTruthy();
+    });
+
+    it("should render a disabled confirm button if commit is empty", () => {
+      expect(
+        ConfirmationComponent()
+          .find(confirmationSubmit)
+          .first()
+          .prop("disabled")
+      ).toBeTruthy();
+    });
+
+    it("should render an enabled confirm button if commit is not empty", () => {
+      ConfirmationComponent().setProps({
+        newRule: { comment: "a commit message" },
+        isCommitValid: true,
+      });
+      expect(
+        ConfirmationComponent()
+          .find(confirmationSubmit)
+          .first()
+          .prop("disabled")
+      ).toBeFalsy();
     });
   });
 });

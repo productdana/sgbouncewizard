@@ -139,6 +139,7 @@ const BounceActivityContainer = ({
         </Row>
         {isActivityModalOpen && (
           <ActivityDetailsModal
+            {...WriteSelectors.detailsModal}
             handleModalClose={handleModalClose}
             selectedChange={selectedActivity}
           />
