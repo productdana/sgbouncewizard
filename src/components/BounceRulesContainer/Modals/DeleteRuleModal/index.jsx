@@ -106,7 +106,6 @@ const DeleteConfirmationModal = ({
   isCommitValid,
 }) => (
   <CenterModal
-    {...WriteSelectors.deleteConfirmation}
     open
     className="delete-confirm-modal"
     renderBody={(

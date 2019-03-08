@@ -98,8 +98,8 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           data-test="edit-button"
           disabled={false}
           id="isEditClicked"
-          onClick={[MockFunction]}
-          onKeyDown={[MockFunction]}
+          onClick={[Function]}
+          onKeyDown={[Function]}
           type="button"
         >
           Edit Rule
@@ -118,8 +118,8 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           className="detail-container card "
           data-test="details"
           id="isEditClicked"
-          onClick={[MockFunction]}
-          onKeyDown={[MockFunction]}
+          onClick={[Function]}
+          onKeyDown={[Function]}
           role="searchbox"
           tabIndex={0}
         >
@@ -147,7 +147,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                   </td>
                   <td>
                      
-                    bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl
+                    new rule
                      
                   </td>
                 </tr>
@@ -181,7 +181,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                   </td>
                   <td>
                      
-                    550
+                    551
                      
                   </td>
                 </tr>
@@ -275,8 +275,8 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
           >
             <a
               download="changelog.csv"
-              href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\",\\"user_id\\"
-\\"504\\",\\"550\\",\\"\\",\\"no MX record for domain\\",\\"0\\",\\"bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl\\",\\"no_action\\",\\"0\\""
+              href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\"
+\\"504\\",\\"551\\",\\"\\",\\"no MX record for domain\\",\\"0\\",\\"new rule\\",\\"no_action\\""
               onClick={[Function]}
               target="_blank"
             >
@@ -358,6 +358,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
     >
       <div
         className="pagination pagination-container"
+        data-test="pagination"
       >
         <a
           className="btn btn-secondary btn-small pagination-prev is-invisible"
@@ -371,14 +372,27 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
         >
           <a
             className="pagination-link is-active"
-            onClick={[MockFunction]}
-            onKeyDown={[MockFunction]}
             role="button"
             tabIndex="0"
             value={1}
           >
             1
           </a>
+          <span>
+            <a
+              className="pagination-ellipses"
+            >
+              …
+            </a>
+            <a
+              className="pagination-link"
+              role="button"
+              tabIndex="0"
+              value={1}
+            >
+              1
+            </a>
+          </span>
         </div>
         <a
           className="btn btn-secondary btn-small pagination-next is-invisible"

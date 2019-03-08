@@ -3,8 +3,8 @@ import renderer from "react-test-renderer";
 import { BrowserRouter as Router } from "react-router-dom";
 import { shallow } from "enzyme";
 import BounceRuleContainer from ".";
-import Pagination from "../Pagination";
 import { Selectors } from "./selectors";
+import { mockBounceRules } from "../../mocks/index";
 
 const {
   csvButton,
@@ -14,111 +14,91 @@ const {
   emptyRulesWarning,
   createRuleModal,
   confirmModal,
+  deleteConfirmation,
+  pagination,
 } = Selectors;
 
-const testRules = [
-  {
-    id: 504,
-    response_code: 550,
-    enhanced_code: "",
-    regex: "no MX record for domain",
-    priority: 0,
-    description:
-      "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-    bounce_action: "no_action",
-  },
-];
+describe("Bounce Rules Page", () => {
+  let props;
+  let mountedBounceRulesPage;
+  const BounceRulesPage = () => {
+    if (!mountedBounceRulesPage) {
+      mountedBounceRulesPage = shallow(<BounceRuleContainer {...props} />);
+    }
+    return mountedBounceRulesPage;
+  };
 
-const testActivity = [
-  {
-    id: 173,
-    response_code: 421,
-    enhanced_code: "",
-    regex: "",
-    priority: 0,
-    description: "RFC5321Servicenotavailable",
-    bounce_action: "retry",
-    user_id: 1,
-    created_at: 1,
-    comment: "Inital Setup",
-    operation: "New",
-  },
-];
-
-const newRule = {
-  id: 504,
-  response_code: 551,
-  enhanced_code: "",
-  regex: "no MX record for domain",
-  priority: 0,
-  description: "new rule",
-  bounce_action: "no_action",
-};
-
-const defaultProps = {
-  rules: testRules,
-  filteredRules: testRules,
-  filterOptions: [],
-  pageIndex: 1,
-  pagesToDisplay: 5,
-  activityLog: testActivity,
-  filteredActivityLog: testActivity,
-  isFetching: false,
-  isBounceRulesTab: true,
-};
-
-const wrapper = shallow(<BounceRuleContainer {...defaultProps} />);
-
-it("should render correctly", () => {
-  const tree = renderer
-    .create(
-      <Router>
-        <BounceRuleContainer {...defaultProps} />
-      </Router>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-it("should render a create a bounce rule", () => {
-  expect(wrapper.find(createRuleButton)).toHaveLength(1);
-});
-
-it("should render a export to csv button", () => {
-  expect(wrapper.find(csvButton)).toHaveLength(1);
-});
-
-it("should render a filter component", () => {
-  expect(wrapper.find(ruleFilter)).toHaveLength(1);
-});
-
-it("should render a rule list component", () => {
-  expect(wrapper.find(ruleTable)).toHaveLength(1);
-});
-
-it("should render paginiation", () => {
-  expect(wrapper.find(Pagination)).toHaveLength(1);
-});
-
-it("should render warning when no rules available", () => {
-  wrapper.setProps({ filteredRules: [], rules: [] });
-  expect(wrapper.find(emptyRulesWarning)).toHaveLength(1);
-});
-
-it("should render create rule modal", () => {
-  wrapper.setProps({ isCreateRuleOpen: true });
-  expect(wrapper.find(createRuleModal)).toHaveLength(1);
-});
-
-it("should render create rule confirmation", () => {
-  wrapper.setProps({ isCreateRuleConfirmationOpen: true });
-  expect(wrapper.find(confirmModal).exists()).toBeTruthy();
-});
-
-it("should call listRules() on render", () => {
-  wrapper.setProps({
-    newRule,
-    isCreateRuleConfirmationOpen: true,
+  beforeEach(() => {
+    props = {
+      rules: mockBounceRules,
+      filteredRules: mockBounceRules,
+      filterOptions: [],
+      pageIndex: 1,
+      pagesToDisplay: 5,
+      isFetching: false,
+      isBounceRulesTab: true,
+    };
+    mountedBounceRulesPage = undefined;
   });
-  expect(wrapper.find(confirmModal).exists()).toBeTruthy();
+
+  it("should render correctly", () => {
+    const tree = renderer
+      .create(
+        <Router>
+          <BounceRuleContainer {...props} />
+        </Router>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it("should render a create a bounce rule", () => {
+    expect(BounceRulesPage().find(createRuleButton)).toHaveLength(1);
+  });
+
+  it("should render a export to csv button", () => {
+    expect(BounceRulesPage().find(csvButton)).toHaveLength(1);
+  });
+
+  it("should render a filter component", () => {
+    expect(BounceRulesPage().find(ruleFilter)).toHaveLength(1);
+  });
+
+  it("should render a rule table component", () => {
+    expect(BounceRulesPage().find(ruleTable)).toHaveLength(1);
+  });
+
+  it("should render paginiation", () => {
+    expect(BounceRulesPage().find(pagination)).toHaveLength(1);
+  });
+
+  it("should render warning when no rules available", () => {
+    BounceRulesPage().setProps({ filteredRules: [], rules: [] });
+    expect(BounceRulesPage().find(emptyRulesWarning)).toHaveLength(1);
+  });
+
+  it("should render create rule modal", () => {
+    BounceRulesPage().setProps({ isCreateRuleOpen: true });
+    expect(BounceRulesPage().find(createRuleModal)).toHaveLength(1);
+  });
+
+  it("should render delete rule modal", () => {
+    BounceRulesPage().setProps({
+      isDeleteConfirmationOpen: true,
+    });
+    expect(
+      BounceRulesPage()
+        .find(deleteConfirmation)
+        .exists()
+    ).toBeTruthy();
+  });
+
+  it("should render create rule confirmation", () => {
+    BounceRulesPage().setProps({ isCreateRuleConfirmationOpen: true });
+    expect(
+      BounceRulesPage()
+        .find(confirmModal)
+        .exists()
+    ).toBeTruthy();
+  });
 });

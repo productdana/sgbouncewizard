@@ -19,16 +19,17 @@ import "./index.scss";
 import { WriteSelectors } from "../selectors";
 
 function showChanges(changelog, rulesToShow, handleChangelogClicked) {
-  return changelog
-    .slice(0, rulesToShow)
-    .map((change, index) => (
+  return changelog.slice(0, rulesToShow).map((change, index) => {
+    const { id, created_at: createdAt } = change;
+    return (
       <Changes
-        key={change.created_at}
+        key={id + createdAt}
         index={index}
         change={change}
         handleChangelogClicked={handleChangelogClicked}
       />
-    ));
+    );
+  });
 }
 
 const EmptyChangelog = () => (

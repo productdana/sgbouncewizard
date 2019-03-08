@@ -16,6 +16,7 @@ const testHooks = {
   activityFilter: "rule-filter",
   activityTable: "activity-table",
   emptyRulesWarning: "empty-rules-warning",
+  pagination: "pagination",
 };
 
 // Selectors like "[data-test=emailInput]" to be imported into the following files:
