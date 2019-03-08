@@ -6,21 +6,21 @@ import BounceRuleContainer from ".";
 import { Selectors } from "./selectors";
 import { mockBounceRules } from "../../mocks/index";
 
-const {
-  csvButton,
-  createRuleButton,
-  ruleFilter,
-  ruleTable,
-  emptyRulesWarning,
-  createRuleModal,
-  confirmModal,
-  deleteConfirmation,
-  pagination,
-} = Selectors;
-
 describe("Bounce Rules Page", () => {
   let props;
   let mountedBounceRulesPage;
+  const {
+    csvButton,
+    createRuleButton,
+    ruleFilter,
+    ruleTable,
+    emptyRulesWarning,
+    createRuleModal,
+    confirmModal,
+    deleteConfirmation,
+    pagination,
+  } = Selectors;
+
   const BounceRulesPage = () => {
     if (!mountedBounceRulesPage) {
       mountedBounceRulesPage = shallow(<BounceRuleContainer {...props} />);
@@ -52,56 +52,62 @@ describe("Bounce Rules Page", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("should render a create a bounce rule", () => {
-    expect(
-      BounceRulesPage()
-        .find(createRuleButton)
-        .exists()
-    ).toBeTruthy();
+  describe("When the user visits the bounce rule page", () => {
+    it("should render a create a bounce rule", () => {
+      expect(
+        BounceRulesPage()
+          .find(createRuleButton)
+          .exists()
+      ).toBeTruthy();
+    });
+
+    it("should render a export to csv button", () => {
+      expect(
+        BounceRulesPage()
+          .find(csvButton)
+          .exists()
+      ).toBeTruthy();
+    });
+
+    it("should render filter component", () => {
+      expect(BounceRulesPage().find(ruleFilter)).toHaveLength(1);
+    });
+
+    it("should render rule table component", () => {
+      expect(BounceRulesPage().find(ruleTable)).toHaveLength(1);
+    });
+
+    it("should render warning when no rules available", () => {
+      BounceRulesPage().setProps({ filteredRules: [], rules: [] });
+      expect(BounceRulesPage().find(emptyRulesWarning)).toHaveLength(1);
+    });
+
+    it("should render paginiation", () => {
+      expect(BounceRulesPage().find(pagination)).toHaveLength(1);
+    });
+
+    it("should not render paginiation when no rules", () => {
+      BounceRulesPage().setProps({ filteredRules: [], rules: [] });
+      expect(BounceRulesPage().find(pagination)).toHaveLength(0);
+    });
   });
 
-  it("should render a export to csv button", () => {
-    expect(
-      BounceRulesPage()
-        .find(csvButton)
-        .exists()
-    ).toBeTruthy();
+  describe("When the user clicks on 'Create Rule'", () => {
+    it("should render create rule modal", () => {
+      BounceRulesPage().setProps({ isCreateRuleOpen: true });
+      expect(BounceRulesPage().find(createRuleModal)).toHaveLength(1);
+    });
+
+    it("should render create rule confirmation after submitting", () => {
+      BounceRulesPage().setProps({ isCreateRuleConfirmationOpen: true });
+      expect(BounceRulesPage().find(confirmModal)).toHaveLength(1);
+    });
   });
 
-  it("should render filter component", () => {
-    expect(BounceRulesPage().find(ruleFilter)).toHaveLength(1);
-  });
-
-  it("should render rule table component", () => {
-    expect(BounceRulesPage().find(ruleTable)).toHaveLength(1);
-  });
-
-  it("should render warning when no rules available", () => {
-    BounceRulesPage().setProps({ filteredRules: [], rules: [] });
-    expect(BounceRulesPage().find(emptyRulesWarning)).toHaveLength(1);
-  });
-
-  it("should render paginiation", () => {
-    expect(BounceRulesPage().find(pagination)).toHaveLength(1);
-  });
-
-  it("should not render paginiation when no rules", () => {
-    BounceRulesPage().setProps({ filteredRules: [], rules: [] });
-    expect(BounceRulesPage().find(pagination)).toHaveLength(0);
-  });
-
-  it("should render create rule modal", () => {
-    BounceRulesPage().setProps({ isCreateRuleOpen: true });
-    expect(BounceRulesPage().find(createRuleModal)).toHaveLength(1);
-  });
-
-  it("should render delete rule modal", () => {
-    BounceRulesPage().setProps({ isDeleteConfirmationOpen: true });
-    expect(BounceRulesPage().find(deleteConfirmation)).toHaveLength(1);
-  });
-
-  it("should render create rule confirmation", () => {
-    BounceRulesPage().setProps({ isCreateRuleConfirmationOpen: true });
-    expect(BounceRulesPage().find(confirmModal)).toHaveLength(1);
+  describe("When the user clicks on a rule to delete", () => {
+    it("should render delete rule modal", () => {
+      BounceRulesPage().setProps({ isDeleteConfirmationOpen: true });
+      expect(BounceRulesPage().find(deleteConfirmation)).toHaveLength(1);
+    });
   });
 });

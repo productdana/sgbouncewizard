@@ -136,7 +136,12 @@ const CreateRuleModal = ({
         <Column>
           <h1 className="h2.is-size-h1">Create a Bounce Rule</h1>
           {isInvalidInput && (
-            <Alert type="danger" onClick={handleModalClose} id="isInvalidInput">
+            <Alert
+              {...WriteSelectors.invalidInput}
+              type="danger"
+              onClick={handleModalClose}
+              id="isInvalidInput"
+            >
               One or more fields contain invalid characters.
             </Alert>
           )}
