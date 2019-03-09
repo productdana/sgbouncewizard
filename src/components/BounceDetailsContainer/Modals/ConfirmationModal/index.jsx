@@ -90,7 +90,7 @@ const ConfirmModalBody = ({
   );
 };
 
-const ConfirmationModal = ({
+export const ConfirmationModal = ({
   updatedRule,
   handleModalClose,
   handleSaveConfirmation,

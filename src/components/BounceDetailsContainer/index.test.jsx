@@ -49,50 +49,56 @@ describe("Bounce Rule Detailed", () => {
     ).toMatchSnapshot();
   });
 
-  it("should render details table", () => {
-    expect(DetailsPage().find(details)).toHaveLength(1);
+  describe("When a user visits the detailed rule page", () => {
+    it("should render details table", () => {
+      expect(DetailsPage().find(details)).toHaveLength(1);
+    });
+
+    it("should render change log table", () => {
+      expect(DetailsPage().find(changelog)).toHaveLength(1);
+    });
+
+    it("should show edit button", () => {
+      expect(DetailsPage().find(editButton)).toHaveLength(1);
+    });
+
+    it("should render paginiation", () => {
+      expect(DetailsPage().find(pagination)).toHaveLength(1);
+    });
+
+    it("should not render paginiation when no rules", () => {
+      DetailsPage().setProps({ changelog: [] });
+      expect(DetailsPage().find(pagination)).toHaveLength(0);
+    });
   });
 
-  it("should render change log table", () => {
-    expect(DetailsPage().find(changelog)).toHaveLength(1);
+  describe("When a user is editing a rule", () => {
+    it("should show cancel/save button when edit is clicked", () => {
+      DetailsPage().setProps({ isEditClicked: true });
+      expect(DetailsPage().find(cancelButton)).toHaveLength(1);
+      expect(DetailsPage().find(saveButton)).toHaveLength(1);
+    });
+
+    it("should be editable when edit is clicked", () => {
+      DetailsPage().setProps({ isEditClicked: true });
+      expect(DetailsPage().find(detailsEditable)).toHaveLength(1);
+    });
+
+    it("should display cancel confirm modal when cancel is clicked", () => {
+      DetailsPage().setProps({ isCancelConfirmOpen: true });
+      expect(DetailsPage().find(cancelConfirmationModal)).toHaveLength(1);
+    });
+
+    it("should display save confirm modal when save is clicked", () => {
+      DetailsPage().setProps({ isConfirmOpen: true });
+      expect(DetailsPage().find(saveConfirmationModal)).toHaveLength(1);
+    });
   });
 
-  it("should show edit button", () => {
-    expect(DetailsPage().find(editButton)).toHaveLength(1);
-  });
-
-  it("should show cancel/save button when edit is clicked", () => {
-    DetailsPage().setProps({ isEditClicked: true });
-    expect(DetailsPage().find(cancelButton)).toHaveLength(1);
-    expect(DetailsPage().find(saveButton)).toHaveLength(1);
-  });
-
-  it("should be editable when edit is clicked", () => {
-    DetailsPage().setProps({ isEditClicked: true });
-    expect(DetailsPage().find(detailsEditable)).toHaveLength(1);
-  });
-
-  it("should display cancel confirm modal when cancel is clicked", () => {
-    DetailsPage().setProps({ isCancelConfirmOpen: true });
-    expect(DetailsPage().find(cancelConfirmationModal)).toHaveLength(1);
-  });
-
-  it("should display save confirm modal when save is clicked", () => {
-    DetailsPage().setProps({ isConfirmOpen: true });
-    expect(DetailsPage().find(saveConfirmationModal)).toHaveLength(1);
-  });
-
-  it("should display change modal when rule is clicked", () => {
-    DetailsPage().setProps({ isChangeModalOpen: true });
-    expect(DetailsPage().find(changelogModal)).toHaveLength(1);
-  });
-
-  it("should render paginiation", () => {
-    expect(DetailsPage().find(pagination)).toHaveLength(1);
-  });
-
-  it("should not render paginiation when no rules", () => {
-    DetailsPage().setProps({ changelog: [] });
-    expect(DetailsPage().find(pagination)).toHaveLength(0);
+  describe("When a user views a change from the changelog", () => {
+    it("should display change modal when rule is clicked", () => {
+      DetailsPage().setProps({ isChangeModalOpen: true });
+      expect(DetailsPage().find(changelogModal)).toHaveLength(1);
+    });
   });
 });

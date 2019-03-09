@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { shallow } from "enzyme";
 import BounceActivityContainer from ".";
 import { Selectors } from "./selectors";
-import { mockChangelog } from "../../mocks/index";
+import { mockActivityLog } from "../../mocks/index";
 
 const {
   csvButton,
@@ -29,8 +29,8 @@ describe("Bounce Activity Page", () => {
 
   beforeEach(() => {
     props = {
-      activityLog: mockChangelog,
-      filteredActivityLog: mockChangelog,
+      activityLog: mockActivityLog,
+      filteredActivityLog: mockActivityLog,
       filterOptions: [],
       isFetching: false,
     };

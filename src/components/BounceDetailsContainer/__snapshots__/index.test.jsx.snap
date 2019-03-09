@@ -193,7 +193,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                   </td>
                   <td>
                      
-                    N/A
+                    sdfg
                      
                   </td>
                 </tr>
@@ -227,7 +227,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
                   </td>
                   <td>
                      
-                    N/A
+                    1
                      
                   </td>
                 </tr>

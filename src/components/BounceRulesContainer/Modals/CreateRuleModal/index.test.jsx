@@ -117,12 +117,12 @@ describe("Create Rule Confirmation", () => {
     });
 
     it("should render an enabled confirm button if commit is not empty", () => {
-      ConfirmationComponent().setProps({
-        newRule: { comment: "a commit message" },
-        isCommitValid: true,
-      });
       expect(
         ConfirmationComponent()
+          .setProps({
+            newRule: { comment: "a commit message" },
+            isCommitValid: true,
+          })
           .find(confirmationSubmit)
           .first()
           .prop("disabled")
