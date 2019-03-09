@@ -2,12 +2,9 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import BounceRulesContainer from "../components/BounceRulesContainer";
 import { listRules, deleteRule, postRule } from "../utils/ruleCalls";
+import { validateCommit } from "../utils/utils";
 
 export default class BounceRulesPage extends React.Component {
-  static validateCommit(commit) {
-    return commit.length !== 0;
-  }
-
   constructor(props) {
     super(props);
 
@@ -31,6 +28,7 @@ export default class BounceRulesPage extends React.Component {
       isCreateRuleConfirmationOpen: false,
       newRule: {},
       isInvalidInput: false,
+      isNetworkError: false,
       isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
@@ -57,12 +55,19 @@ export default class BounceRulesPage extends React.Component {
   }
 
   async componentDidMount() {
-    const { data, status } = await listRules();
-    if (status === 200) {
+    try {
+      const { data, status } = await listRules();
+      if (status === 200) {
+        this.setState({
+          isFetching: false,
+          rules: data.reverse(),
+          numRules: data.length,
+        });
+      }
+    } catch (err) {
       this.setState({
+        isNetworkError: true,
         isFetching: false,
-        rules: data.reverse(),
-        numRules: data.length,
       });
     }
   }
@@ -206,6 +211,7 @@ export default class BounceRulesPage extends React.Component {
       isInvalidInput: false,
       selectedRule: {},
       newRule: null,
+      isCommitValid: true,
     });
   }
 
@@ -215,16 +221,24 @@ export default class BounceRulesPage extends React.Component {
       ...selectedRule,
       user_id: parseInt(localStorage.getItem("user_id"), 10),
     };
-    const { status } = await deleteRule(ruleToDelete);
-    if (status === 200) {
+    try {
+      const { status } = await deleteRule(ruleToDelete);
+      if (status === 200) {
+        this.setState({
+          rules: rules.filter(
+            rule => rule.id !== parseInt(selectedRule.id, 10)
+          ),
+          isDeleteConfirmationOpen: false,
+          selectedRule: null,
+        });
+      } else {
+        this.setState({
+          isDeleteAlertOpen: true,
+        });
+      }
+    } catch (error) {
       this.setState({
-        rules: rules.filter(rule => rule.id !== parseInt(selectedRule.id, 10)),
-        isDeleteConfirmationOpen: false,
-        selectedRule: null,
-      });
-    } else {
-      this.setState({
-        isDeleteAlertOpen: true,
+        isNetworkError: true,
       });
     }
   }
@@ -273,21 +287,15 @@ export default class BounceRulesPage extends React.Component {
   handleRuleUpdateInt(e) {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
-    if (!value) {
-      this.setState({
-        newRule: { ...newRule, [id]: value },
-      });
-    } else {
-      this.setState({
-        newRule: { ...newRule, [id]: parseInt(value, 10) },
-      });
-    }
+    this.setState({
+      newRule: { ...newRule, [id]: parseInt(value, 10) },
+    });
   }
 
   handleDeleteCommit(e) {
     const { value, id } = e.currentTarget;
     const { selectedRule } = this.state;
-    const isCommitValid = BounceRulesPage.validateCommit(value);
+    const isCommitValid = validateCommit(value);
     this.setState({
       selectedRule: { ...selectedRule, [id]: value },
       isCommitValid,
@@ -297,7 +305,7 @@ export default class BounceRulesPage extends React.Component {
   handleCreateCommit(e) {
     const { value, id } = e.currentTarget;
     const { newRule } = this.state;
-    const isCommitValid = BounceRulesPage.validateCommit(value);
+    const isCommitValid = validateCommit(value);
     this.setState({
       newRule: { ...newRule, [id]: value },
       isCommitValid,
@@ -307,14 +315,19 @@ export default class BounceRulesPage extends React.Component {
   async handleCreateConfirm() {
     const { rules } = this.state;
     const { newRule } = this.state;
-
-    const { data, status } = await postRule(newRule);
-    newRule.id = data.id;
-    if (status === 200 || status === 201) {
+    try {
+      const { data, status } = await postRule(newRule);
+      newRule.id = data.id;
+      if (status === 200 || status === 201) {
+        this.setState({
+          isCreateRuleConfirmationOpen: false,
+          rules: [newRule, ...rules],
+          newRule: null,
+        });
+      }
+    } catch (error) {
       this.setState({
-        isCreateRuleConfirmationOpen: false,
-        rules: [newRule, ...rules],
-        newRule: null,
+        isNetworkError: true,
       });
     }
   }

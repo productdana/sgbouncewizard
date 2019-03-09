@@ -14,6 +14,7 @@ import Pagination from "../Pagination";
 import RuleListContainer from "./RuleListContainer";
 import RuleFilter from "./RuleFilter";
 import EmptyRules from "./EmptyRules";
+import NetworkAlert from "../Alerts/NetworkAlert";
 import DeleteConfirmationModal, {
   DeleteConfirmationAlert,
 } from "./Modals/DeleteRuleModal";
@@ -63,6 +64,7 @@ const BounceRulesContainer = ({
   isBounceRulesTab,
   isActivityLogTab,
   handleDeleteCommit,
+  isNetworkError,
   handleCreateCommit,
   handleDropdownSelect,
   isCommitValid,
@@ -77,6 +79,12 @@ const BounceRulesContainer = ({
     <React.Fragment>
       {isActivityLogTab && <Redirect push to="/activity_log" />}
       <div {...WriteSelectors.page}>
+        {isNetworkError && (
+          <NetworkAlert
+            reloadLink="/bounce_rules"
+            handleModalClose={handleModalClose}
+          />
+        )}
         <Header logout={logout} />
         <Row>
           <Column width={6} offset={2}>

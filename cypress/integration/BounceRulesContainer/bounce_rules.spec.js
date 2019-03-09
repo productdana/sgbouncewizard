@@ -4,19 +4,20 @@ const testDeleteRule = {
   priority: 1,
   bounce_action: "no_action",
   response_code: 528,
-  description: "bounce_rules_description_delete",
+  description: "rules_delete",
   enhanced_code: "492",
-  regex: "bounce_rules_regex_delete",
+  regex: "rules_delete_comment",
+  comment: "rules_delete_comment",
 };
 
 const testCreateRule = {
   priority: 2,
   bounce_action: "no_action",
   response_code: 918,
-  description: "bounce_rules_description_create",
+  description: "rules_create",
   enhanced_code: "492",
-  regex: "bounce_rules_regex_create",
-  comment: "bounce_rules_comment_create",
+  regex: "rules_create_regex",
+  comment: "rules_create_comment",
 };
 
 describe("Bounce Rules Page", () => {

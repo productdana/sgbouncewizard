@@ -21,6 +21,7 @@ export default class BounceActivityPage extends React.Component {
       filterOptions: [],
       isValidFilter: true,
       isFetching: true,
+      isNetworkError: false,
     };
     this.logout = this.logout.bind(this);
     this.updateSearchToken = this.updateSearchToken.bind(this);
@@ -37,12 +38,16 @@ export default class BounceActivityPage extends React.Component {
   }
 
   async componentDidMount() {
-    const { data: activities } = await getActivityLog();
-    if (activities) {
-      this.setState({
-        isFetching: false,
-        activityLog: activities.reverse(),
-      });
+    try {
+      const { data: activities } = await getActivityLog();
+      if (activities) {
+        this.setState({
+          isFetching: false,
+          activityLog: activities.reverse(),
+        });
+      }
+    } catch (err) {
+      this.setState({ isNetworkError: true });
     }
   }
 
