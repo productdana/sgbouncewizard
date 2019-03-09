@@ -9,10 +9,10 @@ const isSubmitDisabled = (isCommitValid, comment) =>
   !isCommitValid || comment === undefined || comment === "";
 
 const ConfirmRevertBody = ({
-  handleModalClose,
+  comment,
+  handleRevertModalClose,
   handleRevertConfirm,
-  onRevertCommit,
-  newCommitMessage,
+  onChangeRevert,
   isCommitValid,
 }) => (
   <div>
@@ -26,8 +26,8 @@ const ConfirmRevertBody = ({
           </p>
         </div>
         <TextInput
-          onChange={onRevertCommit}
-          value={newCommitMessage}
+          onChange={onChangeRevert}
+          value={comment}
           isRequired
           isValid={isCommitValid}
           info={!isCommitValid && "This field is required."}
@@ -41,7 +41,7 @@ const ConfirmRevertBody = ({
       <Column width={1} offset={10}>
         <Button
           className="sg-button"
-          onClick={handleModalClose}
+          onClick={handleRevertModalClose}
           id="isRevertConfirmOpen"
           type="secondary"
         >
@@ -52,7 +52,7 @@ const ConfirmRevertBody = ({
         <Button
           className="sg-button"
           onClick={handleRevertConfirm}
-          disabled={isSubmitDisabled(isCommitValid, newCommitMessage)}
+          disabled={isSubmitDisabled(isCommitValid, comment)}
           type="primary"
         >
           Confirm
@@ -63,26 +63,28 @@ const ConfirmRevertBody = ({
 );
 
 const RevertConfirmationModal = ({
-  handleModalClose,
   handleRevertConfirm,
   selectedChange,
-  onRevertCommit,
-  newCommitMessage,
+  onChangeRevert,
+  handleRevertModalClose,
   isCommitValid,
-}) => (
-  <CenterModal
-    open
-    renderBody={(
-      <ConfirmRevertBody
-        handleModalClose={handleModalClose}
-        handleRevertConfirm={handleRevertConfirm}
-        onRevertCommit={onRevertCommit}
-        selectedChange={selectedChange}
-        newCommitMessage={newCommitMessage}
-        isCommitValid={isCommitValid}
-      />
+}) => {
+  const { comment } = selectedChange;
+  return (
+    <CenterModal
+      open
+      renderBody={(
+        <ConfirmRevertBody
+          comment={comment}
+          handleRevertModalClose={handleRevertModalClose}
+          handleRevertConfirm={handleRevertConfirm}
+          selectedChange={selectedChange}
+          onChangeRevert={onChangeRevert}
+          isCommitValid={isCommitValid}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 export default RevertConfirmationModal;

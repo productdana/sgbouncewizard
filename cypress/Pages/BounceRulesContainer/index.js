@@ -118,6 +118,7 @@ class BounceRulesPage extends Page {
   }
 
   deleteBounceRuleUI(testRule) {
+    const { comment } = testRule;
     return cy.task("getRules", { env: Cypress.env("testEnv") }).then(res => {
       const ruleToFind = _.findLastIndex(
         res,
@@ -128,7 +129,7 @@ class BounceRulesPage extends Page {
         cy.route("DELETE", "/bounce_rules/*").as("deleteBounceRule");
 
         cy.get(`[data-delete="${res[ruleToFind].id}"]`).click();
-        this.commitMessage.clear().type("Deleted This Rule For Testing");
+        this.commitMessage.clear().type(comment);
         this.deleteConfirmationConfirm.click();
         return cy.wait("@deleteBounceRule", { timeout: 10000 });
       }
@@ -141,13 +142,10 @@ class BounceRulesPage extends Page {
       .task("getRules", { env: Cypress.env("testEnv") })
       .then(res => {
         if (res) {
-          const isMatchingBounceRule = res.find(bounceRule =>
-            _.isEqual(
+          const isMatchingBounceRule = res.find(bounceRule => _.isEqual(
               _.omit(testRule, "comment"),
               _.omit(bounceRule, ["id", "created_at"])
-            )
-          );
-
+            ));
           if (isMatchingBounceRule) {
             return cy.task("deleteRule", {
               env: Cypress.env("testEnv"),

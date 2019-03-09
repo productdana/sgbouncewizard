@@ -33,7 +33,7 @@ const ConfirmModalBody = ({
   handleSaveConfirmation,
   isUpdateError,
   isCommitValid,
-  onEditRuleCommit,
+  onChangeRule,
 }) => {
   const { comment } = updatedRule;
   return (
@@ -51,7 +51,7 @@ const ConfirmModalBody = ({
             </p>
             <TextInput
               {...WriteSelectors.commitInput}
-              onChange={onEditRuleCommit}
+              onChange={onChangeRule}
               value={comment}
               isRequired
               isValid={isCommitValid}
@@ -96,14 +96,14 @@ const ConfirmationModal = ({
   handleSaveConfirmation,
   isUpdateError,
   isCommitValid,
-  onEditRuleCommit,
+  onChangeRule,
 }) => (
   <CenterModal
     {...WriteSelectors.saveConfirmationModal}
     open
     renderBody={(
       <ConfirmModalBody
-        onEditRuleCommit={onEditRuleCommit}
+        onChangeRule={onChangeRule}
         isCommitValid={isCommitValid}
         updatedRule={updatedRule}
         handleModalClose={handleModalClose}
