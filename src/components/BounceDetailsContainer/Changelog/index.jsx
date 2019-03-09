@@ -54,8 +54,13 @@ const Changelog = ({
       <Column width={1} offset={1}>
         <h2>Changelog</h2>
       </Column>
-      <Column width={2} offset={11} className="changelog-csv sg-right">
-        <CSVLink data={changelog} filename="changelog.csv" target="_blank">
+      <Column width={3} offset={9} className="changelog-csv sg-right">
+        <CSVLink
+          data={changelog}
+          filename="changelog.csv"
+          className="export-changelog-btn btn btn-secondary"
+          target="_blank"
+        >
           Export as CSV
         </CSVLink>
       </Column>
