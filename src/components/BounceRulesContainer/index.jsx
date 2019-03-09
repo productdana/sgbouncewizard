@@ -49,6 +49,7 @@ const BounceRulesContainer = ({
   isCreateRuleConfirmationOpen,
   handleCreateConfirm,
   newRule,
+  fieldValidation,
   isInvalidInput,
   isDeleteConfirmationOpen,
   isDeleteAlertOpen,
@@ -183,6 +184,7 @@ const BounceRulesContainer = ({
           <CreateRuleModal
             {...WriteSelectors.createRuleModal}
             newRule={newRule}
+            fieldValidation={fieldValidation}
             handleInvalidAlertClose={handleInvalidAlertClose}
             isInvalidInput={isInvalidInput}
             handleModalClose={handleModalClose}

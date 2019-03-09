@@ -5,7 +5,6 @@ import { TextInput } from "@sendgrid/ui-components/text-input";
 import { CenterModal } from "@sendgrid/ui-components/center-modal";
 import { Select } from "@sendgrid/ui-components/select";
 import { Button } from "@sendgrid/ui-components/button";
-import Alert from "@sendgrid/ui-components/alert";
 import { Row } from "../../../Row";
 import { Column } from "../../../Column";
 import "./index.scss";
@@ -13,6 +12,8 @@ import { WriteSelectors } from "../../selectors";
 
 const isSubmitDisabled = (isCommitValid, comment) =>
   !isCommitValid || comment === undefined || comment === "";
+
+const isFieldValid = (fieldValidation, value) => fieldValidation[value];
 
 const ConfirmationHeader = () => (
   <div>
@@ -114,10 +115,9 @@ const CreateRuleModal = ({
   handleCreateSubmit,
   handleDropdownSelect,
   newRule,
-  isInvalidInput,
   handleModalClose,
   handleRuleUpdateInt,
-  handleInvalidAlertClose,
+  fieldValidation,
 }) => {
   const {
     priority,
@@ -136,11 +136,6 @@ const CreateRuleModal = ({
       <Row>
         <Column>
           <h1 className="h2.is-size-h1">Create a Bounce Rule</h1>
-          {isInvalidInput && (
-            <Alert type="danger" onClick={handleInvalidAlertClose}>
-              One or more fields contain invalid characters.
-            </Alert>
-          )}
         </Column>
       </Row>
       <Row>
@@ -148,22 +143,10 @@ const CreateRuleModal = ({
           <div className="rule-form-container">
             <form onSubmit={handleCreateSubmit} id="create-rule-form">
               <div className="input-text-wrap">
-                <label htmlFor="priority">
-                  Priority
-                  <TextInput
-                    onChange={handleRuleUpdateInt}
-                    {...WriteSelectors.priority}
-                    value={priority}
-                    type="number"
-                    id="priority"
-                    isRequired
-                  />
-                </label>
                 <label htmlFor="bounce_action">
                   Bounce Action
                   <div {...WriteSelectors.bounceAction}>
                     <Select
-                      isRequired
                       value={{ label: bounceAction, value: bounceAction }}
                       options={[
                         { label: "no_action", value: "no_action" },
@@ -174,9 +157,25 @@ const CreateRuleModal = ({
                       ]}
                       onChange={handleDropdownSelect}
                       id="bounce_action"
+                      isValid={!isFieldValid(fieldValidation, "bounce_action")}
+                      info={isFieldValid(fieldValidation, "bounce_action")}
                     />
                   </div>
                 </label>
+                <label htmlFor="priority">
+                  Priority
+                  <TextInput
+                    onChange={handleRuleUpdateInt}
+                    {...WriteSelectors.priority}
+                    value={priority}
+                    type="number"
+                    id="priority"
+                    isRequired
+                    isValid={!isFieldValid(fieldValidation, "priority")}
+                    info={isFieldValid(fieldValidation, "priority")}
+                  />
+                </label>
+
                 <label htmlFor="response_code">
                   Response Code
                   <TextInput
@@ -186,6 +185,8 @@ const CreateRuleModal = ({
                     type="number"
                     id="response_code"
                     isRequired
+                    isValid={!isFieldValid(fieldValidation, "response_code")}
+                    info={isFieldValid(fieldValidation, "response_code")}
                   />
                 </label>
                 <label htmlFor="description">
@@ -197,6 +198,8 @@ const CreateRuleModal = ({
                     type="text"
                     id="description"
                     isRequired
+                    isValid={!isFieldValid(fieldValidation, "description")}
+                    info={isFieldValid(fieldValidation, "description")}
                   />
                 </label>
                 <label htmlFor="enhanced_code">
@@ -208,6 +211,8 @@ const CreateRuleModal = ({
                     type="text"
                     id="enhanced_code"
                     isRequired
+                    isValid={!isFieldValid(fieldValidation, "enhanced_code")}
+                    info={isFieldValid(fieldValidation, "enhanced_code")}
                   />
                 </label>
                 <label htmlFor="regex">
@@ -219,6 +224,8 @@ const CreateRuleModal = ({
                     type="text"
                     id="regex"
                     isRequired
+                    isValid={!isFieldValid(fieldValidation, "regex")}
+                    info={isFieldValid(fieldValidation, "regex")}
                   />
                 </label>
               </div>
@@ -255,7 +262,6 @@ const CreateRuleModal = ({
 CreateRuleModal.propTypes = {
   handleRuleUpdate: PropTypes.func,
   handleCreateSubmit: PropTypes.func,
-  isInvalidInput: PropTypes.bool,
   handleModalClose: PropTypes.func,
   handleInvalidAlertClose: PropTypes.func,
 };
@@ -263,7 +269,6 @@ CreateRuleModal.propTypes = {
 CreateRuleModal.defaultProps = {
   handleRuleUpdate: () => {},
   handleCreateSubmit: () => {},
-  isInvalidInput: false,
   handleModalClose: () => {},
   handleInvalidAlertClose: () => {},
 };
