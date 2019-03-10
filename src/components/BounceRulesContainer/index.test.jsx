@@ -13,7 +13,6 @@ const {
   ruleTable,
   emptyRulesWarning,
   createRuleModal,
-  confirmModal,
 } = Selectors;
 
 const testRules = [
@@ -98,9 +97,4 @@ it("should render warning when no rules available", () => {
 it("should render create rule modal", () => {
   wrapper.setProps({ isCreateRuleOpen: true });
   expect(wrapper.find(createRuleModal)).toHaveLength(1);
-});
-
-it("should render create rule confirmation", () => {
-  wrapper.setProps({ isCreateRuleConfirmationOpen: true });
-  expect(wrapper.find(confirmModal).exists()).toBeTruthy();
 });
