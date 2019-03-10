@@ -5,7 +5,7 @@ import LoginPage from "./routes/login_page";
 import BounceRulesPage from "./routes/bounce_rules_page";
 import BounceDetailsPage from "./routes/bounce_details_page";
 import BounceActivityPage from "./routes/bounce_activities_page";
-import PageNotFound from "./components/PageNotFound";
+import PageNotFound from "./components/shared/PageNotFound";
 import "./index.scss";
 
 const App = () => (

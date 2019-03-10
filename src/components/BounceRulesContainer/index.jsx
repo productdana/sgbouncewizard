@@ -7,14 +7,14 @@ import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
 import Loader from "@sendgrid/ui-components/loader";
-import Header from "../Header";
-import { Row } from "../Row";
-import { Column } from "../Column";
-import Pagination from "../Pagination";
+import Header from "../shared/Header";
+import { Row } from "../shared/Row";
+import { Column } from "../shared/Column";
+import Pagination from "../shared/Pagination";
 import RuleListContainer from "./RuleListContainer";
-import RuleFilter from "./RuleFilter";
+import RuleFilter from "../shared/Filter/RuleFilter";
 import EmptyRules from "./EmptyRules";
-import NetworkAlert from "../Alerts/NetworkAlert";
+import NetworkAlert from "../shared/Alerts/NetworkAlert";
 import DeleteConfirmationModal, {
   DeleteConfirmationAlert,
 } from "./Modals/DeleteRuleModal";

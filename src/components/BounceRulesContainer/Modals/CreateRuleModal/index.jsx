@@ -6,8 +6,8 @@ import { CenterModal } from "@sendgrid/ui-components/center-modal";
 import { Select } from "@sendgrid/ui-components/select";
 import { Button } from "@sendgrid/ui-components/button";
 import Alert from "@sendgrid/ui-components/alert";
-import { Row } from "../../../Row";
-import { Column } from "../../../Column";
+import { Row } from "../../../shared/Row";
+import { Column } from "../../../shared/Column";
 import "./index.scss";
 import { WriteSelectors } from "../../selectors";
 

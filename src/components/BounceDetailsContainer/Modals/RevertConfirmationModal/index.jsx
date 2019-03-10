@@ -2,8 +2,8 @@ import React from "react";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
-import { Column } from "../../../Column";
-import { Row } from "../../../Row";
+import { Column } from "../../../shared/Column";
+import { Row } from "../../../shared/Row";
 
 const isSubmitDisabled = (isCommitValid, comment) =>
   !isCommitValid || comment === undefined || comment === "";

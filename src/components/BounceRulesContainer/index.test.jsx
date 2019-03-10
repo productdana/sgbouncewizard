@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import { BrowserRouter as Router } from "react-router-dom";
 import { shallow } from "enzyme";
 import BounceRuleContainer from ".";
-import Pagination from "../Pagination";
+import Pagination from "../shared/Pagination";
 import { Selectors } from "./selectors";
 
 const {

@@ -2,8 +2,8 @@ import React from "react";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import CenterModal from "@sendgrid/ui-components/center-modal";
-import { Column } from "../../../Column";
-import { Row } from "../../../Row";
+import { Column } from "../../../shared/Column";
+import { Row } from "../../../shared/Row";
 import "./index.scss";
 import { WriteSelectors } from "../../selectors";
 
