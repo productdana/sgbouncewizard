@@ -105,7 +105,7 @@ const ConfirmationModal = ({
   selectors,
 }) => (
   <CenterModal
-    {...selectors.saveConfirmationModal}
+    {...selectors.confirmModal}
     open
     renderBody={(
       <ConfirmModalBody
