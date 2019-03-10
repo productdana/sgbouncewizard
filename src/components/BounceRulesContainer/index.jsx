@@ -15,7 +15,7 @@ import RuleListContainer from "./RuleListContainer";
 import RuleFilter from "../shared/Filter/RuleFilter";
 import EmptyRules from "../shared/EmptyRules";
 import NetworkAlert from "../shared/Alerts/NetworkAlert";
-import CommitConfirmation from "../shared/CommitConfirmation";
+import ConfirmationModal from "../shared/ConfirmationModal";
 import CreateRuleModal from "./Modals/CreateRuleModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
@@ -185,7 +185,7 @@ const BounceRulesContainer = ({
           />
         )}
         {isCreateRuleConfirmationOpen && (
-          <CommitConfirmation
+          <ConfirmationModal
             selectors={WriteSelectors}
             isCommitValid={isCommitValid}
             selectedRule={newRule}
@@ -197,7 +197,7 @@ const BounceRulesContainer = ({
           />
         )}
         {isDeleteConfirmationOpen && (
-          <CommitConfirmation
+          <ConfirmationModal
             selectors={WriteSelectors}
             isCommitValid={isCommitValid}
             selectedRule={selectedRule}

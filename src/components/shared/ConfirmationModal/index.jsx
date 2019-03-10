@@ -94,7 +94,7 @@ const ConfirmModalBody = ({
   );
 };
 
-const CommitConfirmation = ({
+const ConfirmationModal = ({
   selectedRule,
   toggleId,
   handleModalClose,
@@ -122,4 +122,4 @@ const CommitConfirmation = ({
   />
 );
 
-export default CommitConfirmation;
+export default ConfirmationModal;

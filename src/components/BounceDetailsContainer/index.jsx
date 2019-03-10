@@ -12,7 +12,7 @@ import Changelog from "./Changelog";
 import ChangeModal from "./Modals/ChangeModal";
 import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
 import NetworkAlert from "../shared/Alerts/NetworkAlert";
-import CommitConfirmation from "../shared/CommitConfirmation";
+import ConfirmationModal from "../shared/ConfirmationModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
@@ -173,7 +173,7 @@ const BounceRuleDetailed = ({
         />
       )}
       {isRevertConfirmOpen && (
-        <CommitConfirmation
+        <ConfirmationModal
           selectors={WriteSelectors}
           toggleId="isRevertConfirmOpen"
           isCommitValid={isCommitValid}
@@ -186,7 +186,7 @@ const BounceRuleDetailed = ({
         />
       )}
       {isConfirmOpen && (
-        <CommitConfirmation
+        <ConfirmationModal
           selectors={WriteSelectors}
           toggleId="isConfirmOpen"
           isCommitValid={isCommitValid}
