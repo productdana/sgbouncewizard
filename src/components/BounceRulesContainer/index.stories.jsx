@@ -9,36 +9,10 @@ import CreateRuleModal, {
 import DeleteRuleModal, {
   DeleteConfirmationAlert,
 } from "./Modals/DeleteRuleModal";
+import { mockBounceRules } from "../../mocks/index";
 
-const emptyRule = {
-  id: "",
-  response_code: "",
-  enhanced_code: "",
-  regex: "",
-  priority: 0,
-  description: "",
-  bounce_action: "",
-};
-
-const sampleRule1 = {
-  id: 505,
-  response_code: 551,
-  enhanced_code: 284,
-  regex: "test value 2",
-  priority: 1,
-  description: "bWFpbmx5IGxpYmVydHkgZGluZyBTRyB3aWRl",
-  bounce_action: "no_action",
-};
-
-const sampleRule2 = {
-  id: 505,
-  response_code: "551",
-  enhanced_code: "",
-  regex: "test value 2",
-  priority: 0,
-  description: "bWFpbmx5IGxpYmVydHkgZGluZyBTRyB3aWRl",
-  bounce_action: "no_action",
-};
+const [emptyRule, sampleRule1, sampleRule2] = mockBounceRules;
+console.log(emptyRule, sampleRule1, sampleRule2);
 
 storiesOf("Bounce Rule Page", module)
   .addDecorator(StoryRouter())
@@ -69,9 +43,9 @@ storiesOf("Bounce Rule Page", module)
   ))
   .add("Delete Rule Confirmation", () => (
     <BounceRulesContainer
-      filteredRules={[sampleRule1, sampleRule2]}
-      filterOptions={[]}
-      isDeleteConfirmationOpen
+      selectedRule={sampleRule1}
+      idToDelete={1}
+      isCommitValid
     />
   ))
   .add("Delete Rule Error", () => (
