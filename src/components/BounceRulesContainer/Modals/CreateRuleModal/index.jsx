@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { SideModal } from "@sendgrid/ui-components/side-modal";
 import { TextInput } from "@sendgrid/ui-components/text-input";
-import { CenterModal } from "@sendgrid/ui-components/center-modal";
 import { Select } from "@sendgrid/ui-components/select";
 import { Button } from "@sendgrid/ui-components/button";
 import Alert from "@sendgrid/ui-components/alert";
@@ -10,104 +9,6 @@ import { Row } from "../../../shared/Row";
 import { Column } from "../../../shared/Column";
 import "./index.scss";
 import { WriteSelectors } from "../../selectors";
-
-const isSubmitDisabled = (isCommitValid, comment) =>
-  !isCommitValid || comment === undefined || comment === "";
-
-const ConfirmationHeader = () => (
-  <div>
-    <h2>Are you sure you&apos;d like to create this rule?</h2>
-  </div>
-);
-
-const ConfirmationBody = ({ newRule, handleCreateCommit, isCommitValid }) => {
-  const { comment } = newRule;
-  return (
-    <div {...WriteSelectors.confirmModal}>
-      <p>Please enter a commit message and confirm your changes.</p>
-      <TextInput
-        {...WriteSelectors.commitMessage}
-        onChange={handleCreateCommit}
-        value={comment}
-        isRequired
-        isValid={isCommitValid}
-        info={!isCommitValid && "This field is required."}
-        id="comment"
-        type="text"
-        label="Commit Message"
-      />
-    </div>
-  );
-};
-
-const ConfirmationFooter = ({
-  handleModalClose,
-  handleCreateConfirm,
-  isCommitValid,
-  comment,
-}) => (
-  <div>
-    <Row>
-      <Column width={1} offset={10}>
-        <Button
-          {...WriteSelectors.cancelConfirmationSubmit}
-          className="sg-button"
-          onClick={handleModalClose}
-          id="isCreateRuleConfirmationOpen"
-          type="secondary"
-        >
-          Close
-        </Button>
-      </Column>
-      <Column width={1} offset={11}>
-        <Button
-          className="sg-button"
-          {...WriteSelectors.confirmationSubmit}
-          onClick={handleCreateConfirm}
-          disabled={isSubmitDisabled(isCommitValid, comment)}
-          type="primary"
-        >
-          Confirm
-        </Button>
-      </Column>
-    </Row>
-  </div>
-);
-
-const CreateConfirmationModal = ({
-  newRule,
-  handleModalClose,
-  handleCreateConfirm,
-  handleRuleUpdate,
-  handleCreateCommit,
-  isCommitValid,
-}) => {
-  const { comment } = newRule;
-  return (
-    <CenterModal
-      {...WriteSelectors.confirmModal}
-      open
-      renderBody={(
-        <ConfirmationBody
-          isCommitValid={isCommitValid}
-          newRule={newRule}
-          handleRuleUpdate={handleRuleUpdate}
-          handleCreateCommit={handleCreateCommit}
-        />
-)}
-      renderHeader={<ConfirmationHeader />}
-      renderFooter={(
-        <ConfirmationFooter
-          comment={comment}
-          isCommitValid={isCommitValid}
-          handleModalClose={handleModalClose}
-          handleCreateConfirm={handleCreateConfirm}
-          handleRuleUpdate={handleRuleUpdate}
-        />
-)}
-    />
-  );
-};
 
 const CreateRuleModal = ({
   handleRuleUpdate,
@@ -267,5 +168,4 @@ CreateRuleModal.defaultProps = {
   handleAlertClose: () => {},
 };
 
-export { CreateConfirmationModal };
 export default CreateRuleModal;

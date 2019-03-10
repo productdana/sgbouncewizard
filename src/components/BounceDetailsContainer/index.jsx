@@ -10,10 +10,9 @@ import Pagination from "../shared/Pagination";
 import DetailsContainer, { DetailsContainerEditable } from "./Details";
 import Changelog from "./Changelog";
 import ChangeModal from "./Modals/ChangeModal";
-import ConfirmationModal from "./Modals/ConfirmationModal";
 import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
-import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
 import NetworkAlert from "../shared/Alerts/NetworkAlert";
+import CommitConfirmation from "../shared/CommitConfirmation";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
@@ -174,24 +173,27 @@ const BounceRuleDetailed = ({
         />
       )}
       {isRevertConfirmOpen && (
-        <RevertConfirmationModal
+        <CommitConfirmation
+          selectors={WriteSelectors}
+          toggleId="isRevertConfirmOpen"
           isCommitValid={isCommitValid}
-          currentRule={currentRule}
-          selectedChange={selectedChange}
-          handleModalClose={handleModalClose}
-          handleRevertConfirm={handleRevertConfirm}
-          handleRevertModalClose={handleRevertModalClose}
-          onChangeRevert={onChangeRevert}
+          selectedRule={selectedChange}
+          handleConfirm={handleRevertConfirm}
+          handleModalClose={handleRevertModalClose}
+          handleOnChange={onChangeRevert}
+          isUpdateError={isUpdateError}
+          isNetworkError={isNetworkError}
         />
       )}
       {isConfirmOpen && (
-        <ConfirmationModal
-          {...WriteSelectors.saveConfirmationModal}
+        <CommitConfirmation
+          selectors={WriteSelectors}
+          toggleId="isConfirmOpen"
           isCommitValid={isCommitValid}
-          onChangeRule={onChangeRule}
-          updatedRule={updatedRule}
+          handleOnChange={onChangeRule}
+          selectedRule={updatedRule}
           handleModalClose={handleModalClose}
-          handleSaveConfirmation={handleSaveConfirmation}
+          handleConfirm={handleSaveConfirmation}
           isUpdateError={isUpdateError}
           isNetworkError={isNetworkError}
         />

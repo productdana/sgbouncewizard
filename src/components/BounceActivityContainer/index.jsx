@@ -12,7 +12,7 @@ import { Row } from "../shared/Row";
 import { Column } from "../shared/Column";
 import Pagination from "../shared/Pagination";
 import ActivityFilter from "../shared/Filter/ActivityFilter";
-import EmptyRules from "./EmptyRules";
+import EmptyRules from "../shared/EmptyRules";
 import ActivityLogContainer from "./ActivityLogContainer";
 import ActivityDetailsModal from "./Modals/ActivityDetailsModal";
 import { WriteSelectors } from "./selectors";

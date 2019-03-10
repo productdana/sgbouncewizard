@@ -120,14 +120,13 @@ export default class BounceDetailsPage extends React.Component {
     });
   }
 
-  handleRevertModalClose(e) {
-    const { id } = e.currentTarget;
+  handleRevertModalClose() {
     const { selectedChange, oldCommit } = this.state;
     const oldSelectedChange = Object.assign(selectedChange, {
       comment: oldCommit,
     });
     this.setState({
-      [id]: false,
+      isRevertConfirmOpen: false,
       selectedChange: oldSelectedChange,
       isCommitValid: true,
     });
@@ -292,31 +291,30 @@ export default class BounceDetailsPage extends React.Component {
             }}
           />
         )}
-        {isAuthenticated &&
-          currentRule && (
-            <BounceDetailsContainer
-              logout={this.logout}
-              handleModalClose={this.handleModalClose}
-              handleButtonClicked={this.handleButtonClicked}
-              onChangeRule={this.onChangeRule}
-              handleEditClicked={this.handleEditClicked}
-              handleCancelSaveClicked={this.handleCancelSaveClicked}
-              handleChangelogClicked={this.handleChangelogClicked}
-              handleCancelConfirmation={this.handleCancelConfirmation}
-              handleSaveConfirmation={this.handleSaveConfirmation}
-              handlePrevClicked={this.handlePrevClicked}
-              handleNextClicked={this.handleNextClicked}
-              onChangeRuleInt={this.onChangeRuleInt}
-              updatePageIndex={this.updatePageIndex}
-              handleRevertClicked={this.handleRevertClicked}
-              handleRevertModalClose={this.handleRevertModalClose}
-              handleRevertConfirm={this.handleRevertConfirm}
-              onChangeRevert={this.onChangeRevert}
-              filteredChangelog={filteredChangelog}
-              handleDropdownSelect={this.handleDropdownSelect}
-              {...this.state}
-            />
-          )}
+        {isAuthenticated && currentRule && (
+          <BounceDetailsContainer
+            logout={this.logout}
+            handleModalClose={this.handleModalClose}
+            handleButtonClicked={this.handleButtonClicked}
+            onChangeRule={this.onChangeRule}
+            handleEditClicked={this.handleEditClicked}
+            handleCancelSaveClicked={this.handleCancelSaveClicked}
+            handleChangelogClicked={this.handleChangelogClicked}
+            handleCancelConfirmation={this.handleCancelConfirmation}
+            handleSaveConfirmation={this.handleSaveConfirmation}
+            handlePrevClicked={this.handlePrevClicked}
+            handleNextClicked={this.handleNextClicked}
+            onChangeRuleInt={this.onChangeRuleInt}
+            updatePageIndex={this.updatePageIndex}
+            handleRevertClicked={this.handleRevertClicked}
+            handleRevertModalClose={this.handleRevertModalClose}
+            handleRevertConfirm={this.handleRevertConfirm}
+            onChangeRevert={this.onChangeRevert}
+            filteredChangelog={filteredChangelog}
+            handleDropdownSelect={this.handleDropdownSelect}
+            {...this.state}
+          />
+        )}
       </React.Fragment>
     );
   }

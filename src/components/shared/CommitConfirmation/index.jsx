@@ -2,15 +2,14 @@ import React from "react";
 import CenterModal from "@sendgrid/ui-components/center-modal";
 import Button from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
-import { Column } from "../../../shared/Column";
-import { Row } from "../../../shared/Row";
-import { WriteSelectors } from "../../selectors";
+import { Column } from "../Column";
+import { Row } from "../Row";
 
 const isSubmitDisabled = (isCommitValid, comment) =>
   !isCommitValid || comment === undefined || comment === "";
 
-const UpdateAlertError = ({ handleModalClose }) => (
-  <div {...WriteSelectors.networkErrorAlert} className="alert alert-danger">
+const UpdateAlertError = ({ handleModalClose, selectors }) => (
+  <div {...selectors.networkErrorAlert} className="alert alert-danger">
     <p>
       <i className="sg-icon sg-icon-warning" />
       We are unable to update the bounce rule due to some issues with the
@@ -28,14 +27,16 @@ const UpdateAlertError = ({ handleModalClose }) => (
 );
 
 const ConfirmModalBody = ({
-  updatedRule,
+  selectedRule,
   handleModalClose,
-  handleSaveConfirmation,
+  handleConfirm,
   isUpdateError,
   isCommitValid,
-  onChangeRule,
+  handleOnChange,
+  selectors,
+  toggleId,
 }) => {
-  const { comment } = updatedRule;
+  const { comment } = selectedRule || {};
   return (
     <div>
       <Row>
@@ -43,15 +44,18 @@ const ConfirmModalBody = ({
           <div>
             <h2>Please enter a commit message and confirm your changes.</h2>
             {isUpdateError && (
-              <UpdateAlertError handleModalClose={handleModalClose} />
+              <UpdateAlertError
+                selectors={selectors}
+                handleModalClose={handleModalClose}
+              />
             )}
             <p>
               Doing so will affect how current email will be handled via this
               bounce rule. This action will go into effect immediately.
             </p>
             <TextInput
-              {...WriteSelectors.commitInput}
-              onChange={onChangeRule}
+              {...selectors.commitInput}
+              onChange={handleOnChange}
               value={comment}
               isRequired
               isValid={isCommitValid}
@@ -68,7 +72,7 @@ const ConfirmModalBody = ({
           <Button
             className="sg-button"
             onClick={handleModalClose}
-            id="isConfirmOpen"
+            id={toggleId}
             type="secondary"
           >
             Close
@@ -76,9 +80,9 @@ const ConfirmModalBody = ({
         </Column>
         <Column width={1} offset={11}>
           <Button
-            {...WriteSelectors.confirmSubmit}
+            {...selectors.confirmSubmit}
             className="sg-button"
-            onClick={handleSaveConfirmation}
+            onClick={handleConfirm}
             disabled={isSubmitDisabled(isCommitValid, comment)}
             type="primary"
           >
@@ -91,23 +95,27 @@ const ConfirmModalBody = ({
 };
 
 const ConfirmationModal = ({
-  updatedRule,
+  selectedRule,
+  toggleId,
   handleModalClose,
-  handleSaveConfirmation,
+  handleConfirm,
   isUpdateError,
   isCommitValid,
-  onChangeRule,
+  handleOnChange,
+  selectors,
 }) => (
   <CenterModal
-    {...WriteSelectors.saveConfirmationModal}
+    {...selectors.saveConfirmationModal}
     open
     renderBody={(
       <ConfirmModalBody
-        onChangeRule={onChangeRule}
+        selectors={selectors}
+        toggleId={toggleId}
+        handleOnChange={handleOnChange}
         isCommitValid={isCommitValid}
-        updatedRule={updatedRule}
+        selectedRule={selectedRule}
         handleModalClose={handleModalClose}
-        handleSaveConfirmation={handleSaveConfirmation}
+        handleConfirm={handleConfirm}
         isUpdateError={isUpdateError}
       />
 )}

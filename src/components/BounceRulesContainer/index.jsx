@@ -13,14 +13,10 @@ import { Column } from "../shared/Column";
 import Pagination from "../shared/Pagination";
 import RuleListContainer from "./RuleListContainer";
 import RuleFilter from "../shared/Filter/RuleFilter";
-import EmptyRules from "./EmptyRules";
+import EmptyRules from "../shared/EmptyRules";
 import NetworkAlert from "../shared/Alerts/NetworkAlert";
-import DeleteConfirmationModal, {
-  DeleteConfirmationAlert,
-} from "./Modals/DeleteRuleModal";
-import CreateRuleModal, {
-  CreateConfirmationModal,
-} from "./Modals/CreateRuleModal";
+import CommitConfirmation from "../shared/CommitConfirmation";
+import CreateRuleModal from "./Modals/CreateRuleModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
@@ -51,8 +47,6 @@ const BounceRulesContainer = ({
   newRule,
   isInvalidInput,
   isDeleteConfirmationOpen,
-  isDeleteAlertOpen,
-  idToDelete,
   handleDeleteConfirm,
   handleModalClose,
   handleCreateOpen,
@@ -191,28 +185,28 @@ const BounceRulesContainer = ({
           />
         )}
         {isCreateRuleConfirmationOpen && (
-          <CreateConfirmationModal
-            {...WriteSelectors.confirmModal}
-            newRule={newRule}
+          <CommitConfirmation
+            selectors={WriteSelectors}
             isCommitValid={isCommitValid}
+            selectedRule={newRule}
+            handleConfirm={handleCreateConfirm}
             handleModalClose={handleModalClose}
-            handleCreateConfirm={handleCreateConfirm}
-            handleRuleUpdate={handleRuleUpdate}
-            handleCreateCommit={handleCreateCommit}
+            handleOnChange={handleCreateCommit}
+            toggleId="isCreateRuleConfirmationOpen"
+            isNetworkError={isNetworkError}
           />
         )}
         {isDeleteConfirmationOpen && (
-          <DeleteConfirmationModal
-            idToDelete={idToDelete}
-            handleModalClose={handleModalClose}
-            handleDeleteConfirm={handleDeleteConfirm}
-            handleDeleteCommit={handleDeleteCommit}
-            selectedRule={selectedRule}
+          <CommitConfirmation
+            selectors={WriteSelectors}
             isCommitValid={isCommitValid}
+            selectedRule={selectedRule}
+            handleConfirm={handleDeleteConfirm}
+            handleModalClose={handleModalClose}
+            handleOnChange={handleDeleteCommit}
+            toggleId="isDeleteConfirmationOpen"
+            isNetworkError={isNetworkError}
           />
-        )}
-        {isDeleteAlertOpen && (
-          <DeleteConfirmationAlert handleModalClose={handleModalClose} />
         )}
       </div>
     </React.Fragment>
