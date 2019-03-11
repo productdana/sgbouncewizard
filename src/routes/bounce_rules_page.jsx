@@ -87,7 +87,11 @@ export default class BounceRulesPage extends React.Component {
   updateFilterBy(e) {
     const { filterQuery } = this.state;
     const { value } = e;
-    const newQuery = { ...filterQuery, filterBy: value.toLowerCase() };
+    const newQuery = {
+      ...filterQuery,
+      filterBy: value.toLowerCase(),
+      option: "",
+    };
     this.setState({
       filterQuery: newQuery,
     });

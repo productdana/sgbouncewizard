@@ -33,7 +33,6 @@ const displayOptionInput = (
     <TextInput
       type="text"
       fullWidth
-      label="Description"
       onChange={updateFilterOption}
       value={option}
       isValid={isValidFilter}

@@ -19,8 +19,8 @@ import { WriteSelectors } from "./selectors";
 import "./index.scss";
 
 const BounceActivityContainer = ({
-  updateSearchToken,
-  updateSearchCategory,
+  updateFilterBy,
+  updateFilterOption,
   removeFilter,
   filteredActivityLog,
   searchToken,
@@ -45,6 +45,8 @@ const BounceActivityContainer = ({
   selectedActivity,
   isActivityModalOpen,
   isNetworkError,
+  filterQuery,
+  handleOptionSelector,
 }) => {
   const isActivityEmpty = activityLog.length === 0;
   const shouldShowActivityLogPagination =
@@ -101,9 +103,11 @@ const BounceActivityContainer = ({
           <Column width={10} offset={2}>
             <div {...WriteSelectors.activityFilter}>
               <ActivityFilter
+                filterQuery={filterQuery}
+                updateFilterBy={updateFilterBy}
+                updateFilterOption={updateFilterOption}
+                handleOptionSelector={handleOptionSelector}
                 searchToken={searchToken}
-                updateSearchToken={updateSearchToken}
-                updateSearchCategory={updateSearchCategory}
                 filterOptions={filterOptions}
                 addFilter={addFilter}
                 removeFilter={removeFilter}
@@ -162,7 +166,6 @@ const BounceActivityContainer = ({
 };
 
 BounceActivityContainer.propTypes = {
-  updateSearchToken: PropTypes.func,
   updateSearchCategory: PropTypes.func,
   removeFilter: PropTypes.func,
   handlePrevClicked: PropTypes.func,
@@ -187,7 +190,6 @@ BounceActivityContainer.propTypes = {
 };
 
 BounceActivityContainer.defaultProps = {
-  updateSearchToken: () => {},
   updateSearchCategory: () => {},
   removeFilter: () => {},
   handlePrevClicked: () => {},
