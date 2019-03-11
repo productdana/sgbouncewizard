@@ -282,7 +282,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
               download="changelog.csv"
               href="data:text/csv;charset=utf-8,﻿\\"[object Object]\\""
               onClick={[Function]}
-              target="_self"
+              target="_blank"
             >
               Export as CSV
             </a>
