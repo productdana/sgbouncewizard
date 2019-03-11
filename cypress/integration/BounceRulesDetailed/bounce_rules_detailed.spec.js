@@ -33,7 +33,6 @@ describe("Bounce Rule Detailed", () => {
       .then(() => BounceRuleDetailedPage.teardownBounceRule(testCreateRule))
       .then(isTearDownSuccess => {
         if (isTearDownSuccess) {
-          cy.wait(2000);
           return cy.log("Successfully tore down the bounce rule!");
         }
         return cy.log("Failed to tear down test bounce rule!");
@@ -85,31 +84,5 @@ describe("Bounce Rule Detailed", () => {
         );
       });
     });
-  });
-
-  it("should display cancel modal if rule was modified", () => {
-    BounceRuleDetailedPage.editButton.click();
-    BounceRuleDetailedPage.description.clear().type("does not matter");
-    BounceRuleDetailedPage.cancelButton.click();
-    BounceRuleDetailedPage.cancelConfirmationModal.should("be.visible");
-  });
-
-  it("should not display cancel modal if rule was not modified", () => {
-    BounceRuleDetailedPage.editButton.click();
-    BounceRuleDetailedPage.cancelButton.click();
-    BounceRuleDetailedPage.cancelConfirmationModal.should("be.not.visible");
-  });
-
-  it("should display confirm modal if rule was modified", () => {
-    BounceRuleDetailedPage.editButton.click();
-    BounceRuleDetailedPage.description.clear().type("does not matter");
-    BounceRuleDetailedPage.saveButton.click();
-    BounceRuleDetailedPage.saveConfirmationModal.should("be.visible");
-  });
-
-  it("should not display confirm modal if rule was not modified", () => {
-    BounceRuleDetailedPage.editButton.click();
-    BounceRuleDetailedPage.saveButton.click();
-    BounceRuleDetailedPage.saveConfirmationModal.should("be.not.visible");
   });
 });
