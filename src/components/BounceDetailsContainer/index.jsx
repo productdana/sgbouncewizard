@@ -32,6 +32,7 @@ const BounceRuleDetailed = ({
   handleModalClose,
   onChangeRule,
   handleEditClicked,
+  handleConcurrentEditClicked,
   handleCancelSaveClicked,
   handleChangelogClicked,
   handleRevertClicked,
@@ -47,6 +48,7 @@ const BounceRuleDetailed = ({
   updatePageIndex,
   filteredChangelog,
   logout,
+  userCanEditRule,
   isNetworkError,
   handleRevertModalClose,
   handleDropdownSelect,
@@ -54,6 +56,7 @@ const BounceRuleDetailed = ({
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
+
   return (
     <div>
       {isNetworkError && (
@@ -103,14 +106,16 @@ const BounceRuleDetailed = ({
           <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
-                onClick={handleEditClicked}
+                onClick={handleConcurrentEditClicked}
                 id="isEditClicked"
-                onKeyDown={handleEditClicked}
+                onKeyDown={handleConcurrentEditClicked}
                 {...WriteSelectors.editButton}
                 className="sg-button edit-button"
                 type="primary"
+                icon={!userCanEditRule ? "locked" : ""}
+                disabled={!userCanEditRule}
               >
-                Edit Rule
+                {userCanEditRule ? "Edit Rule" : "In Use"}
               </Button>
             </span>
           </Column>
@@ -257,10 +262,12 @@ BounceRuleDetailed.propTypes = {
   pagesToDisplay: PropTypes.number,
   currentPageIndex: PropTypes.number,
   handleEditClicked: PropTypes.func,
+  handleConcurrentEditClicked: PropTypes.func,
   handleCancelSaveClicked: PropTypes.func,
   handleChangelogClicked: PropTypes.func,
   handleCancelConfirmation: PropTypes.func,
   handleSaveConfirmation: PropTypes.func,
+  userCanEditRule: PropTypes.bool,
 };
 
 BounceRuleDetailed.defaultProps = {
@@ -279,10 +286,12 @@ BounceRuleDetailed.defaultProps = {
   pagesToDisplay: 1,
   currentPageIndex: 1,
   handleEditClicked: () => {},
+  handleConcurrentEditClicked: () => {},
   handleCancelSaveClicked: () => {},
   handleChangelogClicked: () => {},
   handleCancelConfirmation: () => {},
   handleSaveConfirmation: () => {},
+  userCanEditRule: false,
 };
 
 export default BounceRuleDetailed;
