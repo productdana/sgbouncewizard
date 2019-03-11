@@ -3,16 +3,10 @@ import { storiesOf } from "@storybook/react";
 import StoryRouter from "storybook-react-router";
 import BounceRulesContainer from "./index";
 import RuleListContainer from "./RuleListContainer";
-import CreateRuleModal, {
-  CreateConfirmationModal,
-} from "./Modals/CreateRuleModal";
-import DeleteRuleModal, {
-  DeleteConfirmationAlert,
-} from "./Modals/DeleteRuleModal";
+import CreateRuleModal from "./Modals/CreateRuleModal";
 import { mockBounceRules } from "../../mocks/index";
 
 const [emptyRule, sampleRule1, sampleRule2] = mockBounceRules;
-console.log(emptyRule, sampleRule1, sampleRule2);
 
 storiesOf("Bounce Rule Page", module)
   .addDecorator(StoryRouter())
@@ -37,15 +31,19 @@ storiesOf("Bounce Rule Page", module)
   .add("Create Rule Confirmation", () => (
     <BounceRulesContainer
       filteredRules={[sampleRule1, sampleRule2]}
+      selectedRule={sampleRule1}
       filterOptions={[]}
       isCreateRuleConfirmationOpen
     />
   ))
   .add("Delete Rule Confirmation", () => (
     <BounceRulesContainer
+      filteredRules={[sampleRule1, sampleRule2]}
       selectedRule={sampleRule1}
+      filterOptions={[]}
       idToDelete={1}
       isCommitValid
+      isDeleteConfirmationOpen
     />
   ))
   .add("Delete Rule Error", () => (
@@ -60,18 +58,11 @@ storiesOf("Bounce Rule Table", module)
   .add("Default", () => <RuleListContainer rules={[sampleRule1]} />)
   .add("Multiple Rules", () => (
     <RuleListContainer rules={[sampleRule1, sampleRule2, sampleRule1]} />
-  ))
-  .add("No Rules", () => <RuleListContainer rules={[]} />)
-  .add("Network Error", () => <RuleListContainer rules={[]} />);
+  ));
 
 storiesOf("Create Rule Modal", module)
   .add("Default", () => <CreateRuleModal newRule={emptyRule} />)
   .add("Filled", () => <CreateRuleModal newRule={sampleRule1} />)
   .add("Invalid Input", () => (
     <CreateRuleModal newRule={emptyRule} isInvalidInput />
-  ))
-  .add("Confirmation", () => <CreateConfirmationModal />);
-
-storiesOf("Delete Rule Confirmation", module)
-  .add("Default", () => <DeleteRuleModal />)
-  .add("Alert", () => <DeleteConfirmationAlert />);
+  ));
