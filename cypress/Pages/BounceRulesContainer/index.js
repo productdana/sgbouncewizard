@@ -142,10 +142,12 @@ class BounceRulesPage extends Page {
       .task("getRules", { env: Cypress.env("testEnv") })
       .then(res => {
         if (res) {
-          const isMatchingBounceRule = res.find(bounceRule => _.isEqual(
+          const isMatchingBounceRule = res.find(bounceRule =>
+            _.isEqual(
               _.omit(testRule, "comment"),
               _.omit(bounceRule, ["id", "created_at"])
-            ));
+            )
+          );
           if (isMatchingBounceRule) {
             return cy.task("deleteRule", {
               env: Cypress.env("testEnv"),

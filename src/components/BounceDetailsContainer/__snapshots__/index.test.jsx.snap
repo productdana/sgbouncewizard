@@ -94,15 +94,19 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
     >
       <span>
         <button
-          className="btn btn-primary sg-button edit-button"
+          className="btn btn-primary sg-button edit-button has-icon is-disabled"
           data-test="edit-button"
-          disabled={false}
+          disabled={true}
           id="isEditClicked"
-          onClick={[MockFunction]}
-          onKeyDown={[MockFunction]}
+          onClick={[Function]}
+          onKeyDown={[Function]}
           type="button"
         >
-          Edit Rule
+          <i
+            className="sg-icon sg-icon-locked"
+            style={null}
+          />
+          In Use
         </button>
       </span>
     </div>

@@ -7,16 +7,16 @@ import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
 import Alert from "@sendgrid/ui-components/alert";
 import Loader from "@sendgrid/ui-components/loader";
-import Header from "../Header";
-import { Row } from "../Row";
-import { Column } from "../Column";
-import Pagination from "../Pagination";
-import ActivityFilter from "./ActivityFilter";
-import EmptyRules from "./EmptyRules";
+import Header from "../shared/Header";
+import { Row } from "../shared/Row";
+import { Column } from "../shared/Column";
+import Pagination from "../shared/Pagination";
+import ActivityFilter from "../shared/Filter/ActivityFilter";
+import EmptyRules from "../shared/EmptyRules";
 import ActivityLogContainer from "./ActivityLogContainer";
 import ActivityDetailsModal from "./Modals/ActivityDetailsModal";
-import "./index.scss";
 import { WriteSelectors } from "./selectors";
+import "./index.scss";
 
 const BounceActivityContainer = ({
   updateSearchToken,

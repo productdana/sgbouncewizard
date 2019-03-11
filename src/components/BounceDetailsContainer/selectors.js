@@ -24,6 +24,7 @@ const testHooks = {
   priority: "priority",
   bounceAction: "bounce-action",
   changelogModal: "changelog-modal",
+  confirmModal: "commit-confirm-modal",
   saveConfirmationModal: "save-confirmation-modal",
   cancelConfirmationModal: "cancel-confirmation-modal",
   commitInput: "commit-input",
