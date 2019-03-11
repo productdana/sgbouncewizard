@@ -31,7 +31,7 @@ const testHooks = {
   enhancedCode: "create-enhanced-code",
   regex: "create-regex",
   submitButton: "create-submit-button",
-  confirmModal: "create-confirm-modal",
+  confirmModal: "commit-confirm-modal",
   confirmationSubmit: "create-confirm-submit",
   commitMessage: "commit-message",
   cancelConfirmationSubmit: "cancel-confirm-submit",

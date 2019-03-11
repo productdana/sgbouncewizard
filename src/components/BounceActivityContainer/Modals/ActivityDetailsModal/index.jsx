@@ -8,8 +8,8 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import { shouldDisplay, displayUnixAsTime } from "../../../../utils/utils";
-import { Column } from "../../../Column";
-import { Row } from "../../../Row";
+import { Column } from "../../../shared/Column";
+import { Row } from "../../../shared/Row";
 import "../../index.scss";
 
 const ActivityModalBody = ({ handleModalClose, selectedChange }) => (

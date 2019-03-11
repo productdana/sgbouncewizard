@@ -13,8 +13,8 @@ import Tooltip from "@sendgrid/ui-components/tooltip";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import Badge from "@sendgrid/ui-components/badge";
 import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
-import { Row } from "../../Row";
-import { Column } from "../../Column";
+import { Row } from "../../shared/Row";
+import { Column } from "../../shared/Column";
 import "./index.scss";
 import { WriteSelectors } from "../selectors";
 

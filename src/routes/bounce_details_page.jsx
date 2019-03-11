@@ -172,14 +172,13 @@ export default class BounceDetailsPage extends React.Component {
     });
   }
 
-  handleRevertModalClose(e) {
-    const { id } = e.currentTarget;
+  handleRevertModalClose() {
     const { selectedChange, oldCommit } = this.state;
     const oldSelectedChange = Object.assign(selectedChange, {
       comment: oldCommit,
     });
     this.setState({
-      [id]: false,
+      isRevertConfirmOpen: false,
       selectedChange: oldSelectedChange,
       isCommitValid: true,
     });
