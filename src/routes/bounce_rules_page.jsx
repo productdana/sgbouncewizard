@@ -1,7 +1,12 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import BounceRulesContainer from "../components/BounceRulesContainer";
-import { listRules, deleteRule, postRule } from "../utils/ruleCalls";
+import {
+  listRules,
+  listFilteredRules,
+  deleteRule,
+  postRule,
+} from "../utils/ruleCalls";
 import { validateCommit } from "../utils/utils";
 
 export default class BounceRulesPage extends React.Component {
@@ -9,10 +14,9 @@ export default class BounceRulesPage extends React.Component {
     super(props);
 
     this.state = {
-      searchCategory: "Bounce Action",
+      filterQuery: { filterBy: "bounce_action", option: "" },
       isBounceRulesTab: true,
       isActivityLogTab: false,
-      searchToken: "",
       isRedirectingToDetail: false,
       selectedRule: {},
       rules: [],
@@ -32,8 +36,8 @@ export default class BounceRulesPage extends React.Component {
       isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
-    this.updateSearchToken = this.updateSearchToken.bind(this);
-    this.updateSearchCategory = this.updateSearchCategory.bind(this);
+    this.updateFilterBy = this.updateFilterBy.bind(this);
+    this.updateFilterOption = this.updateFilterOption.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
@@ -52,6 +56,8 @@ export default class BounceRulesPage extends React.Component {
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
     this.handleCreateCommit = this.handleCreateCommit.bind(this);
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
+    this.handleClearSearch = this.handleClearSearch.bind(this);
+    this.handleOptionSelector = this.handleOptionSelector.bind(this);
   }
 
   async componentDidMount() {
@@ -78,25 +84,146 @@ export default class BounceRulesPage extends React.Component {
     history.push("/");
   }
 
-  updateSearchToken(e) {
+  updateFilterBy(e) {
+    const { filterQuery } = this.state;
+    const { value } = e;
+    const newQuery = { ...filterQuery, filterBy: value.toLowerCase() };
     this.setState({
-      searchToken: e.target.value.toLowerCase(),
+      filterQuery: newQuery,
     });
   }
 
-  updateSearchCategory(e) {
+  async updateFilterOption(e) {
+    const { filterQuery } = this.state;
+    const { filterBy } = filterQuery;
+    const { value } = e.target;
+    const newQuery = { ...filterQuery, option: value.toLowerCase() };
+
+    const filter = { limit: 99999, offset: 1, filterBy, option: value };
+    try {
+      const { data, status } = await listFilteredRules(filter);
+      if (status === 200) {
+        this.setState({
+          rules: data.reverse(),
+          numRules: data.length,
+        });
+      }
+    } catch (err) {
+      this.setState({
+        isNetworkError: true,
+      });
+    }
+
     this.setState({
-      searchCategory: e.value.toLowerCase(),
+      filterQuery: newQuery,
     });
   }
 
-  filterRules(rules) {
-    const { searchToken } = this.state;
-    return rules.filter(
-      rule =>
-        rule.bounce_action.toLowerCase().includes(searchToken.toLowerCase()) ||
-        rule.description.toLowerCase().includes(searchToken.toLowerCase())
+  async handleOptionSelector(e) {
+    const { filterQuery } = this.state;
+    const { filterBy } = filterQuery;
+    const { value } = e;
+    const newQuery = { ...filterQuery, option: value.toLowerCase() };
+
+    const filter = { limit: 99999, offset: 1, filterBy, option: value };
+    try {
+      const { data, status } = await listFilteredRules(filter);
+      if (status === 200) {
+        this.setState({
+          rules: data.reverse(),
+          numRules: data.length,
+        });
+      }
+    } catch (err) {
+      this.setState({
+        isNetworkError: true,
+      });
+    }
+
+    this.setState({
+      filterQuery: newQuery,
+    });
+  }
+
+  async handleClearSearch() {
+    try {
+      const { data, status } = await listRules();
+      if (status === 200) {
+        this.setState({
+          isFetching: false,
+          rules: data.reverse(),
+          numRules: data.length,
+          filterQuery: { filterBy: "bounce_action", option: "" },
+        });
+      }
+    } catch (err) {
+      this.setState({
+        isNetworkError: true,
+        isFetching: false,
+      });
+    }
+  }
+
+  // filterRules(rules) {
+  //   const { searchToken, filterQuery } = this.state;
+  //   const { filterBy, option } = filterQuery;
+  //   return rules.filter(
+  //     rule =>
+  //       rule.bounce_action.toLowerCase().includes(option.toLowerCase()) ||
+  //       rule.description.toLowerCase().includes(option.toLowerCase())
+  //   );
+  // }
+
+  // isDuplicate(searchCategory, searchToken) {
+  //   const { filterOptions } = this.state;
+  //   const isDuplicate = filterOptions.some(
+  //     filterOption =>
+  //       filterOption.searchCategory === searchCategory &&
+  //       filterOption.searchToken === searchToken
+  //   );
+  //   return isDuplicate;
+  // }
+
+  async addFilter() {
+    const { filterQuery } = this.state;
+    const { filterBy, option } = filterQuery;
+    if (!filterBy || !option) {
+      this.setState({
+        isValidFilter: false,
+      });
+      return;
+    }
+
+    const filter = { limit: 99999, offset: 1, filterBy, option };
+    try {
+      const { data, status } = await listFilteredRules(filter);
+      if (status === 200) {
+        this.setState({
+          rules: data.reverse(),
+          numRules: data.length,
+        });
+      }
+    } catch (err) {
+      this.setState({
+        isNetworkError: true,
+      });
+    }
+  }
+
+  removeFilter(e) {
+    const token = e.currentTarget.getAttribute("token");
+    const category = e.currentTarget.getAttribute("category");
+    const { filterOptions } = this.state;
+    const newFilterOptions = filterOptions.filter(
+      filterOption =>
+        (filterOption.searchCategory !== category &&
+          filterOption.searchToken !== token) ||
+        (filterOption.searchCategory === category &&
+          filterOption.searchToken !== token)
     );
+    this.setState({
+      filterOptions: newFilterOptions,
+    });
   }
 
   paginate(rules) {
@@ -130,56 +257,6 @@ export default class BounceRulesPage extends React.Component {
     this.setState(prevState => ({
       currentPageIndex: prevState.currentPageIndex + 1,
     }));
-  }
-
-  isDuplicate(searchCategory, searchToken) {
-    const { filterOptions } = this.state;
-    const isDuplicate = filterOptions.some(
-      filterOption =>
-        filterOption.searchCategory === searchCategory &&
-        filterOption.searchToken === searchToken
-    );
-    return isDuplicate;
-  }
-
-  addFilter() {
-    const { searchCategory, searchToken } = this.state;
-    if (!searchCategory || !searchToken) {
-      this.setState({
-        isValidFilter: false,
-      });
-      return;
-    }
-    if (this.isDuplicate(searchCategory, searchToken)) {
-      this.setState({
-        isValidFilter: false,
-      });
-    } else {
-      this.setState(prevState => ({
-        isValidFilter: true,
-        filterOptions: [
-          ...prevState.filterOptions,
-          { searchCategory, searchToken },
-        ],
-        searchToken: "",
-      }));
-    }
-  }
-
-  removeFilter(e) {
-    const token = e.currentTarget.getAttribute("token");
-    const category = e.currentTarget.getAttribute("category");
-    const { filterOptions } = this.state;
-    const newFilterOptions = filterOptions.filter(
-      filterOption =>
-        (filterOption.searchCategory !== category &&
-          filterOption.searchToken !== token) ||
-        (filterOption.searchCategory === category &&
-          filterOption.searchToken !== token)
-    );
-    this.setState({
-      filterOptions: newFilterOptions,
-    });
   }
 
   handleCreateOpen(e) {
@@ -356,7 +433,7 @@ export default class BounceRulesPage extends React.Component {
 
   render() {
     const { isRedirectingToDetail, rules, selectedRule } = this.state;
-    const filteredRules = this.filterRules(this.paginate(rules));
+    const filteredRules = this.paginate(rules);
     const isAuthenticated = localStorage.getItem("isAuth");
     return (
       <React.Fragment>
@@ -380,8 +457,8 @@ export default class BounceRulesPage extends React.Component {
         {isAuthenticated && (
           <BounceRulesContainer
             logout={this.logout}
-            updateSearchToken={this.updateSearchToken}
-            updateSearchCategory={this.updateSearchCategory}
+            updateFilterBy={this.updateFilterBy}
+            updateFilterOption={this.updateFilterOption}
             updatePageIndex={this.updatePageIndex}
             handlePrevClicked={this.handlePrevClicked}
             handleNextClicked={this.handleNextClicked}
@@ -402,6 +479,8 @@ export default class BounceRulesPage extends React.Component {
             handleDeleteCommit={this.handleDeleteCommit}
             handleCreateCommit={this.handleCreateCommit}
             handleDropdownSelect={this.handleDropdownSelect}
+            handleClearSearch={this.handleClearSearch}
+            handleOptionSelector={this.handleOptionSelector}
             {...this.state}
           />
         )}

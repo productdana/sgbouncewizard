@@ -39,9 +39,14 @@ const ActivityFilter = ({
             name="primary-filter"
             defaultValue={{ label: "Bounce Action", value: "Bounce Action" }}
             options={[
-              { label: "Bounce Action", value: "Bounce Action" },
-              { label: "Enhanced Code", value: "Enhanced Code" },
-              { label: "Description", value: "Description" },
+              { label: "Operation", value: "operation" },
+              { label: "Bounce Action", value: "bounce_action" },
+              { label: "Enhanced Code", value: "enhanced_code" },
+              { label: "Description", value: "description" },
+              { label: "Comment", value: "comment" },
+              { label: "Priority", value: "priority" },
+              { label: "Response Code", value: "response_code" },
+              { label: "Created At", value: "created_at" },
             ]}
           />
         </Column>
@@ -62,7 +67,7 @@ const ActivityFilter = ({
       <Row>
         <div className="row btn-list filter-actions-container">
           <Button type="primary" small onClick={addFilter}>
-            Add a Filter
+            Search
           </Button>
           {filterOptions.map(filterOption => (
             <Button

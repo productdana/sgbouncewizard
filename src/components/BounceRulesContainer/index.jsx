@@ -22,8 +22,9 @@ import { WriteSelectors } from "./selectors";
 
 const BounceRulesContainer = ({
   rules,
-  updateSearchToken,
-  updateSearchCategory,
+  filterQuery,
+  updateFilterBy,
+  updateFilterOption,
   removeFilter,
   handlePrevClicked,
   handleNextClicked,
@@ -37,6 +38,7 @@ const BounceRulesContainer = ({
   numRules,
   filterOptions,
   addFilter,
+  handleClearSearch,
   isValidFilter,
   isCreateRuleOpen,
   handleRuleUpdate,
@@ -62,6 +64,7 @@ const BounceRulesContainer = ({
   handleCreateCommit,
   handleDropdownSelect,
   isCommitValid,
+  handleOptionSelector,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const shouldShowBounceRulePagination =
@@ -122,13 +125,16 @@ const BounceRulesContainer = ({
           <Column width={10} offset={2}>
             <div {...WriteSelectors.ruleFilter}>
               <RuleFilter
+                filterQuery={filterQuery}
                 searchToken={searchToken}
-                updateSearchToken={updateSearchToken}
-                updateSearchCategory={updateSearchCategory}
+                updateFilterBy={updateFilterBy}
+                updateFilterOption={updateFilterOption}
                 filterOptions={filterOptions}
                 addFilter={addFilter}
                 removeFilter={removeFilter}
                 isValidFilter={isValidFilter}
+                handleClearSearch={handleClearSearch}
+                handleOptionSelector={handleOptionSelector}
               />
             </div>
           </Column>
@@ -225,8 +231,8 @@ BounceRulesContainer.propTypes = {
       bounce_action: PropTypes.string,
     })
   ),
-  updateSearchToken: PropTypes.func,
-  updateSearchCategory: PropTypes.func,
+  updateFilterBy: PropTypes.func,
+  updateFilterOption: PropTypes.func,
   removeFilter: PropTypes.func,
   handlePrevClicked: PropTypes.func,
   handleNextClicked: PropTypes.func,
@@ -291,8 +297,8 @@ BounceRulesContainer.propTypes = {
 
 BounceRulesContainer.defaultProps = {
   rules: [],
-  updateSearchToken: () => {},
-  updateSearchCategory: () => {},
+  updateFilterBy: () => {},
+  updateFilterOption: () => {},
   removeFilter: () => {},
   handlePrevClicked: () => {},
   handleNextClicked: () => {},
