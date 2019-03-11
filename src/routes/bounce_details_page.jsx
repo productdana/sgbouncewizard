@@ -23,12 +23,16 @@ export default class BounceDetailsPage extends React.Component {
       pagesToDisplay: 5,
       isNetworkError: false,
       changelogLimit: 10,
+      userCanEditRule: false,
       isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleEditClicked = this.handleEditClicked.bind(this);
+    this.handleConcurrentEditClicked = this.handleConcurrentEditClicked.bind(
+      this
+    );
     this.handleCancelSaveClicked = this.handleCancelSaveClicked.bind(this);
     this.handleChangelogClicked = this.handleChangelogClicked.bind(this);
     this.handleCancelConfirmation = this.handleCancelConfirmation.bind(this);
@@ -46,6 +50,34 @@ export default class BounceDetailsPage extends React.Component {
 
   async componentDidMount() {
     const { match } = this.props;
+    const ws = new WebSocket(`ws://${process.env.SOCKET_URL}/ws`);
+    const WS_RULE_EDIT = "EDIT";
+    const WS_RULE_FREE = "FREE";
+
+    ws.onopen = () => {
+      ws.send(`check:${match.params.bounceRuleId}`);
+    };
+
+    ws.onmessage = msg => {
+      this.setState({
+        userCanEditRule: msg.data === WS_RULE_EDIT || msg.data === WS_RULE_FREE,
+      });
+    };
+
+    ws.onclose = () => {
+      const { userCanEditRule } = this.state;
+      if (userCanEditRule) {
+        ws.send(`release:${match.params.bounceRuleId}`);
+      }
+    };
+
+    window.addEventListener("beforeunload", () => {
+      const { userCanEditRule } = this.state;
+      if (userCanEditRule) {
+        ws.send(`release:${match.params.bounceRuleId}`);
+      }
+    });
+
     try {
       const { data, status } = await getRule(match.params.bounceRuleId);
       if (status === 200) {
@@ -62,13 +94,33 @@ export default class BounceDetailsPage extends React.Component {
       if (status === 200) {
         this.setState({
           changelog: data,
+          socketConnection: ws,
+        });
+      } else {
+        this.setState({
+          socketConnection: ws,
         });
       }
     } catch (error) {
       this.setState({
+        socketConnection: ws,
         isNetworkError: true,
       });
     }
+  }
+
+  componentWillUnmount() {
+    const { match } = this.props;
+    const { userCanEditRule, socketConnection } = this.state;
+    if (userCanEditRule) {
+      socketConnection.send(`release:${match.params.bounceRuleId}`);
+    }
+
+    window.removeEventListener("beforeunload", () => {
+      if (userCanEditRule) {
+        socketConnection.send(`release:${match.params.bounceRuleId}`);
+      }
+    });
   }
 
   onChangeRuleInt(e) {
@@ -182,16 +234,27 @@ export default class BounceDetailsPage extends React.Component {
 
   handleEditClicked(e) {
     const { id } = e.currentTarget;
-    const { currentRule } = this.state;
+    const { currentRule, socketConnection } = this.state;
+    socketConnection.send(`edit:${currentRule.id}`);
     this.setState({
       [id]: true,
       updatedRule: _.omit(currentRule, ["created_at", "comment", "user_id"]),
     });
   }
 
+  handleConcurrentEditClicked(e) {
+    const { userCanEditRule } = this.state;
+
+    if (userCanEditRule) {
+      this.handleEditClicked(e);
+    }
+  }
+
   handleCancelSaveClicked(e) {
     const { id } = e.currentTarget;
-    const { currentRule, updatedRule } = this.state;
+    const { currentRule, socketConnection, updatedRule } = this.state;
+    socketConnection.send(`release:${currentRule.id}`);
+    socketConnection.send(`check:${currentRule.id}`);
     if (
       !_.isEqual(
         updatedRule,
@@ -250,7 +313,7 @@ export default class BounceDetailsPage extends React.Component {
     const ruleEndIndex =
       (currentPageIndex - 1 * currentPageIndex + rulesToShow) *
       currentPageIndex;
-    return changelog.slice(ruleStartIndex, ruleEndIndex);
+    return changelog ? changelog.slice(ruleStartIndex, ruleEndIndex) : [];
   }
 
   updatePageIndex(e) {
@@ -298,6 +361,7 @@ export default class BounceDetailsPage extends React.Component {
             handleButtonClicked={this.handleButtonClicked}
             onChangeRule={this.onChangeRule}
             handleEditClicked={this.handleEditClicked}
+            handleConcurrentEditClicked={this.handleConcurrentEditClicked}
             handleCancelSaveClicked={this.handleCancelSaveClicked}
             handleChangelogClicked={this.handleChangelogClicked}
             handleCancelConfirmation={this.handleCancelConfirmation}
