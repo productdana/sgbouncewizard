@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import { BrowserRouter as Router } from "react-router-dom";
 import { shallow } from "enzyme";
 import BounceRuleContainer from ".";
-import Pagination from "../Pagination";
+import Pagination from "../shared/Pagination";
 import { Selectors } from "./selectors";
 
 const {
@@ -13,7 +13,6 @@ const {
   ruleTable,
   emptyRulesWarning,
   createRuleModal,
-  confirmModal,
 } = Selectors;
 
 const testRules = [
@@ -44,16 +43,6 @@ const testActivity = [
     operation: "New",
   },
 ];
-
-const newRule = {
-  id: 504,
-  response_code: 551,
-  enhanced_code: "",
-  regex: "no MX record for domain",
-  priority: 0,
-  description: "new rule",
-  bounce_action: "no_action",
-};
 
 const defaultProps = {
   rules: testRules,
@@ -108,17 +97,4 @@ it("should render warning when no rules available", () => {
 it("should render create rule modal", () => {
   wrapper.setProps({ isCreateRuleOpen: true });
   expect(wrapper.find(createRuleModal)).toHaveLength(1);
-});
-
-it("should render create rule confirmation", () => {
-  wrapper.setProps({ isCreateRuleConfirmationOpen: true });
-  expect(wrapper.find(confirmModal).exists()).toBeTruthy();
-});
-
-it("should call listRules() on render", () => {
-  wrapper.setProps({
-    newRule,
-    isCreateRuleConfirmationOpen: true,
-  });
-  expect(wrapper.find(confirmModal).exists()).toBeTruthy();
 });

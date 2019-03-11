@@ -13,7 +13,6 @@ const {
   cancelButton,
   saveButton,
   cancelConfirmationModal,
-  saveConfirmationModal,
   changelogModal,
 } = Selectors;
 
@@ -98,13 +97,6 @@ describe("Bounce Rule Detailed", () => {
       isCancelConfirmOpen: true,
     });
     expect(wrapper.find(cancelConfirmationModal).exists()).toBeTruthy();
-  });
-
-  it("should display save confirm modal when save is clicked", () => {
-    wrapper.setProps({
-      isConfirmOpen: true,
-    });
-    expect(wrapper.find(saveConfirmationModal).exists()).toBeTruthy();
   });
 
   it("should display change modal when rule is clicked", () => {
