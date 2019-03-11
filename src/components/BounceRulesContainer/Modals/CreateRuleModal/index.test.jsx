@@ -1,7 +1,8 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import CreateRuleModal, { CreateConfirmationModal } from ".";
-import { Selectors } from "../../selectors";
+import CreateRuleModal from ".";
+import ConfirmationModal from "../../../shared/ConfirmationModal";
+import { Selectors, WriteSelectors } from "../../selectors";
 
 describe("Create Rule Modal", () => {
   let props;
@@ -77,23 +78,25 @@ describe("Create Rule Modal", () => {
 describe("Create Rule Confirmation", () => {
   let props;
   let mountedConfirmationModal;
-  const { confirmationSubmit, commitMessage } = Selectors;
+  const { confirmSubmit, commitInput } = Selectors;
   const ConfirmationComponent = () => {
     if (!mountedConfirmationModal) {
-      mountedConfirmationModal = mount(<CreateConfirmationModal {...props} />);
+      mountedConfirmationModal = mount(
+        <ConfirmationModal {...props} selectors={WriteSelectors} />
+      );
     }
     return mountedConfirmationModal;
   };
 
   beforeEach(() => {
     props = {
-      handleRuleUpdate: () => {},
-      handleCreateSubmit: () => {},
-      handleDropdownSelect: () => {},
-      newRule: {},
-      isInvalidInput: false,
+      selectedRule: {},
+      toggleId: 0,
       handleModalClose: () => {},
-      handleRuleUpdateInt: () => {},
+      handleConfirm: () => {},
+      isUpdateError: false,
+      isCommitValid: true,
+      handleOnChange: () => {},
     };
     mountedConfirmationModal = undefined;
   });
@@ -102,7 +105,7 @@ describe("Create Rule Confirmation", () => {
     it("should render a commit field", () => {
       expect(
         ConfirmationComponent()
-          .find(commitMessage)
+          .find(commitInput)
           .exists()
       ).toBeTruthy();
     });
@@ -110,7 +113,7 @@ describe("Create Rule Confirmation", () => {
     it("should render a disabled confirm button if commit is empty", () => {
       expect(
         ConfirmationComponent()
-          .find(confirmationSubmit)
+          .find(confirmSubmit)
           .first()
           .prop("disabled")
       ).toBeTruthy();
@@ -120,10 +123,10 @@ describe("Create Rule Confirmation", () => {
       expect(
         ConfirmationComponent()
           .setProps({
-            newRule: { comment: "a commit message" },
+            selectedRule: { comment: "a commit message" },
             isCommitValid: true,
           })
-          .find(confirmationSubmit)
+          .find(confirmSubmit)
           .first()
           .prop("disabled")
       ).toBeFalsy();

@@ -31,12 +31,13 @@ const testHooks = {
   enhancedCode: "create-enhanced-code",
   regex: "create-regex",
   submitButton: "create-submit-button",
-  confirmModal: "create-confirm-modal",
+  confirmModal: "commit-confirm-modal",
   confirmationSubmit: "create-confirm-submit",
-  commitMessage: "commit-message",
+  commitInput: "commit-message",
   cancelConfirmationSubmit: "cancel-confirm-submit",
   emptyCommitAlert: "empty-commit-alert",
   pagination: "pagination",
+  confirmSubmit: "confirm-submit",
   invalidInput: "invalid-input",
 };
 

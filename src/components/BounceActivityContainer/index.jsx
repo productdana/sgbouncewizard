@@ -5,17 +5,18 @@ import { Link } from "react-router-dom";
 import { CSVLink } from "react-csv";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
+import Alert from "@sendgrid/ui-components/alert";
 import Loader from "@sendgrid/ui-components/loader";
-import Header from "../Header";
-import { Row } from "../Row";
-import { Column } from "../Column";
-import Pagination from "../Pagination";
-import ActivityFilter from "./ActivityFilter";
-import EmptyRules from "./EmptyRules";
+import Header from "../shared/Header";
+import { Row } from "../shared/Row";
+import { Column } from "../shared/Column";
+import Pagination from "../shared/Pagination";
+import ActivityFilter from "../shared/Filter/ActivityFilter";
+import EmptyRules from "../shared/EmptyRules";
 import ActivityLogContainer from "./ActivityLogContainer";
 import ActivityDetailsModal from "./Modals/ActivityDetailsModal";
-import "./index.scss";
 import { WriteSelectors } from "./selectors";
+import "./index.scss";
 
 const BounceActivityContainer = ({
   updateSearchToken,
@@ -43,6 +44,7 @@ const BounceActivityContainer = ({
   handleActivityClicked,
   selectedActivity,
   isActivityModalOpen,
+  isNetworkError,
 }) => {
   const isActivityEmpty = activityLog.length === 0;
   const shouldShowActivityLogPagination =
@@ -53,6 +55,18 @@ const BounceActivityContainer = ({
     <React.Fragment>
       {isBounceRulesTab && <Redirect push to="/bounce_rules" />}
       <div {...WriteSelectors.page}>
+        {isNetworkError && (
+          <Alert
+            type="danger"
+            dismissable={false}
+            onClick={handleModalClose}
+            id="isInvalidInput"
+          >
+            A network error is detected. Please
+            <a href="/bounce_rules"> refresh </a>
+            or try again later.
+          </Alert>
+        )}
         <Header logout={logout} />
         <Row>
           <Column width={6} offset={2}>

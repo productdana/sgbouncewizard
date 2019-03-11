@@ -3,16 +3,16 @@ import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import Button from "@sendgrid/ui-components/button";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Row } from "../Row";
-import { Column } from "../Column";
-import Header from "../Header";
-import Pagination from "../Pagination";
+import { Row } from "../shared/Row";
+import { Column } from "../shared/Column";
+import Header from "../shared/Header";
+import Pagination from "../shared/Pagination";
 import DetailsContainer, { DetailsContainerEditable } from "./Details";
 import Changelog from "./Changelog";
 import ChangeModal from "./Modals/ChangeModal";
-import ConfirmationModal from "./Modals/ConfirmationModal";
 import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
-import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
+import NetworkAlert from "../shared/Alerts/NetworkAlert";
+import ConfirmationModal from "../shared/ConfirmationModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
@@ -31,14 +31,14 @@ const BounceRuleDetailed = ({
   handleModalClose,
   onChangeRule,
   handleEditClicked,
+  handleConcurrentEditClicked,
   handleCancelSaveClicked,
   handleChangelogClicked,
   handleRevertClicked,
   handleCancelConfirmation,
   handleSaveConfirmation,
   handleRevertConfirm,
-  onRevertCommit,
-  newCommitMessage,
+  onChangeRevert,
   onChangeRuleInt,
   pagesToDisplay,
   currentPageIndex,
@@ -47,14 +47,23 @@ const BounceRuleDetailed = ({
   updatePageIndex,
   filteredChangelog,
   logout,
+  userCanEditRule,
+  isNetworkError,
+  handleRevertModalClose,
   handleDropdownSelect,
   isCommitValid,
-  onEditRuleCommit,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
+
   return (
     <div>
+      {isNetworkError && (
+        <NetworkAlert
+          reloadLink={`/bounce_rules/${id}`}
+          handleModalClose={handleModalClose}
+        />
+      )}
       <Header logout={logout} />
       <Row>
         <Column width={6} offset={2}>
@@ -68,7 +77,7 @@ const BounceRuleDetailed = ({
         <Column width={6} offset={2}>
           <h1>Bounce Rule {id}</h1>
         </Column>
-        {isEditClicked ? (
+        {isEditClicked && (
           <Column className="csv-button-col" width={4} offset={8}>
             <Button
               onClick={handleCancelSaveClicked}
@@ -91,18 +100,21 @@ const BounceRuleDetailed = ({
               Save
             </Button>
           </Column>
-        ) : (
+        )}
+        {!isEditClicked && (
           <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
-                onClick={handleEditClicked}
+                onClick={handleConcurrentEditClicked}
                 id="isEditClicked"
-                onKeyDown={handleEditClicked}
+                onKeyDown={handleConcurrentEditClicked}
                 {...WriteSelectors.editButton}
                 className="sg-button edit-button"
                 type="primary"
+                icon={!userCanEditRule ? "locked" : ""}
+                disabled={!userCanEditRule}
               >
-                Edit Rule
+                {userCanEditRule ? "Edit Rule" : "In Use"}
               </Button>
             </span>
           </Column>
@@ -167,25 +179,31 @@ const BounceRuleDetailed = ({
         />
       )}
       {isRevertConfirmOpen && (
-        <RevertConfirmationModal
+        <ConfirmationModal
+          {...WriteSelectors.confirmModal}
+          selectors={WriteSelectors}
+          toggleId="isRevertConfirmOpen"
           isCommitValid={isCommitValid}
-          currentRule={currentRule}
-          selectedChange={selectedChange}
-          handleModalClose={handleModalClose}
-          handleRevertConfirm={handleRevertConfirm}
-          onRevertCommit={onRevertCommit}
-          newCommitMessage={newCommitMessage}
+          selectedRule={selectedChange}
+          handleConfirm={handleRevertConfirm}
+          handleModalClose={handleRevertModalClose}
+          handleOnChange={onChangeRevert}
+          isUpdateError={isUpdateError}
+          isNetworkError={isNetworkError}
         />
       )}
       {isConfirmOpen && (
         <ConfirmationModal
-          {...WriteSelectors.saveConfirmationModal}
+          {...WriteSelectors.confirmModal}
+          selectors={WriteSelectors}
+          toggleId="isConfirmOpen"
           isCommitValid={isCommitValid}
-          onEditRuleCommit={onEditRuleCommit}
-          updatedRule={updatedRule}
+          handleOnChange={onChangeRule}
+          selectedRule={updatedRule}
           handleModalClose={handleModalClose}
-          handleSaveConfirmation={handleSaveConfirmation}
+          handleConfirm={handleSaveConfirmation}
           isUpdateError={isUpdateError}
+          isNetworkError={isNetworkError}
         />
       )}
       {isCancelConfirmOpen && (
@@ -249,10 +267,12 @@ BounceRuleDetailed.propTypes = {
   pagesToDisplay: PropTypes.number,
   currentPageIndex: PropTypes.number,
   handleEditClicked: PropTypes.func,
+  handleConcurrentEditClicked: PropTypes.func,
   handleCancelSaveClicked: PropTypes.func,
   handleChangelogClicked: PropTypes.func,
   handleCancelConfirmation: PropTypes.func,
   handleSaveConfirmation: PropTypes.func,
+  userCanEditRule: PropTypes.bool,
 };
 
 BounceRuleDetailed.defaultProps = {
@@ -271,10 +291,12 @@ BounceRuleDetailed.defaultProps = {
   pagesToDisplay: 1,
   currentPageIndex: 1,
   handleEditClicked: () => {},
+  handleConcurrentEditClicked: () => {},
   handleCancelSaveClicked: () => {},
   handleChangelogClicked: () => {},
   handleCancelConfirmation: () => {},
   handleSaveConfirmation: () => {},
+  userCanEditRule: false,
 };
 
 export default BounceRuleDetailed;

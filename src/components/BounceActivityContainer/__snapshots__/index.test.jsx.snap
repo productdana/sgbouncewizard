@@ -678,7 +678,6 @@ exports[`Bounce Activity Page should render correctly 1`] = `
     >
       <div
         className="pagination pagination-container"
-        data-test="pagination"
       >
         <a
           className="btn btn-secondary btn-small pagination-prev is-invisible"

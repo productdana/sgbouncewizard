@@ -7,19 +7,16 @@ import { Button } from "@sendgrid/ui-components/button";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
 import Loader from "@sendgrid/ui-components/loader";
-import Header from "../Header";
-import { Row } from "../Row";
-import { Column } from "../Column";
-import Pagination from "../Pagination";
+import Header from "../shared/Header";
+import { Row } from "../shared/Row";
+import { Column } from "../shared/Column";
+import Pagination from "../shared/Pagination";
 import RuleListContainer from "./RuleListContainer";
-import RuleFilter from "./RuleFilter";
-import EmptyRules from "./EmptyRules";
-import DeleteConfirmationModal, {
-  DeleteConfirmationAlert,
-} from "./Modals/DeleteRuleModal";
-import CreateRuleModal, {
-  CreateConfirmationModal,
-} from "./Modals/CreateRuleModal";
+import RuleFilter from "../shared/Filter/RuleFilter";
+import EmptyRules from "../shared/EmptyRules";
+import NetworkAlert from "../shared/Alerts/NetworkAlert";
+import ConfirmationModal from "../shared/ConfirmationModal";
+import CreateRuleModal from "./Modals/CreateRuleModal";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
@@ -50,8 +47,6 @@ const BounceRulesContainer = ({
   newRule,
   isInvalidInput,
   isDeleteConfirmationOpen,
-  isDeleteAlertOpen,
-  idToDelete,
   handleDeleteConfirm,
   handleModalClose,
   handleCreateOpen,
@@ -63,6 +58,7 @@ const BounceRulesContainer = ({
   isBounceRulesTab,
   isActivityLogTab,
   handleDeleteCommit,
+  isNetworkError,
   handleCreateCommit,
   handleDropdownSelect,
   isCommitValid,
@@ -77,6 +73,12 @@ const BounceRulesContainer = ({
     <React.Fragment>
       {isActivityLogTab && <Redirect push to="/activity_log" />}
       <div {...WriteSelectors.page}>
+        {isNetworkError && (
+          <NetworkAlert
+            reloadLink="/bounce_rules"
+            handleModalClose={handleModalClose}
+          />
+        )}
         <Header logout={logout} />
         <Row>
           <Column width={6} offset={2}>
@@ -183,29 +185,30 @@ const BounceRulesContainer = ({
           />
         )}
         {isCreateRuleConfirmationOpen && (
-          <CreateConfirmationModal
+          <ConfirmationModal
             {...WriteSelectors.confirmModal}
-            newRule={newRule}
+            selectors={WriteSelectors}
             isCommitValid={isCommitValid}
+            selectedRule={newRule}
+            handleConfirm={handleCreateConfirm}
             handleModalClose={handleModalClose}
-            handleCreateConfirm={handleCreateConfirm}
-            handleRuleUpdate={handleRuleUpdate}
-            handleCreateCommit={handleCreateCommit}
+            handleOnChange={handleCreateCommit}
+            toggleId="isCreateRuleConfirmationOpen"
+            isNetworkError={isNetworkError}
           />
         )}
         {isDeleteConfirmationOpen && (
-          <DeleteConfirmationModal
-            {...WriteSelectors.deleteConfirmation}
-            idToDelete={idToDelete}
-            handleModalClose={handleModalClose}
-            handleDeleteConfirm={handleDeleteConfirm}
-            handleDeleteCommit={handleDeleteCommit}
-            selectedRule={selectedRule}
+          <ConfirmationModal
+            {...WriteSelectors.confirmModal}
+            selectors={WriteSelectors}
             isCommitValid={isCommitValid}
+            selectedRule={selectedRule}
+            handleConfirm={handleDeleteConfirm}
+            handleModalClose={handleModalClose}
+            handleOnChange={handleDeleteCommit}
+            toggleId="isDeleteConfirmationOpen"
+            isNetworkError={isNetworkError}
           />
-        )}
-        {isDeleteAlertOpen && (
-          <DeleteConfirmationAlert handleModalClose={handleModalClose} />
         )}
       </div>
     </React.Fragment>

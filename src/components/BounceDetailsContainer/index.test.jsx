@@ -14,9 +14,9 @@ const {
   cancelButton,
   saveButton,
   cancelConfirmationModal,
-  saveConfirmationModal,
   changelogModal,
   pagination,
+  confirmModal,
 } = Selectors;
 
 const [sampleRule] = mockBounceRules;
@@ -85,9 +85,9 @@ describe("Bounce Rule Detailed", () => {
       expect(DetailsPage().find(cancelConfirmationModal)).toHaveLength(1);
     });
 
-    it("should display save confirm modal when save is clicked", () => {
+    it("should display confirmation modal when save is clicked", () => {
       DetailsPage().setProps({ isConfirmOpen: true });
-      expect(DetailsPage().find(saveConfirmationModal)).toHaveLength(1);
+      expect(DetailsPage().find(confirmModal)).toHaveLength(1);
     });
   });
 

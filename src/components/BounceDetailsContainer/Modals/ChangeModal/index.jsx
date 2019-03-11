@@ -8,8 +8,8 @@ import {
   TableCell,
   TableRow,
 } from "@sendgrid/ui-components/table/table";
-import { Column } from "../../../Column";
-import { Row } from "../../../Row";
+import { Column } from "../../../shared/Column";
+import { Row } from "../../../shared/Row";
 import { WriteSelectors } from "../../selectors";
 import "./index.scss";
 

@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import { BrowserRouter as Router } from "react-router-dom";
 import { shallow } from "enzyme";
 import BounceRuleContainer from ".";
+
 import { Selectors } from "./selectors";
 import { mockBounceRules } from "../../mocks/index";
 
@@ -17,7 +18,6 @@ describe("Bounce Rules Page", () => {
     emptyRulesWarning,
     createRuleModal,
     confirmModal,
-    deleteConfirmation,
     pagination,
   } = Selectors;
 
@@ -92,7 +92,7 @@ describe("Bounce Rules Page", () => {
   describe("When the user clicks on a rule to delete", () => {
     it("should render delete rule modal", () => {
       BounceRulesPage().setProps({ isDeleteConfirmationOpen: true });
-      expect(BounceRulesPage().find(deleteConfirmation)).toHaveLength(1);
+      expect(BounceRulesPage().find(confirmModal)).toHaveLength(1);
     });
   });
 });

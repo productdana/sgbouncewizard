@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Button } from "@sendgrid/ui-components/button";
-import { Row } from "../Row";
-import { Column } from "../Column";
+import { Row } from "../shared/Row";
+import { Column } from "../shared/Column";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
@@ -156,16 +156,12 @@ const Login = ({
               isInvalidCredentials && (
                 <InvalidCredentialsAlert handleAlertClose={handleAlertClose} />
               )}
-            {!isAuthenticating &&
-              isAuthenticationError &&
-              isNetworkError && (
-                <NetworkErrorAlert handleAlertClose={handleAlertClose} />
-              )}
-            {!isAuthenticating &&
-              isAuthenticationError &&
-              isInvalidInput && (
-                <InvalidInputAlert handleAlertClose={handleAlertClose} />
-              )}
+            {!isAuthenticating && isAuthenticationError && isNetworkError && (
+              <NetworkErrorAlert handleAlertClose={handleAlertClose} />
+            )}
+            {!isAuthenticating && isAuthenticationError && isInvalidInput && (
+              <InvalidInputAlert handleAlertClose={handleAlertClose} />
+            )}
           </Row>
           <LoginForm
             email={email}

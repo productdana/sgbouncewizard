@@ -94,15 +94,19 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
     >
       <span>
         <button
-          className="btn btn-primary sg-button edit-button"
+          className="btn btn-primary sg-button edit-button has-icon is-disabled"
           data-test="edit-button"
-          disabled={false}
+          disabled={true}
           id="isEditClicked"
           onClick={[Function]}
           onKeyDown={[Function]}
           type="button"
         >
-          Edit Rule
+          <i
+            className="sg-icon sg-icon-locked"
+            style={null}
+          />
+          In Use
         </button>
       </span>
     </div>
@@ -271,9 +275,10 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
             </h2>
           </div>
           <div
-            className="mako-grid__col-2 col-start-11 changelog-csv sg-right"
+            className="mako-grid__col-3 col-start-9 changelog-csv sg-right"
           >
             <a
+              className="export-changelog-btn btn btn-secondary"
               download="changelog.csv"
               href="data:text/csv;charset=utf-8,﻿\\"[object Object]\\""
               onClick={[Function]}
@@ -357,7 +362,6 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
     >
       <div
         className="pagination pagination-container"
-        data-test="pagination"
       >
         <a
           className="btn btn-secondary btn-small pagination-prev is-invisible"

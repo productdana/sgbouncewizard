@@ -13,8 +13,8 @@ import Tooltip from "@sendgrid/ui-components/tooltip";
 import { Action, ActionsCell } from "@sendgrid/ui-components/actions";
 import Badge from "@sendgrid/ui-components/badge";
 import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
-import { Row } from "../../Row";
-import { Column } from "../../Column";
+import { Row } from "../../shared/Row";
+import { Column } from "../../shared/Column";
 import "./index.scss";
 import { WriteSelectors } from "../selectors";
 
@@ -55,8 +55,13 @@ const Changelog = ({
       <Column width={1} offset={1}>
         <h2>Changelog</h2>
       </Column>
-      <Column width={2} offset={11} className="changelog-csv sg-right">
-        <CSVLink data={changelog} filename="changelog.csv" target="_blank">
+      <Column width={3} offset={9} className="changelog-csv sg-right">
+        <CSVLink
+          data={changelog}
+          filename="changelog.csv"
+          className="export-changelog-btn btn btn-secondary"
+          target="_blank"
+        >
           Export as CSV
         </CSVLink>
       </Column>

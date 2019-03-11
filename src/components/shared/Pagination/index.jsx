@@ -2,7 +2,6 @@ import React from "react";
 import cn from "classnames";
 import { Column } from "../Column";
 import "./index.scss";
-import { WriteSelectors } from "../BounceActivityContainer/selectors";
 
 function lastPageToDisplay(currentPageIndex, pagesToDisplay, totalPages) {
   const lastPageCalculation =
@@ -93,10 +92,7 @@ const Pagination = ({
   const shouldDisplayNext = currentPageIndex === totalPages;
   return (
     <Column width={10} offset={2}>
-      <div
-        {...WriteSelectors.pagination}
-        className="pagination pagination-container"
-      >
+      <div className="pagination pagination-container">
         <a
           className={`btn btn-secondary btn-small pagination-prev ${
             shouldDisplayPrev ? "is-invisible" : ""
