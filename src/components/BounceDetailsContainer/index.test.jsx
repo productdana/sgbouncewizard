@@ -50,24 +50,20 @@ describe("Bounce Rule Detailed", () => {
   });
 
   describe("When a user visits the detailed rule page", () => {
-    it("should render details table", () => {
+    it("should render default state", () => {
       expect(DetailsPage().find(details)).toHaveLength(1);
-    });
-
-    it("should render change log table", () => {
       expect(DetailsPage().find(changelog)).toHaveLength(1);
-    });
-
-    it("should show edit button", () => {
       expect(DetailsPage().find(editButton)).toHaveLength(1);
-    });
-
-    it("should render paginiation", () => {
       expect(DetailsPage().find(pagination)).toHaveLength(1);
     });
+  });
 
-    it("should not render paginiation when no rules", () => {
+  describe("When there are no rules", () => {
+    beforeEach(() => {
       DetailsPage().setProps({ changelog: [] });
+    });
+
+    it("should not render pagination when no rules", () => {
       expect(DetailsPage().find(pagination)).toHaveLength(0);
     });
   });

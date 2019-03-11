@@ -53,45 +53,26 @@ describe("Bounce Rules Page", () => {
   });
 
   describe("When a user visits the bounce rule page", () => {
-    it("should render a page tab", () => {
+    it("should render default state", () => {
       expect(BounceRulesPage().find(".page-tab")).toHaveLength(1);
-    });
-
-    it("should render a create a bounce rule", () => {
-      expect(
-        BounceRulesPage()
-          .find(createRuleButton)
-          .exists()
-      ).toBeTruthy();
-    });
-
-    it("should render a export to csv button", () => {
-      expect(
-        BounceRulesPage()
-          .find(csvButton)
-          .exists()
-      ).toBeTruthy();
-    });
-
-    it("should render filter component", () => {
+      expect(BounceRulesPage().find(createRuleButton)).toHaveLength(1);
+      expect(BounceRulesPage().find(csvButton)).toHaveLength(1);
       expect(BounceRulesPage().find(ruleFilter)).toHaveLength(1);
-    });
-
-    it("should render rule table component", () => {
       expect(BounceRulesPage().find(ruleTable)).toHaveLength(1);
+      expect(BounceRulesPage().find(pagination)).toHaveLength(1);
+    });
+  });
+
+  describe("When there are no rules", () => {
+    beforeEach(() => {
+      BounceRulesPage().setProps({ filteredRules: [], rules: [] });
     });
 
     it("should render warning when no rules available", () => {
-      BounceRulesPage().setProps({ filteredRules: [], rules: [] });
       expect(BounceRulesPage().find(emptyRulesWarning)).toHaveLength(1);
     });
 
-    it("should render paginiation", () => {
-      expect(BounceRulesPage().find(pagination)).toHaveLength(1);
-    });
-
-    it("should not render paginiation when no rules", () => {
-      BounceRulesPage().setProps({ filteredRules: [], rules: [] });
+    it("should not render pagination when no rules", () => {
       expect(BounceRulesPage().find(pagination)).toHaveLength(0);
     });
   });
