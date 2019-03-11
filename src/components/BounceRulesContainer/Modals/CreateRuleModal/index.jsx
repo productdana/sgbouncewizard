@@ -13,8 +13,6 @@ import { WriteSelectors } from "../../selectors";
 const isSubmitDisabled = (isCommitValid, comment) =>
   !isCommitValid || comment === undefined || comment === "";
 
-const isFieldValid = (fieldValidation, value) => fieldValidation[value];
-
 const ConfirmationHeader = () => (
   <div>
     <h2>Are you sure you&apos;d like to create this rule?</h2>
@@ -126,7 +124,15 @@ const CreateRuleModal = ({
     description,
     enhanced_code: enhancedCode,
     regex,
-  } = { ...newRule };
+  } = newRule;
+  const {
+    description: descriptionError,
+    response_code: responseError,
+    enhanced_code: enhancedError,
+    priority: priorityError,
+    bounce_action: bounceError,
+    regex: regexError,
+  } = fieldValidation;
   return (
     <SideModal
       {...WriteSelectors.createRuleModal}
@@ -157,8 +163,8 @@ const CreateRuleModal = ({
                       ]}
                       onChange={handleDropdownSelect}
                       id="bounce_action"
-                      isValid={!isFieldValid(fieldValidation, "bounce_action")}
-                      info={isFieldValid(fieldValidation, "bounce_action")}
+                      isValid={!bounceError}
+                      info={bounceError}
                     />
                   </div>
                 </label>
@@ -171,8 +177,8 @@ const CreateRuleModal = ({
                     type="number"
                     id="priority"
                     isRequired
-                    isValid={!isFieldValid(fieldValidation, "priority")}
-                    info={isFieldValid(fieldValidation, "priority")}
+                    isValid={!priorityError}
+                    info={priorityError}
                   />
                 </label>
 
@@ -185,8 +191,8 @@ const CreateRuleModal = ({
                     type="number"
                     id="response_code"
                     isRequired
-                    isValid={!isFieldValid(fieldValidation, "response_code")}
-                    info={isFieldValid(fieldValidation, "response_code")}
+                    isValid={!responseError}
+                    info={responseError}
                   />
                 </label>
                 <label htmlFor="description">
@@ -198,8 +204,8 @@ const CreateRuleModal = ({
                     type="text"
                     id="description"
                     isRequired
-                    isValid={!isFieldValid(fieldValidation, "description")}
-                    info={isFieldValid(fieldValidation, "description")}
+                    isValid={!descriptionError}
+                    info={descriptionError}
                   />
                 </label>
                 <label htmlFor="enhanced_code">
@@ -211,8 +217,8 @@ const CreateRuleModal = ({
                     type="text"
                     id="enhanced_code"
                     isRequired
-                    isValid={!isFieldValid(fieldValidation, "enhanced_code")}
-                    info={isFieldValid(fieldValidation, "enhanced_code")}
+                    isValid={!enhancedError}
+                    info={enhancedError}
                   />
                 </label>
                 <label htmlFor="regex">
@@ -224,8 +230,8 @@ const CreateRuleModal = ({
                     type="text"
                     id="regex"
                     isRequired
-                    isValid={!isFieldValid(fieldValidation, "regex")}
-                    info={isFieldValid(fieldValidation, "regex")}
+                    isValid={!regexError}
+                    info={regexError}
                   />
                 </label>
               </div>
