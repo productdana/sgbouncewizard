@@ -63,7 +63,7 @@ describe("Bounce Rule Detailed", () => {
       DetailsPage().setProps({ changelog: [] });
     });
 
-    it("should not render pagination when no rules", () => {
+    it("should not render pagination", () => {
       expect(DetailsPage().find(pagination)).toHaveLength(0);
     });
   });

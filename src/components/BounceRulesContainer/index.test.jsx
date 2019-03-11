@@ -68,11 +68,11 @@ describe("Bounce Rules Page", () => {
       BounceRulesPage().setProps({ filteredRules: [], rules: [] });
     });
 
-    it("should render warning when no rules available", () => {
+    it("should render warning", () => {
       expect(BounceRulesPage().find(emptyRulesWarning)).toHaveLength(1);
     });
 
-    it("should not render pagination when no rules", () => {
+    it("should not render pagination", () => {
       expect(BounceRulesPage().find(pagination)).toHaveLength(0);
     });
   });

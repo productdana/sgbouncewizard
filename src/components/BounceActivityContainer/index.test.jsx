@@ -63,11 +63,11 @@ describe("Bounce Activity Page", () => {
       BounceActivityPage().setProps({ activityLog: [] });
     });
 
-    it("should not render pagination when no rules", () => {
+    it("should not render pagination", () => {
       expect(BounceActivityPage().find(pagination)).toHaveLength(0);
     });
 
-    it("should render warning when no rules available", () => {
+    it("should render warning", () => {
       expect(BounceActivityPage().find(emptyRulesWarning)).toHaveLength(1);
     });
   });
