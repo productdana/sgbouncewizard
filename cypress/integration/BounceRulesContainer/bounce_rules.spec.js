@@ -2,30 +2,22 @@ import BounceRulesPage from "../../Pages/BounceRulesContainer";
 
 const testDeleteRule = {
   priority: 1,
-  bounce_action: "cypressDeleteTest",
+  bounce_action: "no_action",
   response_code: 528,
-  description: "testDescription",
+  description: "rules_delete",
   enhanced_code: "492",
-  regex: "testRegex",
+  regex: "rules_delete_comment",
+  comment: "rules_delete_comment",
 };
 
 const testCreateRule = {
   priority: 2,
-  bounce_action: "cypressCreateTest",
+  bounce_action: "no_action",
   response_code: 918,
-  description: "testDescription",
+  description: "rules_create",
   enhanced_code: "492",
-  regex: "testRegex",
-  comment: "init commit test",
-};
-
-const neverCreatedRule = {
-  priority: 3,
-  bounce_action: "Never Created",
-  response_code: 314,
-  description: "Never Created",
-  enhanced_code: "500",
-  regex: "neverCreated",
+  regex: "rules_create_regex",
+  comment: "rules_create_comment",
 };
 
 describe("Bounce Rules Page", () => {
@@ -43,11 +35,12 @@ describe("Bounce Rules Page", () => {
   });
 
   it("should create a bounce rule", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
-      BounceRulesPage.open();
-      BounceRulesPage.createBounceRuleUI(testCreateRule);
-      BounceRulesPage.testBounceRuleToCreate.should("be.visible");
-    });
+    BounceRulesPage.deleteBounceRuleAPI(testCreateRule)
+      .then(() => BounceRulesPage.open())
+      .then(() => BounceRulesPage.createBounceRuleUI(testCreateRule))
+      .then(() =>
+        BounceRulesPage.createdBounceRule(testCreateRule).should("be.visible")
+      );
   });
 
   it("should cancel creating a bounce rule before submitting", () => {
@@ -63,17 +56,21 @@ describe("Bounce Rules Page", () => {
     BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
       BounceRulesPage.open();
       BounceRulesPage.createRuleButton.click();
-      BounceRulesPage.fillCreateRuleForm(neverCreatedRule);
+      BounceRulesPage.fillCreateRuleForm(testCreateRule);
       BounceRulesPage.cancelCreateConfirmationSubmit.click();
       BounceRulesPage.confirmModal.should("not.be.visible");
     });
   });
 
   it("should delete a bounce rule", () => {
-    BounceRulesPage.createBounceRuleAPI(testDeleteRule).then(() => {
-      BounceRulesPage.open();
-      BounceRulesPage.deleteBounceRuleUI(testDeleteRule);
-      BounceRulesPage.testBounceRuleToDelete.should("not.be.visible");
-    });
+    BounceRulesPage.deleteBounceRuleAPI(testDeleteRule)
+      .then(() => BounceRulesPage.createBounceRuleAPI(testDeleteRule))
+      .then(() => BounceRulesPage.open())
+      .then(() => BounceRulesPage.deleteBounceRuleUI(testDeleteRule))
+      .then(() =>
+        BounceRulesPage.createdBounceRule(testDeleteRule).should(
+          "not.be.visible"
+        )
+      );
   });
 });

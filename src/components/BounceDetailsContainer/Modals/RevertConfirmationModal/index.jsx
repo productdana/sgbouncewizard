@@ -5,11 +5,15 @@ import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Column } from "../../../Column";
 import { Row } from "../../../Row";
 
+const isSubmitDisabled = (isCommitValid, comment) =>
+  !isCommitValid || comment === undefined || comment === "";
+
 const ConfirmRevertBody = ({
-  handleModalClose,
+  comment,
+  handleRevertModalClose,
   handleRevertConfirm,
-  onChangeRuleRevert,
-  newCommitMessage,
+  onChangeRevert,
+  isCommitValid,
 }) => (
   <div>
     <Row>
@@ -22,8 +26,11 @@ const ConfirmRevertBody = ({
           </p>
         </div>
         <TextInput
-          onChange={onChangeRuleRevert}
-          value={newCommitMessage}
+          onChange={onChangeRevert}
+          value={comment}
+          isRequired
+          isValid={isCommitValid}
+          info={!isCommitValid && "This field is required."}
           id="comment"
           type="text"
           label="Commit Message"
@@ -34,7 +41,7 @@ const ConfirmRevertBody = ({
       <Column width={1} offset={10}>
         <Button
           className="sg-button"
-          onClick={handleModalClose}
+          onClick={handleRevertModalClose}
           id="isRevertConfirmOpen"
           type="secondary"
         >
@@ -45,6 +52,7 @@ const ConfirmRevertBody = ({
         <Button
           className="sg-button"
           onClick={handleRevertConfirm}
+          disabled={isSubmitDisabled(isCommitValid, comment)}
           type="primary"
         >
           Confirm
@@ -55,24 +63,28 @@ const ConfirmRevertBody = ({
 );
 
 const RevertConfirmationModal = ({
-  handleModalClose,
   handleRevertConfirm,
   selectedChange,
-  onChangeRuleRevert,
-  newCommitMessage,
-}) => (
-  <CenterModal
-    open
-    renderBody={(
-      <ConfirmRevertBody
-        handleModalClose={handleModalClose}
-        handleRevertConfirm={handleRevertConfirm}
-        onChangeRuleRevert={onChangeRuleRevert}
-        selectedChange={selectedChange}
-        newCommitMessage={newCommitMessage}
-      />
+  onChangeRevert,
+  handleRevertModalClose,
+  isCommitValid,
+}) => {
+  const { comment } = selectedChange;
+  return (
+    <CenterModal
+      open
+      renderBody={(
+        <ConfirmRevertBody
+          comment={comment}
+          handleRevertModalClose={handleRevertModalClose}
+          handleRevertConfirm={handleRevertConfirm}
+          selectedChange={selectedChange}
+          onChangeRevert={onChangeRevert}
+          isCommitValid={isCommitValid}
+        />
 )}
-  />
-);
+    />
+  );
+};
 
 export default RevertConfirmationModal;

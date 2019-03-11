@@ -3,6 +3,7 @@ import _ from "underscore";
 import { Redirect } from "react-router-dom";
 import BounceDetailsContainer from "../components/BounceDetailsContainer";
 import { getRule, getChangelog, putRule } from "../utils/ruleCalls";
+import { validateCommit } from "../utils/utils";
 
 export default class BounceDetailsPage extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class BounceDetailsPage extends React.Component {
       isNetworkError: false,
       changelogLimit: 10,
       userCanEditRule: false,
+      isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
     this.onChangeRule = this.onChangeRule.bind(this);
@@ -37,11 +39,13 @@ export default class BounceDetailsPage extends React.Component {
     this.handleSaveConfirmation = this.handleSaveConfirmation.bind(this);
     this.onChangeRuleInt = this.onChangeRuleInt.bind(this);
     this.handleRevertConfirm = this.handleRevertConfirm.bind(this);
-    this.onChangeRuleRevert = this.onChangeRuleRevert.bind(this);
+    this.handleRevertModalClose = this.handleRevertModalClose.bind(this);
     this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
     this.handleRevertClicked = this.handleRevertClicked.bind(this);
+    this.onChangeRevert = this.onChangeRevert.bind(this);
+    this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
   }
 
   async componentDidMount() {
@@ -74,25 +78,33 @@ export default class BounceDetailsPage extends React.Component {
       }
     });
 
-    getChangelog(match.params.bounceRuleId)
-      .then(res => {
-        const { data } = res;
+    try {
+      const { data, status } = await getRule(match.params.bounceRuleId);
+      if (status === 200) {
+        this.setState({ currentRule: data });
+      }
+    } catch (error) {
+      this.setState({
+        isNetworkError: true,
+      });
+    }
+
+    try {
+      const { data, status } = await getChangelog(match.params.bounceRuleId);
+      if (status === 200) {
         this.setState({
           changelog: data,
+          socketConnection: ws,
         });
-      })
-      .catch(() => {
-        this.setState({ isNetworkError: true });
-      });
-    const { data, status } = await getRule(match.params.bounceRuleId);
-    if (status === 200) {
-      this.setState({
-        currentRule: data,
-        socketConnection: ws,
-      });
-    } else {
+      } else {
+        this.setState({
+          socketConnection: ws,
+        });
+      }
+    } catch (error) {
       this.setState({
         socketConnection: ws,
+        isNetworkError: true,
       });
     }
   }
@@ -114,15 +126,9 @@ export default class BounceDetailsPage extends React.Component {
   onChangeRuleInt(e) {
     const { updatedRule } = this.state;
     const { id, value } = e.currentTarget;
-    if (!value) {
-      this.setState({
-        updatedRule: { ...updatedRule, [id]: value },
-      });
-    } else {
-      this.setState({
-        updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
-      });
-    }
+    this.setState({
+      updatedRule: { ...updatedRule, [id]: parseInt(value, 10) },
+    });
   }
 
   onChangeRule(e) {
@@ -133,10 +139,21 @@ export default class BounceDetailsPage extends React.Component {
     });
   }
 
-  onChangeRuleRevert(e) {
-    const { value } = e.currentTarget;
+  onChangeRevert(e) {
+    const { id, value } = e.currentTarget;
+    const { selectedChange } = this.state;
+    const isCommitValid = validateCommit(value);
     this.setState({
-      newCommitMessage: value,
+      selectedChange: { ...selectedChange, [id]: value },
+      isCommitValid,
+    });
+  }
+
+  handleDropdownSelect(e) {
+    const { value } = e;
+    const { updatedRule } = this.state;
+    this.setState({
+      updatedRule: { ...updatedRule, bounce_action: value },
     });
   }
 
@@ -151,7 +168,20 @@ export default class BounceDetailsPage extends React.Component {
     this.setState({
       [id]: false,
       selectedChange: null,
-      newCommitMessage: "",
+      isCommitValid: true,
+    });
+  }
+
+  handleRevertModalClose(e) {
+    const { id } = e.currentTarget;
+    const { selectedChange, oldCommit } = this.state;
+    const oldSelectedChange = Object.assign(selectedChange, {
+      comment: oldCommit,
+    });
+    this.setState({
+      [id]: false,
+      selectedChange: oldSelectedChange,
+      isCommitValid: true,
     });
   }
 
@@ -159,10 +189,12 @@ export default class BounceDetailsPage extends React.Component {
     const { changelog } = this.state;
     const { id } = e.currentTarget;
     const changeIndex = parseInt(e.currentTarget.getAttribute("index"), 10);
+    const selectedChange = changelog[changeIndex];
+    const oldCommit = selectedChange.comment;
     this.setState({
-      selectedChange: changelog[changeIndex],
       [id]: true,
-      newCommitMessage: "",
+      selectedChange: _.omit(selectedChange, "comment"),
+      oldCommit,
       selectedChangelogIndex: changeIndex,
     });
   }
@@ -175,24 +207,30 @@ export default class BounceDetailsPage extends React.Component {
   }
 
   async handleRevertConfirm() {
-    const { selectedChange, newCommitMessage } = this.state;
-    selectedChange.comment = newCommitMessage;
-    await putRule(selectedChange.id, selectedChange);
-    getChangelog(selectedChange.id)
-      .then(res => {
-        const { data } = res;
+    const { selectedChange } = this.state;
+    const { id } = selectedChange;
+
+    try {
+      const { status: putStatus } = await putRule(id, selectedChange);
+      const { data, status: changelogStatus } = await getChangelog(id);
+      if (putStatus === 200) {
+        this.setState({
+          currentRule: selectedChange,
+          isRevertConfirmOpen: false,
+          oldCommit: null,
+        });
+      }
+      if (changelogStatus === 200) {
         this.setState({
           changelog: data,
         });
-      })
-      .catch(() => {
-        this.setState({ isNetworkError: true });
+      }
+    } catch (error) {
+      this.setState({
+        isNetworkError: true,
+        isFetching: false,
       });
-    this.setState({
-      currentRule: selectedChange,
-      isRevertConfirmOpen: false,
-      newCommitMessage: "",
-    });
+    }
   }
 
   handleEditClicked(e) {
@@ -245,24 +283,29 @@ export default class BounceDetailsPage extends React.Component {
     const { updatedRule } = this.state;
     updatedRule.user_id = parseInt(localStorage.getItem("user_id"), 10);
     const { id } = updatedRule;
-    await putRule(id, updatedRule)
-      .then(() => {
+    try {
+      const { status: statusData } = await putRule(id, updatedRule);
+      const { data, status: changelogStatus } = await getChangelog(id);
+
+      if (statusData === 200) {
         this.setState({
+          currentRule: updatedRule,
           isConfirmOpen: false,
           isEditClicked: false,
           isUpdateError: false,
+          isNetworkError: false,
         });
-      })
-      .catch(() => {
-        this.setState({ isUpdateError: true });
-      });
-    getChangelog(id).then(res => {
-      const { data } = res;
+      }
+      if (changelogStatus === 200) {
+        this.setState({
+          changelog: data,
+        });
+      }
+    } catch (error) {
       this.setState({
-        currentRule: updatedRule,
-        changelog: data,
+        isNetworkError: true,
       });
-    });
+    }
   }
 
   paginate(changelog) {
@@ -312,30 +355,31 @@ export default class BounceDetailsPage extends React.Component {
             }}
           />
         )}
-        {isAuthenticated &&
-          currentRule && (
-            <BounceDetailsContainer
-              logout={this.logout}
-              handleModalClose={this.handleModalClose}
-              handleButtonClicked={this.handleButtonClicked}
-              onChangeRule={this.onChangeRule}
-              handleEditClicked={this.handleEditClicked}
-              handleConcurrentEditClicked={this.handleConcurrentEditClicked}
-              handleCancelSaveClicked={this.handleCancelSaveClicked}
-              handleChangelogClicked={this.handleChangelogClicked}
-              handleCancelConfirmation={this.handleCancelConfirmation}
-              handleSaveConfirmation={this.handleSaveConfirmation}
-              handlePrevClicked={this.handlePrevClicked}
-              handleNextClicked={this.handleNextClicked}
-              onChangeRuleInt={this.onChangeRuleInt}
-              updatePageIndex={this.updatePageIndex}
-              handleRevertClicked={this.handleRevertClicked}
-              onChangeRuleRevert={this.onChangeRuleRevert}
-              handleRevertConfirm={this.handleRevertConfirm}
-              filteredChangelog={filteredChangelog}
-              {...this.state}
-            />
-          )}
+        {isAuthenticated && currentRule && (
+          <BounceDetailsContainer
+            logout={this.logout}
+            handleModalClose={this.handleModalClose}
+            handleButtonClicked={this.handleButtonClicked}
+            onChangeRule={this.onChangeRule}
+            handleEditClicked={this.handleEditClicked}
+            handleConcurrentEditClicked={this.handleConcurrentEditClicked}
+            handleCancelSaveClicked={this.handleCancelSaveClicked}
+            handleChangelogClicked={this.handleChangelogClicked}
+            handleCancelConfirmation={this.handleCancelConfirmation}
+            handleSaveConfirmation={this.handleSaveConfirmation}
+            handlePrevClicked={this.handlePrevClicked}
+            handleNextClicked={this.handleNextClicked}
+            onChangeRuleInt={this.onChangeRuleInt}
+            updatePageIndex={this.updatePageIndex}
+            handleRevertClicked={this.handleRevertClicked}
+            handleRevertModalClose={this.handleRevertModalClose}
+            handleRevertConfirm={this.handleRevertConfirm}
+            onChangeRevert={this.onChangeRevert}
+            filteredChangelog={filteredChangelog}
+            handleDropdownSelect={this.handleDropdownSelect}
+            {...this.state}
+          />
+        )}
       </React.Fragment>
     );
   }

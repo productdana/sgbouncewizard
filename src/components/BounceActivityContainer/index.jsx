@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { CSVLink } from "react-csv";
 import Breadcrumb from "@sendgrid/ui-components/breadcrumb";
 import { StatefulTabs as Tabs, Tab } from "@sendgrid/ui-components/tabs";
+import Alert from "@sendgrid/ui-components/alert";
 import Loader from "@sendgrid/ui-components/loader";
 import Header from "../Header";
 import { Row } from "../Row";
@@ -43,6 +44,7 @@ const BounceActivityContainer = ({
   handleActivityClicked,
   selectedActivity,
   isActivityModalOpen,
+  isNetworkError,
 }) => {
   const isActivityEmpty = activityLog.length === 0;
   const shouldShowActivityLogPagination =
@@ -53,12 +55,34 @@ const BounceActivityContainer = ({
     <React.Fragment>
       {isBounceRulesTab && <Redirect push to="/bounce_rules" />}
       <div {...WriteSelectors.page}>
+        {isNetworkError && (
+          <Alert
+            type="danger"
+            dismissable={false}
+            onClick={handleModalClose}
+            id="isInvalidInput"
+          >
+            A network error is detected. Please
+            <a href="/bounce_rules"> refresh </a>
+            or try again later.
+          </Alert>
+        )}
         <Header logout={logout} />
         <Row>
           <Column width={6} offset={2}>
             <Breadcrumb>
               <Link to="/activity_log"> Activity Log</Link>
             </Breadcrumb>
+          </Column>
+        </Row>
+        <Row>
+          <Column width={10} offset={2}>
+            <Tabs className="page-tab" onChange={() => {}}>
+              <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
+              <Tab onClick={handleActivityTabClicked} active>
+                Activity Log
+              </Tab>
+            </Tabs>
           </Column>
         </Row>
         <Row>
@@ -75,17 +99,7 @@ const BounceActivityContainer = ({
         </Row>
         <Row>
           <Column width={10} offset={2}>
-            <Tabs className="page-tab" onChange={() => {}}>
-              <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
-              <Tab onClick={handleActivityTabClicked} active>
-                Activity Log
-              </Tab>
-            </Tabs>
-          </Column>
-        </Row>
-        <Row>
-          <Column width={10} offset={2}>
-            <div {...WriteSelectors.ruleFilter}>
+            <div {...WriteSelectors.activityFilter}>
               <ActivityFilter
                 searchToken={searchToken}
                 updateSearchToken={updateSearchToken}

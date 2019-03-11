@@ -13,6 +13,7 @@ import ChangeModal from "./Modals/ChangeModal";
 import ConfirmationModal from "./Modals/ConfirmationModal";
 import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
 import RevertConfirmationModal from "./Modals/RevertConfirmationModal";
+import NetworkAlert from "../Alerts/NetworkAlert";
 import "./index.scss";
 import { WriteSelectors } from "./selectors";
 
@@ -38,8 +39,7 @@ const BounceRuleDetailed = ({
   handleCancelConfirmation,
   handleSaveConfirmation,
   handleRevertConfirm,
-  onChangeRuleRevert,
-  newCommitMessage,
+  onChangeRevert,
   onChangeRuleInt,
   pagesToDisplay,
   currentPageIndex,
@@ -49,12 +49,22 @@ const BounceRuleDetailed = ({
   filteredChangelog,
   logout,
   userCanEditRule,
+  isNetworkError,
+  handleRevertModalClose,
+  handleDropdownSelect,
+  isCommitValid,
 }) => {
   const { id } = currentRule;
   const isChangelogEmpty = changelog === undefined || changelog.length < 1;
 
   return (
     <div>
+      {isNetworkError && (
+        <NetworkAlert
+          reloadLink={`/bounce_rules/${id}`}
+          handleModalClose={handleModalClose}
+        />
+      )}
       <Header logout={logout} />
       <Row>
         <Column width={6} offset={2}>
@@ -68,7 +78,7 @@ const BounceRuleDetailed = ({
         <Column width={6} offset={2}>
           <h1>Bounce Rule {id}</h1>
         </Column>
-        {isEditClicked ? (
+        {isEditClicked && (
           <Column className="csv-button-col" width={4} offset={8}>
             <Button
               onClick={handleCancelSaveClicked}
@@ -91,7 +101,8 @@ const BounceRuleDetailed = ({
               Save
             </Button>
           </Column>
-        ) : (
+        )}
+        {!isEditClicked && (
           <Column className="details-button-column" width={1} offset={11}>
             <span>
               <Button
@@ -120,6 +131,7 @@ const BounceRuleDetailed = ({
                 onChangeRule={onChangeRule}
                 onChangeRuleInt={onChangeRuleInt}
                 updatedRule={updatedRule}
+                handleDropdownSelect={handleDropdownSelect}
               />
             )}
             {!isEditClicked && (
@@ -168,22 +180,25 @@ const BounceRuleDetailed = ({
       )}
       {isRevertConfirmOpen && (
         <RevertConfirmationModal
+          isCommitValid={isCommitValid}
           currentRule={currentRule}
           selectedChange={selectedChange}
           handleModalClose={handleModalClose}
           handleRevertConfirm={handleRevertConfirm}
-          onChangeRuleRevert={onChangeRuleRevert}
-          newCommitMessage={newCommitMessage}
+          handleRevertModalClose={handleRevertModalClose}
+          onChangeRevert={onChangeRevert}
         />
       )}
       {isConfirmOpen && (
         <ConfirmationModal
           {...WriteSelectors.saveConfirmationModal}
+          isCommitValid={isCommitValid}
+          onChangeRule={onChangeRule}
           updatedRule={updatedRule}
           handleModalClose={handleModalClose}
-          onChangeRule={onChangeRule}
           handleSaveConfirmation={handleSaveConfirmation}
           isUpdateError={isUpdateError}
+          isNetworkError={isNetworkError}
         />
       )}
       {isCancelConfirmOpen && (

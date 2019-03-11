@@ -14,6 +14,7 @@ import Pagination from "../Pagination";
 import RuleListContainer from "./RuleListContainer";
 import RuleFilter from "./RuleFilter";
 import EmptyRules from "./EmptyRules";
+import NetworkAlert from "../Alerts/NetworkAlert";
 import DeleteConfirmationModal, {
   DeleteConfirmationAlert,
 } from "./Modals/DeleteRuleModal";
@@ -63,6 +64,10 @@ const BounceRulesContainer = ({
   isBounceRulesTab,
   isActivityLogTab,
   handleDeleteCommit,
+  isNetworkError,
+  handleCreateCommit,
+  handleDropdownSelect,
+  isCommitValid,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const shouldShowBounceRulePagination =
@@ -74,12 +79,26 @@ const BounceRulesContainer = ({
     <React.Fragment>
       {isActivityLogTab && <Redirect push to="/activity_log" />}
       <div {...WriteSelectors.page}>
+        {isNetworkError && (
+          <NetworkAlert
+            reloadLink="/bounce_rules"
+            handleModalClose={handleModalClose}
+          />
+        )}
         <Header logout={logout} />
         <Row>
           <Column width={6} offset={2}>
             <Breadcrumb>
               <Link to="/bounce_rules"> Bounce Rules</Link>
             </Breadcrumb>
+          </Column>
+        </Row>
+        <Row>
+          <Column width={10} offset={2}>
+            <Tabs className="page-tab" onChange={() => {}}>
+              <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
+              <Tab onClick={handleActivityTabClicked}>Activity Log</Tab>
+            </Tabs>
           </Column>
         </Row>
         <Row>
@@ -103,14 +122,6 @@ const BounceRulesContainer = ({
             >
               Create Rule
             </Button>
-          </Column>
-        </Row>
-        <Row>
-          <Column width={10} offset={2}>
-            <Tabs className="page-tab" onChange={() => {}}>
-              <Tab onClick={handleBounceTabClicked}>Bounce Rules</Tab>
-              <Tab onClick={handleActivityTabClicked}>Activity Log</Tab>
-            </Tabs>
           </Column>
         </Row>
         <Row>
@@ -176,15 +187,18 @@ const BounceRulesContainer = ({
             handleRuleUpdate={handleRuleUpdate}
             handleRuleUpdateInt={handleRuleUpdateInt}
             handleCreateSubmit={handleCreateSubmit}
+            handleDropdownSelect={handleDropdownSelect}
           />
         )}
         {isCreateRuleConfirmationOpen && (
           <CreateConfirmationModal
             {...WriteSelectors.confirmModal}
             newRule={newRule}
+            isCommitValid={isCommitValid}
             handleModalClose={handleModalClose}
             handleCreateConfirm={handleCreateConfirm}
             handleRuleUpdate={handleRuleUpdate}
+            handleCreateCommit={handleCreateCommit}
           />
         )}
         {isDeleteConfirmationOpen && (
@@ -194,6 +208,7 @@ const BounceRulesContainer = ({
             handleDeleteConfirm={handleDeleteConfirm}
             handleDeleteCommit={handleDeleteCommit}
             selectedRule={selectedRule}
+            isCommitValid={isCommitValid}
           />
         )}
         {isDeleteAlertOpen && (
