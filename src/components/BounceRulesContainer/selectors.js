@@ -33,7 +33,7 @@ const testHooks = {
   submitButton: "create-submit-button",
   confirmModal: "commit-confirm-modal",
   confirmationSubmit: "create-confirm-submit",
-  commitInput: "commit-message",
+  commitInput: "commit-input",
   cancelConfirmationSubmit: "cancel-confirm-submit",
   emptyCommitAlert: "empty-commit-alert",
   pagination: "pagination",
