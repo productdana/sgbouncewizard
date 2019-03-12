@@ -79,18 +79,23 @@ export default class BounceActivityPage extends React.Component {
   }
 
   async updateFilterOption(e) {
-    const { filterQuery } = this.state;
+    const { filterQuery, currentPageIndex } = this.state;
     const { filterBy } = filterQuery;
     const { value } = e.target;
     const newQuery = { ...filterQuery, option: value.toLowerCase() };
-
-    const filter = { limit: 10, offset: 0, filterBy, option: value };
+    const filter = {
+      limit: 10,
+      offset: currentPageIndex - 1,
+      filterBy,
+      option: value,
+    };
     try {
       const { data, status } = await getFilteredActivityLog(filter);
       if (status === 200) {
         this.setState({
           rules: data.reverse(),
           numRules: data.length,
+          filterQuery: newQuery,
         });
       }
     } catch (err) {
@@ -98,24 +103,26 @@ export default class BounceActivityPage extends React.Component {
         isNetworkError: true,
       });
     }
-
-    this.setState({
-      filterQuery: newQuery,
-    });
   }
 
   async handleOptionSelector(e) {
-    const { filterQuery } = this.state;
+    const { filterQuery, currentPageIndex } = this.state;
     const { filterBy } = filterQuery;
     const { value } = e;
     const newQuery = { ...filterQuery, option: value.toLowerCase() };
 
-    const filter = { limit: 99999, offset: 0, filterBy, option: value };
+    const filter = {
+      limit: 10,
+      offset: currentPageIndex - 1,
+      filterBy,
+      option: value,
+    };
     try {
       const { data, status } = await getFilteredActivityLog(filter);
       if (status === 200) {
         this.setState({
           activityLog: data.reverse(),
+          filterQuery: newQuery,
           numRules: data.length,
         });
       }
@@ -124,9 +131,6 @@ export default class BounceActivityPage extends React.Component {
         isNetworkError: true,
       });
     }
-    this.setState({
-      filterQuery: newQuery,
-    });
   }
 
   async handleClearSearch() {
