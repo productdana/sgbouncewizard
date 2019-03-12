@@ -43,25 +43,6 @@ describe("Bounce Rules Page", () => {
       );
   });
 
-  it("should cancel creating a bounce rule before submitting", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
-      BounceRulesPage.open();
-      BounceRulesPage.createRuleButton.click();
-      BounceRulesPage.cancelCreateRuleButton.click();
-      BounceRulesPage.createRuleModal.should("not.be.visible");
-    });
-  });
-
-  it("should cancel creating a bounce rule after submitting", () => {
-    BounceRulesPage.deleteBounceRuleAPI(testCreateRule).then(() => {
-      BounceRulesPage.open();
-      BounceRulesPage.createRuleButton.click();
-      BounceRulesPage.fillCreateRuleForm(testCreateRule);
-      BounceRulesPage.cancelCreateConfirmationSubmit.click();
-      BounceRulesPage.confirmModal.should("not.be.visible");
-    });
-  });
-
   it("should delete a bounce rule", () => {
     BounceRulesPage.deleteBounceRuleAPI(testDeleteRule)
       .then(() => BounceRulesPage.createBounceRuleAPI(testDeleteRule))

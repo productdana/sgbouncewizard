@@ -45,6 +45,7 @@ const BounceRulesContainer = ({
   isCreateRuleConfirmationOpen,
   handleCreateConfirm,
   newRule,
+  fieldValidation,
   isInvalidInput,
   isDeleteConfirmationOpen,
   handleDeleteConfirm,
@@ -62,6 +63,7 @@ const BounceRulesContainer = ({
   handleCreateCommit,
   handleDropdownSelect,
   isCommitValid,
+  handleInvalidAlertClose,
 }) => {
   const isRulesEmpty = rules.length <= 0;
   const shouldShowBounceRulePagination =
@@ -176,6 +178,8 @@ const BounceRulesContainer = ({
           <CreateRuleModal
             {...WriteSelectors.createRuleModal}
             newRule={newRule}
+            fieldValidation={fieldValidation}
+            handleInvalidAlertClose={handleInvalidAlertClose}
             isInvalidInput={isInvalidInput}
             handleModalClose={handleModalClose}
             handleRuleUpdate={handleRuleUpdate}

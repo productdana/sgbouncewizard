@@ -27,6 +27,7 @@ export default class BounceRulesPage extends React.Component {
       isCreateRuleOpen: false,
       isCreateRuleConfirmationOpen: false,
       newRule: {},
+      fieldValidation: {},
       isInvalidInput: false,
       isNetworkError: false,
       isCommitValid: true,
@@ -52,6 +53,8 @@ export default class BounceRulesPage extends React.Component {
     this.handleDeleteCommit = this.handleDeleteCommit.bind(this);
     this.handleCreateCommit = this.handleCreateCommit.bind(this);
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
+    this.handleInvalidAlertClose = this.handleInvalidAlertClose.bind(this);
+    this.validateFields = this.validateFields.bind(this);
   }
 
   async componentDidMount() {
@@ -210,8 +213,15 @@ export default class BounceRulesPage extends React.Component {
       [id]: false,
       isInvalidInput: false,
       selectedRule: {},
+      fieldValidation: {},
       newRule: null,
       isCommitValid: true,
+    });
+  }
+
+  handleInvalidAlertClose() {
+    this.setState({
+      isInvalidInput: false,
     });
   }
 
@@ -243,10 +253,7 @@ export default class BounceRulesPage extends React.Component {
     }
   }
 
-  handleCreateSubmit(e) {
-    e.preventDefault();
-
-    const { newRule } = this.state;
+  validateFields(newRule) {
     const {
       description,
       response_code: responseCode,
@@ -255,7 +262,7 @@ export default class BounceRulesPage extends React.Component {
       priority,
       bounce_action: bounceAction,
     } = newRule;
-
+    const errors = {};
     if (
       !description ||
       !responseCode ||
@@ -264,16 +271,46 @@ export default class BounceRulesPage extends React.Component {
       !priority ||
       !bounceAction
     ) {
+      if (!description) {
+        errors.description = "Field cannot be left empty.";
+      }
+      if (!responseCode) {
+        errors.response_code = "Field cannot be left empty.";
+      }
+      if (!enhancedCode) {
+        errors.enhanced_code = "Field cannot be left empty.";
+      }
+      if (!priority) {
+        errors.priority = "Field cannot be left empty.";
+      }
+      if (!bounceAction) {
+        errors.bounce_action = "Field cannot be left empty.";
+      }
+      if (!regex) {
+        errors.regex = "Field cannot be left empty.";
+      }
       this.setState({
         isInvalidInput: true,
+        fieldValidation: errors,
       });
-      return;
+      return false;
     }
+    return true;
+  }
 
-    this.setState({
-      isCreateRuleOpen: false,
-      isCreateRuleConfirmationOpen: true,
-    });
+  handleCreateSubmit(e) {
+    e.preventDefault();
+
+    const { newRule } = this.state;
+
+    const isValid = this.validateFields(newRule);
+
+    if (isValid) {
+      this.setState({
+        isCreateRuleOpen: false,
+        isCreateRuleConfirmationOpen: true,
+      });
+    }
   }
 
   handleRuleUpdate(e) {
@@ -402,6 +439,7 @@ export default class BounceRulesPage extends React.Component {
             handleDeleteCommit={this.handleDeleteCommit}
             handleCreateCommit={this.handleCreateCommit}
             handleDropdownSelect={this.handleDropdownSelect}
+            handleInvalidAlertClose={this.handleInvalidAlertClose}
             {...this.state}
           />
         )}
