@@ -38,6 +38,8 @@ const displayOptionInput = (
         <Select
           isRequired
           onChange={handleOptionSelector}
+          placeholder="Select an Option"
+          value={option && { label: option, value: option.toLowerCase() }}
           options={selectOptions(filterBy)}
         />
       </div>
@@ -59,9 +61,6 @@ const RuleFilter = ({
   filterQuery,
   updateFilterBy,
   updateFilterOption,
-  filterOptions,
-  addFilter,
-  removeFilter,
   isValidFilter,
   handleClearSearch,
   handleOptionSelector,
@@ -113,26 +112,6 @@ const RuleFilter = ({
             )}
           </Column>
           <i className="filter-row-remove sg-icon sg-icon-x" />
-        </Row>
-
-        <Row>
-          <div className="row btn-list filter-actions-container">
-            <Button type="primary" small onClick={addFilter}>
-              Search
-            </Button>
-            {filterOptions.map(filterOption => (
-              <Button
-                type="secondary"
-                small
-                onClick={removeFilter}
-                category={filterOption.searchCategory}
-                token={filterOption.searchToken}
-                key={filterOption.searchCategory + filterOption.searchToken}
-              >
-                {filterOption.searchCategory} - {filterOption.searchToken}
-              </Button>
-            ))}
-          </div>
         </Row>
       </div>
     </div>

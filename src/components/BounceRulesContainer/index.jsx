@@ -25,7 +25,6 @@ const BounceRulesContainer = ({
   filterQuery,
   updateFilterBy,
   updateFilterOption,
-  removeFilter,
   handlePrevClicked,
   handleNextClicked,
   updatePageIndex,
@@ -36,8 +35,6 @@ const BounceRulesContainer = ({
   rulesToShow,
   pagesToDisplay,
   numRules,
-  filterOptions,
-  addFilter,
   handleClearSearch,
   isValidFilter,
   isCreateRuleOpen,
@@ -129,9 +126,6 @@ const BounceRulesContainer = ({
                 searchToken={searchToken}
                 updateFilterBy={updateFilterBy}
                 updateFilterOption={updateFilterOption}
-                filterOptions={filterOptions}
-                addFilter={addFilter}
-                removeFilter={removeFilter}
                 isValidFilter={isValidFilter}
                 handleClearSearch={handleClearSearch}
                 handleOptionSelector={handleOptionSelector}
@@ -233,7 +227,6 @@ BounceRulesContainer.propTypes = {
   ),
   updateFilterBy: PropTypes.func,
   updateFilterOption: PropTypes.func,
-  removeFilter: PropTypes.func,
   handlePrevClicked: PropTypes.func,
   handleNextClicked: PropTypes.func,
   updatePageIndex: PropTypes.func,
@@ -262,13 +255,7 @@ BounceRulesContainer.propTypes = {
   rulesToShow: PropTypes.number,
   pagesToDisplay: PropTypes.number,
   numRules: PropTypes.number,
-  filterOptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      searchCategory: PropTypes.string,
-      searchToken: PropTypes.string,
-    })
-  ),
-  addFilter: PropTypes.func,
+
   isValidFilter: PropTypes.bool,
   isCreateRuleOpen: PropTypes.bool,
   handleRuleUpdate: PropTypes.func,
@@ -299,7 +286,6 @@ BounceRulesContainer.defaultProps = {
   rules: [],
   updateFilterBy: () => {},
   updateFilterOption: () => {},
-  removeFilter: () => {},
   handlePrevClicked: () => {},
   handleNextClicked: () => {},
   updatePageIndex: () => {},
@@ -310,8 +296,6 @@ BounceRulesContainer.defaultProps = {
   rulesToShow: 10,
   pagesToDisplay: 5,
   numRules: 0,
-  filterOptions: () => {},
-  addFilter: () => {},
   isCreateRuleOpen: false,
   handleRuleUpdate: () => {},
   handleCreateSubmit: () => {},

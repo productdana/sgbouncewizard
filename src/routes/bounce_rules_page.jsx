@@ -23,7 +23,6 @@ export default class BounceRulesPage extends React.Component {
       currentPageIndex: 1,
       rulesToShow: 10,
       pagesToDisplay: 5,
-      filterOptions: [],
       isValidFilter: true,
       isFetching: true,
       isDeleteConfirmationOpen: false,
@@ -41,8 +40,6 @@ export default class BounceRulesPage extends React.Component {
     this.updatePageIndex = this.updatePageIndex.bind(this);
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
-    this.addFilter = this.addFilter.bind(this);
-    this.removeFilter = this.removeFilter.bind(this);
     this.handleActionOpen = this.handleActionOpen.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleCreateOpen = this.handleCreateOpen.bind(this);
@@ -166,68 +163,6 @@ export default class BounceRulesPage extends React.Component {
         isFetching: false,
       });
     }
-  }
-
-  // filterRules(rules) {
-  //   const { searchToken, filterQuery } = this.state;
-  //   const { filterBy, option } = filterQuery;
-  //   return rules.filter(
-  //     rule =>
-  //       rule.bounce_action.toLowerCase().includes(option.toLowerCase()) ||
-  //       rule.description.toLowerCase().includes(option.toLowerCase())
-  //   );
-  // }
-
-  // isDuplicate(searchCategory, searchToken) {
-  //   const { filterOptions } = this.state;
-  //   const isDuplicate = filterOptions.some(
-  //     filterOption =>
-  //       filterOption.searchCategory === searchCategory &&
-  //       filterOption.searchToken === searchToken
-  //   );
-  //   return isDuplicate;
-  // }
-
-  async addFilter() {
-    const { filterQuery } = this.state;
-    const { filterBy, option } = filterQuery;
-    if (!filterBy || !option) {
-      this.setState({
-        isValidFilter: false,
-      });
-      return;
-    }
-
-    const filter = { limit: 99999, offset: 1, filterBy, option };
-    try {
-      const { data, status } = await listFilteredRules(filter);
-      if (status === 200) {
-        this.setState({
-          rules: data.reverse(),
-          numRules: data.length,
-        });
-      }
-    } catch (err) {
-      this.setState({
-        isNetworkError: true,
-      });
-    }
-  }
-
-  removeFilter(e) {
-    const token = e.currentTarget.getAttribute("token");
-    const category = e.currentTarget.getAttribute("category");
-    const { filterOptions } = this.state;
-    const newFilterOptions = filterOptions.filter(
-      filterOption =>
-        (filterOption.searchCategory !== category &&
-          filterOption.searchToken !== token) ||
-        (filterOption.searchCategory === category &&
-          filterOption.searchToken !== token)
-    );
-    this.setState({
-      filterOptions: newFilterOptions,
-    });
   }
 
   paginate(rules) {
@@ -466,8 +401,6 @@ export default class BounceRulesPage extends React.Component {
             updatePageIndex={this.updatePageIndex}
             handlePrevClicked={this.handlePrevClicked}
             handleNextClicked={this.handleNextClicked}
-            addFilter={this.addFilter}
-            removeFilter={this.removeFilter}
             filteredRules={filteredRules}
             handleRuleUpdate={this.handleRuleUpdate}
             handleRuleUpdateInt={this.handleRuleUpdateInt}
