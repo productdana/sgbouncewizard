@@ -17,3 +17,28 @@
 .select-filter {
   padding-top: 15px;
 }
+
+.sg-date-picker {
+  margin-top: 0.5rem;
+}
+
+.CalendarDay__selected_span {
+  background: #1a82e2;
+  color: white;
+  border: 1px solid #1a82e2;
+}
+
+.CalendarDay__selected {
+  background: #1a82e2;
+  color: white;
+}
+
+.CalendarDay__selected:hover {
+  background: #1a82e2;
+  color: white;
+}
+
+.CalendarDay__hovered_span:hover,
+.CalendarDay__hovered_span {
+  background: #f2f2f2;
+}

@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
+
 import "./index.scss";
 
 const ActivityLogContainer = ({ activityLog, handleActivityClicked }) => (

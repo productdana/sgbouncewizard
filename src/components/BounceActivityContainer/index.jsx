@@ -46,6 +46,11 @@ const BounceActivityContainer = ({
   filterQuery,
   handleOptionSelector,
   handleClearSearch,
+  onDateChange,
+  onFocusChange,
+  startDate,
+  endDate,
+  focusedInput,
 }) => {
   const isActivityEmpty = activityLog.length === 0;
   const shouldShowActivityLogPagination =
@@ -102,6 +107,8 @@ const BounceActivityContainer = ({
           <Column width={10} offset={2}>
             <div {...WriteSelectors.activityFilter}>
               <ActivityFilter
+                onFocusChange={onFocusChange}
+                onDateChange={onDateChange}
                 filterQuery={filterQuery}
                 updateFilterBy={updateFilterBy}
                 updateFilterOption={updateFilterOption}
@@ -110,6 +117,9 @@ const BounceActivityContainer = ({
                 filterOptions={filterOptions}
                 isValidFilter={isValidFilter}
                 handleClearSearch={handleClearSearch}
+                startDate={startDate}
+                endDate={endDate}
+                focusedInput={focusedInput}
               />
             </div>
           </Column>
