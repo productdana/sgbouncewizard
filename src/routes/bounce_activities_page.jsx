@@ -25,7 +25,7 @@ export default class BounceActivityPage extends React.Component {
       isNetworkError: false,
       startDate: null,
       endDate: null,
-      focusedInput: null
+      focusedInput: null,
     };
     this.logout = this.logout.bind(this);
     this.updateFilterBy = this.updateFilterBy.bind(this);
@@ -49,12 +49,12 @@ export default class BounceActivityPage extends React.Component {
     try {
       const { data: activities } = await getActivityLog({
         limit: MAX_ACTIVITY_LOGS,
-        offset: currentPageIndex
+        offset: currentPageIndex,
       });
       if (activities) {
         this.setState({
           isFetching: false,
-          activityLog: activities
+          activityLog: activities,
         });
       }
     } catch (err) {
@@ -73,7 +73,7 @@ export default class BounceActivityPage extends React.Component {
     this.setState({
       [id]: false,
       isInvalidInput: false,
-      selectedRule: {}
+      selectedRule: {},
     });
   }
 
@@ -83,10 +83,10 @@ export default class BounceActivityPage extends React.Component {
     const newQuery = {
       ...filterQuery,
       filterBy: value.toLowerCase(),
-      option: ""
+      option: "",
     };
     this.setState({
-      filterQuery: newQuery
+      filterQuery: newQuery,
     });
   }
 
@@ -98,7 +98,7 @@ export default class BounceActivityPage extends React.Component {
       limit: rulesToShow,
       offset: currentPageIndex - 1,
       filterBy,
-      option: value
+      option: value,
     };
     try {
       const { data, status } = await getActivityLog(filter);
@@ -106,12 +106,12 @@ export default class BounceActivityPage extends React.Component {
         this.setState({
           activityLog: data.reverse(),
           numRules: data.length,
-          filterQuery: newQuery
+          filterQuery: newQuery,
         });
       }
     } catch (err) {
       this.setState({
-        isNetworkError: true
+        isNetworkError: true,
       });
     }
   }
@@ -130,7 +130,7 @@ export default class BounceActivityPage extends React.Component {
     const { focusedInput } = this.state;
     this.setState(
       {
-        [focusedInput]: dateRange[focusedInput]
+        [focusedInput]: dateRange[focusedInput],
       },
       () => {
         const { startDate, endDate } = this.state;
@@ -145,7 +145,7 @@ export default class BounceActivityPage extends React.Component {
 
   onFocusChange(focusedInput) {
     this.setState({
-      focusedInput
+      focusedInput,
     });
   }
 
@@ -154,7 +154,7 @@ export default class BounceActivityPage extends React.Component {
     try {
       const { data, status } = await getActivityLog({
         limit: MAX_ACTIVITY_LOGS,
-        offset: currentPageIndex
+        offset: currentPageIndex,
       });
       const { filterQuery } = this.state;
       if (status === 200) {
@@ -164,13 +164,13 @@ export default class BounceActivityPage extends React.Component {
           numRules: data.length,
           filterQuery: { ...filterQuery, option: "" },
           startDate: null,
-          endDate: null
+          endDate: null,
         });
       }
     } catch (err) {
       this.setState({
         isNetworkError: true,
-        isFetching: false
+        isFetching: false,
       });
     }
   }
@@ -191,34 +191,34 @@ export default class BounceActivityPage extends React.Component {
       return {
         currentPageIndex: isPageIndexUpdated
           ? newIndex
-          : prevState.currentPageIndex
+          : prevState.currentPageIndex,
       };
     });
   }
 
   handlePrevClicked() {
     this.setState(prevState => ({
-      currentPageIndex: prevState.currentPageIndex - 1
+      currentPageIndex: prevState.currentPageIndex - 1,
     }));
   }
 
   handleNextClicked() {
     this.setState(prevState => ({
-      currentPageIndex: prevState.currentPageIndex + 1
+      currentPageIndex: prevState.currentPageIndex + 1,
     }));
   }
 
   handleBounceTabClicked() {
     this.setState({
       isActivityLogTab: false,
-      isBounceRulesTab: true
+      isBounceRulesTab: true,
     });
   }
 
   handleActivityTabClicked() {
     this.setState({
       isActivityLogTab: true,
-      isBounceRulesTab: false
+      isBounceRulesTab: false,
     });
   }
 
@@ -228,7 +228,7 @@ export default class BounceActivityPage extends React.Component {
     const ruleId = parseInt(e.currentTarget.getAttribute("rule-id"), 10);
     this.setState({
       [id]: true,
-      selectedActivity: activityLog.find(activity => activity.id === ruleId)
+      selectedActivity: activityLog.find(activity => activity.id === ruleId),
     });
   }
 
@@ -242,7 +242,7 @@ export default class BounceActivityPage extends React.Component {
           <Redirect
             push
             to={{
-              pathname: `/`
+              pathname: `/`,
             }}
           />
         )}

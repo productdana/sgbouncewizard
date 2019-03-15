@@ -29,7 +29,7 @@ export default class BounceRulesPage extends React.Component {
       newRule: {},
       isInvalidInput: false,
       isNetworkError: false,
-      isCommitValid: true
+      isCommitValid: true,
     };
     this.logout = this.logout.bind(this);
     this.updateFilterBy = this.updateFilterBy.bind(this);
@@ -60,19 +60,19 @@ export default class BounceRulesPage extends React.Component {
     try {
       const { data, status } = await listRules({
         limit: MAX_BOUNCE_RULES,
-        offset: currentPageIndex
+        offset: currentPageIndex,
       });
       if (status === 200) {
         this.setState({
           isFetching: false,
           rules: data.reverse(),
-          numRules: data.length
+          numRules: data.length,
         });
       }
     } catch (err) {
       this.setState({
         isNetworkError: true,
-        isFetching: false
+        isFetching: false,
       });
     }
   }
@@ -89,10 +89,10 @@ export default class BounceRulesPage extends React.Component {
     const newQuery = {
       ...filterQuery,
       filterBy: value.toLowerCase(),
-      option: ""
+      option: "",
     };
     this.setState({
-      filterQuery: newQuery
+      filterQuery: newQuery,
     });
   }
 
@@ -104,7 +104,7 @@ export default class BounceRulesPage extends React.Component {
       limit: rulesToShow,
       offset: currentPageIndex - 1,
       filterBy,
-      option: value
+      option: value,
     };
     try {
       const { data, status } = await listRules(filter);
@@ -112,12 +112,12 @@ export default class BounceRulesPage extends React.Component {
         this.setState({
           rules: data.reverse(),
           numRules: data.length,
-          filterQuery: newQuery
+          filterQuery: newQuery,
         });
       }
     } catch (err) {
       this.setState({
-        isNetworkError: true
+        isNetworkError: true,
       });
     }
   }
@@ -137,20 +137,20 @@ export default class BounceRulesPage extends React.Component {
     try {
       const { data, status } = await listRules({
         limit: MAX_BOUNCE_RULES,
-        offset: currentPageIndex
+        offset: currentPageIndex,
       });
       if (status === 200) {
         this.setState({
           isFetching: false,
           rules: data.reverse(),
           numRules: data.length,
-          filterQuery: { filterBy: "bounce_action", option: "" }
+          filterQuery: { filterBy: "bounce_action", option: "" },
         });
       }
     } catch (err) {
       this.setState({
         isNetworkError: true,
-        isFetching: false
+        isFetching: false,
       });
     }
   }
@@ -171,20 +171,20 @@ export default class BounceRulesPage extends React.Component {
       return {
         currentPageIndex: isPageIndexUpdated
           ? value
-          : prevState.currentPageIndex
+          : prevState.currentPageIndex,
       };
     });
   }
 
   handlePrevClicked() {
     this.setState(prevState => ({
-      currentPageIndex: prevState.currentPageIndex - 1
+      currentPageIndex: prevState.currentPageIndex - 1,
     }));
   }
 
   handleNextClicked() {
     this.setState(prevState => ({
-      currentPageIndex: prevState.currentPageIndex + 1
+      currentPageIndex: prevState.currentPageIndex + 1,
     }));
   }
 
@@ -195,8 +195,8 @@ export default class BounceRulesPage extends React.Component {
       [id]: true,
       newRule: {
         ...newRule,
-        user_id: parseInt(localStorage.getItem("user_id"), 10)
-      }
+        user_id: parseInt(localStorage.getItem("user_id"), 10),
+      },
     });
   }
 
@@ -206,7 +206,7 @@ export default class BounceRulesPage extends React.Component {
     const ruleId = parseInt(e.currentTarget.getAttribute("rule"), 10);
     this.setState({
       [id]: true,
-      selectedRule: rules.find(rule => rule.id === ruleId)
+      selectedRule: rules.find(rule => rule.id === ruleId),
     });
   }
 
@@ -217,7 +217,7 @@ export default class BounceRulesPage extends React.Component {
       isInvalidInput: false,
       selectedRule: {},
       newRule: null,
-      isCommitValid: true
+      isCommitValid: true,
     });
   }
 
@@ -225,7 +225,7 @@ export default class BounceRulesPage extends React.Component {
     const { rules, selectedRule } = this.state;
     const ruleToDelete = {
       ...selectedRule,
-      user_id: parseInt(localStorage.getItem("user_id"), 10)
+      user_id: parseInt(localStorage.getItem("user_id"), 10),
     };
     try {
       const { status } = await deleteRule(ruleToDelete);
@@ -235,16 +235,16 @@ export default class BounceRulesPage extends React.Component {
             rule => rule.id !== parseInt(selectedRule.id, 10)
           ),
           isDeleteConfirmationOpen: false,
-          selectedRule: null
+          selectedRule: null,
         });
       } else {
         this.setState({
-          isDeleteAlertOpen: true
+          isDeleteAlertOpen: true,
         });
       }
     } catch (error) {
       this.setState({
-        isNetworkError: true
+        isNetworkError: true,
       });
     }
   }
@@ -259,7 +259,7 @@ export default class BounceRulesPage extends React.Component {
       enhanced_code: enhancedCode,
       regex,
       priority,
-      bounce_action: bounceAction
+      bounce_action: bounceAction,
     } = newRule;
 
     if (
@@ -271,14 +271,14 @@ export default class BounceRulesPage extends React.Component {
       !bounceAction
     ) {
       this.setState({
-        isInvalidInput: true
+        isInvalidInput: true,
       });
       return;
     }
 
     this.setState({
       isCreateRuleOpen: false,
-      isCreateRuleConfirmationOpen: true
+      isCreateRuleConfirmationOpen: true,
     });
   }
 
@@ -286,7 +286,7 @@ export default class BounceRulesPage extends React.Component {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
     this.setState({
-      newRule: { ...newRule, [id]: value }
+      newRule: { ...newRule, [id]: value },
     });
   }
 
@@ -294,7 +294,7 @@ export default class BounceRulesPage extends React.Component {
     const { id, value } = e.currentTarget;
     const { newRule } = this.state;
     this.setState({
-      newRule: { ...newRule, [id]: parseInt(value, 10) }
+      newRule: { ...newRule, [id]: parseInt(value, 10) },
     });
   }
 
@@ -304,7 +304,7 @@ export default class BounceRulesPage extends React.Component {
     const isCommitValid = validateCommit(value);
     this.setState({
       selectedRule: { ...selectedRule, [id]: value },
-      isCommitValid
+      isCommitValid,
     });
   }
 
@@ -314,7 +314,7 @@ export default class BounceRulesPage extends React.Component {
     const isCommitValid = validateCommit(value);
     this.setState({
       newRule: { ...newRule, [id]: value },
-      isCommitValid
+      isCommitValid,
     });
   }
 
@@ -328,12 +328,12 @@ export default class BounceRulesPage extends React.Component {
         this.setState({
           isCreateRuleConfirmationOpen: false,
           rules: [newRule, ...rules],
-          newRule: null
+          newRule: null,
         });
       }
     } catch (error) {
       this.setState({
-        isNetworkError: true
+        isNetworkError: true,
       });
     }
   }
@@ -341,14 +341,14 @@ export default class BounceRulesPage extends React.Component {
   handleBounceTabClicked() {
     this.setState({
       isActivityLogTab: false,
-      isBounceRulesTab: true
+      isBounceRulesTab: true,
     });
   }
 
   handleActivityTabClicked() {
     this.setState({
       isActivityLogTab: true,
-      isBounceRulesTab: false
+      isBounceRulesTab: false,
     });
   }
 
@@ -356,7 +356,7 @@ export default class BounceRulesPage extends React.Component {
     const { value } = e;
     const { newRule } = this.state;
     this.setState({
-      newRule: { ...newRule, bounce_action: value }
+      newRule: { ...newRule, bounce_action: value },
     });
   }
 
@@ -370,7 +370,7 @@ export default class BounceRulesPage extends React.Component {
           <Redirect
             push
             to={{
-              pathname: `/`
+              pathname: `/`,
             }}
           />
         )}
@@ -379,7 +379,7 @@ export default class BounceRulesPage extends React.Component {
             push
             to={{
               pathname: `/bounce_rules/${selectedRule.id}`,
-              state: { currentRule: selectedRule }
+              state: { currentRule: selectedRule },
             }}
           />
         )}
