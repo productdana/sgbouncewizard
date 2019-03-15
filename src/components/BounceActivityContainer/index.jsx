@@ -21,13 +21,11 @@ import "./index.scss";
 const BounceActivityContainer = ({
   updateFilterBy,
   updateFilterOption,
-  removeFilter,
   filteredActivityLog,
   searchToken,
   rulesToShow,
   pagesToDisplay,
   filterOptions,
-  addFilter,
   isValidFilter,
   handleModalClose,
   isFetching,
@@ -47,6 +45,12 @@ const BounceActivityContainer = ({
   isNetworkError,
   filterQuery,
   handleOptionSelector,
+  handleClearSearch,
+  onDateChange,
+  onFocusChange,
+  startDate,
+  endDate,
+  focusedInput,
 }) => {
   const isActivityEmpty = activityLog.length === 0;
   const shouldShowActivityLogPagination =
@@ -103,15 +107,19 @@ const BounceActivityContainer = ({
           <Column width={10} offset={2}>
             <div {...WriteSelectors.activityFilter}>
               <ActivityFilter
+                onFocusChange={onFocusChange}
+                onDateChange={onDateChange}
                 filterQuery={filterQuery}
                 updateFilterBy={updateFilterBy}
                 updateFilterOption={updateFilterOption}
                 handleOptionSelector={handleOptionSelector}
                 searchToken={searchToken}
                 filterOptions={filterOptions}
-                addFilter={addFilter}
-                removeFilter={removeFilter}
                 isValidFilter={isValidFilter}
+                handleClearSearch={handleClearSearch}
+                startDate={startDate}
+                endDate={endDate}
+                focusedInput={focusedInput}
               />
             </div>
           </Column>
@@ -167,7 +175,6 @@ const BounceActivityContainer = ({
 
 BounceActivityContainer.propTypes = {
   updateSearchCategory: PropTypes.func,
-  removeFilter: PropTypes.func,
   handlePrevClicked: PropTypes.func,
   handleNextClicked: PropTypes.func,
   updatePageIndex: PropTypes.func,
@@ -181,7 +188,6 @@ BounceActivityContainer.propTypes = {
       searchToken: PropTypes.string,
     })
   ),
-  addFilter: PropTypes.func,
   isValidFilter: PropTypes.bool,
   isCreateRuleOpen: PropTypes.bool,
   handleModalClose: PropTypes.func,
@@ -191,7 +197,6 @@ BounceActivityContainer.propTypes = {
 
 BounceActivityContainer.defaultProps = {
   updateSearchCategory: () => {},
-  removeFilter: () => {},
   handlePrevClicked: () => {},
   handleNextClicked: () => {},
   updatePageIndex: () => {},
@@ -201,7 +206,6 @@ BounceActivityContainer.defaultProps = {
   pagesToDisplay: 5,
   numRules: 0,
   filterOptions: () => {},
-  addFilter: () => {},
   isCreateRuleOpen: false,
   handleModalClose: () => {},
   isFetching: false,

@@ -283,7 +283,7 @@ exports[`Bounce Rule Detailed should render correctly 1`] = `
               href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\",\\"user_id\\"
 \\"504\\",\\"550\\",\\"\\",\\"no MX record for domain\\",\\"0\\",\\"bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl\\",\\"no_action\\",\\"0\\""
               onClick={[Function]}
-              target="_self"
+              target="_blank"
             >
               Export as CSV
             </a>

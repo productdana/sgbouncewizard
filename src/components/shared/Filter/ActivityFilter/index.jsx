@@ -2,6 +2,9 @@ import React from "react";
 import { Button } from "@sendgrid/ui-components/button";
 import { TextInput } from "@sendgrid/ui-components/text-input";
 import { Select } from "@sendgrid/ui-components/select";
+import { DateRangePicker } from "react-dates";
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
 import { Row } from "../../Row";
 import { Column } from "../../Column";
 import "./index.scss";
@@ -25,48 +28,22 @@ const selectOptions = filterBy => {
   return null;
 };
 
-const displayOptionInput = (
-  filterBy,
-  option,
-  updateFilterOption,
-  isValidFilter,
-  handleOptionSelector
-) => {
-  if (filterBy === "bounce_action" || filterBy === "operation") {
-    return (
-      <div className="filter-select">
-        <Select
-          isRequired
-          onChange={handleOptionSelector}
-          options={selectOptions(filterBy)}
-        />
-      </div>
-    );
-  }
-  return (
-    <TextInput
-      type="text"
-      fullWidth
-      onChange={updateFilterOption}
-      value={option}
-      isValid={isValidFilter}
-      info={!isValidFilter && "Please enter a valid filter description."}
-    />
-  );
-};
-
 const RuleFilter = ({
   filterQuery,
   updateFilterBy,
   updateFilterOption,
-  filterOptions,
-  addFilter,
-  removeFilter,
   isValidFilter,
   handleClearSearch,
   handleOptionSelector,
+  onDateChange,
+  onFocusChange,
+  startDate,
+  endDate,
+  focusedInput,
 }) => {
   const { filterBy, option } = filterQuery;
+  const isDropdown = filterBy === "bounce_action" || filterBy === "operation";
+  const isDatePicker = filterBy === "created_at";
   return (
     <div className="filter-wrap">
       <div className="filter-header">
@@ -104,35 +81,50 @@ const RuleFilter = ({
             />
           </Column>
           <Column className="filter-column" width={9} offset={4}>
-            {displayOptionInput(
-              filterBy,
-              option,
-              updateFilterOption,
-              isValidFilter,
-              handleOptionSelector
+            {isDropdown && (
+              <div className="filter-select">
+                <Select
+                  isRequired
+                  onChange={handleOptionSelector}
+                  placeholder="Select an Option"
+                  value={
+                    option && { label: option, value: option.toLowerCase() }
+                  }
+                  options={selectOptions(filterBy)}
+                />
+              </div>
             )}
+            {isDatePicker && (
+              <div className="sg-date-picker">
+                <DateRangePicker
+                  small
+                  startDate={startDate}
+                  startDateId="startDate"
+                  endDate={endDate}
+                  endDateId="endDate"
+                  onDatesChange={onDateChange}
+                  focusedInput={focusedInput}
+                  onFocusChange={onFocusChange}
+                  // isOutsideRange allows for selection of past dates (default action is to disable selction of past dates)
+                  isOutsideRange={() => false}
+                />
+              </div>
+            )}
+            {!isDropdown &&
+              !isDatePicker && (
+                <TextInput
+                  type="text"
+                  fullWidth
+                  onChange={updateFilterOption}
+                  value={option}
+                  isValid={isValidFilter}
+                  info={
+                    !isValidFilter && "Please enter a valid filter description."
+                  }
+                />
+              )}
           </Column>
           <i className="filter-row-remove sg-icon sg-icon-x" />
-        </Row>
-
-        <Row>
-          <div className="row btn-list filter-actions-container">
-            <Button type="primary" small onClick={addFilter}>
-              Search
-            </Button>
-            {filterOptions.map(filterOption => (
-              <Button
-                type="secondary"
-                small
-                onClick={removeFilter}
-                category={filterOption.searchCategory}
-                token={filterOption.searchToken}
-                key={filterOption.searchCategory + filterOption.searchToken}
-              >
-                {filterOption.searchCategory} - {filterOption.searchToken}
-              </Button>
-            ))}
-          </div>
         </Row>
       </div>
     </div>
