@@ -8,12 +8,14 @@ import {
   TableRow,
 } from "@sendgrid/ui-components/table/table";
 import { shouldDisplay, displayUnixAsTime } from "../../../utils/utils";
+
 import "./index.scss";
 
 const ActivityLogContainer = ({ activityLog, handleActivityClicked }) => (
   <Table className="activity-table">
     <TableHeader>
       <TableRow>
+        <HeaderCell className="row-id">ID</HeaderCell>
         <HeaderCell className="row-date">Date</HeaderCell>
         <HeaderCell className="row-user">User</HeaderCell>
         <HeaderCell className="row-activity">Activity</HeaderCell>
@@ -44,6 +46,7 @@ const BounceRuleMin = ({ log, index, handleActivityClicked }) => {
   } = log;
   return (
     <TableRow data-id={id} data-time={createdAt}>
+      <TableCell>{shouldDisplay(id)}</TableCell>
       <TableCell>{shouldDisplay(displayUnixAsTime(createdAt))}</TableCell>
       <TableCell>{shouldDisplay(userId)}</TableCell>
       <TableCell className={operation.toLowerCase()}>

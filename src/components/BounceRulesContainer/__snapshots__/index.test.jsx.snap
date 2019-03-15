@@ -322,7 +322,7 @@ exports[`Bounce Rules Page should render correctly 1`] = `
                 </div>
               </div>
               <div
-                className="mako-grid__col-9 col-start-4"
+                className="mako-grid__col-9 col-start-4 filter-column"
               >
                 <div
                   className="input-text-wrap"
@@ -335,7 +335,7 @@ exports[`Bounce Rules Page should render correctly 1`] = `
                   <label
                     className="input-text-label"
                   >
-                    Description
+                    
                   </label>
                   <input
                     aria-describedby={false}
@@ -352,22 +352,6 @@ exports[`Bounce Rules Page should render correctly 1`] = `
               <i
                 className="filter-row-remove sg-icon sg-icon-x"
               />
-            </div>
-            <div
-              className="mako-grid__row"
-            >
-              <div
-                className="row btn-list filter-actions-container"
-              >
-                <button
-                  className="btn btn-primary btn-small"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Add a Filter
-                </button>
-              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,18 @@
 import axios from "axios";
 
-export const listRules = async () =>
-  axios.get(`${process.env.API_URL}/bounce_rules`).catch(err => err.response);
+export const listRules = async ({ limit, offset, filterBy, option }) => {
+  let filters = "";
+  if (option) {
+    filters = `&filterby=${filterBy}&option=${option}`;
+  }
+  return axios
+    .get(
+      `${
+        process.env.API_URL
+      }/bounce_rules/?limit=${limit}&offset=${offset}${filters}`
+    )
+    .catch(err => err.response);
+};
 
 export const postRule = async data =>
   axios
@@ -25,8 +36,19 @@ export const getChangelog = async ruleId =>
     .get(`${process.env.API_URL}/change_logs/${ruleId}`)
     .catch(err => err.response);
 
-export const getActivityLog = async () =>
-  axios.get(`${process.env.API_URL}/change_logs/`).catch(err => err.response);
+export const getActivityLog = async ({ limit, offset, filterBy, option }) => {
+  let filters = "";
+  if (option) {
+    filters = `&filterby=${filterBy}&option=${option}`;
+  }
+  return axios
+    .get(
+      `${
+        process.env.API_URL
+      }/change_logs/?limit=${limit}&offset=${offset}${filters}`
+    )
+    .catch(err => err.response);
+};
 
 export const putRule = async (ruleId, data) =>
   axios

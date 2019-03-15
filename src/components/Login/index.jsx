@@ -156,12 +156,16 @@ const Login = ({
               isInvalidCredentials && (
                 <InvalidCredentialsAlert handleAlertClose={handleAlertClose} />
               )}
-            {!isAuthenticating && isAuthenticationError && isNetworkError && (
-              <NetworkErrorAlert handleAlertClose={handleAlertClose} />
-            )}
-            {!isAuthenticating && isAuthenticationError && isInvalidInput && (
-              <InvalidInputAlert handleAlertClose={handleAlertClose} />
-            )}
+            {!isAuthenticating &&
+              isAuthenticationError &&
+              isNetworkError && (
+                <NetworkErrorAlert handleAlertClose={handleAlertClose} />
+              )}
+            {!isAuthenticating &&
+              isAuthenticationError &&
+              isInvalidInput && (
+                <InvalidInputAlert handleAlertClose={handleAlertClose} />
+              )}
           </Row>
           <LoginForm
             email={email}

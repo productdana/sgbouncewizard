@@ -42,6 +42,7 @@ const DetailsTable = ({ selectedChange }) => {
     comment,
     user_id: userId,
     created_at: createdAt,
+    operation,
   } = selectedChange;
   return (
     <Table className="change-table">
@@ -51,6 +52,12 @@ const DetailsTable = ({ selectedChange }) => {
             <strong>Change Comment</strong>
           </TableCell>
           <TableCell className="row-value">{shouldDisplay(comment)}</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <strong>Operation</strong>
+          </TableCell>
+          <TableCell>{shouldDisplay(operation)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>

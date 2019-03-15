@@ -1,3 +1,13 @@
+.filter-column {
+  position: relative;
+}
+
+.filter-select {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .filter-field-container {
   padding-bottom: 15px;
 }
