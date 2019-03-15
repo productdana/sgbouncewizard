@@ -49,7 +49,7 @@ export default class BounceActivityPage extends React.Component {
     try {
       const { data: activities } = await getActivityLog({
         limit: MAX_ACTIVITY_LOGS,
-        offset: currentPageIndex,
+        offset: currentPageIndex - 1,
       });
       if (activities) {
         this.setState({
@@ -154,7 +154,7 @@ export default class BounceActivityPage extends React.Component {
     try {
       const { data, status } = await getActivityLog({
         limit: MAX_ACTIVITY_LOGS,
-        offset: currentPageIndex,
+        offset: currentPageIndex - 1,
       });
       const { filterQuery } = this.state;
       if (status === 200) {
