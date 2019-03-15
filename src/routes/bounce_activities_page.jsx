@@ -3,15 +3,16 @@ import { Redirect } from "react-router-dom";
 import BounceActivityContainer from "../components/BounceActivityContainer";
 import { getActivityLog } from "../utils/ruleCalls";
 
+const MAX_ACTIVITY_LOGS = 9999;
+
 export default class BounceActivityPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      searchCategory: "Bounce Action",
+      filterQuery: { filterBy: "operation", option: "" },
       isBounceRulesTab: false,
       isActivityLogTab: true,
-      searchToken: "",
       isRedirectingToDetail: false,
       selectedActivity: {},
       activityLog: [],
@@ -22,12 +23,13 @@ export default class BounceActivityPage extends React.Component {
       isValidFilter: true,
       isFetching: true,
       isNetworkError: false,
+      startDate: null,
+      endDate: null,
+      focusedInput: null,
     };
     this.logout = this.logout.bind(this);
-    this.updateSearchToken = this.updateSearchToken.bind(this);
-    this.updateSearchCategory = this.updateSearchCategory.bind(this);
-    this.addFilter = this.addFilter.bind(this);
-    this.removeFilter = this.removeFilter.bind(this);
+    this.updateFilterBy = this.updateFilterBy.bind(this);
+    this.updateFilterOption = this.updateFilterOption.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleActivityTabClicked = this.handleActivityTabClicked.bind(this);
     this.handleBounceTabClicked = this.handleBounceTabClicked.bind(this);
@@ -35,15 +37,24 @@ export default class BounceActivityPage extends React.Component {
     this.handleActivityClicked = this.handleActivityClicked.bind(this);
     this.handlePrevClicked = this.handlePrevClicked.bind(this);
     this.handleNextClicked = this.handleNextClicked.bind(this);
+    this.handleOptionSelector = this.handleOptionSelector.bind(this);
+    this.handleClearSearch = this.handleClearSearch.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
+    this.onFocusChange = this.onFocusChange.bind(this);
+    this.filterActivities = this.filterActivities.bind(this);
   }
 
   async componentDidMount() {
+    const { currentPageIndex } = this.state;
     try {
-      const { data: activities } = await getActivityLog();
+      const { data: activities } = await getActivityLog({
+        limit: MAX_ACTIVITY_LOGS,
+        offset: currentPageIndex,
+      });
       if (activities) {
         this.setState({
           isFetching: false,
-          activityLog: activities.reverse(),
+          activityLog: activities,
         });
       }
     } catch (err) {
@@ -66,25 +77,102 @@ export default class BounceActivityPage extends React.Component {
     });
   }
 
-  updateSearchToken(e) {
+  updateFilterBy(e) {
+    const { filterQuery } = this.state;
+    const { value } = e;
+    const newQuery = {
+      ...filterQuery,
+      filterBy: value.toLowerCase(),
+      option: "",
+    };
     this.setState({
-      searchToken: e.target.value.toLowerCase(),
+      filterQuery: newQuery,
     });
   }
 
-  updateSearchCategory(e) {
-    this.setState({
-      searchCategory: e.value.toLowerCase(),
-    });
+  async filterActivities(value) {
+    const { filterQuery, currentPageIndex, rulesToShow } = this.state;
+    const { filterBy } = filterQuery;
+    const newQuery = { ...filterQuery, option: value.toLowerCase() };
+    const filter = {
+      limit: rulesToShow,
+      offset: currentPageIndex - 1,
+      filterBy,
+      option: value,
+    };
+    try {
+      const { data, status } = await getActivityLog(filter);
+      if (status === 200) {
+        this.setState({
+          activityLog: data.reverse(),
+          numRules: data.length,
+          filterQuery: newQuery,
+        });
+      }
+    } catch (err) {
+      this.setState({
+        isNetworkError: true,
+      });
+    }
   }
 
-  filterRules(rules) {
-    const { searchToken } = this.state;
-    return rules.filter(
-      rule =>
-        rule.bounce_action.toLowerCase().includes(searchToken.toLowerCase()) ||
-        rule.description.toLowerCase().includes(searchToken.toLowerCase())
+  updateFilterOption(e) {
+    const { value } = e.target;
+    this.handleFilterActivities(value);
+  }
+
+  handleOptionSelector(e) {
+    const { value } = e;
+    this.filterActivities(value);
+  }
+
+  async onDateChange(dateRange) {
+    const { focusedInput } = this.state;
+    this.setState(
+      {
+        [focusedInput]: dateRange[focusedInput],
+      },
+      () => {
+        const { startDate, endDate } = this.state;
+        if (startDate !== null && endDate !== null) {
+          this.filterActivities(
+            `${startDate.startOf("day").unix()} ${endDate.endOf("day").unix()}`
+          );
+        }
+      }
     );
+  }
+
+  onFocusChange(focusedInput) {
+    this.setState({
+      focusedInput,
+    });
+  }
+
+  async handleClearSearch() {
+    const { currentPageIndex } = this.state;
+    try {
+      const { data, status } = await getActivityLog({
+        limit: MAX_ACTIVITY_LOGS,
+        offset: currentPageIndex,
+      });
+      const { filterQuery } = this.state;
+      if (status === 200) {
+        this.setState({
+          isFetching: false,
+          activityLog: data,
+          numRules: data.length,
+          filterQuery: { ...filterQuery, option: "" },
+          startDate: null,
+          endDate: null,
+        });
+      }
+    } catch (err) {
+      this.setState({
+        isNetworkError: true,
+        isFetching: false,
+      });
+    }
   }
 
   paginate(activityLog) {
@@ -120,56 +208,6 @@ export default class BounceActivityPage extends React.Component {
     }));
   }
 
-  isDuplicate(searchCategory, searchToken) {
-    const { filterOptions } = this.state;
-    const isDuplicate = filterOptions.some(
-      filterOption =>
-        filterOption.searchCategory === searchCategory &&
-        filterOption.searchToken === searchToken
-    );
-    return isDuplicate;
-  }
-
-  addFilter() {
-    const { searchCategory, searchToken } = this.state;
-    if (!searchCategory || !searchToken) {
-      this.setState({
-        isValidFilter: false,
-      });
-      return;
-    }
-    if (this.isDuplicate(searchCategory, searchToken)) {
-      this.setState({
-        isValidFilter: false,
-      });
-    } else {
-      this.setState(prevState => ({
-        isValidFilter: true,
-        filterOptions: [
-          ...prevState.filterOptions,
-          { searchCategory, searchToken },
-        ],
-        searchToken: "",
-      }));
-    }
-  }
-
-  removeFilter(e) {
-    const token = e.currentTarget.getAttribute("token");
-    const category = e.currentTarget.getAttribute("category");
-    const { filterOptions } = this.state;
-    const newFilterOptions = filterOptions.filter(
-      filterOption =>
-        (filterOption.searchCategory !== category &&
-          filterOption.searchToken !== token) ||
-        (filterOption.searchCategory === category &&
-          filterOption.searchToken !== token)
-    );
-    this.setState({
-      filterOptions: newFilterOptions,
-    });
-  }
-
   handleBounceTabClicked() {
     this.setState({
       isActivityLogTab: false,
@@ -196,7 +234,7 @@ export default class BounceActivityPage extends React.Component {
 
   render() {
     const { activityLog } = this.state;
-    const filteredActivityLog = this.filterRules(this.paginate(activityLog));
+    const filteredActivityLog = this.paginate(activityLog);
     const isAuthenticated = localStorage.getItem("isAuth");
     return (
       <React.Fragment>
@@ -211,10 +249,8 @@ export default class BounceActivityPage extends React.Component {
         {isAuthenticated && (
           <BounceActivityContainer
             logout={this.logout}
-            updateSearchToken={this.updateSearchToken}
-            updateSearchCategory={this.updateSearchCategory}
-            addFilter={this.addFilter}
-            removeFilter={this.removeFilter}
+            updateFilterBy={this.updateFilterBy}
+            updateFilterOption={this.updateFilterOption}
             filteredActivityLog={filteredActivityLog}
             handleModalClose={this.handleModalClose}
             handleTabClicked={this.handleTabClicked}
@@ -224,6 +260,10 @@ export default class BounceActivityPage extends React.Component {
             handlePrevClicked={this.handlePrevClicked}
             handleNextClicked={this.handleNextClicked}
             handleActivityClicked={this.handleActivityClicked}
+            handleOptionSelector={this.handleOptionSelector}
+            handleClearSearch={this.handleClearSearch}
+            onDateChange={this.onDateChange}
+            onFocusChange={this.onFocusChange}
             {...this.state}
           />
         )}

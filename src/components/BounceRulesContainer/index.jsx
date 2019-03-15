@@ -22,9 +22,9 @@ import { WriteSelectors } from "./selectors";
 
 const BounceRulesContainer = ({
   rules,
-  updateSearchToken,
-  updateSearchCategory,
-  removeFilter,
+  filterQuery,
+  updateFilterBy,
+  updateFilterOption,
   handlePrevClicked,
   handleNextClicked,
   updatePageIndex,
@@ -35,8 +35,7 @@ const BounceRulesContainer = ({
   rulesToShow,
   pagesToDisplay,
   numRules,
-  filterOptions,
-  addFilter,
+  handleClearSearch,
   isValidFilter,
   isCreateRuleOpen,
   handleRuleUpdate,
@@ -63,6 +62,7 @@ const BounceRulesContainer = ({
   handleCreateCommit,
   handleDropdownSelect,
   isCommitValid,
+  handleOptionSelector,
   handleInvalidAlertClose,
 }) => {
   const isRulesEmpty = rules.length <= 0;
@@ -124,13 +124,13 @@ const BounceRulesContainer = ({
           <Column width={10} offset={2}>
             <div {...WriteSelectors.ruleFilter}>
               <RuleFilter
+                filterQuery={filterQuery}
                 searchToken={searchToken}
-                updateSearchToken={updateSearchToken}
-                updateSearchCategory={updateSearchCategory}
-                filterOptions={filterOptions}
-                addFilter={addFilter}
-                removeFilter={removeFilter}
+                updateFilterBy={updateFilterBy}
+                updateFilterOption={updateFilterOption}
                 isValidFilter={isValidFilter}
+                handleClearSearch={handleClearSearch}
+                handleOptionSelector={handleOptionSelector}
               />
             </div>
           </Column>
@@ -229,9 +229,8 @@ BounceRulesContainer.propTypes = {
       bounce_action: PropTypes.string,
     })
   ),
-  updateSearchToken: PropTypes.func,
-  updateSearchCategory: PropTypes.func,
-  removeFilter: PropTypes.func,
+  updateFilterBy: PropTypes.func,
+  updateFilterOption: PropTypes.func,
   handlePrevClicked: PropTypes.func,
   handleNextClicked: PropTypes.func,
   updatePageIndex: PropTypes.func,
@@ -260,13 +259,7 @@ BounceRulesContainer.propTypes = {
   rulesToShow: PropTypes.number,
   pagesToDisplay: PropTypes.number,
   numRules: PropTypes.number,
-  filterOptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      searchCategory: PropTypes.string,
-      searchToken: PropTypes.string,
-    })
-  ),
-  addFilter: PropTypes.func,
+
   isValidFilter: PropTypes.bool,
   isCreateRuleOpen: PropTypes.bool,
   handleRuleUpdate: PropTypes.func,
@@ -295,9 +288,8 @@ BounceRulesContainer.propTypes = {
 
 BounceRulesContainer.defaultProps = {
   rules: [],
-  updateSearchToken: () => {},
-  updateSearchCategory: () => {},
-  removeFilter: () => {},
+  updateFilterBy: () => {},
+  updateFilterOption: () => {},
   handlePrevClicked: () => {},
   handleNextClicked: () => {},
   updatePageIndex: () => {},
@@ -308,8 +300,6 @@ BounceRulesContainer.defaultProps = {
   rulesToShow: 10,
   pagesToDisplay: 5,
   numRules: 0,
-  filterOptions: () => {},
-  addFilter: () => {},
   isCreateRuleOpen: false,
   handleRuleUpdate: () => {},
   handleCreateSubmit: () => {},

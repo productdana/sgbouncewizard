@@ -1,12 +1,16 @@
 .activity-table {
   table-layout: fixed;
 
+  .row-id {
+    width: 5%;
+  }
+
   .row-date {
     width: 15%;
   }
 
   .row-user {
-    width: 15%;
+    width: 10%;
   }
 
   .row-activity {
@@ -14,7 +18,7 @@
   }
 
   .row-message {
-    width: 35%;
+    width: 30%;
   }
 
   .row-action {

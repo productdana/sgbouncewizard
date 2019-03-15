@@ -95,6 +95,7 @@
     "react": "^16.5.2",
     "react-animate-height": "^2.0.6",
     "react-csv": "^1.0.19",
+    "react-dates": "^20.1.0",
     "react-dom": "^16.5.2",
     "react-select": "^2.1.0",
     "react-test-renderer": "^16.6.0",
