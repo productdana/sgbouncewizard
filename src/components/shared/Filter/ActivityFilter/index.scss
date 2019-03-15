@@ -1,3 +1,5 @@
+$SENDGRID_BLUE: #1a82e2;
+
 .filter-column {
   position: relative;
 }
@@ -23,18 +25,18 @@
 }
 
 .CalendarDay__selected_span {
-  background: #1a82e2;
+  background: $SENDGRID_BLUE;
   color: white;
-  border: 1px solid #1a82e2;
+  border: 1px solid $SENDGRID_BLUE;
 }
 
 .CalendarDay__selected {
-  background: #1a82e2;
+  background: $SENDGRID_BLUE;
   color: white;
 }
 
 .CalendarDay__selected:hover {
-  background: #1a82e2;
+  background: $SENDGRID_BLUE;
   color: white;
 }
 

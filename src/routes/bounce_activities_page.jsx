@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom";
 import BounceActivityContainer from "../components/BounceActivityContainer";
 import { getActivityLog } from "../utils/ruleCalls";
 
+const MAX_ACTIVITY_LOGS = 9999;
+
 export default class BounceActivityPage extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +48,7 @@ export default class BounceActivityPage extends React.Component {
     const { currentPageIndex } = this.state;
     try {
       const { data: activities } = await getActivityLog({
-        limit: 99999,
+        limit: MAX_ACTIVITY_LOGS,
         offset: currentPageIndex
       });
       if (activities) {
@@ -151,7 +153,7 @@ export default class BounceActivityPage extends React.Component {
     const { currentPageIndex } = this.state;
     try {
       const { data, status } = await getActivityLog({
-        limit: 99999,
+        limit: MAX_ACTIVITY_LOGS,
         offset: currentPageIndex
       });
       const { filterQuery } = this.state;

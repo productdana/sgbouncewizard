@@ -4,6 +4,8 @@ import BounceRulesContainer from "../components/BounceRulesContainer";
 import { listRules, deleteRule, postRule } from "../utils/ruleCalls";
 import { validateCommit } from "../utils/utils";
 
+const MAX_BOUNCE_RULES = 9999;
+
 export default class BounceRulesPage extends React.Component {
   constructor(props) {
     super(props);
@@ -57,7 +59,7 @@ export default class BounceRulesPage extends React.Component {
     const { currentPageIndex } = this.state;
     try {
       const { data, status } = await listRules({
-        limit: 99999,
+        limit: MAX_BOUNCE_RULES,
         offset: currentPageIndex
       });
       if (status === 200) {
@@ -134,7 +136,7 @@ export default class BounceRulesPage extends React.Component {
     const { currentPageIndex } = this.state;
     try {
       const { data, status } = await listRules({
-        limit: 99999,
+        limit: MAX_BOUNCE_RULES,
         offset: currentPageIndex
       });
       if (status === 200) {
