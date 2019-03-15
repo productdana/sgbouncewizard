@@ -15,14 +15,14 @@ const selectOptions = filterBy => {
       { label: "no_action", value: "no_action" },
       { label: "retry", value: "retry" },
       { label: "suppress", value: "suppress" },
-      { label: "blocked", value: "blocked" }
+      { label: "blocked", value: "blocked" },
     ];
   }
   if (filterBy === "operation") {
     return [
       { label: "Create", value: "create" },
       { label: "Update", value: "update" },
-      { label: "Delete", value: "delete" }
+      { label: "Delete", value: "delete" },
     ];
   }
   return null;
@@ -39,7 +39,7 @@ const RuleFilter = ({
   onFocusChange,
   startDate,
   endDate,
-  focusedInput
+  focusedInput,
 }) => {
   const { filterBy, option } = filterQuery;
   const isDropdown = filterBy === "bounce_action" || filterBy === "operation";
@@ -76,7 +76,7 @@ const RuleFilter = ({
                 { label: "Comment", value: "comment" },
                 { label: "Priority", value: "priority" },
                 { label: "Response Code", value: "response_code" },
-                { label: "Created At", value: "created_at" }
+                { label: "Created At", value: "created_at" },
               ]}
             />
           </Column>
@@ -105,7 +105,8 @@ const RuleFilter = ({
                   onDatesChange={onDateChange}
                   focusedInput={focusedInput}
                   onFocusChange={onFocusChange}
-                  isOutsideRange={() => false} // allows for selection of past dates (default action is to disable selction of past dates)
+                  // isOutsideRange allows for selection of past dates (default action is to disable selction of past dates)
+                  isOutsideRange={() => false}
                 />
               </div>
             )}
