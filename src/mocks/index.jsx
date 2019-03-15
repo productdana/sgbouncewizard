@@ -170,6 +170,7 @@ export const mockBounceRules = [
       "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
     bounce_action: "no_action",
     created_at: 1,
+    comment: "Inital Setup",
   },
 ];
 

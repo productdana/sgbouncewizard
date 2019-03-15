@@ -6,14 +6,14 @@
 //  When you add this file, we won't add the default configurations which is similar
 //  to "React Create App". This only has babel loader to load JavaScript.
 
-module.exports = (defaultConfig, env) => {
-  defaultConfig.module.rules.push(
+module.exports = ({ config, mode }, env) => {
+  config.module.rules.push(
     {
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       use: {
-        loader: "babel-loader",
-      },
+        loader: "babel-loader"
+      }
     },
     {
       test: /\.(sa|sc|c)ss$/,
@@ -24,8 +24,8 @@ module.exports = (defaultConfig, env) => {
         // Interprets imports/requires and resolves them for .css files
         "css-loader",
         // First converts .scss/.sass files into .css files
-        "sass-loader",
-      ],
+        "sass-loader"
+      ]
     },
     {
       test: /\.module.scss$/,
@@ -37,8 +37,8 @@ module.exports = (defaultConfig, env) => {
             sourceMap: true,
             importLoaders: 1,
             modules: true,
-            localIdentName: "[name]__[local]___[hash:base64:5]",
-          },
+            localIdentName: "[name]__[local]___[hash:base64:5]"
+          }
         },
         {
           loader: require.resolve("sass-loader"),
@@ -46,14 +46,14 @@ module.exports = (defaultConfig, env) => {
             sourceMap: true,
             modules: true,
             importLoaders: 1,
-            localIdentName: "[name]__[local]___[hash:base64:5]",
-          },
-        },
-      ],
+            localIdentName: "[name]__[local]___[hash:base64:5]"
+          }
+        }
+      ]
     }
   );
 
-  defaultConfig.resolve.extensions.push(".js", ".jsx", ".css");
+  config.resolve.extensions.push(".js", ".jsx", ".css");
 
-  return defaultConfig;
+  return config;
 };

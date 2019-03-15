@@ -1,14 +1,10 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 import StoryRouter from "storybook-react-router";
 import "./index.scss";
 import BounceRuleDetailed from ".";
 import DetailsContainer, { DetailsContainerEditable } from "./Details";
 import Changelog from "./Changelog";
-import ChangeModal from "./Modals/ChangeModal";
-import ConfirmationModal from "./Modals/ConfirmationModal";
-import CancelConfirmationModal from "./Modals/CancelConfirmationModal";
 
 const sampleRule = {
   id: 504,
@@ -185,31 +181,3 @@ storiesOf("Bounce Rule Changelog", module)
     />
   ))
   .add("Empty", () => <Changelog changelog={[]} isChangelogEmpty />);
-
-storiesOf("Modals", module)
-  .add("Change Log Modal", () => (
-    <DetailsPageContainer
-      render={({ currentRule, updatedRule }) => (
-        <ChangeModal
-          currentRule={currentRule}
-          changelog={[sampleChangelog]}
-          selectedChange={updatedRule}
-          handleModalClose={action("Modal")}
-        />
-      )}
-    />
-  ))
-  .add("Confirmation Modal", () => (
-    <DetailsPageContainer
-      render={({ updatedRule }) => (
-        <ConfirmationModal updatedRule={updatedRule} />
-      )}
-    />
-  ))
-  .add("Cancellation Modal", () => (
-    <CancelConfirmationModal
-      currentRule={sampleRule}
-      handleModalClose={action("close modal")}
-      handleModalConfirm={action("open modal")}
-    />
-  ));
