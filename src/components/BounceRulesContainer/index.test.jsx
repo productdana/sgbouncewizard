@@ -3,98 +3,96 @@ import renderer from "react-test-renderer";
 import { BrowserRouter as Router } from "react-router-dom";
 import { shallow } from "enzyme";
 import BounceRuleContainer from ".";
-import Pagination from "../shared/Pagination";
+
 import { Selectors } from "./selectors";
+import { mockBounceRules } from "../../mocks/index";
 
-const {
-  csvButton,
-  createRuleButton,
-  ruleFilter,
-  ruleTable,
-  emptyRulesWarning,
-  createRuleModal,
-} = Selectors;
+describe("Bounce Rules Page", () => {
+  let props;
+  let mountedBounceRulesPage;
+  const {
+    csvButton,
+    createRuleButton,
+    ruleFilter,
+    ruleTable,
+    emptyRulesWarning,
+    createRuleModal,
+    confirmModal,
+    pagination,
+  } = Selectors;
 
-const testRules = [
-  {
-    id: 504,
-    response_code: 550,
-    enhanced_code: "",
-    regex: "no MX record for domain",
-    priority: 0,
-    description:
-      "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-    bounce_action: "no_action",
-  },
-];
+  const BounceRulesPage = () => {
+    if (!mountedBounceRulesPage) {
+      mountedBounceRulesPage = shallow(<BounceRuleContainer {...props} />);
+    }
+    return mountedBounceRulesPage;
+  };
 
-const testActivity = [
-  {
-    id: 173,
-    response_code: 421,
-    enhanced_code: "",
-    regex: "",
-    priority: 0,
-    description: "RFC5321Servicenotavailable",
-    bounce_action: "retry",
-    user_id: 1,
-    created_at: 1,
-    comment: "Inital Setup",
-    operation: "New",
-  },
-];
+  beforeEach(() => {
+    props = {
+      rules: mockBounceRules,
+      filteredRules: mockBounceRules,
+      filterOptions: [],
+      pageIndex: 1,
+      pagesToDisplay: 5,
+      isFetching: false,
+      isBounceRulesTab: true,
+    };
+    mountedBounceRulesPage = undefined;
+  });
 
-const defaultProps = {
-  rules: testRules,
-  filteredRules: testRules,
-  filterOptions: [],
-  pageIndex: 1,
-  pagesToDisplay: 5,
-  activityLog: testActivity,
-  filteredActivityLog: testActivity,
-  isFetching: false,
-  isBounceRulesTab: true,
-};
+  it("should render correctly", () => {
+    const tree = renderer
+      .create(
+        <Router>
+          <BounceRuleContainer {...props} />
+        </Router>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-const wrapper = shallow(<BounceRuleContainer {...defaultProps} />);
+  describe("When a user visits the bounce rule page", () => {
+    it("should render default state", () => {
+      expect(BounceRulesPage().find(".page-tab")).toHaveLength(1);
+      expect(BounceRulesPage().find(createRuleButton)).toHaveLength(1);
+      expect(BounceRulesPage().find(csvButton)).toHaveLength(1);
+      expect(BounceRulesPage().find(ruleFilter)).toHaveLength(1);
+      expect(BounceRulesPage().find(ruleTable)).toHaveLength(1);
+      expect(BounceRulesPage().find(pagination)).toHaveLength(1);
+    });
+  });
 
-it("should render correctly", () => {
-  const tree = renderer
-    .create(
-      <Router>
-        <BounceRuleContainer {...defaultProps} />
-      </Router>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+  describe("When there are no rules", () => {
+    beforeEach(() => {
+      BounceRulesPage().setProps({ filteredRules: [], rules: [] });
+    });
 
-it("should render a create a bounce rule", () => {
-  expect(wrapper.find(createRuleButton)).toHaveLength(1);
-});
+    it("should render warning", () => {
+      expect(BounceRulesPage().find(emptyRulesWarning)).toHaveLength(1);
+    });
 
-it("should render a export to csv button", () => {
-  expect(wrapper.find(csvButton)).toHaveLength(1);
-});
+    it("should not render pagination", () => {
+      expect(BounceRulesPage().find(pagination)).toHaveLength(0);
+    });
+  });
 
-it("should render a filter component", () => {
-  expect(wrapper.find(ruleFilter)).toHaveLength(1);
-});
+  describe("When the user clicks on 'Create Rule'", () => {
+    it("should render create rule modal", () => {
+      BounceRulesPage().setProps({ isCreateRuleOpen: true });
+      expect(BounceRulesPage().find(createRuleModal)).toHaveLength(1);
+    });
 
-it("should render a rule list component", () => {
-  expect(wrapper.find(ruleTable)).toHaveLength(1);
-});
+    it("should render create rule confirmation after submitting", () => {
+      BounceRulesPage().setProps({ isCreateRuleConfirmationOpen: true });
+      expect(BounceRulesPage().find(confirmModal)).toHaveLength(1);
+    });
+  });
 
-it("should render paginiation", () => {
-  expect(wrapper.find(Pagination)).toHaveLength(1);
-});
-
-it("should render warning when no rules available", () => {
-  wrapper.setProps({ filteredRules: [], rules: [] });
-  expect(wrapper.find(emptyRulesWarning)).toHaveLength(1);
-});
-
-it("should render create rule modal", () => {
-  wrapper.setProps({ isCreateRuleOpen: true });
-  expect(wrapper.find(createRuleModal)).toHaveLength(1);
+  describe("When the user clicks on a rule to delete", () => {
+    it("should render delete rule modal", () => {
+      BounceRulesPage().setProps({ isDeleteConfirmationOpen: true });
+      expect(BounceRulesPage().find(confirmModal)).toHaveLength(1);
+    });
+  });
 });

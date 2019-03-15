@@ -152,6 +152,7 @@ const BounceActivityContainer = ({
         <Row>
           {shouldShowActivityLogPagination && (
             <Pagination
+              {...WriteSelectors.pagination}
               handlePrevClicked={handlePrevClicked}
               handleNextClicked={handleNextClicked}
               currentPageIndex={currentPageIndex}
@@ -164,6 +165,7 @@ const BounceActivityContainer = ({
         </Row>
         {isActivityModalOpen && (
           <ActivityDetailsModal
+            {...WriteSelectors.detailsModal}
             handleModalClose={handleModalClose}
             selectedChange={selectedActivity}
           />
@@ -193,6 +195,8 @@ BounceActivityContainer.propTypes = {
   handleModalClose: PropTypes.func,
   isFetching: PropTypes.bool,
   numRules: PropTypes.number,
+  isActivityLogTab: PropTypes.bool,
+  isBounceRulesTab: PropTypes.bool,
 };
 
 BounceActivityContainer.defaultProps = {
@@ -210,6 +214,8 @@ BounceActivityContainer.defaultProps = {
   handleModalClose: () => {},
   isFetching: false,
   isValidFilter: true,
+  isBounceRulesTab: false,
+  isActivityLogTab: true,
 };
 
 export default BounceActivityContainer;

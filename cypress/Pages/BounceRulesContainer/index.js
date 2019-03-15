@@ -75,8 +75,8 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.regex);
   }
 
-  get commitMessage() {
-    return cy.get(Selectors.commitMessage);
+  get commitInput() {
+    return cy.get(Selectors.commitInput);
   }
 
   get submitButton() {
@@ -87,8 +87,8 @@ class BounceRulesPage extends Page {
     return cy.get(Selectors.confirmModal);
   }
 
-  get confirmationSubmit() {
-    return cy.get(Selectors.confirmationSubmit);
+  get confirmSubmit() {
+    return cy.get(Selectors.confirmSubmit);
   }
 
   open() {
@@ -129,8 +129,8 @@ class BounceRulesPage extends Page {
         cy.route("DELETE", "/bounce_rules/*").as("deleteBounceRule");
 
         cy.get(`[data-delete="${res[ruleToFind].id}"]`).click();
-        this.commitMessage.clear().type(comment);
-        this.deleteConfirmationConfirm.click();
+        this.commitInput.clear().type(comment);
+        this.confirmSubmit.click();
         return cy.wait("@deleteBounceRule", { timeout: 10000 });
       }
       return false;
@@ -255,10 +255,10 @@ class BounceRulesPage extends Page {
     this.confirmModal.should("be.visible");
 
     if (comment) {
-      this.commitMessage.clear().type(comment);
+      this.commitInput.clear().type(comment);
     }
 
-    this.confirmationSubmit.click();
+    this.confirmSubmit.click();
 
     return cy.wait("@addBounceRule", { timeout: 10000 });
   }

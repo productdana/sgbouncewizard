@@ -149,7 +149,6 @@ const BounceRulesContainer = ({
               <div {...WriteSelectors.ruleTable}>
                 <RuleListContainer
                   handleActionOpen={handleActionOpen}
-                  selectedRule={selectedRule}
                   rules={filteredRules}
                 />
               </div>
@@ -164,6 +163,7 @@ const BounceRulesContainer = ({
         <Row>
           {shouldShowBounceRulePagination && (
             <Pagination
+              {...WriteSelectors.pagination}
               handlePrevClicked={handlePrevClicked}
               handleNextClicked={handleNextClicked}
               currentPageIndex={currentPageIndex}
@@ -190,6 +190,7 @@ const BounceRulesContainer = ({
         )}
         {isCreateRuleConfirmationOpen && (
           <ConfirmationModal
+            {...WriteSelectors.confirmModal}
             selectors={WriteSelectors}
             isCommitValid={isCommitValid}
             selectedRule={newRule}
@@ -202,6 +203,7 @@ const BounceRulesContainer = ({
         )}
         {isDeleteConfirmationOpen && (
           <ConfirmationModal
+            {...WriteSelectors.confirmModal}
             selectors={WriteSelectors}
             isCommitValid={isCommitValid}
             selectedRule={selectedRule}

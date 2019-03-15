@@ -11,6 +11,7 @@ import { shouldDisplay, displayUnixAsTime } from "../../../../utils/utils";
 import { Column } from "../../../shared/Column";
 import { Row } from "../../../shared/Row";
 import "../../index.scss";
+import { WriteSelectors } from "../../selectors";
 
 const ActivityModalBody = ({ handleModalClose, selectedChange }) => (
   <div className="changelog-modal">
@@ -116,6 +117,7 @@ const DetailsTable = ({ selectedChange }) => {
 
 const ActivityDetailsModal = ({ handleModalClose, selectedChange }) => (
   <CenterModal
+    {...WriteSelectors.detailsModal}
     large
     open
     renderBody={(

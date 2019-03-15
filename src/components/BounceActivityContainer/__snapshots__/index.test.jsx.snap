@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bounce Rules Page should render correctly 1`] = `
+exports[`Bounce Activity Page should render correctly 1`] = `
 <div
-  data-test="bounce-rules-page"
+  data-test="activity-log-page"
 >
   <div
     className="header-container"
@@ -62,10 +62,10 @@ exports[`Bounce Rules Page should render correctly 1`] = `
       >
         <li>
           <a
-            href="/bounce_rules"
+            href="/activity_log"
             onClick={[Function]}
           >
-             Bounce Rules
+             Activity Log
           </a>
         </li>
         <li />
@@ -82,14 +82,14 @@ exports[`Bounce Rules Page should render correctly 1`] = `
         className="tab-wrapper page-tab"
       >
         <li
-          className="tab undefined is-active"
+          className="tab"
           onClick={[Function]}
         >
           Bounce Rules
            
         </li>
         <li
-          className="tab"
+          className="tab undefined is-active"
           onClick={[Function]}
         >
           Activity Log
@@ -107,28 +107,22 @@ exports[`Bounce Rules Page should render correctly 1`] = `
       <a
         className="sg-button btn btn-secondary sg-right"
         data-test="export-csv-button"
-        download="bounce_rules.csv"
-        href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\",\\"comment\\",\\"created_at\\",\\"user_id\\"
-\\"504\\",\\"551\\",\\"sdfg\\",\\"no MX record for domain\\",\\"1\\",\\"new rule\\",\\"no_action\\",\\"Inital Setup\\",\\"1\\",\\"\\"
-\\"173\\",\\"421\\",\\"sdfg\\",\\"dsfg\\",\\"1\\",\\"RFC5321Servicenotavailable\\",\\"retry\\",\\"Inital Setup\\",\\"1\\",\\"1\\"
-\\"505\\",\\"550\\",\\"erwt\\",\\"no MX record for domain\\",\\"1\\",\\"bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl\\",\\"no_action\\",\\"Inital Setup\\",\\"1\\",\\"\\""
+        download="activity_log.csv"
+        href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\",\\"user_id\\",\\"created_at\\",\\"comment\\",\\"operation\\"
+\\"173\\",\\"421\\",\\"sdfsfdfadf\\",\\"fewgfgsdfg\\",\\"1\\",\\"RFC5321Servicenotavailable\\",\\"retry\\",\\"1\\",\\"1\\",\\"Inital Setup\\",\\"Create\\"
+\\"174\\",\\"450\\",\\"sadfasdf\\",\\"asdfsdfd\\",\\"0\\",\\"RFC5321Mailboxunavailable\\",\\"retry\\",\\"1\\",\\"2\\",\\"Inital Setup\\",\\"Create\\"
+\\"175\\",\\"451\\",\\"sdfsdf\\",\\"sdfasf\\",\\"1\\",\\"RFC5321Localerrorinprocessing\\",\\"retry\\",\\"1\\",\\"3\\",\\"Inital Setup\\",\\"Create\\"
+\\"176\\",\\"452\\",\\"sdfgerg\\",\\"dsfgsdfg\\",\\"1\\",\\"RFC5321Insufficientsystemstorage\\",\\"retry\\",\\"1\\",\\"4\\",\\"Inital Setup\\",\\"Create\\"
+\\"177\\",\\"454\\",\\"sdfgsdfg\\",\\"dfgdfg\\",\\"1\\",\\"RFC3207TLSnotavailable\\",\\"retry\\",\\"1\\",\\"5\\",\\"Inital Setup\\",\\"Create\\"
+\\"178\\",\\"455\\",\\"sdfgreg\\",\\"sdfgsdfg\\",\\"0\\",\\"RFC5321Serverunabletoaccomodateparameters\\",\\"retry\\",\\"1\\",\\"6\\",\\"Inital Setup\\",\\"Create\\"
+\\"179\\",\\"500\\",\\"dfgsdfgre\\",\\"dsfgsd\\",\\"0\\",\\"RFC5321Syntaxerrorcommandunrecognized\\",\\"no_action\\",\\"1\\",\\"7\\",\\"Inital Setup\\",\\"Create\\"
+\\"180\\",\\"501\\",\\"sdfgdsfg\\",\\"dfgsfg\\",\\"1\\",\\"RFC5321Syntaxerrorinparametersorarguments\\",\\"no_action\\",\\"1\\",\\"8\\",\\"Inital Setup\\",\\"Create\\"
+\\"181\\",\\"502\\",\\"fdgert\\",\\"sdfg\\",\\"1\\",\\"RFC5321Commandnotimplemented\\",\\"no_action\\",\\"1\\",\\"9\\",\\"Inital Setup\\",\\"Create\\""
         onClick={[Function]}
         target="_blank"
       >
         Export CSV
       </a>
-      <button
-        className="btn btn-primary create-rule-button"
-        data-button="create-button"
-        data-test="create-rule-button"
-        disabled={false}
-        id="isCreateRuleOpen"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        type="button"
-      >
-        Create Rule
-      </button>
     </div>
   </div>
   <div
@@ -198,7 +192,7 @@ exports[`Bounce Rules Page should render correctly 1`] = `
                         <div
                           className="css-1v8euj5"
                         >
-                          Bounce Action
+                          Operation
                         </div>
                         <div
                           className="css-1g6gooi"
@@ -316,7 +310,7 @@ exports[`Bounce Rules Page should render correctly 1`] = `
                     <input
                       name="primary-filter"
                       type="hidden"
-                      value="Bounce Action"
+                      value="operation"
                     />
                   </div>
                 </div>
@@ -365,10 +359,10 @@ exports[`Bounce Rules Page should render correctly 1`] = `
       className="mako-grid__col-10 col-start-2"
     >
       <div
-        data-test="rule-table"
+        data-test="activity-table"
       >
         <table
-          className="table-wrap rule-table"
+          className="table-wrap activity-table"
         >
           <thead>
             <tr>
@@ -376,25 +370,31 @@ exports[`Bounce Rules Page should render correctly 1`] = `
                 className="row-id"
                 onClick={[Function]}
               >
-                Id
+                ID
               </th>
               <th
-                className="row-bounce-action"
+                className="row-date"
                 onClick={[Function]}
               >
-                Bounce Action
+                Date
               </th>
               <th
-                className="row-response-code"
+                className="row-user"
                 onClick={[Function]}
               >
-                Response Code
+                User
               </th>
               <th
-                className="row-description"
+                className="row-activity"
                 onClick={[Function]}
               >
-                Description
+                Activity
+              </th>
+              <th
+                className="row-message"
+                onClick={[Function]}
+              >
+                Commit Message
               </th>
               <th
                 className="actions-cell row-action"
@@ -406,162 +406,309 @@ exports[`Bounce Rules Page should render correctly 1`] = `
           </thead>
           <tbody>
             <tr
-              data-id={504}
-            >
-              <td>
-                504
-              </td>
-              <td>
-                no_action
-              </td>
-              <td>
-                551
-              </td>
-              <td>
-                new rule
-              </td>
-              <td
-                className="actions"
-              >
-                <i
-                  className="sg-icon sg-icon-ellipsis"
-                  style={null}
-                />
-                <div
-                  className="action-icons"
-                >
-                  <span
-                    data-tooltip="View"
-                    data-tooltip-pos="up"
-                    id="isRedirectingToDetail"
-                    onClick={[Function]}
-                    rule={504}
-                  >
-                    <i
-                      className="sg-icon sg-icon-view"
-                      style={null}
-                    />
-                  </span>
-                  <span
-                    data-delete={504}
-                    data-tooltip="Delete"
-                    data-tooltip-pos="up"
-                    id="isDeleteConfirmationOpen"
-                    onClick={[Function]}
-                    rule={504}
-                  >
-                    <i
-                      className="sg-icon sg-icon-trash"
-                      style={null}
-                    />
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
               data-id={173}
+              data-time={1}
             >
               <td>
                 173
               </td>
               <td>
-                retry
+                12/31/1969 4:00:01 PM
               </td>
               <td>
-                421
-              </td>
-              <td>
-                RFC5321Servicenotavailable
+                1
               </td>
               <td
-                className="actions"
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
               >
                 <i
-                  className="sg-icon sg-icon-ellipsis"
-                  style={null}
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={0}
+                  role="button"
+                  rule-id={173}
+                  tabIndex={0}
                 />
-                <div
-                  className="action-icons"
-                >
-                  <span
-                    data-tooltip="View"
-                    data-tooltip-pos="up"
-                    id="isRedirectingToDetail"
-                    onClick={[Function]}
-                    rule={173}
-                  >
-                    <i
-                      className="sg-icon sg-icon-view"
-                      style={null}
-                    />
-                  </span>
-                  <span
-                    data-delete={173}
-                    data-tooltip="Delete"
-                    data-tooltip-pos="up"
-                    id="isDeleteConfirmationOpen"
-                    onClick={[Function]}
-                    rule={173}
-                  >
-                    <i
-                      className="sg-icon sg-icon-trash"
-                      style={null}
-                    />
-                  </span>
-                </div>
               </td>
             </tr>
             <tr
-              data-id={505}
+              data-id={174}
+              data-time={2}
             >
               <td>
-                505
+                174
               </td>
               <td>
-                no_action
+                12/31/1969 4:00:02 PM
               </td>
               <td>
-                550
-              </td>
-              <td>
-                bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl
+                1
               </td>
               <td
-                className="actions"
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
               >
                 <i
-                  className="sg-icon sg-icon-ellipsis"
-                  style={null}
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={1}
+                  role="button"
+                  rule-id={174}
+                  tabIndex={0}
                 />
-                <div
-                  className="action-icons"
-                >
-                  <span
-                    data-tooltip="View"
-                    data-tooltip-pos="up"
-                    id="isRedirectingToDetail"
-                    onClick={[Function]}
-                    rule={505}
-                  >
-                    <i
-                      className="sg-icon sg-icon-view"
-                      style={null}
-                    />
-                  </span>
-                  <span
-                    data-delete={505}
-                    data-tooltip="Delete"
-                    data-tooltip-pos="up"
-                    id="isDeleteConfirmationOpen"
-                    onClick={[Function]}
-                    rule={505}
-                  >
-                    <i
-                      className="sg-icon sg-icon-trash"
-                      style={null}
-                    />
-                  </span>
-                </div>
+              </td>
+            </tr>
+            <tr
+              data-id={175}
+              data-time={3}
+            >
+              <td>
+                175
+              </td>
+              <td>
+                12/31/1969 4:00:03 PM
+              </td>
+              <td>
+                1
+              </td>
+              <td
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
+              >
+                <i
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={2}
+                  role="button"
+                  rule-id={175}
+                  tabIndex={0}
+                />
+              </td>
+            </tr>
+            <tr
+              data-id={176}
+              data-time={4}
+            >
+              <td>
+                176
+              </td>
+              <td>
+                12/31/1969 4:00:04 PM
+              </td>
+              <td>
+                1
+              </td>
+              <td
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
+              >
+                <i
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={3}
+                  role="button"
+                  rule-id={176}
+                  tabIndex={0}
+                />
+              </td>
+            </tr>
+            <tr
+              data-id={177}
+              data-time={5}
+            >
+              <td>
+                177
+              </td>
+              <td>
+                12/31/1969 4:00:05 PM
+              </td>
+              <td>
+                1
+              </td>
+              <td
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
+              >
+                <i
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={4}
+                  role="button"
+                  rule-id={177}
+                  tabIndex={0}
+                />
+              </td>
+            </tr>
+            <tr
+              data-id={178}
+              data-time={6}
+            >
+              <td>
+                178
+              </td>
+              <td>
+                12/31/1969 4:00:06 PM
+              </td>
+              <td>
+                1
+              </td>
+              <td
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
+              >
+                <i
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={5}
+                  role="button"
+                  rule-id={178}
+                  tabIndex={0}
+                />
+              </td>
+            </tr>
+            <tr
+              data-id={179}
+              data-time={7}
+            >
+              <td>
+                179
+              </td>
+              <td>
+                12/31/1969 4:00:07 PM
+              </td>
+              <td>
+                1
+              </td>
+              <td
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
+              >
+                <i
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={6}
+                  role="button"
+                  rule-id={179}
+                  tabIndex={0}
+                />
+              </td>
+            </tr>
+            <tr
+              data-id={180}
+              data-time={8}
+            >
+              <td>
+                180
+              </td>
+              <td>
+                12/31/1969 4:00:08 PM
+              </td>
+              <td>
+                1
+              </td>
+              <td
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
+              >
+                <i
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={7}
+                  role="button"
+                  rule-id={180}
+                  tabIndex={0}
+                />
+              </td>
+            </tr>
+            <tr
+              data-id={181}
+              data-time={9}
+            >
+              <td>
+                181
+              </td>
+              <td>
+                12/31/1969 4:00:09 PM
+              </td>
+              <td>
+                1
+              </td>
+              <td
+                className="create"
+              >
+                Create
+              </td>
+              <td>
+                Inital Setup
+              </td>
+              <td
+                className="changelog-view-icon-cell"
+              >
+                <i
+                  className="sg-icon sg-icon-view changelog-view-icon"
+                  id="isActivityModalOpen"
+                  index={8}
+                  role="button"
+                  rule-id={181}
+                  tabIndex={0}
+                />
               </td>
             </tr>
           </tbody>
@@ -589,9 +736,20 @@ exports[`Bounce Rules Page should render correctly 1`] = `
         </a>
         <div
           className="pagination-links"
-        />
+        >
+          <a
+            className="pagination-link is-active"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+            value={1}
+          >
+            1
+          </a>
+        </div>
         <a
-          className="btn btn-secondary btn-small pagination-next "
+          className="btn btn-secondary btn-small pagination-next is-invisible"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="button"

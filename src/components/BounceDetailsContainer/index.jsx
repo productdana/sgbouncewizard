@@ -157,6 +157,7 @@ const BounceRuleDetailed = ({
       {!isChangelogEmpty && (
         <Row>
           <Pagination
+            {...WriteSelectors.pagination}
             handlePrevClicked={handlePrevClicked}
             handleNextClicked={handleNextClicked}
             pagesToDisplay={pagesToDisplay}
@@ -179,6 +180,7 @@ const BounceRuleDetailed = ({
       )}
       {isRevertConfirmOpen && (
         <ConfirmationModal
+          {...WriteSelectors.confirmModal}
           selectors={WriteSelectors}
           toggleId="isRevertConfirmOpen"
           isCommitValid={isCommitValid}
@@ -192,6 +194,7 @@ const BounceRuleDetailed = ({
       )}
       {isConfirmOpen && (
         <ConfirmationModal
+          {...WriteSelectors.confirmModal}
           selectors={WriteSelectors}
           toggleId="isConfirmOpen"
           isCommitValid={isCommitValid}

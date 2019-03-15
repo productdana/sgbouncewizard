@@ -41,7 +41,7 @@ const RuleFilter = ({
   endDate,
   focusedInput,
 }) => {
-  const { filterBy, option } = filterQuery;
+  const { filterBy, option } = filterQuery || {};
   const isDropdown = filterBy === "bounce_action" || filterBy === "operation";
   const isDatePicker = filterBy === "created_at";
   return (

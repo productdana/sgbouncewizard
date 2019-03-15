@@ -59,8 +59,8 @@ class BounceRuleDetailedPage extends Page {
     return cy.get(Selectors.changelogModal);
   }
 
-  get saveConfirmationModal() {
-    return cy.get(Selectors.saveConfirmationModal);
+  get confirmModal() {
+    return cy.get(Selectors.confirmModal);
   }
 
   get cancelConfirmationModal() {

@@ -1,9 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
 import renderer from "react-test-renderer";
-import { StaticRouter } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
 import BounceRuleDetailed from ".";
 import { Selectors } from "./selectors";
+import { mockBounceRules, mockChangelog } from "../../mocks/index";
 
 const {
   details,
@@ -14,95 +15,86 @@ const {
   saveButton,
   cancelConfirmationModal,
   changelogModal,
+  pagination,
+  confirmModal,
 } = Selectors;
 
-const sampleRule = {
-  id: 504,
-  response_code: 550,
-  enhanced_code: "",
-  regex: "no MX record for domain",
-  priority: 0,
-  description:
-    "bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl",
-  bounce_action: "no_action",
-  user_id: 0,
-};
-
-const props = {
-  currentRule: sampleRule,
-  changelog: [sampleRule],
-  filteredChangelog: [sampleRule],
-  isEditClicked: false,
-  isChangeModalOpen: false,
-  isCancelConfirmOpen: false,
-  isConfirmOpen: false,
-  isUpdateError: false,
-  pageIndex: 1,
-  pageInterval: 10,
-  pagesToDisplay: 5,
-  isNetworkError: false,
-  changelogLimit: 10,
-  handleModalClose: jest.fn(),
-  handleButtonClicked: jest.fn(),
-  onChangeRule: jest.fn(),
-  handleEditClicked: jest.fn(),
-  handleCancelSaveClicked: jest.fn(),
-  handleChangelogClicked: jest.fn(),
-  handleCancelConfirmation: jest.fn(),
-  handleSaveConfirmation: jest.fn(),
-  onChangeRuleInt: jest.fn(),
-  updatePageIndex: jest.fn(),
-};
-
-const BounceRuleDetailedObject = <BounceRuleDetailed {...props} />;
+const [sampleRule] = mockBounceRules;
+const [sampleChangelog] = mockChangelog;
 
 describe("Bounce Rule Detailed", () => {
-  let wrapper;
+  let props;
+  let mountedDetailsPage;
+  const DetailsPage = () => {
+    if (!mountedDetailsPage) {
+      mountedDetailsPage = shallow(<BounceRuleDetailed {...props} />);
+    }
+    return mountedDetailsPage;
+  };
   beforeEach(() => {
-    wrapper = shallow(BounceRuleDetailedObject);
+    props = {
+      currentRule: sampleRule,
+      changelog: [sampleChangelog],
+      filteredChangelog: [sampleChangelog],
+    };
   });
 
   it("should render correctly", () => {
     expect(
-      renderer.create(<StaticRouter>{BounceRuleDetailedObject}</StaticRouter>)
+      renderer.create(
+        <Router>
+          <BounceRuleDetailed {...props} />
+        </Router>
+      )
     ).toMatchSnapshot();
   });
 
-  it("should render details table", () => {
-    expect(wrapper.find(details).exists()).toBeTruthy();
-  });
-
-  it("should render change log table", () => {
-    expect(wrapper.find(changelog).exists()).toBeTruthy();
-  });
-
-  it("should show cancel/save button when edit is clicked", () => {
-    expect(wrapper.find(editButton).exists()).toBeTruthy();
-    wrapper.setProps({
-      isEditClicked: true,
+  describe("When a user visits the detailed rule page", () => {
+    it("should render default state", () => {
+      expect(DetailsPage().find(details)).toHaveLength(1);
+      expect(DetailsPage().find(changelog)).toHaveLength(1);
+      expect(DetailsPage().find(editButton)).toHaveLength(1);
+      expect(DetailsPage().find(pagination)).toHaveLength(1);
     });
-    expect(wrapper.find(cancelButton).exists()).toBeTruthy();
-    expect(wrapper.find(saveButton).exists()).toBeTruthy();
   });
 
-  it("should be editable when edit is clicked", () => {
-    wrapper.setProps({
-      isEditClicked: true,
+  describe("When there are no rules", () => {
+    beforeEach(() => {
+      DetailsPage().setProps({ changelog: [] });
     });
-    expect(wrapper.find(detailsEditable).exists()).toBeTruthy();
+
+    it("should not render pagination", () => {
+      expect(DetailsPage().find(pagination)).toHaveLength(0);
+    });
   });
 
-  it("should display cancel confirm modal when cancel is clicked", () => {
-    wrapper.setProps({
-      isCancelConfirmOpen: true,
+  describe("When a user is editing a rule", () => {
+    it("should show cancel/save button when edit is clicked", () => {
+      DetailsPage().setProps({ isEditClicked: true });
+      expect(DetailsPage().find(cancelButton)).toHaveLength(1);
+      expect(DetailsPage().find(saveButton)).toHaveLength(1);
     });
-    expect(wrapper.find(cancelConfirmationModal).exists()).toBeTruthy();
+
+    it("should be editable when edit is clicked", () => {
+      DetailsPage().setProps({ isEditClicked: true });
+      expect(DetailsPage().find(detailsEditable)).toHaveLength(1);
+    });
+
+    it("should display cancel confirm modal when cancel is clicked", () => {
+      DetailsPage().setProps({ isCancelConfirmOpen: true });
+      expect(DetailsPage().find(cancelConfirmationModal)).toHaveLength(1);
+    });
+
+    it("should display confirmation modal when save is clicked", () => {
+      DetailsPage().setProps({ isConfirmOpen: true });
+      expect(DetailsPage().find(confirmModal)).toHaveLength(1);
+    });
   });
 
-  it("should display change modal when rule is clicked", () => {
-    wrapper.setProps({
-      isChangeModalOpen: true,
+  describe("When a user views a change from the changelog", () => {
+    it("should display change modal when rule is clicked", () => {
+      DetailsPage().setProps({ isChangeModalOpen: true });
+      expect(DetailsPage().find(changelogModal)).toHaveLength(1);
     });
-    expect(wrapper.find(changelogModal).exists()).toBeTruthy();
   });
 });
