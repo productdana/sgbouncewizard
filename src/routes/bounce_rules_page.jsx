@@ -63,7 +63,7 @@ export default class BounceRulesPage extends React.Component {
     try {
       const { data, status } = await listRules({
         limit: MAX_BOUNCE_RULES,
-        offset: currentPageIndex,
+        offset: currentPageIndex - 1,
       });
       if (status === 200) {
         this.setState({
@@ -140,7 +140,7 @@ export default class BounceRulesPage extends React.Component {
     try {
       const { data, status } = await listRules({
         limit: MAX_BOUNCE_RULES,
-        offset: currentPageIndex,
+        offset: currentPageIndex - 1,
       });
       if (status === 200) {
         this.setState({
