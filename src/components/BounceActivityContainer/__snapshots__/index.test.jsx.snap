@@ -143,7 +143,7 @@ exports[`Bounce Activity Page should render correctly 1`] = `
             <p
               className="filter-title"
             >
-              Search activity by 
+              Search bounce rules by 
               <a
                 className="filter-option-toggle"
                 href="#"
@@ -192,7 +192,7 @@ exports[`Bounce Activity Page should render correctly 1`] = `
                         <div
                           className="css-1v8euj5"
                         >
-                          Bounce Action
+                          Operation
                         </div>
                         <div
                           className="css-1g6gooi"
@@ -310,13 +310,13 @@ exports[`Bounce Activity Page should render correctly 1`] = `
                     <input
                       name="primary-filter"
                       type="hidden"
-                      value="Bounce Action"
+                      value="operation"
                     />
                   </div>
                 </div>
               </div>
               <div
-                className="mako-grid__col-9 col-start-4"
+                className="mako-grid__col-9 col-start-4 filter-column"
               >
                 <div
                   className="input-text-wrap"
@@ -329,7 +329,7 @@ exports[`Bounce Activity Page should render correctly 1`] = `
                   <label
                     className="input-text-label"
                   >
-                    Description
+                    
                   </label>
                   <input
                     aria-describedby={false}
@@ -346,22 +346,6 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               <i
                 className="filter-row-remove sg-icon sg-icon-x"
               />
-            </div>
-            <div
-              className="mako-grid__row"
-            >
-              <div
-                className="row btn-list filter-actions-container"
-              >
-                <button
-                  className="btn btn-primary btn-small"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Add a Filter
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -382,6 +366,12 @@ exports[`Bounce Activity Page should render correctly 1`] = `
         >
           <thead>
             <tr>
+              <th
+                className="row-id"
+                onClick={[Function]}
+              >
+                ID
+              </th>
               <th
                 className="row-date"
                 onClick={[Function]}
@@ -420,6 +410,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-time={1}
             >
               <td>
+                173
+              </td>
+              <td>
                 12/31/1969 4:00:01 PM
               </td>
               <td>
@@ -450,6 +443,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-id={174}
               data-time={2}
             >
+              <td>
+                174
+              </td>
               <td>
                 12/31/1969 4:00:02 PM
               </td>
@@ -482,6 +478,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-time={3}
             >
               <td>
+                175
+              </td>
+              <td>
                 12/31/1969 4:00:03 PM
               </td>
               <td>
@@ -512,6 +511,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-id={176}
               data-time={4}
             >
+              <td>
+                176
+              </td>
               <td>
                 12/31/1969 4:00:04 PM
               </td>
@@ -544,6 +546,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-time={5}
             >
               <td>
+                177
+              </td>
+              <td>
                 12/31/1969 4:00:05 PM
               </td>
               <td>
@@ -574,6 +579,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-id={178}
               data-time={6}
             >
+              <td>
+                178
+              </td>
               <td>
                 12/31/1969 4:00:06 PM
               </td>
@@ -606,6 +614,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-time={7}
             >
               <td>
+                179
+              </td>
+              <td>
                 12/31/1969 4:00:07 PM
               </td>
               <td>
@@ -637,6 +648,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-time={8}
             >
               <td>
+                180
+              </td>
+              <td>
                 12/31/1969 4:00:08 PM
               </td>
               <td>
@@ -667,6 +681,9 @@ exports[`Bounce Activity Page should render correctly 1`] = `
               data-id={181}
               data-time={9}
             >
+              <td>
+                181
+              </td>
               <td>
                 12/31/1969 4:00:09 PM
               </td>

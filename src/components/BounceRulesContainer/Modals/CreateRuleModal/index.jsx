@@ -33,7 +33,7 @@ const CreateRuleModal = ({
     priority: priorityError,
     bounce_action: bounceError,
     regex: regexError,
-  } = fieldValidation;
+  } = fieldValidation || {};
   return (
     <SideModal
       {...WriteSelectors.createRuleModal}

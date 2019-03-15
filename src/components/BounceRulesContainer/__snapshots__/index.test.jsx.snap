@@ -111,7 +111,7 @@ exports[`Bounce Rules Page should render correctly 1`] = `
         href="data:text/csv;charset=utf-8,﻿\\"id\\",\\"response_code\\",\\"enhanced_code\\",\\"regex\\",\\"priority\\",\\"description\\",\\"bounce_action\\",\\"comment\\",\\"created_at\\",\\"user_id\\"
 \\"504\\",\\"551\\",\\"sdfg\\",\\"no MX record for domain\\",\\"1\\",\\"new rule\\",\\"no_action\\",\\"Inital Setup\\",\\"1\\",\\"\\"
 \\"173\\",\\"421\\",\\"sdfg\\",\\"dsfg\\",\\"1\\",\\"RFC5321Servicenotavailable\\",\\"retry\\",\\"Inital Setup\\",\\"1\\",\\"1\\"
-\\"505\\",\\"550\\",\\"erwt\\",\\"no MX record for domain\\",\\"1\\",\\"bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl\\",\\"no_action\\",\\"\\",\\"1\\",\\"\\""
+\\"505\\",\\"550\\",\\"erwt\\",\\"no MX record for domain\\",\\"1\\",\\"bWFpbmx5IGxpYmVydHkgZG9tYWluIGJsb2NrIHNlZWluZyB+NTAlIG9mIGFkZHJlc3NlcyBlbmdhZ2luZyBTRyB3aWRl\\",\\"no_action\\",\\"Inital Setup\\",\\"1\\",\\"\\""
         onClick={[Function]}
         target="_blank"
       >

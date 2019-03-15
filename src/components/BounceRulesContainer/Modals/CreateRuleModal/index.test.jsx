@@ -8,7 +8,6 @@ describe("Create Rule Modal", () => {
   let props;
   let mountedCreateRuleModal;
   const {
-    invalidInput,
     priority,
     bounceAction,
     responseCode,
@@ -69,8 +68,14 @@ describe("Create Rule Modal", () => {
 
   describe("When a user attempts to create a rule", () => {
     it("should alert if field is left empty", () => {
-      CreateRuleModalComponent().setProps({ isInvalidInput: true });
-      expect(CreateRuleModalComponent().find(invalidInput)).toHaveLength(1);
+      CreateRuleModalComponent().setProps({
+        fieldValidation: { description: "Invaid Description" },
+      });
+      expect(
+        CreateRuleModalComponent()
+          .find(description)
+          .prop("isValid")
+      ).toBeFalsy();
     });
   });
 });
