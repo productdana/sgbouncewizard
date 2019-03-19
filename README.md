@@ -4,6 +4,8 @@ This repository contains the front-end source code for the UCI Capstone 2018-19 
 
 ### Team Members:
 
+![SendGrid](https://user-images.githubusercontent.com/26265748/54614708-17c67d00-4a1a-11e9-82c3-61a542557713.JPG)
+
 - Kristen DeVore
 - Joseph Bustamante
 - Cody Han
