@@ -26,7 +26,7 @@ This runs the application with a json database stored locally. No backend servic
 1. `$ npm run dev:mock`
 2. `$ npm run json-server`
 
-## Starting Front End w/ Docker Container
+## Starting Front End w/ Backend Docker Container
 
 Please make sure the backend service and mySQL docker container are running prior to running the front end application. More information on this can be found at: https://github.com/jimmyjames85/bouncecm
 
